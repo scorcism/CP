@@ -5,11 +5,12 @@ public class ArraysQuestions {
         int[] array = {1,2,3,4,5,6};
         int[] array2 = {7,1,5,3,6,4};
         int[] array3 = {1,2,3};
+        int[] array4 = {1,2,3,4};
         // System.out.println(Arrays.toString(twoSum(array, 9)));
         // System.out.println(maxProfitM1(array2));
         // System.out.println(maxProfitM2(array2));
-        containsDuplicate(array3);
-    
+        // containsDuplicate(array3);
+        System.out.println(Arrays.toString(productExceptSelf(array4)));
     }
 
     // Two sum
@@ -72,14 +73,14 @@ public class ArraysQuestions {
     }
     
     // Optimized
-    public static int maxProfitM2(int[] prices) {
-        int buy = prices[0];
+    public static int maxProfitM3(int[] prices) {
+        int buyS = prices[0];
         int maxProfit = 0;
         for(int i = 0;  i < prices.length ; i++){
             // Getting the min buy value 
-            buy = Math.min(buy,prices[i]);
+            buyS = Math.min(buyS,prices[i]);
             // Getting the local profit
-            int profit = prices[i] - buy;
+            int profit = prices[i] - buyS;
             maxProfit = Math.max(profit,maxProfit);
         }
         return maxProfit;
@@ -99,4 +100,27 @@ public class ArraysQuestions {
         return false;
     }    
 
+    // 238. Product of Array Except Self
+    public static int[] productExceptSelf(int[] nums) {
+        int[] b = new int[nums.length];
+
+        int mul = 1;
+        
+        for(int i = 0; i< nums.length; i++){
+            for(int j = 0; j< nums.length; j++){
+                if(nums[j] != nums[i]){
+                    mul = mul * nums[j];
+                }
+            }
+            
+            b[i] = mul;   
+            mul = 1;         
+        }        
+        return b;
+    }
+ 
+    public static int[] productExceptSelfM2(int[] nums) {
+
+       done
+    }
 }
