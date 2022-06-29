@@ -6,11 +6,14 @@ public class ArraysQuestions {
         int[] array2 = {7,1,5,3,6,4};
         int[] array3 = {1,2,3};
         int[] array4 = {1,2,3,4};
+        int[] array5 = {-2,1,-3,4,-1,2,1,-5,4};
+        int[] array6 = {-1};
         // System.out.println(Arrays.toString(twoSum(array, 9)));
         // System.out.println(maxProfitM1(array2));
         // System.out.println(maxProfitM2(array2));
         // containsDuplicate(array3);
-        System.out.println(Arrays.toString(productExceptSelf(array4)));
+        // System.out.println(Arrays.toString(productExceptSelf(array4)));\
+        System.out.println(maxSubArray(array6));
     }
 
     // Two sum
@@ -118,9 +121,123 @@ public class ArraysQuestions {
         }        
         return b;
     }
- 
+    
+    // Optimized way
     public static int[] productExceptSelfM2(int[] nums) {
 
-       done
+        int[] result  = new int[nums.length];
+        Arrays.fill(result,1);        
+
+        int prefix =1;
+        for(int i = 0; i< nums.length; i++){
+            result[i] = prefix;
+            prefix = prefix * nums[i];
+        }
+
+        int postfix = 1;
+        for(int i = nums.length -1 ; i >= 0 ; i--)    {
+            result[i]  = result[i] * postfix;
+            postfix  = postfix * nums[i];
+        }
+
+        return  result;
     }
+
+    // 53. Maximum Subarray
+    public static int maxSubArray(int[] nums) {
+
+        int minSum = 0;
+        // The min value is there to check for if the first element is -1 
+        int maxSum = Integer.MIN_VALUE;
+
+        for(int i =0; i< nums.length ; i++){
+            minSum = minSum  +nums[i];
+
+            if(maxSum < minSum){
+                maxSum = minSum;
+            }
+            if(minSum < 0){
+                minSum = 0 ;
+            }
+            
+        }
+        return maxSum;
+    }
+    
+    // DP question 
+    // 152. Maximum Product Subarray
+    // Given an integer array nums, find a contiguous non-empty subarray within the array 
+    // that has the largest product, and return the product.
+    public static int maxProduct(int[] nums) {
+        int currMax = 1;
+        int max = 1;
+
+        for (int i = 0; i< nums.length ; i++){
+            currMax = currMax * nums[i];
+
+            if(currMax < 0 ){
+                currMax = 1;
+            }
+            if(currMax >= max){
+                max = currMax;
+            }
+        }
+    } 
+    
+    // 33. Search in Rotated Sorted Array
+    public static int search(int[] nums, int target) {
+     
+    } 
+
+
+    // 153. Find Minimum in Rotated Sorted Array
+    public int findMin(int[] nums) {
+        int left = 0;
+        int right = nums.length -1;
+        int res = nums[0];
+        while (left <= right) {
+            int mid = (left + right) / 2;
+
+            if (nums[left] < nums[right]){
+                res = Math.min(res,nums[l]);
+                break;
+            }
+
+            res = Math.min(res,nums[mid]);
+
+            if(nums[mid] >= nums[left]){
+                // search is right
+                left = mid + 1;
+            }else{
+                // search in left
+                right = mid - 1;
+            }
+        }
+
+        return res;
+
+    }
+    
+    
+    // 153. Find Minimum in Rotated Sorted Array
+    // Tech 2
+    public int findMin(int[] nums) {
+        int left = 0;
+        int right = nums.length -1;
+
+        while(left <= right){
+            int midpoint = left + (right - left) / 2;
+
+            if(nums[midpoint] > nums[midpoint-1]){
+                return nums[midpoint];
+            }else if(nums[left] <= nums[midpoint] && nums[midpoint] > nums[right]) {
+                left = midpoint + 1;
+            }else{
+                right  = midpoint - 1 ;
+            }
+
+        }        
+            return nums[left];
+    }
+
 }
