@@ -164,7 +164,7 @@ public class ArraysQuestions {
         return maxSum;
     }
     
-    // DP question 
+    // DP Question 
     // 152. Maximum Product Subarray
     // Given an integer array nums, find a contiguous non-empty subarray within the array 
     // that has the largest product, and return the product.
@@ -186,7 +186,39 @@ public class ArraysQuestions {
     
     // 33. Search in Rotated Sorted Array
     public static int search(int[] nums, int target) {
-     
+        int left = 0;
+        int right = nums.length -1;
+
+        while(left <= right){
+            int mid = left + (right - left) / 2;
+
+            if(target == nums[mid]){
+                return mid;
+            }
+
+            // Left sorted Portion
+            if(nums[left] <= nums[mid]){
+                if(target > nums[mid]){
+                    left  = mid + 1;
+                }else if(target <= nums[left]){
+                    left = mid + 1;                        
+                }else{
+                    right = mid -1;
+                }
+            }
+            // In right sorted Portion
+            else{
+                if(target < nums[mid]){
+                    right  = mid -1;
+                }else if(target > nums[right]){
+                    right = mid - 1;
+                }else{
+                    left = mid +1;
+                }
+            }
+        }
+
+        return -1;
     } 
 
 
@@ -235,9 +267,8 @@ public class ArraysQuestions {
             }else{
                 right  = midpoint - 1 ;
             }
-
         }        
-            return nums[left];
+        
+        return nums[left];
     }
-
 }
