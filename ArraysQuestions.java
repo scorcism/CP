@@ -24,7 +24,7 @@ public class ArraysQuestions {
         for(int i = 0; i < arr.length ; i++){
             int diff = target - arr[i];
             if(hm.containsKey(diff)){
-                return new int[] {};
+                return new int[] {hm.get(diff), i};
             }
             else{
                 hm.put(arr[i],i);
@@ -271,4 +271,27 @@ public class ArraysQuestions {
         
         return nums[left];
     }
+
+    // 167. Two Sum II - Input Array Is Sorted
+    // Using 2 Pointer method 
+    public static  int[] twoSum(int[] numbers, int target) {
+        // a pointer is used to check the starting element 
+        // b pointer is used to check the end elment
+        // 
+        int a_pointer = 0;
+        int b_pointer = numbers.length -1;
+
+        while(a_pointer <= b_pointer){
+            int sum = numbers[a_pointer] + numbers[b_pointer];
+            if(sum > target){
+                b_pointer = b_pointer - 1;
+            }else if(sum < target){
+                a_pointer = a_pointer  + 1;
+            }else{
+                return new int[] {a_pointer+1,b_pointer+1};
+            }
+        }
+        return new int[] {a_pointer+1, b_pointer};
+    }
+
 }
