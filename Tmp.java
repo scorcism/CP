@@ -16,5 +16,15 @@ class Tmp {
 
         int[] ar3 = new int[5];
         System.out.println(Arrays.toString(ar3));
+
+        List<Integer> list = new ArrayList<Integer>();
+        list.add(1);
+        list.add(12);
+        list.add(11);
+        list.add(21);
+        list.add(14);
+        System.out.println(list);
+       Collections.sort(list);
+       System.out.println(list);
     }
 }
