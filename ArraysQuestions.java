@@ -355,7 +355,6 @@ public class ArraysQuestions {
                         while (left < right && nums[right] == nums[right - 1]) 
                             right--;
                         
-                        left++;
                         right--;left++;
                     }
 
@@ -365,5 +364,23 @@ public class ArraysQuestions {
         }
         return list;
     }
+    // 11. Container With Most Water
+    // Using 2 pointers method
+    public static int maxArea(int[] height) {
+        int result = 0;
+        int l = 0;
+        int r = height.length -1 ;
+        
+        while(l < r){
+            int area = ( r - l ) * Math.min(height[l],height[r]);
+            result = Math.max(result,area);
 
+            if(height[l] < height[r]){
+                l++;
+            }else{
+                right--;
+            }
+        }
+        return result;
+    }
 }
