@@ -378,7 +378,7 @@ public class ArraysQuestions {
             if(height[l] < height[r]){
                 l++;
             }else{
-                right--;
+                r--;
             }
         }
         return result;
