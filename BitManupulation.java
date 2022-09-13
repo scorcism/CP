@@ -1,4 +1,4 @@
-import java.util.ArrayList;    
+import java.util.*;    
 
 public class BitManupulation {
     
@@ -83,10 +83,106 @@ public class BitManupulation {
     }
 
     public static void noRepeating(ArrayList<Integer> A){
+        // Get all the values which are non repeating whch others are repeating twice
         // 1st get the xor or all the values
         int xor = 0;
+        int a = 0;
+        int b = 0;
+        
+        for(int i = 0; i< A.size(); i++){
+            xor = xor ^ A.get(i);
+        }
+        // Here our xor contains both the number
+        // Get all the number whose unit place contains 0 i.e even number
+        
+        // Get all the number whose unit place contains 1 i.e ODD number
         
     }
+
+    public static int singleNumber(final List<Integer> A) {
+        int xor = 0;
+        for(int i = 0; i< A.size(); i++){
+            xor = xor ^ A.get(i);
+        }
+        
+        int number = xor;
+        
+        int count = 0;
+        while(number > 0){
+            if((number&1) == 1){
+                break;
+            }
+            count++;
+            number = number>>1;
+        }
+            
+        int xor1 = 0;
+        int xor2 = 0;
+        
+        // for(int i = 0; i< A.size(); i++){
+        //     if(A.get(i) & (1<<count)){
+        //         xor1 = xor1 ^ A.get(i);
+        //     }else{   
+        //         xor2 = xor2 ^ A.get(i);
+        //     }
+        // }
+        return xor1;
+    }
+
+    public static void subset(int[] array){
+        List<Integer> list = new ArrayList<>();
+        // for(int i = 0; i < (1 << array.length())-1; i++){
+        //     for(int bit = 0; bit< array.length(); bit++){
+        //         list.add(array[bit]);
+        //     }
+        // }
+        for(int i = 0; i< list.size(); i++){
+            System.out.println(i);
+        }
+    }
+
+    public static int findMinXor(ArrayList<Integer> A) {
+       int min_xor = Integer.MAX_VALUE;
+       for(int i  = 0; i< A.size() - 1; i++){
+          for(int j  = 0; j < A.size(); j++){
+            
+          }
+        } 
+
+       return min_xor;
+    }
+
+    public static int findMinXor2(ArrayList<Integer> A) {
+       int min_xor = Integer.MAX_VALUE;
+       Collections.sort(A);
+       for(int i  = 0; i< A.size() - 1; i++){
+          
+        min_xor = Math.min(min_xor,A.get(i) ^ A.get(i+1));
+          
+       } 
+       return min_xor;
+    }
+
+    public static int totalSetBits(int n){
+        int count = 0;
+        
+        for(int i = 1; i<= n; i++){
+            // System.out.println("i: " + i);
+            count  = count + countBits(i);
+        }
+        return count;
+    }
+
+    public static int countBits(int n){
+        if ( n <= 0 ) 
+            return 0;
+        return (n%2 == 0 ? 0: 1) + countBits(n/2);
+    }
+
+    public static int solve(int A) {
+        
+    }
+
 
     public static void main(String[] args) {
         
@@ -98,11 +194,22 @@ public class BitManupulation {
         // System.out.println(reverse(3));
 
         ArrayList<Integer> array = new ArrayList<>();
-        array.add(1);
-        array.add(3);
+        array.add(15);
         array.add(5);
+        array.add(1);
+        array.add(10);
+        array.add(2);
+        // array.add(1);
+        // array.add(1);
+        // array.add(3);
+        // array.add(5);
         // array.add(3);
         // array.add(4);
-        cntBits(array);
+        // cntBits(array);
+        
+        // int[] array = {1,2,3};
+        // subset(array);        
+        // System.out.println(findMinXor(array));
+        System.out.println(totalSetBits(15));
     }
 }
