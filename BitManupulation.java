@@ -179,8 +179,30 @@ public class BitManupulation {
         return (n%2 == 0 ? 0: 1) + countBits(n/2);
     }
 
-    public static int solve(int A) {
-        
+    public static int getPalindrome(int n){
+
+        int last; // To store the last number
+        int palindrome = 0; // To store the sum till current iteration aka stores the palindrome number
+        while(n > 0){
+            last = n % 10;
+            palindrome = (palindrome * 10) + last;
+            n = n / 10;
+        }
+        return palindrome;
+    }
+
+    // public static int solve(int A) {
+
+    // }
+
+    public static void subarray(ArrayList<Integer> A){
+        for(int i = 0; i < A.size(); i++){
+            for(int j =i ; j < A.size(); j++){
+                for(int k = i; k<=j;k++){
+                    System.out.println(A.get(k) + " ");
+                }
+            }
+        }
     }
 
 
@@ -194,11 +216,11 @@ public class BitManupulation {
         // System.out.println(reverse(3));
 
         ArrayList<Integer> array = new ArrayList<>();
-        array.add(15);
-        array.add(5);
         array.add(1);
-        array.add(10);
         array.add(2);
+        array.add(3);
+        // array.add(10);
+        // array.add(2);
         // array.add(1);
         // array.add(1);
         // array.add(3);
@@ -210,6 +232,11 @@ public class BitManupulation {
         // int[] array = {1,2,3};
         // subset(array);        
         // System.out.println(findMinXor(array));
-        System.out.println(totalSetBits(15));
+        // System.out.println(totalSetBits(15));
+
+        // System.out.println(getPalindrome(123456789));
+        subarray(array);
+
+
     }
 }
