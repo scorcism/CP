@@ -1,3 +1,6 @@
+import java.util.*;
+
+
 class Recursion{
 
     public static void base(int n){
@@ -96,10 +99,50 @@ class Recursion{
         return fibo1(n-2) + fibo1(n-1);
     }
 
-    public static int subSequence(String text){
-        // This can be done using Power-Set
+    // public static int subSequence(String text){
+    //     // This can be done using Power-Set
+        
+    // }
+
+    public static void powerset(String text, int index, String curr){
+        if(index == text.length()){
+            System.out.println(curr);
+            return;
+        }
+        powerset(text,index + 1, curr + text.charAt(index));
+        powerset(text,index + 1, curr);
+
+    }
+    
+    // public static void permutation(String text, int index, String curr){
+        
+    // }
+    public static void subSequenceSumK(int[] array, List<Integer> tmp, int sum, int index, int K){
+        int n = array.length;
+        if(index == n){
+            if(sum == K){
+                for(int i = 0; i<tmp.size() - 1; i++){
+                    System.out.println(tmp.get(i));
+                }
+            }
+            System.out.println(tmp.get(index));
+            return;
+
+        }
+        System.out.println(array[index]);
+        tmp.add(array[index]);
+        sum = sum + array[index];
+        subSequenceSumK(array, tmp,sum,index+1,K);
+        sum = sum - array[index];
+        tmp.remove(array[index]);
+        subSequenceSumK(array, tmp,sum,index+1,K);
         
     }
+
+    public static void combinationSum(int[] array, int target){
+        
+    }
+
 
     public static void main(String[] args){
         /**
@@ -148,6 +191,14 @@ class Recursion{
 
         // Print all sub sequences
         //  A contagious / non- contagious seq. which follows te order
-        subSequence("name");
+        // subSequence("name");
+
+        // Print all th subsets or subsequence
+        // String name = "abc";
+        // powerset(name,0,"");
+        int[] array = {1,2,1};
+
+        // List<Integer> list = new ArrayList<Integer>();
+        // subSequenceSumK(array, list,0,0,3);
     }
 }

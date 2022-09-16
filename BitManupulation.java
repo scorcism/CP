@@ -131,11 +131,11 @@ public class BitManupulation {
 
     public static void subset(int[] array){
         List<Integer> list = new ArrayList<>();
-        // for(int i = 0; i < (1 << array.length())-1; i++){
-        //     for(int bit = 0; bit< array.length(); bit++){
-        //         list.add(array[bit]);
-        //     }
-        // }
+        for(int i = 0; i < (1 << array.length())-1; i++){
+            for(int bit = 0; bit< array.length(); bit++){
+                list.add(array[bit]);
+            }
+        }
         for(int i = 0; i< list.size(); i++){
             System.out.println(i);
         }
