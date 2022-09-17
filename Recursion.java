@@ -139,12 +139,40 @@ class Recursion{
         
     }
 
-    public static void combinationSum(int[] array, int target){
-        
+    public static void combinationSum(int[] array,int index, int target,ArrayList<Integer> ds){
+        if(index == array.length){
+            if(target == 0){
+                for(int i = 0; i< ds.size(); i++){
+                    System.out.print(ds.get(i));
+                }
+                    System.out.print(" ");
+            }
+            return;
+        }
+        if(array[index] <= target){
+            ds.add(array[index]);
+            combinationSum(array,index,target - array[index], ds);
+            ds.remove(ds.size() -1);
+        }
+        combinationSum(array,index+1,target, ds);
+    }
+
+    public static void callCombination(int[] array, int target){
+        ArrayList<Integer> ds = new ArrayList<Integer>();
+        int index = 0;
+        combinationSum(array, index,target,ds);
+    }
+
+    public static void combinationII(int[] array, int target){
+
     }
 
 
     public static void main(String[] args){
+
+        int[] array = {1,2,1};
+
+
         /**
         // base(1);
         // Print name 5 time
@@ -196,9 +224,11 @@ class Recursion{
         // Print all th subsets or subsequence
         // String name = "abc";
         // powerset(name,0,"");
-        int[] array = {1,2,1};
 
         // List<Integer> list = new ArrayList<Integer>();
         // subSequenceSumK(array, list,0,0,3);
+
+        // callCombination(array,2);
+
     }
 }
