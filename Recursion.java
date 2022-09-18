@@ -236,11 +236,41 @@ class Recursion {
         }
     }
 
+    public static void getPermutations(int n,int[] array, List<List<Integer>> ans,ArrayList<Integer> ds, boolean[] map){
+        if(ds.size() == n){
+            ans.add(new ArrayList<>(ds));
+            return;
+        }
+        for(int i = 0; i< n; i++){
+            if(!map[i]){
+                map[i] = true;
+                ds.add(array[i]);
+                getPermutations(n, array, ans, ds, map);
+                ds.remove((ds.size() -1 ));
+                map[i] = false;
+            }
+        }
+    }
+
+    public static void permuteI(int[] array){
+        List<List<Integer>> ans = new ArrayList<>(); // To hold final answers
+        // List<Integer> ds = new ArrayList<>(); // To hold answers at each recursion level
+        boolean[] map = new boolean[array.length];
+        int n = array.length;
+        getPermutations(n,array,ans,new ArrayList<>(),map);
+        for(int i = 0; i< ans.size(); i++){
+            System.out.println(ans.get(i));
+        }
+    }
+
+
     public static void main(String[] args) {
 
         int[] array = { 1, 2, 2 };
         // subsetSums(array);
-        subsetSumII(array);
+        // subsetSumII(array);
+
+        permuteI(array);
 
         // combinationII(array,4);
 
