@@ -236,33 +236,66 @@ class Recursion {
         }
     }
 
-    public static void getPermutations(int n,int[] array, List<List<Integer>> ans,ArrayList<Integer> ds, boolean[] map){
-        if(ds.size() == n){
+    public static void getPermutations(int n, int[] array, List<List<Integer>> ans, ArrayList<Integer> ds,
+            boolean[] map) {
+        if (ds.size() == n) {
             ans.add(new ArrayList<>(ds));
             return;
         }
-        for(int i = 0; i< n; i++){
-            if(!map[i]){
+        for (int i = 0; i < n; i++) {
+            if (!map[i]) {
                 map[i] = true;
                 ds.add(array[i]);
                 getPermutations(n, array, ans, ds, map);
-                ds.remove((ds.size() -1 ));
+                ds.remove((ds.size() - 1));
                 map[i] = false;
             }
         }
     }
 
-    public static void permuteI(int[] array){
+    public static void permuteI(int[] array) {
         List<List<Integer>> ans = new ArrayList<>(); // To hold final answers
-        // List<Integer> ds = new ArrayList<>(); // To hold answers at each recursion level
+        // List<Integer> ds = new ArrayList<>(); // To hold answers at each recursion
+        // level
         boolean[] map = new boolean[array.length];
         int n = array.length;
-        getPermutations(n,array,ans,new ArrayList<>(),map);
-        for(int i = 0; i< ans.size(); i++){
+        getPermutations(n, array, ans, new ArrayList<>(), map);
+        for (int i = 0; i < ans.size(); i++) {
             System.out.println(ans.get(i));
         }
     }
 
+    public static void swap(int[] array, int a, int b) {
+        a = array[a] ^ array[b];
+        b = array[a] ^ array[b];
+        a = array[a] ^ array[b];
+    }
+
+    public static void getPermutationII(int[] array, int n, List<List<Integer>> ans, int index) {
+        if (index == array.length) {
+            List<Integer> ds = new ArrayList<>();
+            for (int i = 0; i < array.length; i++) {
+                ds.add(array[i]);
+            }
+            ans.add(new ArrayList<>(ds));
+            return;
+        }
+        for (int i = index; i < array.length; i++) {
+            swap(array, index, i);
+            getPermutationII(array, n, ans, index + 1);
+            swap(array, i, index); // This is used for backtracking
+        }
+    }
+
+    public static void permuteII(int[] array) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int n = array.length;
+        int index = 0;
+        getPermutationII(array, n, ans, index);
+        for (int i = 0; i < ans.size(); i++) {
+            System.out.println(ans.get(i));
+        }
+    }
 
     public static void main(String[] args) {
 
@@ -270,7 +303,7 @@ class Recursion {
         // subsetSums(array);
         // subsetSumII(array);
 
-        permuteI(array);
+        permuteII(array);
 
         // combinationII(array,4);
 
