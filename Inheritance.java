@@ -23,7 +23,7 @@ class Inheritance{
 		}
 	}
 
-	static class Dd extends {
+	static class Dd extends Aa{
 		int d = 8;
 		void print(){
 			System.out.println("Class");

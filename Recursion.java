@@ -297,13 +297,59 @@ class Recursion {
         }
     }
 
+    public static boolean isSafe(int row,int column, int[][] board, int n)
+    {
+        while(row >= 0 && column >= 0){
+            // Coz we are checking for top right diagonal elements.
+            // This is to check for the diagonal element.
+
+            if(board[row][column] == 'Q') return false;
+            column--;
+            row--;
+        }
+
+        // Checking for column
+        while(column>=0){
+            if(board[row][column] == 'Q') return false;
+            column--;
+        }
+
+        // Checking for lower diagonal elements
+        while(row>=0 && column >= 0){
+            if(board[row][column] == 'Q'){
+                return false;
+            }
+            column--;
+            row++;
+        }
+
+        return true;
+    }
+
+    // public static List<List<String>> NQueens(int n){
+
+    // }
+
+    public static List<List<Integer>> solveNQueens(int n) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int[] array = new int[n];
+        Arrays.fill(array,0);
+
+
+        return ans;
+    }
+
+
     public static void main(String[] args) {
 
         int[] array = { 1, 2, 2 };
         // subsetSums(array);
         // subsetSumII(array);
 
-        permuteII(array);
+        // permuteII(array);
+
+        //
+
 
         // combinationII(array,4);
 
