@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"<Unnamed>","c":"SudokuSolver","l":"isValid(char[][], int, int, char)","url":"isValid(char[][],int,int,char)"},{"p":"<Unnamed>","c":"SudokuSolver","l":"main(String[])","url":"main(java.lang.String[])"},{"p":"<Unnamed>","c":"SudokuSolver","l":"solve(char[][])"},{"p":"<Unnamed>","c":"SudokuSolver","l":"SudokuSolver()","url":"%3Cinit%3E()"}]
