@@ -14,6 +14,7 @@ public class ArraysQuestions {
         // containsDuplicate(array3);
         // System.out.println(Arrays.toString(productExceptSelf(array4)));\
         // System.out.println(maxSubArray(array6));
+        // This is a comment line
     }
 
     // Two sum
