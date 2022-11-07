@@ -7,8 +7,6 @@ public class Dp {
         return 10;
     }
 
-
-
     // Tabulation
     public static int CS_solve2(int n, int[] dp){
         dp[0] = 0;
