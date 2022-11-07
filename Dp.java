@@ -5,6 +5,10 @@ public class Dp {
 
         return 10;
     }
+
+    public static void climbStairs(int n){
+        
+    }
     
     public static void main(String[] args) {
         int[] nums = {7,5,1};
