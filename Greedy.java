@@ -138,13 +138,34 @@ class Greedy {
         return answer;
     }
 
+    public static long findMinDiff (ArrayList<Integer> a, int n, int m)
+    {
+        Collections.sort(a);
+        int mini = Integer.MAX_VALUE;
+        int i = 0;
+        int j = m-1;
+
+        while(j<a.size()){
+            int diff = a.get(j) -a.get(i);
+            mini = Math.min(mini, diff);
+            i++;j++;
+        }
+
+        return mini;
+
+    }
+
     public static void main(String[] args) {
 
-        int[] candies = { 3, 2, 1, 4 };
-        int N = 4;
-        int K = 2;
+        // int[] candies = { 3, 2, 1, 4 };
+        // int N = 4;
+        // int K = 2;
         // System.out.println(candyStore(candies, N, K));
-        String S = "i.like.this.program.very.much";
-        System.out.println(reverseWords(S));
+        // String S = "i.like.this.program.very.much";
+        // System.out.println(reverseWords(S));
+        int N = 8; int M = 5;
+        int[] A = {3, 4, 1, 9, 56, 7, 9, 12};
+        System.out.println(findMinDiff(A, N, M));
+
     }
 }
