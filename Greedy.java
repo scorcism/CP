@@ -108,11 +108,43 @@ class Greedy {
         }
     }
 
+    public static String reverse_string(String S){
+        String reverse = "";
+
+        for(int i = S.length() -1; i>= 0; i--){
+            reverse += S.charAt(i);
+        }
+        return reverse;
+    }
+
+    public static String reverseWords(String S)
+    {
+        String answer = "";
+        String tmp = "";
+
+        for(int i = S.length() -1 ; i>= 0; i--){
+            if(S.charAt(i) == '.'){
+                String reverse_tmp =  reverse_string(tmp);
+                answer = answer + reverse_tmp;
+                answer += ".";
+                tmp = "";
+            }else{
+                tmp+=S.charAt(i);
+            }
+        }
+        String reverse_tmp =  reverse_string(tmp);
+        answer = answer + reverse_tmp;
+        
+        return answer;
+    }
+
     public static void main(String[] args) {
 
         int[] candies = { 3, 2, 1, 4 };
         int N = 4;
         int K = 2;
-        System.out.println(candyStore(candies, N, K));
+        // System.out.println(candyStore(candies, N, K));
+        String S = "i.like.this.program.very.much";
+        System.out.println(reverseWords(S));
     }
 }
