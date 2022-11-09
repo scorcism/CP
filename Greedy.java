@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Arrays;
+import java.util.Queue;
+import java.util.PriorityQueue;
 
 class Greedy {
 
@@ -157,9 +159,24 @@ class Greedy {
 
     public static long minCost(long arr[], int n) 
     {
-        // your code here
+        PriorityQueue<Long> pq = new PriorityQueue<>();
+        for(long i = 0; i<arr.length; i++){
+            pq.add(i);
+        }
+        long cost = 0;
 
-        return 10;
+        while(pq.size() > 1){
+            long first  = pq.poll();
+            // pq.remove();
+             
+            long second  = pq.poll();
+            // pq.remove();
+
+            long combined_values = first + second;
+            cost = cost + combined_values;
+            pq.add(combined_values);
+        }
+        return cost;
     }
 
     public static void main(String[] args) {
@@ -183,6 +200,9 @@ class Greedy {
         // A.add(12);
         // System.out.println(findMinDiff(A, N, M));
 
-        
+        int n = 4;
+        long[] arr = {4, 3, 2, 6};
+
+        System.out.println(minCost(arr, n));
     }
 }
