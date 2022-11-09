@@ -164,7 +164,16 @@ class Greedy {
         // String S = "i.like.this.program.very.much";
         // System.out.println(reverseWords(S));
         int N = 8; int M = 5;
-        int[] A = {3, 4, 1, 9, 56, 7, 9, 12};
+        // int[] A = {3, 4, 1, 9, 56, 7, 9, 12};
+        ArrayList<Integer> A = new ArrayList<>();
+        A.add(3);
+        A.add(4);
+        A.add(1);
+        A.add(9);
+        A.add(56);
+        A.add(7);
+        A.add(9);
+        A.add(12);
         System.out.println(findMinDiff(A, N, M));
 
     }
