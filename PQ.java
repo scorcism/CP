@@ -10,6 +10,16 @@ public class PQ {
         pq.add(90);
         pq.add(34);
 
+        // System.out.println(pq);
+        
+        System.out.println(pq.peek());
+
+        pq.remove();
+        System.out.println(pq);
+        
+        System.out.println(pq.peek());
+
+        pq.remove();
         System.out.println(pq);
         
     }
