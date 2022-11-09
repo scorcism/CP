@@ -103,73 +103,71 @@ class Greedy {
             ans = (totalfood / N) + 1;
         }
 
-        if(ans<= buyingdays){
+        if (ans <= buyingdays) {
             return ans;
-        }else{
+        } else {
             return -1;
         }
     }
 
-    public static String reverse_string(String S){
+    public static String reverse_string(String S) {
         String reverse = "";
 
-        for(int i = S.length() -1; i>= 0; i--){
+        for (int i = S.length() - 1; i >= 0; i--) {
             reverse += S.charAt(i);
         }
         return reverse;
     }
 
-    public static String reverseWords(String S)
-    {
+    public static String reverseWords(String S) {
         String answer = "";
         String tmp = "";
 
-        for(int i = S.length() -1 ; i>= 0; i--){
-            if(S.charAt(i) == '.'){
-                String reverse_tmp =  reverse_string(tmp);
+        for (int i = S.length() - 1; i >= 0; i--) {
+            if (S.charAt(i) == '.') {
+                String reverse_tmp = reverse_string(tmp);
                 answer = answer + reverse_tmp;
                 answer += ".";
                 tmp = "";
-            }else{
-                tmp+=S.charAt(i);
+            } else {
+                tmp += S.charAt(i);
             }
         }
-        String reverse_tmp =  reverse_string(tmp);
+        String reverse_tmp = reverse_string(tmp);
         answer = answer + reverse_tmp;
-        
+
         return answer;
     }
 
-    public static long findMinDiff (ArrayList<Integer> a, int n, int m)
-    {
+    public static long findMinDiff(ArrayList<Integer> a, int n, int m) {
         Collections.sort(a);
         int mini = Integer.MAX_VALUE;
         int i = 0;
-        int j = m-1;
+        int j = m - 1;
 
-        while(j<a.size()){
-            int diff = a.get(j) -a.get(i);
+        while (j < a.size()) {
+            int diff = a.get(j) - a.get(i);
             mini = Math.min(mini, diff);
-            i++;j++;
+            i++;
+            j++;
         }
 
         return mini;
 
     }
 
-    public static long minCost(long arr[], int n) 
-    {
+    public static long minCost(long arr[], int n) {
         PriorityQueue<Long> pq = new PriorityQueue<>();
-        for(long i = 0; i<arr.length; i++){
+        for (long i = 0; i < arr.length; i++) {
             pq.add(i);
         }
         long cost = 0;
 
-        while(pq.size() > 1){
-            long first  = pq.poll();
+        while (pq.size() > 1) {
+            long first = pq.poll();
             // pq.remove();
-             
-            long second  = pq.poll();
+
+            long second = pq.poll();
             // pq.remove();
 
             long combined_values = first + second;
@@ -177,6 +175,79 @@ class Greedy {
             pq.add(combined_values);
         }
         return cost;
+    }
+
+    static class Node {
+        int data;
+        Node left;
+        Node right;
+
+        Node(int data) {
+            this.data = data;
+            left = null;
+            right = null;
+        }
+    }
+
+    static class MyCmp implements Comparator<Node> {
+        public int compare(Node a, Node b) {
+            return a.data - b.data;
+        }
+    }
+
+    public static void traverse(Node root,ArrayList<String> ans,String tmp ){
+        // base
+        // If left and right are null means it is a leaf node
+        if(root.left == null && root.right == null){
+            ans.add(tmp);
+            return;
+        }
+        traverse(root.left, ans, tmp + "0");
+        traverse(root.right, ans, tmp +"1");
+    }
+
+    static class HuffmanSolve {
+
+        String s;
+        int N;
+        int[] f;
+
+        HuffmanSolve(String s, int N, int[] f) {
+            this.s = s;
+            this.N = N;
+            this.f = f;
+        }
+
+        PriorityQueue<Node> pq = new PriorityQueue<Node>(N, new MyCmp());
+
+        // put all freq in the pq
+        for(int i = 0;i<N;i++)
+        {
+            Node tmp = new Node(f[i]);
+            pq.add(tmp);
+        }
+        Node root = null;// denotes the root node 
+        // Get the 2 low freq bunch it up in new node and put again into the pq
+        while(pq.size() > 1){
+            Node left = pq.peek();
+            pq.poll();
+
+            Node right = pq.peek();
+            pq.poll();
+
+            Node newNode = new Node(left.data + right.data);
+            // make left as the left of the new node and right as right of the new node
+            newNode.left = left;
+            newNode.right = right;
+
+            root = newNode;
+            pq.add(newNode);
+            // tree is created at this point
+        }
+        // Traversing the tree to get the huffman encoding
+        ArrayList<String> ans = new ArrayList<>();
+        String tmp = ""; // to store the answer at the temporary level
+        traverse(root,ans,tmp);
     }
 
     public static void main(String[] args) {
@@ -200,9 +271,9 @@ class Greedy {
         // A.add(12);
         // System.out.println(findMinDiff(A, N, M));
 
-        int n = 4;
-        long[] arr = {4, 3, 2, 6};
+        // int n = 4;
+        // long[] arr = {4, 3, 2, 6};
 
-        System.out.println(minCost(arr, n));
+        // System.out.println(minCost(arr, n));
     }
 }
