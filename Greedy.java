@@ -189,77 +189,128 @@ class Greedy {
         }
     }
 
+    // static class MyCmp implements Comparator<Node> {
+    // public int compare(Node a, Node b) {
+    // return a.data - b.data;
+    // }
+    // }
     static class MyCmp implements Comparator<Node> {
         public int compare(Node a, Node b) {
             return a.data - b.data;
         }
     }
 
-    public static void traverse(Node root,ArrayList<String> ans,String tmp ){
+    public static void traverse(Node root, ArrayList<String> ans, String tmp) {
         // base
         // If left and right are null means it is a leaf node
-        if(root.left == null && root.right == null){
+        if (root.left == null && root.right == null) {
             ans.add(tmp);
             return;
         }
         traverse(root.left, ans, tmp + "0");
-        traverse(root.right, ans, tmp +"1");
+        traverse(root.right, ans, tmp + "1");
     }
 
-    static class HuffmanSolve {
+    // // static class HuffmanSolve {
 
-        String s;
-        int N;
-        int[] f;
+    //     String s;
+    //     int N;
+    //     int[] f;
 
-        HuffmanSolve(String s, int N, int[] f) {
-            this.s = s;
-            this.N = N;
-            this.f = f;
+    //     HuffmanSolve(String s, int N, int[] f) {
+    //         this.s = s;
+    //         this.N = N;
+    //         this.f = f;
+    //     }
+
+    //     // PriorityQueue<Node> pq = new PriorityQueue<Node>(N, new MyCmp());
+
+    //     // put all freq in the pq
+    //     for(
+    //     int i = 0;i<N;i++)
+    //     {
+    //         Node tmp = new Node(f[i]);
+    //         pq.add(tmp);
+    //     }
+    //     Node root = null;// denotes the root node
+    //     // Get the 2 low freq bunch it up in new node and put again into the pq
+    //     while(pq.size()>1)
+    //     {
+    //         Node left = pq.peek();
+    //         pq.poll();
+
+    //         Node right = pq.peek();
+    //         pq.poll();
+
+    //         Node newNode = new Node(left.data + right.data);
+    //         // make left as the left of the new node and right as right of the new node
+    //         newNode.left = left;
+    //         newNode.right = right;
+
+    //         root = newNode;
+    //         pq.add(newNode);
+    //         // tree is created at this point
+    //     }
+    //     // Traversing the tree to get the huffman encoding
+    //     ArrayList<String> ans = new ArrayList<>();
+    //     String tmp = ""; // to store the answer at the temporary level
+
+    //     // traverse(root,ans,tmp);
+    // }
+
+        static class Item {
+            int value, weight;
+
+            Item(int x, int y) {
+                this.value = x;
+                this.weight = y;
+            }
         }
-
-        PriorityQueue<Node> pq = new PriorityQueue<Node>(N, new MyCmp());
-
-        // put all freq in the pq
-        for(int i = 0; i<N;i++){
-            Node tmp = new Node(f[i]);
-            pq.add(tmp);
-        }
-        Node root = null;// denotes the root node 
-        // Get the 2 low freq bunch it up in new node and put again into the pq
-        while(pq.size() > 1){
-            Node left = pq.peek();
-            pq.poll();
-
-            Node right = pq.peek();
-            pq.poll();
-
-            Node newNode = new Node(left.data + right.data);
-            // make left as the left of the new node and right as right of the new node
-            newNode.left = left;
-            newNode.right = right;
-
-            root = newNode;
-            pq.add(newNode);
-            // tree is created at this point
-        }
-        // Traversing the tree to get the huffman encoding
-        ArrayList<String> ans = new ArrayList<>();
-        String tmp = ""; // to store the answer at the temporary level
-        traverse(root,ans,tmp);
-    }
-
-    static class Item {
-        int value, weight;
-        Item(int x, int y){
-            this.value = x;
-            this.weight = y;
-        }
-    }
-
-    public static double fractionalKnapsack(int W, Item arr[], int n) 
+        // fractionalKnapsack
+    public static double getMaxValue(int W, Item arr[], int n) 
     {
-        
+        Arrays.sort(arr, new Comparator<Item>(){
+            public int compare(Item item1, Item item2){
+                double cpr1
+                = (double)item1.value
+                             / (double)item1.weight;
+            double cpr2
+                = (double)item2.value
+                             / (double)item2.weight;
+
+            if (cpr1 < cpr2)
+                return 1;
+            else
+                return -1;
+            }
+        });
+
+        for(int i = 0; i<n; i++){
+            System.out.println(i+ " ith: " + arr[i].value + " "+arr[i].weight);
+        }
+
+        double totalvalue = 0d;
+        for(int i = 0; i< arr.length; i++){
+            // Getting current values
+            // Current item weight is greater then wight
+            int currW =  arr[i].weight;
+            int currV = arr[i].value;
+
+            if( currW >= W ){
+                totalvalue += W*arr[i].value;
+                W  = 0;
+            }
+            // Current value weight is less then weight
+            else{
+                totalvalue = totalvalue+arr[i].value;
+                W = W-arr[i].value;
+                System.out.println("\n"+ i + " ith weight  " + totalvalue);
+               
+            }
+        }
+
+        return totalvalue;
+
     }
 
     public static void main(String[] args) {
@@ -290,5 +341,17 @@ class Greedy {
         // String S = "abcdef";
         // int f[] = {5, 9, 12, 13, 16, 45};
         // HuffmanSolve h = new HuffmanSolve(S,6,f);
+
+        Item[] arr = { new Item(60, 10),
+            new Item(100, 20),
+            new Item(120, 30) };
+
+        int capacity = 50;
+
+        double maxValue = getMaxValue(capacity, arr,3);
+
+        // Function call
+        System.out.println(maxValue);
+
     }
 }
