@@ -221,8 +221,7 @@ class Greedy {
         PriorityQueue<Node> pq = new PriorityQueue<Node>(N, new MyCmp());
 
         // put all freq in the pq
-        for(int i = 0;i<N;i++)
-        {
+        for(int i = 0; i<N;i++){
             Node tmp = new Node(f[i]);
             pq.add(tmp);
         }
@@ -250,6 +249,19 @@ class Greedy {
         traverse(root,ans,tmp);
     }
 
+    static class Item {
+        int value, weight;
+        Item(int x, int y){
+            this.value = x;
+            this.weight = y;
+        }
+    }
+
+    public static double fractionalKnapsack(int W, Item arr[], int n) 
+    {
+        
+    }
+
     public static void main(String[] args) {
 
         // int[] candies = { 3, 2, 1, 4 };
@@ -275,5 +287,8 @@ class Greedy {
         // long[] arr = {4, 3, 2, 6};
 
         // System.out.println(minCost(arr, n));
+        // String S = "abcdef";
+        // int f[] = {5, 9, 12, 13, 16, 45};
+        // HuffmanSolve h = new HuffmanSolve(S,6,f);
     }
 }
