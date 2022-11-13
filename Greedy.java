@@ -213,104 +213,164 @@ class Greedy {
 
     // // static class HuffmanSolve {
 
-    //     String s;
-    //     int N;
-    //     int[] f;
+    // String s;
+    // int N;
+    // int[] f;
 
-    //     HuffmanSolve(String s, int N, int[] f) {
-    //         this.s = s;
-    //         this.N = N;
-    //         this.f = f;
-    //     }
-
-    //     // PriorityQueue<Node> pq = new PriorityQueue<Node>(N, new MyCmp());
-
-    //     // put all freq in the pq
-    //     for(
-    //     int i = 0;i<N;i++)
-    //     {
-    //         Node tmp = new Node(f[i]);
-    //         pq.add(tmp);
-    //     }
-    //     Node root = null;// denotes the root node
-    //     // Get the 2 low freq bunch it up in new node and put again into the pq
-    //     while(pq.size()>1)
-    //     {
-    //         Node left = pq.peek();
-    //         pq.poll();
-
-    //         Node right = pq.peek();
-    //         pq.poll();
-
-    //         Node newNode = new Node(left.data + right.data);
-    //         // make left as the left of the new node and right as right of the new node
-    //         newNode.left = left;
-    //         newNode.right = right;
-
-    //         root = newNode;
-    //         pq.add(newNode);
-    //         // tree is created at this point
-    //     }
-    //     // Traversing the tree to get the huffman encoding
-    //     ArrayList<String> ans = new ArrayList<>();
-    //     String tmp = ""; // to store the answer at the temporary level
-
-    //     // traverse(root,ans,tmp);
+    // HuffmanSolve(String s, int N, int[] f) {
+    // this.s = s;
+    // this.N = N;
+    // this.f = f;
     // }
 
-        static class Item {
-            int value, weight;
+    // // PriorityQueue<Node> pq = new PriorityQueue<Node>(N, new MyCmp());
 
-            Item(int x, int y) {
-                this.value = x;
-                this.weight = y;
-            }
+    // // put all freq in the pq
+    // for(
+    // int i = 0;i<N;i++)
+    // {
+    // Node tmp = new Node(f[i]);
+    // pq.add(tmp);
+    // }
+    // Node root = null;// denotes the root node
+    // // Get the 2 low freq bunch it up in new node and put again into the pq
+    // while(pq.size()>1)
+    // {
+    // Node left = pq.peek();
+    // pq.poll();
+
+    // Node right = pq.peek();
+    // pq.poll();
+
+    // Node newNode = new Node(left.data + right.data);
+    // // make left as the left of the new node and right as right of the new node
+    // newNode.left = left;
+    // newNode.right = right;
+
+    // root = newNode;
+    // pq.add(newNode);
+    // // tree is created at this point
+    // }
+    // // Traversing the tree to get the huffman encoding
+    // ArrayList<String> ans = new ArrayList<>();
+    // String tmp = ""; // to store the answer at the temporary level
+
+    // // traverse(root,ans,tmp);
+    // }
+
+    static class Item {
+        int value, weight;
+
+        Item(int x, int y) {
+            this.value = x;
+            this.weight = y;
         }
-        // fractionalKnapsack
-    public static double getMaxValue(int W, Item arr[], int n) 
-    {
-        Arrays.sort(arr, new Comparator<Item>(){
-            public int compare(Item item1, Item item2){
-                double cpr1
-                = (double)item1.value
-                             / (double)item1.weight;
-            double cpr2
-                = (double)item2.value
-                             / (double)item2.weight;
+    }
 
-            if (cpr1 < cpr2)
-                return 1;
-            else
-                return -1;
+    // fractionalKnapsack
+    public static double getMaxValue(int W, Item arr[], int n) {
+        Arrays.sort(arr, new Comparator<Item>() {
+            public int compare(Item item1, Item item2) {
+                double cpr1 = (double) item1.value
+                        / (double) item1.weight;
+                double cpr2 = (double) item2.value
+                        / (double) item2.weight;
+
+                if (cpr1 < cpr2)
+                    return 1;
+                else
+                    return -1;
             }
         });
 
-        for(int i = 0; i<n; i++){
-            System.out.println(i+ " ith: " + arr[i].value + " "+arr[i].weight);
+        for (int i = 0; i < n; i++) {
+            System.out.println(i + " ith: " + arr[i].value + " " + arr[i].weight);
         }
 
         double totalvalue = 0d;
-        for(int i = 0; i< arr.length; i++){
+        for (int i = 0; i < arr.length; i++) {
             // Getting current values
             // Current item weight is greater then wight
-            int currW =  arr[i].weight;
+            int currW = arr[i].weight;
             int currV = arr[i].value;
 
-            if( currW >= W ){
-                totalvalue += W*arr[i].value;
-                W  = 0;
+            if (currW >= W) {
+                totalvalue += W * arr[i].value;
+                W = 0;
             }
             // Current value weight is less then weight
-            else{
-                totalvalue = totalvalue+arr[i].value;
-                W = W-arr[i].value;
-                System.out.println("\n"+ i + " ith weight  " + totalvalue);
-               
+            else {
+                totalvalue = totalvalue + arr[i].value;
+                W = W - arr[i].value;
+                System.out.println("\n" + i + " ith weight  " + totalvalue);
+
             }
         }
 
         return totalvalue;
+    }
 
+    static class Job {
+        int id, profit, deadline;
+
+        Job(int x, int y, int z) {
+            this.id = x;
+            this.deadline = y;
+            this.profit = z;
+        }
+    }
+
+    static class MyCustomCmp implements Comparator<Job> {
+        public int compare(Job j1, Job j2) {
+            return j2.profit - j1.profit;
+        }
+    }
+
+    public static int[] JobScheduling(Job arr[], int n) {
+        // Your code here
+
+        Arrays.sort(arr, new MyCustomCmp()); // Array is sorted in decending order based on profit value
+
+        // Creating a array which will store the job done at that index postion on the
+        // bases of deadline.
+        // if value not in that position put that into that postion and if the value
+        // there which means if cant be done
+        // bases on the deadline
+        // finding the max deadline leangth
+        int maxDeadline = 0;
+        for (int i = 0; i < arr.length; i++) {
+            maxDeadline = Math.max(maxDeadline, arr[i].deadline);
+        }
+        // at this point we have max deadline
+        // creating an array to store it of size of maxx deadline
+        // This will store the job id
+        int[] schedule = new int[maxDeadline + 1]; // +1 coz we will be using 1 base indexing
+        Arrays.fill(schedule, -1);
+
+        // To store the answer
+        int[] ans = new int[2];
+
+        // varibale to store max profit
+        int maxProfit = 0;
+        int count = 0;
+
+        for (int i = 0; i < arr.length; i++) {
+            int currdead = arr[i].deadline;
+            int currprofit = arr[i].profit;
+            int currid = arr[i].id;
+
+            for (int j = currdead; j >= 0; j--) {
+                if (schedule[j] == -1) {
+                    maxProfit = maxProfit + currprofit;
+                    schedule[j] = currid;
+                    count++;
+                    break;
+                }
+            }
+        }
+        ans[0] = count;
+        ans[1] = maxProfit;
+        return ans;
     }
 
     public static void main(String[] args) {
@@ -342,16 +402,14 @@ class Greedy {
         // int f[] = {5, 9, 12, 13, 16, 45};
         // HuffmanSolve h = new HuffmanSolve(S,6,f);
 
-        Item[] arr = { new Item(60, 10),
-            new Item(100, 20),
-            new Item(120, 30) };
+        // Item[] arr = { new Item(60, 10),
+        // new Item(100, 20),
+        // new Item(120, 30) };
 
-        int capacity = 50;
+        // int capacity = 50;
 
-        double maxValue = getMaxValue(capacity, arr,3);
-
-        // Function call
-        System.out.println(maxValue);
+        // double maxValue = getMaxValue(capacity, arr,3);
+        // System.out.println(maxValue);
 
     }
 }
