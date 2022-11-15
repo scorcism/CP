@@ -1,0 +1,10 @@
+Left shift ->
+Right shift ->
+subsequence -> Power set or Recursion
+
+For Recursion  
+    1. Express everything in terms of index
+    2. Explore all possibilities. eg (in subsequnce pick or not pick)
+    3. If count then sum of all steps
+    3. If to find minimium or maximum get minimum or maximum  length. eg (in subsequence max length betweeen take and nottake)
+    4. Base case
