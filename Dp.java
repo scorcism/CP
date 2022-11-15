@@ -69,17 +69,86 @@ public class Dp {
         return f(coins.length, coins, amount);
     }
 
-    // Longest Increasing Subsequence
-    static public int lengthOfLIS(int[] nums) {
+    
+    public static void brute_LIS(int[] nums, int size){
+        // This is to print all the subsequence
         
+        int count  = 0;
+        // Getting all the row of length nums
+        
+        for(int i = 0; i<(1<<size);i++){
+            // to store value at each level measn row
+            String value = "";
+            // Iterating through the columns
+            for(int j = 0; j<size; j++){
+                // check if the bit is set or not
+                // for that row at that columns positon
+                if((i & (1<<j)) !=0){
+                    value = value + nums[j];
+                    count++;
+                }
+            }
+            System.out.println(value);
+        }
+        System.out.println("Count: " + count + " array size " + size);
+    }
+    
+    public static int memoization_LIS(int index, int[] nums, int n, int prev_ind, int[][] dp){
+        // Base Case
+        if(index == n){
+            return 0; // no element in the array
+        }
+        if(dp[index][index+1] != 0){
+            return dp[index][index+1];
+        }
+        // Not Take
+        int len = 0 + memoization_LIS(index +1,nums, n, 
+        prev_ind,dp);
+        // Take
+        if(prev_ind == -1 || nums[index] > nums[prev_ind] ){
+            len = Math.max(len,1 + memoization_LIS(index +1,nums, n, index,dp));
+        }
+        return dp[index][index +1] =  len;
+    }
+    public static int recursion_LIS(int index, int[] nums, int n, int prev_ind){
+        // Base Case
+        if(index == n){
+            return 0; // no element in the array
+        }
 
+        // Not Take
+        int len = 0 + recursion_LIS(index +1,nums, n, 
+        prev_ind);
+        // Take
+        if(prev_ind == -1 || nums[index] > nums[prev_ind] ){
+            len = Math.max(len,1 + recursion_LIS(index +1,nums, n, index));
+        }
+        return len;
+    }
 
-        return 10;
+    // Longest Increasing Subsequence
+    static public void lengthOfLIS(int[] nums) {
+        int size = nums.length;
+        // brute_LIS(nums, size);
+
+        // System.out.println(recursion_LIS(0, nums, size, -1));
+
+        // for memozation
+        int[][] dp = new int[nums.length][nums.length+1];
+        for (int row[] : dp)
+            Arrays.fill(row, -1);
+
+        System.out.println(memoization_LIS(0, nums, size, -1,dp));
+
+        // return 10;
     }
 
     public static void main(String[] args) {
-        int[] nums = { 7, 5, 1 };
-        int n = 44;
-        System.out.println(climbStairs(n));
+        // int[] nums = { 7, 5, 1 };
+        // int n = 44;
+        // System.out.println(climbStairs(n));
+        int []  nums = {10,9,2,5,3,7,101,18};
+        lengthOfLIS(nums);
+
     }
 }
