@@ -2,7 +2,7 @@ class PowerSet {
 
     static public void printSet(int size, int[] arr){
         // print the subsenqunce of arr
-        for(int i = 0 ; i< (1 << size); i++){
+        for(int i = 0 ; i < (1 << size); i++){
             String sub = "";
             for(int j = 0; j< size; j++){
                 // set of the bit is set or nor
