@@ -14,7 +14,7 @@ class Tmp {
         // }
         // System.out.println();
 
-        System.out.println(Arrays.toString(ar2));
+        // System.out.println(Arrays.toString(ar2));
 
             for(int i = 0; i<ar2.length; i++){
                 System.out.println(ar2[i]);
@@ -67,5 +67,11 @@ class Tmp {
         // }
         // System.out.println();
     // }
+            int s = 8;
+    boolean isWord[] = new boolean[s];
+    isWord[0] = true;
+
+    System.out.println(Arrays.toString(isWord));
+
     }
 }
