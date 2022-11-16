@@ -249,7 +249,7 @@ public class Dp {
 
         return LCS(text1.length() -1, text2.length()-1, text1, text2,dp);
     }
-    
+
     static public boolean wordBreak(String s, List<String> wordDict) {
         
         Set<String> wordset = new HashSet(wordDict);
@@ -267,6 +267,38 @@ public class Dp {
         return isWord[s.length() +1];
     }
 
+    public static void CS(int index,int[] arr, int target, List<List<Integer>> ans, List<Integer> ds){
+        // Base
+        if(index == arr.length){
+            if(target ==0){
+                // add that ds at each level to our main answer
+                ans.add(new ArrayList<>(ds));
+            }
+            return;
+            // after adding that ds return form that level
+            
+        }
+
+        // take the element
+        // check if the element at that index is less then target if less then target then only we can take that
+        if(arr[index] <= target){
+            // take that element 
+            ds.add(arr[index]);
+            CS(index, arr, target - arr[index], ans, ds);
+            // remove the added element from the ds comming back from the recursion call
+            ds.remove(ds.size()-1);
+        }
+        // Do not take the element
+        CS(index+1, arr, target, ans, ds);
+    }
+
+    static public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> ans = new ArrayList<>();
+        CS(0,candidates, target,ans, new ArrayList<>());
+        // Here new ArrayList is used to store the localanser at that level 
+        // ans is used to store the final anser
+        return ans;
+    }
 
     public static void main(String[] args) {
         // int[] nums = { 7, 5, 1 };
@@ -278,9 +310,9 @@ public class Dp {
         // String t2 = "ace";
         // System.out.println(longestCommonSubsequence(t1, t2));
 
-        String s = "catsandog";
-        String[] wordDict = {"cats", "dog", "sand", "and", "cat"};
-        System.out.println(wordBreak(s, WordDict));
+        // String s = "catsandog";
+        // String[] wordDict = {"cats", "dog", "sand", "and", "cat"};
+        // System.out.println(wordBreak(s, WordDict));
 
 
 
