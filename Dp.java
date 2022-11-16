@@ -143,12 +143,124 @@ public class Dp {
         // return 10;
     }
 
+    public static int LCS(int ind1, int ind2, String t1, String t2,int [][] dp){
+        if(ind1 < 0 || ind2 < 0){
+            return 0; // No character left
+        }
+        if(dp[ind1][ind2] != -1){
+            return dp[ind1][ind2];
+        }
+
+        // Take the element at that index both inclusive
+        if(t1.charAt(ind1) == t2.charAt(ind2)){
+            // Take that characters
+            return dp[ind1][ind2] =  1 + LCS(ind1 - 1, ind2 -1, t1, t2,dp);
+        }
+        return  dp[ind1][ind2] = 0 + Math.max(LCS(ind1 - 1, ind2, t1, t2,dp),LCS(ind1, ind2 -1, t1, t2,dp));
+    }
+
+    public static int LCS_coordinateShift(int ind1, int ind2, String t1, String t2,int [][] dp){
+
+        /*
+         *         int[][] dp = new int[text1.length()+1 ][text2.length() +1];
+         for (int[] arr : dp) {
+            Arrays.fill(arr,-1);
+        }
+
+        return LCS(text1.length() , text2.length(), text1, text2,dp);
+         */
+
+        if(ind1 ==0  || ind2 ==0 ){
+            return 0; // No character left
+        }
+        if(dp[ind1][ind2] != -1){
+            return dp[ind1][ind2];
+        }
+
+        // Take the element at that index both inclusive
+        if(t1.charAt(ind1-1) == t2.charAt(ind2-1)){
+            // Take that characters
+            return dp[ind1][ind2] =  1 + LCS(ind1 - 1, ind2 -1, t1, t2,dp);
+        }
+        return  dp[ind1][ind2] = 0 + Math.max(LCS(ind1 - 1, ind2, t1, t2,dp),LCS(ind1, ind2 -1, t1, t2,dp));
+    }
+
+    public static int LCS_tabulation(String t1, String t2){
+        // If anyone of the character of that row either of t1 or t2 is 0 then return 0
+        int[][] dp = new int[t1.length()+1 ][t2.length()+1];
+
+        int ind1 = t1.length();
+        int ind2 = t2.length();
+
+        for(int i = 0;i<=ind1;i++) dp[i][0] = 0;
+        for(int j = 0;j<=ind2;j++) dp[0][j] = 0;
+
+        // iteratre in the matrix
+        for(int i  = 1; i<= ind1; i++){
+            for(int j  = 1; j<= ind2;j++){
+                if(t1.charAt(i-1) == t2.charAt(j-1) ){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                }else{
+                    dp[i][j] = 0 + Math.max(dp[i - 1][ j],dp[i][ j -1]);
+                }
+            }
+        }
+
+        return dp[ind1][ind2];
+    }
+    public static int LCS_spaceopt(String t1, String t2){
+        // If anyone of the character of that row either of t1 or t2 is 0 then return 0
+        
+        int ind1 = t1.length();
+        int ind2 = t2.length();
+
+        int[] prev = new int[ind1 +1];
+        int[] curr = new int[ind2 +1];
+        Arrays.fill(prev,-1);
+        Arrays.fill(curr,-1);
+
+        for(int j = 0; j< ind2; j++) prev[j] = 0;
+
+
+        // iteratre in the matrix
+        for(int i  = 1; i<= ind1; i++){
+            for(int j  = 1; j<= ind2;j++){
+                if(t1.charAt(i-1) == t2.charAt(j-1) ){
+                    curr[j] = 1 + prev[j-1];
+                }else{
+                    curr[j] = 0 + Math.max(prev[ j],curr[ j -1]);
+                }
+            }
+            prev = curr;
+        }
+
+        return prev[ind2];
+    }
+
+
+    // Longest Common Subsequence
+    public static int longestCommonSubsequence(String text1, String text2) {
+
+        int[][] dp = new int[text1.length() ][text2.length()];
+
+        for (int[] arr : dp) {
+            Arrays.fill(arr,-1);
+        }
+
+        return LCS(text1.length() -1, text2.length()-1, text1, text2,dp);
+    }
+
     public static void main(String[] args) {
         // int[] nums = { 7, 5, 1 };
         // int n = 44;
         // System.out.println(climbStairs(n));
-        int []  nums = {10,9,2,5,3,7,101,18};
-        lengthOfLIS(nums);
+        // int []  nums = {10,9,2,5,3,7,101,18};
+        // lengthOfLIS(nums);
+
+        String t1 = "abcde";
+        String t2 = "ace";
+
+        System.out.println(longestCommonSubsequence(t1, t2));
 
     }
 }
