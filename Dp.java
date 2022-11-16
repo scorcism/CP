@@ -249,6 +249,24 @@ public class Dp {
 
         return LCS(text1.length() -1, text2.length()-1, text1, text2,dp);
     }
+    
+    static public boolean wordBreak(String s, List<String> wordDict) {
+        
+        Set<String> wordset = new HashSet(wordDict);
+        boolean isWord[] = new boolean[s.length() +1];
+        isWord[0] = true;
+
+        for (int i = 1; i < s.length(); i++) {
+            for(int j = 0; j<i;j++){
+                if(isWord[j] && wordset.contains(s.substring(j, i))){
+                    isWord[i] = true;
+                    break;
+                }
+            }
+        }
+        return isWord[s.length() +1];
+    }
+
 
     public static void main(String[] args) {
         // int[] nums = { 7, 5, 1 };
@@ -256,11 +274,15 @@ public class Dp {
         // System.out.println(climbStairs(n));
         // int []  nums = {10,9,2,5,3,7,101,18};
         // lengthOfLIS(nums);
+        // String t1 = "abcde";
+        // String t2 = "ace";
+        // System.out.println(longestCommonSubsequence(t1, t2));
 
-        String t1 = "abcde";
-        String t2 = "ace";
+        String s = "catsandog";
+        String[] wordDict = {"cats", "dog", "sand", "and", "cat"};
+        System.out.println(wordBreak(s, WordDict));
 
-        System.out.println(longestCommonSubsequence(t1, t2));
+
 
     }
 }
