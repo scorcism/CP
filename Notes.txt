@@ -9,3 +9,8 @@ For Recursion
     3. If to find minimium or maximum get minimum or maximum  length. eg (in subsequence max length betweeen take and nottake)
     3. Take the best among them
     4. Base case
+
+Memoization -> Tabulation
+    1. Copy the base case.
+    2. Write down the changing parameter in opposite fashion.
+    3. Copy the recurrance.
