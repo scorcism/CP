@@ -303,7 +303,7 @@ public class Dp {
         return ans;
     }
 
-    static public int r1(int[] nums, int index){
+    static public int r1(int[] nums, int index, int[] dp){
         // Base case
         if(index==0){
             return nums[index];
@@ -311,19 +311,23 @@ public class Dp {
         if(index < 0){
             return 0;
         }
+        if(dp[index] != -1){
+            return dp[index] ;
+        }
 
         // Pick
-        int pick = nums[index] + r1(nums,index-2);
+        int pick = nums[index] + r1(nums,index-2,dp);
         // Not Pick
-        int notpick = 0 + r1(nums,index-1);
+        int notpick = 0 + r1(nums,index-1,dp);
 
-        return Math.max(pick,notpick);
+        return dp[index] = Math.max(pick,notpick);
 
     }
 
     static public int rob1(int[] nums) {
-        
-        return r1(nums, nums.length);
+        int[] dp = new int[nums.length +1];
+        Arrays.fill(dp,-1);
+        return r1(nums, nums.length-1,dp);
     }
 
     public static void main(String[] args) {
