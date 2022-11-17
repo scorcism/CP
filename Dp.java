@@ -366,6 +366,48 @@ public class Dp {
         return r1(nums, nums.length-1,dp);
     }
 
+    // House Robber II
+    
+    public static int r2(int[] nums, int index){
+        // Base
+        if(index ==0){
+            return nums[0];
+        }
+        if(index < 0){
+            return 0;
+        }
+
+        // pick
+        int pick = nums[index] + r2(nums,index -2) ;
+
+        // not pick
+        int notpick = 0 + r2(nums,index -1);
+
+        return Math.max(pick,notpick);
+    }
+
+    public int rob(int[] nums) {
+
+        if(nums.length == 1){
+            return nums[0];
+        }
+
+        int[] tmp1 = new int[nums.length];    
+        int[] tmp2 = new int[nums.length];   
+        
+        for(int i = 0; i< nums.length ; i++){
+            if(i !=0) {
+                tmp1[i-1] = nums[i];
+            }
+            if(i != nums.length-1){
+                tmp2[i]  =nums[i];
+            }
+        }
+
+        return Math.max(r2(tmp1,tmp1.length),r2(tmp2,tmp2.length));
+        
+    }
+
     public static void main(String[] args) {
         // int[] nums = { 7, 5, 1 };
         // int n = 44;
