@@ -368,29 +368,37 @@ public class Dp {
 
     // House Robber II
     
-    public static int r2(int[] nums, int index){
+    public static int r2(int[] nums){
+        int[] dp = new int[nums.length];
         // Base
-        if(index ==0){
-            return nums[0];
+        dp[0] = nums[0];
+
+        for(int i= 1; i< nums.length ; i++){
+            int take = nums[i];
+            // after taking the element move index 2 position behind
+            // If the i encounters less thne 0 then skip
+            if(i > 1){
+                take += dp[i-2];
+            }
+
+            int nottake = 0 + dp[i-1];
+            
+            dp[i] = Math.max(take,nottake);
+
         }
-        if(index < 0){
-            return 0;
-        }
 
-        // pick
-        int pick = nums[index] + r2(nums,index -2) ;
+        return dp[nums.length -1];
 
-        // not pick
-        int notpick = 0 + r2(nums,index -1);
-
-        return Math.max(pick,notpick);
     }
 
-    public int rob(int[] nums) {
+    public static int rob(int[] nums) {
 
         if(nums.length == 1){
             return nums[0];
         }
+
+        int[] dp = new int[nums.length];
+        Arrays.fill(dp, -1);
 
         int[] tmp1 = new int[nums.length];    
         int[] tmp2 = new int[nums.length];   
@@ -403,9 +411,9 @@ public class Dp {
                 tmp2[i]  =nums[i];
             }
         }
-
-        return Math.max(r2(tmp1,tmp1.length),r2(tmp2,tmp2.length));
-        
+        // System.out.println(Arrays.toString(tmp1));
+        // System.out.println(Arrays.toString(tmp2));
+        return Math.max(r2(tmp1),r2(tmp2));
     }
 
     public static void main(String[] args) {
@@ -421,6 +429,7 @@ public class Dp {
         // String s = "catsandog";
         // String[] wordDict = {"cats", "dog", "sand", "and", "cat"};
         // System.out.println(wordBreak(s, WordDict));
-
+        int[] r = {1,2,3,1};
+        System.out.println(rob(r));
     }
 }
