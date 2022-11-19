@@ -416,6 +416,54 @@ public class Dp {
         return Math.max(r2(tmp1),r2(tmp2));
     }
 
+    public static int uP2(int i, int j, int m, int n, int[][] dp){
+        // Base
+        if(i >= n || j>=m){
+            return 0;
+        }
+        if(i == n-1 || j == m-1){
+            return 1;
+        }
+        if(dp[i][j] != -1){
+            return dp[i][j];
+        }
+
+        // Left call
+        int left = uP2(i+1, j,m,n,dp);
+        // Right call
+        int right  = uP2(i, j+1,m,n,dp);
+
+        return dp[i][j] = left +  right;
+    }
+
+    public static int uP1(int i, int j, int m, int n){
+        // Base
+        if(i >= n || j>=m){
+            return 0;
+        }
+        if(i == n-1 || j == m-1){
+            return 1;
+        }
+
+        // Left call
+        int left = uP1(i+1, j,m,n);
+        // Right call
+        int right  = uP1(i, j+1,m,n);
+
+        return left +  right;
+    }
+
+    static public int uniquePaths(int m, int n) {
+        int[][] dp = new int[m+1][n+1];
+        
+        for(int[] ar:dp){
+            Arrays.fill(ar,-1);
+        }
+
+        // return uP1(0,0,m,n);
+        return uP2(0,0,m,n,dp);
+    }
+
     public static void main(String[] args) {
         // int[] nums = { 7, 5, 1 };
         // int n = 44;
@@ -429,7 +477,8 @@ public class Dp {
         // String s = "catsandog";
         // String[] wordDict = {"cats", "dog", "sand", "and", "cat"};
         // System.out.println(wordBreak(s, WordDict));
-        int[] r = {1,2,3,1};
-        System.out.println(rob(r));
+        // int[] r = {1,2,3,1};
+        // System.out.println(rob(r));
+        System.out.println(uniquePaths(3, 2));
     }
 }
