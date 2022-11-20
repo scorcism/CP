@@ -512,57 +512,7 @@ public class Dp {
         }
         return false;
     }
-
     
-    public static boolean canCross(int[] stones) {
-        //         hashmap will store the index array values 
-        //         hashset will store all the possibel steps which are used to reach the current index
-                
-                HashMap<Integer, HashSet<Integer>> map = new HashMap<>();
-                
-        //         Putting array values in hashmap and initinizinf it all with a empty hashmap
-                for(int i = 0; i< stones.length; i++){
-                    map.put(stones[i], new HashSet<Integer>());        
-                }
-        //         0th position can only take 1 jump so makeing it by default
-                map.get(stones[0]).add(1);
-                
-        //         traversing the hashmap
-                
-                for(int i = 0; i<stones.length; i++){
-        //             getting the current stone
-                    int currStone  = stones[i];
-        //             geting all the vales whcih are assicoated with the current stone in hashmap like all the jump which has saved on the hashset respective of that element
-                    HashSet<Integer> jumps = map.get(currStone);
-        //             iterating through the values in the set and storing all the possible jumps to respective values in the array at that element position
-                    
-                    for(int jump: jumps){
-        //                 here three jump will take k-1, k, k+1
-        //                 check if stone exist or not if jump take place
-        //                     K-1 jump present or not 
-        //                 and if present stor the jump value to that element set
-        //                 all the position that the current element can jump
-                        int pos = currStone  + jump;
-                        
-        //                 if the next jump contains the last index element the return true
-                        if(pos == stones[stones.length -1]){
-                            return true;
-                        }
-                            if(map.containsKey(pos) == true){
-        //                         to avid negative jump
-                                if(jump-1 > 0){
-                                    map.get(pos).add(jump-1);
-                                }
-                                map.get(pos).add(jump);
-                                map.get(pos).add(jump+1);
-                            }
-                        
-                    }
-                    
-                }
-                return false;
-            }
-
     public static void main(String[] args) {
         // int[] nums = { 7, 5, 1 };
         // int n = 44;
