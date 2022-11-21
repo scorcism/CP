@@ -170,32 +170,67 @@ class GraphL{
         return count;
     }
 
-    // static int numProvinces(ArrayList<ArrayList<Integer>> adj, int V) {
-    //     ArrayList<ArrayList<Integer>> adjLs = new ArrayList<ArrayList<Integer>>(); 
-    //     for(int i = 0;i<V;i++) {
-    //         adjLs.add(new ArrayList<Integer>()); 
-    //     }
+    public static int numIslands(char[][] grid) {
+        // Code here
+        int n = grid.length;
+        int m = grid[0].length;
+
+        int[][] vis = new int[n][m];
+        int count = 0;
+
+        // checking each and every cell in the grid 
+        for(int row = 0; row< n; row++){
+            for(int col = 0; col< m ; col++){
+                // check if the current value is 1 and it is not visited
+                if(vis[row][col] == 0 && vis[row][col] == '1'){
+                    count++;
+                    bfsNI(row,col,vis,grid);
+                }
+            }
+        }
         
-    //     // to change adjacency matrix to list 
-    //     for(int i = 0;i<V;i++) {
-    //         for(int j = 0;j<V;j++) {
-    //             // self nodes are not considered 
-    //             if(adj.get(i).get(j) == 1 && i != j) {
-    //                 adjLs.get(i).add(j); 
-    //                 adjLs.get(j).add(i); 
-    //             }
-    //         }
-    //     }
-    //     int vis[] = new int[V]; 
-    //     int cnt = 0; 
-    //     for(int i = 0;i<V;i++) {
-    //         if(vis[i] == 0) {
-    //            cnt++;
-    //            dfs(i, adjLs, vis); 
-    //         }
-    //     }
-    //     return cnt; 
-    // }
+        return count;
+    }
+
+    private static void bfsNI(int row, int col, int[][] vis, char[][] grid) {
+        vis[row][col] = 1;
+        Queue<Pairs> q = new LinkedList<Pairs>();
+        q.add(new Pairs(row, col));
+
+        int n = grid.length;
+        int m = grid[0].length;
+
+        while(!q.isEmpty()){
+            int ro = q.peek().first;
+            int co = q.peek().second;
+            q.remove();
+
+            // Traverse in the neighbour and mark the if it is land
+            for(int delrow = -1;delrow <= 1; delrow++){
+                for(int delcol = -1;delcol <= 1; delcol++){
+                    int nrow = ro + delrow;
+                    int ncol = co  + delcol;
+
+                    if(nrow >= 0 && nrow < n && ncol >= 0 && ncol< n && 
+                    grid[nrow][ncol] == '1' && vis[nrow][ncol] == 0)
+                    {
+                        vis[nrow][ncol] = 1; 
+                        q.add(new Pairs(nrow, ncol));
+                    }            
+                }
+            }
+        }
+    }
+
+    static class Pairs{
+        //  To store row and col index
+        int first;
+        int second;
+        Pairs(int row, int col){
+            this.first = first;
+            this.second = second;
+        }
+    }
 
     public static void main(String[] args) {
         
