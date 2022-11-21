@@ -7,7 +7,7 @@ public class DFS {
         ls.add(node);
 
         for (Integer it : adj.get(node)) {
-            if(vis[node] == false){
+            if(vis[it] == false){
                 dfs(it, vis, adj, ls);
             }
         }
