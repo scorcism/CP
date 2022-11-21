@@ -125,7 +125,77 @@ class GraphL{
         }
     }
 
+    private static void dfsnP(int i, int[] vis,ArrayList<ArrayList<Integer>> adjList ){
+        // DFS call
+        vis[i] = 1;
 
+        for(Integer it: adjList.get(i)){
+            if(vis[it] == 0){
+                dfsnP(it, vis, adjList);
+            }
+        }
+
+    }
+
+     private static int numProvinces(ArrayList<ArrayList<Integer>> adj, int V) {
+        // code here
+
+        // Converting adj matrix to adj list
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<ArrayList<Integer>>();
+
+        for(int i = 0; i<V; i++){
+            adjList.add(new ArrayList<Integer>());
+        }
+
+        for(int i = 0; i< V; i++){
+            for (int j = 0; j< V; j++){
+                if(adj.get(i).get(j) == 1 && i != j){
+                    adjList.get(i).add(j);
+                    adjList.get(j).get(i);
+                }
+            }
+        }
+        // to store the total count 
+        int count = 0;
+        // to store the visited index values
+        int[] vis = new int[V];
+
+        for(int i = 0; i< V; i++){
+            if(vis[i] == 0){
+                count++;
+                dfsnP(i,vis, adjList);
+            }
+        }
+
+        return count;
+    }
+
+    // static int numProvinces(ArrayList<ArrayList<Integer>> adj, int V) {
+    //     ArrayList<ArrayList<Integer>> adjLs = new ArrayList<ArrayList<Integer>>(); 
+    //     for(int i = 0;i<V;i++) {
+    //         adjLs.add(new ArrayList<Integer>()); 
+    //     }
+        
+    //     // to change adjacency matrix to list 
+    //     for(int i = 0;i<V;i++) {
+    //         for(int j = 0;j<V;j++) {
+    //             // self nodes are not considered 
+    //             if(adj.get(i).get(j) == 1 && i != j) {
+    //                 adjLs.get(i).add(j); 
+    //                 adjLs.get(j).add(i); 
+    //             }
+    //         }
+    //     }
+    //     int vis[] = new int[V]; 
+    //     int cnt = 0; 
+    //     for(int i = 0;i<V;i++) {
+    //         if(vis[i] == 0) {
+    //            cnt++;
+    //            dfs(i, adjLs, vis); 
+    //         }
+    //     }
+    //     return cnt; 
+    // }
 
     public static void main(String[] args) {
         
