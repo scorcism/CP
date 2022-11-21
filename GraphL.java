@@ -111,6 +111,22 @@ class GraphL{
         return ls;
     }
 
+    // adj matrix to adj list
+    private static void change(ArrayList<ArrayList<Integer>> adj, int V){
+        ArrayList<ArrayList<Integer>> adjList = new ArrayList<ArrayList<Integer>>();
+
+        for(int i = 0; i<V; i++){
+            for(int j = 0; j<V; j++){
+                if(adj.get(i).get(j) == 1 && i != j){
+                    adjList.get(i).add(j);
+                    adjList.get(j).add(i);
+                }
+            }
+        }
+    }
+
+
+
     public static void main(String[] args) {
         
     }
