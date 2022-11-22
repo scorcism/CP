@@ -1,8 +1,26 @@
 import java.util.*;
 
+class Temps{
+
+    public static void printco(int row, int column){
+        for(int i = -1; i<= 1; i++){
+            for(int j = 0; j<=1; j++){
+                int nrow = row + i;
+                int ncol = column + j;
+                System.out.println("nrow: " + nrow  + "ncol: " + ncol); 
+            }
+        }
+    }
+
+}
+
 class Tmp {
 
     public static void main(String[] args){
+
+        Temps t = new Temps();
+        t.printco(2, 2);
+
         // int[] ar = new int[7];
         // System.out.println(Arrays.toString(ar));
         
@@ -71,7 +89,7 @@ class Tmp {
     boolean isWord[] = new boolean[s];
     isWord[0] = true;
 
-    System.out.println(Arrays.toString(isWord));
+    // System.out.println(Arrays.toString(isWord));
 
     }
 }
