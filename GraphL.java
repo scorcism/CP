@@ -266,11 +266,91 @@ class GraphL {
             ){
                 dfsFF(image, nrow, ncol, newColor, ans, initialColor);  
             }
+        }
+    }
 
+    static class Store {
+        int row; int col; int time;
+        Store(int _row, int _col, int _time){
+            this.row = _row;
+            this.col = _col;
+            this.time  = _time;
+        }
+    }
+
+    /*
+     * T.C -> O(NxM)
+     * S.C -> O(NxM)
+     */
+    public static int orangesRotting(int[][] grid)
+    {
+        
+        int n = grid.length;
+        int m = grid[0].length;
+
+        // to store the visited row and column values
+        int[][] vis = new int[n][m];
+        
+        // to store all the fresh oranges
+        int freshOraneg  =0;
+        
+        // creating a PQ for BFS traversal
+        Queue<Store> q = new LinkedList<Store>();
+
+        // Storing all the rotton oranges an if not then marking ti with 0 and also counting all the fresh orange
+        // i = row
+        // j = col
+        for(int i = 0; i<n; i++){
+            for (int j = 0 ; j< m ; j++){
+                if(grid[i][j] == 2){
+                    q.add(new Store(i, j, 0));
+                    vis[i][j] = 2;
+                }
+                else{
+                    vis[i][j] = 0;
+                }
+                // count all the fresh oranges for cross validating 
+                if(grid[i][j] == 1) freshOraneg = freshOraneg + 1;
+            }
+        }
+        // To store the final max time
+        int time = 0;
+
+        // neighbour co-ordinates
+        int[] deltarow  = {-1,0,1,0};
+        int[] deltacol = {0,1,0,-1};
+
+        // performing the BFS
+        int countInTraverse = 0;
+        while(!q.isEmpty()){
+            int row = q.peek().row;
+            int col = q.peek().col;
+            int tm = q.peek().time;
+            // remove the element after 
+            q.remove();
+            // Getting the max time
+            time = Math.max(time , tm);
+            
+            // with respect to the neighbour checking the condiiton
+            for(int i = 0; i< 4; i++){
+                // checking for all teh neighbour
+                int nrow = row + deltarow[i];
+                int ncol = col + deltacol[i];
+
+                // checking for the conditions
+                if(nrow >= 0 && ncol >= 0 && nrow < n && ncol < m
+                && vis[nrow][ncol] != 2 && grid[nrow][ncol] == 1
+                ){
+                    q.add(new Store(nrow, ncol, tm + 1));
+                    vis[nrow][ncol] = 2;
+                    countInTraverse += 1;
+                }
+            }
         }
 
+        if(countInTraverse != freshOraneg) return -1;
 
-
+        return time;
     }
 
     public static void main(String[] args) {
