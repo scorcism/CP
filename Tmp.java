@@ -91,5 +91,8 @@ class Tmp {
 
     // System.out.println(Arrays.toString(isWord));
 
+    boolean[] c = new boolean[5];
+    System.out.println(Arrays.toString(c));
+
     }
 }
