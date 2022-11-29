@@ -19,7 +19,7 @@ public class ArraysQuestions {
 
     // Two sum
     public static int[] twoSum(int[] arr, int target) {
-        // Here we will be using a hash map
+        // Here we will be using a hash map 
         Map<Integer, Integer> hm = new HashMap<>();
 
         for (int i = 0; i < arr.length; i++) {
@@ -54,6 +54,7 @@ public class ArraysQuestions {
             }
 
         }
+
         return maxProfit;
     }
 
@@ -345,7 +346,7 @@ public class ArraysQuestions {
                 while (left < right) {
 
                     if (nums[i] + nums[left] + nums[right] < 0) {
-                        left ++;
+                        left++;
                     } else if (nums[i] + nums[left] + nums[right] > 0) {
                         right--;
                     } else {
@@ -353,10 +354,11 @@ public class ArraysQuestions {
 
                         while (left < right && nums[left] == nums[left + 1])
                             left++;
-                        while (left < right && nums[right] == nums[right - 1]) 
+                        while (left < right && nums[right] == nums[right - 1])
                             right--;
-                        
-                        right--;left++;
+
+                        right--;
+                        left++;
                     }
 
                 }
@@ -365,20 +367,21 @@ public class ArraysQuestions {
         }
         return list;
     }
+
     // 11. Container With Most Water
     // Using 2 pointers method
     public static int maxArea(int[] height) {
         int result = 0;
         int l = 0;
-        int r = height.length -1 ;
-        
-        while(l < r){
-            int area = ( r - l ) * Math.min(height[l],height[r]);
-            result = Math.max(result,area);
+        int r = height.length - 1;
 
-            if(height[l] < height[r]){
+        while (l < r) {
+            int area = (r - l) * Math.min(height[l], height[r]);
+            result = Math.max(result, area);
+
+            if (height[l] < height[r]) {
                 l++;
-            }else{
+            } else {
                 r--;
             }
         }
