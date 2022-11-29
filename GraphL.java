@@ -353,6 +353,65 @@ class GraphL {
         return time;
     }
 
+    static class CyclePair {
+        int parent;
+        int currentNode;
+
+        CyclePair(int _p, int _c){
+            this.parent = _p;
+            this.currentNode = _c;
+        }
+    }
+
+
+    public static boolean detect(int src, ArrayList<ArrayList<Integer>> adj, boolean[] vis){
+        
+        // make it visited
+        vis[i] = true;
+        // creaet a queue for the bfs
+        Queue<CyclePair> q = new LinkedList<CyclePair>();
+        
+        // add source and -1 to the parent 
+        q.add(new CyclePair(src, -1));
+
+        // perform the bfs
+        while(!q.isEmpty){
+            // get the parent and the curren node
+            int p = q.peek().parent;
+            int c = q.peek().currentNode;
+
+            q.remove();
+
+            for(int adjNode : adj.get(c)){
+                // if the adjecent node is not visited mark that as visited
+                if(!vis[adjNode]){
+                    vis[adjNode] = true;
+                    // and put it into the queue
+                    q.add(adjNode, p);
+                }else if (p != adjNode){
+                    // if the adjnode is already vistied
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+
+    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+        // for visited array
+        boolean[] vis = new boolean[V];
+
+        // for provinces
+        for(int i = 0; i< V; i++){
+            if(vis[i] == false){
+                // if the current node is not visited visit it 
+                if (detect(i, adj, vis)) return true;
+            }
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
        
     }
