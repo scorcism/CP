@@ -17,7 +17,6 @@ public class BFS {
             Integer node  = q.poll();
             bfs.add(node);
 
-
             for(Integer it: adj.get(node)){
                 if(vis[it] == false){
                     vis[it] = true;
