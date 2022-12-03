@@ -412,7 +412,71 @@ class GraphL {
         return false;
     }
 
-    
+    class nPair{
+        int x,y,steps;
+        nPair(int x, int y, int s){
+            this.x = x;
+            this.y = y;
+            this.steps = s;
+        }
+    }
+
+    public int[][] nearest(int[][] grid)
+    {
+        // Code here
+        int n = grid.length;
+        int m = grid[0].length;
+
+        // Visited array
+        int[][] vis  = new int[n][m];
+        // To store the distance
+        int[][] dist  = new int[n][m];
+
+        Queue<nPair> q = new LinkedList<>();
+
+        // Iterating through the grid to store all the 1's in the queue
+        for(int i = 0; i< n; i++){
+            for(int j = 0; j< m ;j++){
+                if(grid[i][j] == 1){
+                    // store store the co-ordinate and step to the queue
+                    q.add(new nPair(i,j,0));
+                    vis[i][j] = 1;
+                }
+                else{
+                    vis[i][j] = 0;
+                }
+            }
+        }
+
+        // Iterating in the queue
+        while(!q.isEmpty()){
+            // get all the values related with the node
+            int x = q.peek().x;
+            int y = q.peek().y;
+            int steps = q.peek().steps;
+            q.poll();
+
+            // store the steps in the distance array matrix
+            dist[x][y] = steps;
+
+            // Lokking at top bottom left and right
+            int[] delrow = {-1,0,1,0};
+            int[] delcol = {0,1,0,-1};
+            for(int i = 0; i<4; i++){
+                // getting the neighbour rows and columns
+                int nrow = x + delrow[i];
+                int ncol = y + delcol[i];
+
+                // checking the edge cases
+                if(nrow >=0 && ncol >= 0 && ncol < n && nrow <n && ncol < m && vis[nrow][ncol] ==0 ){
+                    q.add(new nPair(nrow, ncol, steps+1));
+                }
+            }
+
+        }
+        return dist;
+
+    }
 
 
     public static void main(String[] args) {
