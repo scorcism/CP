@@ -394,7 +394,6 @@ class GraphL {
                 }
             }
         }
-        
         return false;
     }
 
@@ -472,14 +471,78 @@ class GraphL {
                     q.add(new nPair(nrow, ncol, steps+1));
                 }
             }
-
         }
         return dist;
+    }
 
+    public static void dfsFill(int i, int j, int[][] vis; int[][] a){
+        vis[i][j] = 1;
+
+        int n = a.length;
+        int m = a[0].length;
+        // check for top, bottom, left, right
+        int[] delrow = {-1,0,1,0};
+        int[] delcol = {0,+1,0,-1};
+
+        for(int k =0; k< 4; k++){
+            int nrow = i + delrow[k];
+            int ncol = i+delcol[k];
+         
+            if(nrow >= 0 && ncol >= 0 &&  nrow < m && nrow < m && ncol < n 
+            && vis[nrow][ncol] ==0 && a[nrow][ncol] == 'O'
+            ){
+                dfs(nrow,ncol,vis,a);
+            }
+
+        }
+    }
+
+
+     static char[][] fill(int n, int m, char a[][])
+    {
+        // code here
+
+        int[][] vis = new int[n][m];
+
+        // Traverse  1st row and last row
+        for(int i = 0; i<m ; i++){
+
+            if(vis[0][i] == 0 && a[0][i] == 'O' ){
+                dfsFill(0,i, vis, a);
+            }
+            
+            if(vis[n-1][i] == 0 && a[n-1][i] == 'O' ){
+                dfsFill(n-1,i, vis, a);
+            }
+        }
+        // Traversing the 1st column and last column
+        for(int i = 0; i< n; i++){
+            if(vis[i][0] == 0 && a[i][0] == 'O'){
+                dfsFill(i,0, vis, a);
+            }
+
+            if(vis[i][m-1] == 0 && a[i][m-1] == 'O'){
+                dfsFill(i,m-1, vis, a);
+            }
+        }
+
+        for(int i = 0; i< m ; i++){
+            for(int j = 0; j< n; j++){
+                if(vis[i][j] == 0 && a[i][j] == 'O'){
+                    a[i][j] = 'X';
+                }
+            }
+        }
+
+        return a;
     }
 
 
     public static void main(String[] args) {
+       
+
+
+
        
     }
 }
