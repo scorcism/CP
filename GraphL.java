@@ -537,6 +537,66 @@ class GraphL {
         return a;
     }
 
+    public static class NOC{
+        int row;
+        int col;
+        NOC(int n; int m){
+            this.row = n;
+            this.col = m;
+        }
+    }
+
+    public static int numberOfEnclaves(int[][] grid) 
+    {
+        int n = grid.length; 
+        int m = grid[0].length;
+        int[][] vis = new int[n][m];
+
+        Queue<NOC> q = new LinkedList()<>;
+        
+        // putl all the edges having 1 in the queue
+        for(int i = 0; i<n ; i++){
+            for(int j = 0; j<m ;j++){
+                if(grid[i][j] == 1){
+                    q.add(new NOC(i,j));
+                    vis[i][j] = 1;
+                }
+            }
+        }
+
+        while(!q.isEmpty()){
+            int r = q.peek().row;
+            int c = q.peek().col;
+            q.poll();
+
+            // check for all the  4 direction
+            int[] delrow = {-1,0,1,0};
+            int[] delcol = {0,+1,0,-1};
+
+            for(int i = 0; i< 4; i++){
+                int nrow = r + delrow[i];
+                int ncol = c + delcol[i];
+
+                if(nrow >= 0 && ncol >= 0 && nrow <n && ncol <m
+                vis[nrow][ncol] == 0 && grid[nrow][ncol] == 1
+                ){
+                    q.add(new NOC(nrow,ncol));
+                    vis[nrow][ncol] == 1;
+                }
+            }
+        }
+        int count= 0;
+        for(int i = 0; i<n ; i++){
+            for(int j = 0; j<m ;j++){
+                if(grid[i][j] == 1 && vis[i][j] == 0){
+                    count++;
+                }
+            }
+        }
+
+    return count;
+    }
+
 
     public static void main(String[] args) {
        
