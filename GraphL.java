@@ -643,6 +643,49 @@ class GraphL {
         return st.size();
     }
 
+    public static boolean checkBFS(int i,ArrayList<ArrayList<Integer>>adj,int[] colors){
+        Queue<Integer> q = new LinkedList<>();
+        q.add(i);
+        colors[i] = 0;
+
+        while(!q.isEmpty()){
+            int front  = q.peek();
+            q.remove();
+
+            for(int it : adj.get(front)){
+                // if the current node is not colors color it with the opposite color of parent
+                if(colors[it] == -1){
+                    colors[it] = 1-colors[front];
+                    q.add(it);
+
+                    // if the current node is alreay colord and it is as same the parent color then return false
+                }else if (colors[it] == colors[front]){
+                    return false;
+                }
+                
+            }
+        }
+        return true;
+    }
+
+    public boolean isBipartite(int V, ArrayList<ArrayList<Integer>>adj)
+    {
+        // Code here
+        int colors[] = new int[V];
+        Arrays.fill(colors,-1);
+
+        // for connected components
+        for(int i = 0; i<V; i++){
+            // check if the node is not being touch
+            if(colors[i] == -1){
+                if(checkBFS(i,V,adj,colors) == false){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
        
