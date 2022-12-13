@@ -686,6 +686,38 @@ class GraphL {
         return true;
     }
 
+    private static void dfsTopo(int node, int[] vis, Stack<Integer> s,  ArrayList<ArrayList<Integer>> adj){
+        vis[node] = 1;
+        for(int it: adj.get(node)){
+            if(vis[it] == 0){
+                dfsTopo(it, vis,s,adj);
+            }
+        }
+    s.push(node);
+    }
+
+    public static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
+    {
+        // add your code here
+        int[] vis = new int[V];
+        int[] ans = new int[V];
+
+        Stack<Integer> s = new Stack<>();
+        for(int i = 0; i< V; i++){
+            if(vis[i] == 0){
+                dfsTopo(i, vis,s,adj);
+            }
+        }
+        
+        int i = 0; 
+        while(!s.isEmpty()){
+            ans[i++] = s.peek();
+            s.pop();           
+        }
+
+        return ans;
+    }
+
 
     public static void main(String[] args) {
        
