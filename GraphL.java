@@ -717,6 +717,45 @@ class GraphL {
 
         return ans;
     }
+    public static int[] topoSortBFS(int V, ArrayList<ArrayList<Integer>> adj) 
+    {
+        // add your code here
+        // 1st getting all the indegree of the nodes and storint it into array
+        int[] indegree = new int[v];
+        // iterting through the adj list
+        for(int i = 0; i< V; i++){
+            for(int it: adj.get(i)){
+                indegree[i]++;
+            }
+        }
+
+        // putting all the nodes having 0 indegree into the queue
+        Queue<Integer> q = new LinkedList<>();
+        for(int i = 0; i< indegree.length; i++){
+            if(indegree[i] == 0){
+                q.add(i);
+            }
+        }
+
+        // to store answer
+        int[] topo = new int[V];
+        int i = 0;
+        while(!q.isEmpty()){
+            int node = q.peek();
+            q.poll();
+
+            topo[i++] = node;
+
+            for(int it: adj.get(node)){
+                indegree[it]--;
+                if(indegree[it]==0){
+                    q.add(it);
+                }
+            }
+        }
+
+        return topo;
+    }
 
 
     public static void main(String[] args) {
