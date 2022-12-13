@@ -598,11 +598,54 @@ class GraphL {
     }
 
 
+    public static void dfsISland(int row, int col,int[][] vis,ArrayList<String> vec,int[][] grid, inr row0, int col0 ){
+        vis[row][col] =1;
+        vec.add(toString(row-row0,col-col0));
+        int n = grid.length;
+        int m = grid[0].length;
+
+        int[] delrow = {-1,0,1,0};
+        int[] delcol = {0,-1,0,1};
+        
+        for(int i = 0; i< 4; i++){
+            int nrow = row + delrow[i];
+            int ncol = col + delcol[i];
+
+            if( nrow >= 0 && ncol >= 0 && nrow < n && ncol < m  && vis[nrow][ncol] == 0 && grid[nrow][ncol] == 1){
+                dfsISland(nrow,ncol,vis,vec,grid,row0,col0);
+            }
+        }
+    }
+
+    private static String toString(int r, int c){
+        return Integer.toString(r) + " " + Integer.toString(c);
+    }
+
+    public int countDistinctIslands(int[][] grid) {
+        // Your Code here
+        int n = grid.length;
+        int m = grid[0].length;
+
+        int[][] vis = new int[n][m];
+
+        // to store all the answer and to avoid duplicates
+        HashSet<ArrayList<String>> st = new HashSet<>();
+        // Iterating through the grid
+        for(int i = 0; i< n; i++){
+            for(int j = 0; j< m; j++){
+                IF(vis[i][j] == 0 && grid [i][j] == 1){
+                    ArrayList<String> vec = new ArrayList<>();
+                    dfsISland(i,j,vis,vec,grid,i,j)
+                    st.add(vec);
+                }
+            }
+        }
+        return st.size();
+    }
+
+
     public static void main(String[] args) {
        
-
-
-
-       
     }
+
 }
