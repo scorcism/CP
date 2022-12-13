@@ -725,7 +725,7 @@ class GraphL {
         // iterting through the adj list
         for(int i = 0; i< V; i++){
             for(int it: adj.get(i)){
-                indegree[i]++;
+                indegree[it]++;
             }
         }
 
@@ -755,6 +755,44 @@ class GraphL {
         }
 
         return topo;
+    }
+
+    public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
+        // Performing kahns algorithm
+        int[] indegree = new int[V];
+        for(int i = 0; i< V; i++){
+            for(int it: adj.get(i)){
+                indegree[it]++;
+            }
+        }
+
+        Queue<Integer> q = new LinkedList<>(); 
+        for(int i = 0 ; i< V; i++){
+            if(indegree[i] == 0){
+                q.add(i);
+            }
+        }
+
+        int cnt;
+        int i = 0;
+
+        while(!q.isEmpty()){
+            int front = q.peek();
+            q.remove();
+            cnt++;
+
+            for(int it: q.get(front)){
+                indegree[it]--;
+                if(indegree[it]==0){
+                    q.add(it);
+                }
+            }
+            if(cnt == V){
+                return false;
+            }
+            
+            return true;
+        }
     }
 
 
