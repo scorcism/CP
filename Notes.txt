@@ -15,4 +15,7 @@ Memoization -> Tabulation
     2. Write down the changing parameter in opposite fashion.
     3. Copy the recurrance.
 
+throw -> Just throwing an exception
+throws -> Use to declare Exceptions (Used to say that, it may throw an exception)
+
 
