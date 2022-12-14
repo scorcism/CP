@@ -1,5 +1,5 @@
 
-class CGA <T> {
+class CGA <T extends Number> {
 
     private Object[] data;
     private static int DEFAULT_SIZE = 10;
