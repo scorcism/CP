@@ -19,3 +19,6 @@ throw -> Just throwing an exception
 throws -> Use to declare Exceptions (Used to say that, it may throw an exception)
 
 
+Shallow Copy -> Primitives will be copied as it is , but the reference variable  
+
+Deep Copy -> 
