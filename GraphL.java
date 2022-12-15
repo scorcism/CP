@@ -747,6 +747,7 @@ class GraphL {
             topo[i++] = node;
 
             for(int it: adj.get(node)){
+                // Take that node and as the inderepe is taken out decrease the indegress of that node.
                 indegree[it]--;
                 if(indegree[it]==0){
                     q.add(it);
@@ -788,6 +789,7 @@ class GraphL {
                 }
             }
             if(cnt == V){
+                // Here all the elements are added topo sort means the topo sort is well performaed which means the provided graph is an DAG 
                 return false;
             }
             
@@ -795,9 +797,63 @@ class GraphL {
         }
     }
 
+    // Prerequisite Tasks
+    public boolean isPossible(int N, int[][] prerequisites)
+    {
+        // Your Code goes here
+        // Creating a adjacency list
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        for(int i = 0; i< N; i++){
+            adj.add(new ArrayList<>());
+        }
+
+        int m = prerequisites.length;
+
+        for(int i = 0; i< m; i++){
+            // map the 1st 0th index element with the 2nd element
+            adj.get(prerequisites[i][0]).add(prerequisites[i][1]);
+        }
+
+        // Perform the kahns algo - topo sort bfs
+        // store the in depress
+        int[] indegree = new int [N];
+        for(int i  = 0; i < N; i++){
+            for(int it: adj.get(i)){
+                indegree[it]++;
+            }
+        }
+
+        // Performing the BFS
+        Queue<Integer> q = new LinkedList<>();
+        // put all the element having 0 in depree in the queue
+        for(int i = 0; i< N ;i++){
+            if(indegree[i] ==0){
+                q.add(i);
+            }
+        }
+
+        // to store all the topo elements
+        int[] topo = new int[N];
+        int i = 0;
+        while(!q.isEmpty()){
+            int node = q.peek();
+            q.remove();
+            topo[i++] = node;
+            for(int it: adj.get(node)){
+                indegree[it]--;
+                if(indegree[it] == 0){
+                    q.add(it);
+                }
+            }
+        }
+        // if all the elemts are aaded to the topo array means the given graph is acyclic gaph so tere is not cycle between the elements
+        if(topo.length == N){
+            return true;
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
        
     }
-
 }
