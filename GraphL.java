@@ -909,6 +909,12 @@ class GraphL {
         int[] arr = {};
         return arr;
     }
+    
+    // Eventual Safe States
+    List<Integer> eventualSafeNodes(int V, List<List<Integer>> adj) {
+
+        // Your code here
+    }
 
     public static void main(String[] args) {
        

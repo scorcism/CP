@@ -1,3 +1,5 @@
+import java.util.*;
+
 
 public class CustomArrayList{
 
@@ -10,7 +12,7 @@ public class CustomArrayList{
     }
 
     public void add(int num){
-        if(isFull){
+        if(isFull()){
             resize();
         }
         data[size++] = num;
@@ -53,6 +55,30 @@ public class CustomArrayList{
 
     public static void main(String[] args){
         
+    }
+
+    public int[] getData() {
+        return data;
+    }
+
+    public void setData(int[] data) {
+        this.data = data;
+    }
+
+    public static int getDEFAULT_SIZE() {
+        return DEFAULT_SIZE;
+    }
+
+    public static void setDEFAULT_SIZE(int dEFAULT_SIZE) {
+        DEFAULT_SIZE = dEFAULT_SIZE;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
 }
