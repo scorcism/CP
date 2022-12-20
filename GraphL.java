@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.LinkedList;
 
 class GraphL {
 
@@ -721,7 +722,7 @@ class GraphL {
     {
         // add your code here
         // 1st getting all the indegree of the nodes and storint it into array
-        int[] indegree = new int[v];
+        int[] indegree = new int[V];    
         // iterting through the adj list
         for(int i = 0; i< V; i++){
             for(int it: adj.get(i)){
@@ -913,7 +914,119 @@ class GraphL {
     // Eventual Safe States
     List<Integer> eventualSafeNodes(int V, List<List<Integer>> adj) {
 
-        // Your code here
+        // To store all the safe nodes
+        List<Integer> safe = new ArrayList<>();
+
+        // To store the indegree of the nodes
+        int[] indegree = new int[V];
+
+        // Reverse the adjancy list
+        // To store the reverse 
+        List<List<Integer>> adjRev = new ArrayList<>();
+        for(int i = 0; i< V; i++){
+            adjRev.add(new ArrayList<>());    
+        }
+
+        for(int i=0 ; i< V; i++){
+            for(int it: adj.get(i)){
+                // i -> it
+                // it -> i 
+                adjRev.get(it).add(i);
+                indegree[i]++;
+            }
+        }
+
+        Queue<Integer> q  = new LinkedList<>();
+        for(int i = 0; i< indegree.length; i++){
+            if(indegree[i] ==0){
+                q.add(i);
+            }
+        }
+        
+        while(!q.isEmpty()){
+            int node = q.peek();
+            q.remove();
+
+            safe.add(node);
+
+            for(int it: adjRev.get(node)){
+                indegree[it]--;
+                if(indegree[it] == 0){
+                    q.add(it);
+                }
+            }
+        }
+
+        Collections.sort(safe);
+        return safe;
+
+    }
+
+    public static List<Integer> fsTopo(int V, List<List<Integer>> adj){
+        int[] indegree = new int[V];
+
+        for(int i = 0; i< V; i++){
+            for(int it: adj.get(i)){
+                indegree[it]++;
+            }
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+        for(int i = 0 ; i< V; i++){
+            if(indegree[i] == 0){
+                q.add(i);
+            }
+        }
+
+        List<Integer> topo = new ArrayList<>();
+        
+        int i = 0;
+        while(!q.isEmpty()){
+            int node = q.peek();
+            q.poll();
+
+            topo.add(node);
+
+            for(int it: adj.get(node)){
+                indegree[it]--;
+                if(indegree[it] == 0){
+                    q.add(it);
+                }
+            }
+        }
+        return topo;
+    }
+
+    public String findOrder(String [] dict, int N, int K)
+    {
+        // Write your code here
+        List<List<Integer>> adj = new ArrayList<>();
+        for(int i =0; i< K; i++){
+            adj.add(new ArrayList<>());
+        }
+
+        // Iterate through the dictionary
+        for(int i =0 ; i< N-1;i++){
+            String s1 = dict[i];
+            String s2 = dict[i+1];
+
+            int len = Math.min(s1.length(), s2.length());
+
+            for(int ptr = 0; ptr< len; ptr++){
+                if(s1.charAt(ptr) != s2.charAt(ptr)){
+                    adj.get(s1.charAt(ptr) - 'a').add(s2.charAt(ptr)- 'a');
+                    break;
+                }
+            }
+        }
+        List<Integer> topo = fsTopo(K, adj);
+        String ans = "";
+
+        for(int it: topo){
+            ans = ans + (char)(it + (int)('a'));
+        }
+
+        return ans;
     }
 
     public static void main(String[] args) {
