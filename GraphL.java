@@ -1029,6 +1029,85 @@ class GraphL {
         return ans;
     }
 
+    static class SPPairs{
+        int first;
+        int second;
+
+        SPPairs(int a, int b){
+            this.first = a;
+            this.second = b;
+        }
+    }
+
+    // Shortest path in Directed Acyclic Grap
+    public int[] shortestPath(int N,int M, int[][] edges) {
+        
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+
+        // Create a adj list with the gien data
+        for(int i = 0; i< N ; i++){
+            ArrayList<SPPairs> tmp = new ArrayList<SPPairs>();
+            adj.add(tmp);
+        }
+
+        // add data to the adj list
+        for(int i = 0; i < M ; i++){
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int wt = edges[i][2];
+
+            adj.get(u).add(new SPPairs(v, wt));
+            
+        }
+        // perform the topo sort
+        int[] vis= new int[N];
+
+        Stack<Integer> st = new Stack<>();
+
+        for(int i = 0 ; i< N; i++){
+            if(vis[i] == 0){
+                sptopo(i, adj,vis,st);
+            }
+        }
+
+        // step 2
+        int dis[] = new int[N];
+        Arrays.fill(dis,(int)1e9);
+
+        dis[0] = 0;
+
+        while(!st.isEmpty()){
+            int node = st.peek();
+            st.pop();
+
+            for(int i = 0; i< adj.get(node).size(); i++){
+                int v  = adj.get(node).get(i).first;
+                int wt  = adj.get(node).get(i).second;
+
+                if(dis[node] + wt < dis[v]){
+                    dis[v] = wt + dis[node];
+                }
+            }
+        }
+        
+        return dis;
+	}
+
+
+    private void sptopo(int i, ArrayList<ArrayList<Integer>> adj, int[] vis, Stack<Integer> st) {
+        vis[i] = 1;
+
+        for(int it = 0 ; it< adj.get(i).size(); it++){
+            int v = adj.get(i).get(it).first;
+            if(vis[v] == 0){
+                sptopo(it, adj,vis,st);
+            }
+        }
+
+        st.add(i);
+
+    }
+
     public static void main(String[] args) {
        
     }
