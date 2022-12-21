@@ -1039,10 +1039,24 @@ class GraphL {
         }
     }
 
+
+    private void sptopo(int i, ArrayList<ArrayList<SPPairs>> adj, int[] vis, Stack<Integer> st) {
+        vis[i] = 1;
+
+        for(int it = 0 ; it< adj.get(i).size(); it++){
+            int v = adj.get(i).get(it).first;
+            if(vis[v] == 0){
+                sptopo(v, adj,vis,st);
+            }
+        }
+
+        st.add(i);
+    }
+
     // Shortest path in Directed Acyclic Grap
     public int[] shortestPath(int N,int M, int[][] edges) {
         
-        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        ArrayList<ArrayList<SPPairs>> adj = new ArrayList<>();
 
         // Create a adj list with the gien data
         for(int i = 0; i< N ; i++){
@@ -1092,21 +1106,6 @@ class GraphL {
         
         return dis;
 	}
-
-
-    private void sptopo(int i, ArrayList<ArrayList<Integer>> adj, int[] vis, Stack<Integer> st) {
-        vis[i] = 1;
-
-        for(int it = 0 ; it< adj.get(i).size(); it++){
-            int v = adj.get(i).get(it).first;
-            if(vis[v] == 0){
-                sptopo(it, adj,vis,st);
-            }
-        }
-
-        st.add(i);
-
-    }
 
     public static void main(String[] args) {
        
