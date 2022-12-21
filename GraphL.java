@@ -1107,6 +1107,71 @@ class GraphL {
         return dis;
 	}
 
+    // Word Ladder I
+
+    static class Ladderpair{
+        String first;
+        int second;
+    
+        Ladderpair(String a, int b){
+            this.first = a;
+            this.second = b;
+        }
+    }
+
+    public int wordLadderLength(String startWord, String targetWord, String[] wordList)
+    {
+        // Queue to store the words and their level
+        Queue<Ladderpair> q  = new LinkedList<>();
+
+        q.add(new Ladderpair(startWord, 1));
+
+        // set to store the wordlist
+        Set<String> st = new HashSet<>();
+        
+        int len = wordList.length;
+        for(int i = 0; i < len ; i++){
+            st.add(wordList[i]);
+        }
+
+        st.remove(startWord);
+
+        while(!q.isEmpty()){
+            String word  = q.peek().first;
+            int steps = q.peek().second;
+
+            q.remove();
+
+            if(word.equals(targetWord) == true){
+                return steps;
+            }
+
+            // Loop through each char of that word
+            for(int i = 0; i<word.length(); i++){
+                // replace each index position with all the 26 char
+                for(char ch = 'a'; ch <= 'z'; ch++){
+                    // convert the  string  into char array so that each alphabet can be replaced. 
+                    char[] charArray = word.toCharArray();
+                    charArray[i] = ch;
+                    // convert back toe char array to string
+                    String wordBack = new String(charArray);
+
+                    // check if the new word is present into the set and if present add it to queue and remove it from the set
+
+                    if(st.contains(wordBack) == true){
+                        st.remove(wordBack);
+                        q.add(new Ladderpair(wordBack, steps + 1));
+                    }
+
+                }
+            }
+
+        }
+
+        return 0;
+
+    }
+
     public static void main(String[] args) {
        
     }
