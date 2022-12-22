@@ -1176,6 +1176,60 @@ class GraphL {
         public ArrayList<ArrayList<String>> findSequences(String startWord, String targetWord, String[] wordList) {
 
         }
+    
+
+    // Dijkstra algorithm using PQ
+
+    // To store distance and node
+    static class PairdPQ{
+        int dis;
+        int node;
+
+        PairdPQ(int a, int b){
+            this.dis  = a;
+            this.node = b;
+        }
+    }
+
+    static int[] dijkstraPQ(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S)
+    {
+        // Declaring a PQ
+        // Min-heap
+        PriorityQueue<PairdPQ> pq = new PriorityQueue<PairdPQ>((x,y)->x.dis - y.dis);
+
+        int[] dist = new int[V]; // To store the distances
+        for(int i = 0; i< V ; i++) dist[i] = (int)(1e9);
+
+        dist[0] = 0;
+        pq.add(new PairdPQ(0, S));
+
+        while(!pq.isEmpty()){
+            int distance = pq.peek().dis;
+            int node = pq.peek().node;
+
+            pq.remove();
+
+            // Iterate in the adj list
+            for(int i = 0; i< adj.get(node).size(); i++){
+                // Getting the adjacent node and adj weight
+                int edgeWeight = adj.get(node).get(i).get(1);
+                int adjNode = adj.get(node).get(i).get(0);
+
+                // if the new edge weigth + distance(node weight) is less then the previous one update the old one of that node
+                // distance => Till reacheing the parent node position we have taken this much distance
+                if(distance + edgeWeight < dist[adjNode]){
+                    // we got a better distance
+                    dist[adjNode] = distance + edgeWeight;
+
+                    pq.add(new PairdPQ(dist[adjNode], adjNode));
+                }
+
+            }
+
+        }
+
+        return dist;
+    }
 
         public static void main(String[] args) {
 
