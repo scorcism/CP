@@ -94,5 +94,7 @@ class Tmp {
     int[] c = new int[5];
     System.out.println(Arrays.toString(c));
 
+            
+    System.out.println((int)1e9);
     }
 }
