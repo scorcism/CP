@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.*;
 import java.util.LinkedList;
 
@@ -1231,8 +1232,103 @@ class GraphL {
         return dist;
     }
 
-        public static void main(String[] args) {
+    static int[] dijkstraSet(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S)
+    {
+    // CPP code added
+    
+    }
 
+    static class Pairsp{
+        int first;
+        int second;
+        Pairsp(int a, int b){
+            this.first = a;
+            this.second = b;
         }
+    }
+
+    // Shortest Path in Weighted undirected graph
+    public static List<Integer> shortestPathD(int n, int m, int edges[][]) {
+            
+        // convert the edge matrix into graph
+        /*
+        * edges[0][1][2]
+        * edges[0] = x
+        * edges[1] = y
+        * edges[2] = weight
+        * x <-weight-> y
+        */
+
+        //  creating the adjacency list
+        ArrayList<ArrayList<Pairsp>> adj = new ArrayList<>();
+
+        for(int i = 0; i< n; i++){
+            adj.add(new ArrayList<Pairsp>());
+        }
+
+        // Storing the values
+        for(int i = 0; i <m-1; i++){
+            adj.get(edges[i][0]).add(new Pairsp(edges[i][1], edges[i][2]));
+            // As this is undirected there will be edge between both
+            adj.get(edges[i][1]).add(new Pairsp(edges[i][0], edges[i][2]));
+        }
+
+        // Performing the dijkstra's algo
+
+        PriorityQueue<Pairsp> pq = new PriorityQueue<Pairsp>((x,y)->x.first - y.first);
+        int[] dist = new int[n+1]; // To store the distance
+        for(int i = 0; i< dist.length ; i++) dist[i] = (int)(1e9);
+        int[] parent = new int[n+1]; // To store the parent of that node from where it came
+
+        // In start parent[i] will be i itself
+        for(int i  = 0 ;i<parent.length; i++ ){
+            parent[i] = i;
+        }
+
+        pq.add(new Pairsp(0, 1));
+        dist[1] = 0;
+
+        while(!pq.isEmpty()){
+            Pairsp iter = pq.peek();
+            int node = iter.second;
+            int distance = iter.first;
+            pq.remove();
+
+            for(Pairsp it: adj.get(node)){
+                int adjNode = it.first;
+                int adjW = it.second;
+
+                if(distance + adjW < dist[adjNode]){
+                    dist[adjNode] = distance + adjW;
+                    pq.add(new Pairsp(dist[adjNode], adjNode));
+
+                    parent[adjNode] =node;
+                }
+
+            }
+        }
+
+        List<Integer> ans = new ArrayList<>();
+
+        if(dist[n] == 1e9){
+            ans.add(-1);
+            return ans;
+        }
+
+        int node =n ; // start from the last element
+        while(parent[node] != node){
+            ans.add(parent[node]);
+            node = parent[node];
+        }
+
+        Collections.reverse(ans);
+        return ans;
+
+    }
+
+    public static void main(String[] args)
+    {
+
+    }
     
 }
