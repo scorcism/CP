@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.LinkedList;
 
@@ -1323,6 +1322,86 @@ class GraphL {
 
         Collections.reverse(ans);
         return ans;
+
+    }
+
+    // class for following question container 
+    // distance it traveled, row and column
+    static class PairssP{
+        int distance;
+        int row;
+        int col;
+        PairssP(int a, int b, int c){
+            this.distance = a;
+            this.row = b;
+            this.col = c;
+        }
+    }
+
+    public static int shortestPath(int[][] grid, int[] source, int[] destination) {
+        
+        // if the given src == destination
+        if(source[0] == destination[0] && source[1] == destination[1]){
+            return 0;
+        }
+        
+        // create queue for the djikstra algo
+        Queue<PairssP> q = new LinkedList<>();
+
+        // create distance array to store the answer
+
+        int n = grid.length;
+        int m = grid[0].length;
+
+        int[][] dist = new int[n][m];
+
+        // Put everything in dist == 1e9
+        for(int i = 0; i< n ; i++){
+            for(int j = 0; j< m; j++){
+                dist[i][j] = (int)(1e9);
+            }
+        }
+
+        // add source node with 0
+        dist[source[0]][source[1]] = 0;
+
+        // put this into queue
+        q.add(new PairssP(0, source[0], source[1]));
+
+        while(!q.isEmpty()){
+
+            PairssP front = q.peek();
+            q.remove();
+
+            int dis = front.distance;
+            int row = front.row;
+            int col = front.col;
+
+            int deltarow[] = {-1,0,1,0};
+            int deltacol[] = {0,1,0,-1};
+
+            // Look for all the 4 sides
+            for(int i = 0; i< 4; i++){
+                int nrow = deltarow[i] + row;
+                int ncol = deltacol[i] + col;
+
+                // check if the nrow and col exists , doesnt cross the limits, it it is marked 1, and follow djikstras algo
+                if(nrow >= 0 && ncol >= 0 && nrow < n && ncol < m && grid[nrow][col] == 1 &&
+                dis + 1 < dist[nrow][ncol]
+                ){
+                    dist[nrow][ncol] = dis + 1;
+                    // if the new dist is equal the destination then retun dis  +1
+                    if(nrow == destination[0] && ncol == destination[1]){
+                        return dis  +1;
+                    }
+                    // if not add it to queue
+                    q.add(new PairssP(dis + 1, nrow, ncol));
+                }
+
+            }
+
+        }
+        return -1;
 
     }
 
