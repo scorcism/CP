@@ -1405,6 +1405,72 @@ class GraphL {
 
     }
 
+    // Path With Minimum Effort
+    static class Tuple{
+        int distance;
+        int row;
+        int col;
+
+        Tuple(int a, int b, int c){
+            this.distance = a;
+            this.row = a;
+            this.col = b;
+        }
+    }
+    public static int MinimumEffort(int heights[][]) {
+        PriorityQueue<Tuple> pq = new PriorityQueue<Tuple>((x,y)-> x.distance - y.distance);
+
+        int n = heights.length;
+        int m = heights[0].length;
+
+        int[][] dist = new int[n][m];
+
+        for(int i = 0; i< n;i++){
+            for(int j = 0; j < m ; j++){
+                dist[i][j] = (int)(1e9);
+            }
+        }
+
+        pq.add(new Tuple(0,0,0));
+        dist[0][0] = 0;
+
+        while(!pq.isEmpty()){
+            Tuple front = pq.peek();
+            pq.remove();
+
+            int diff = front.distance;
+            int row = front.row;
+            int col = front.col;
+
+            if(row == n-1 && col == m-1){
+                return diff;
+            }
+
+            // Traveling in all 4 direction
+            int[] deltarow = {-1,0,1,0};
+            int[] deltacol  = {0,1,0,-1};
+
+            for(int i = 0; i< 4; i++){
+                int newrow = row + deltarow[i];
+                int newcol = col + deltacol[i];
+
+                // checking the edge cases
+                if(newrow >= 0 && newcol >= 0 && newrow < n && newcol < m){
+                    // new effort will be the bsoulte difference
+                    int newEffort = Math.max(Math.abs(heights[row][col]- heights[newrow][newcol]),diff );
+
+                    if(newEffort < dist[newrow][newcol]){
+                        dist[newrow][newcol] = newEffort;
+                        pq.add(new Tuple(newEffort, newrow, newcol));
+                    }
+                }
+            }
+
+        }
+
+        return 0; // unrechable
+    }
+
     public static void main(String[] args)
     {
 
