@@ -1413,7 +1413,7 @@ class GraphL {
 
         Tuple(int a, int b, int c){
             this.distance = a;
-            this.row = a;
+            this.row = b;
             this.col = b;
         }
     }
@@ -1469,6 +1469,66 @@ class GraphL {
         }
 
         return 0; // unrechable
+    }
+    static class Tuplee{
+        int first;
+        int second;
+        int third;
+
+        Tuplee(int a, int b, int c){
+            this.first = a;
+            this.second = b;
+            this.third = b;
+        }
+    }
+    // Cheapest Flights Within K Stops
+    public static int CheapestFLight(int n,int flights[][],int src,int dst,int k) {
+        // Code here
+        
+        // Create the adj matrix of the following matrix
+        ArrayList<ArrayList<Pairs>> adj = new ArrayList<>();
+
+        for(int i = 0; i< n; i++){
+            adj.add(new ArrayList<>());
+        }
+
+        int m = flights.length;
+
+        for (int i = 0; i < m; i++) {
+            adj.get(flights[i][0]).add(new Pairs(flights[i][1], flights[i][2]));
+        }
+        Queue<Tuplee> q = new LinkedList<>();
+        int[] dist = new int[n];
+        Arrays.fill(dist, (int)1e9);
+        dist[src] = 0;
+        q.add(new Tuplee(0, 0, 0));
+
+        while(!q.isEmpty()){
+            Tuplee front  = q.peek();
+            int stops = front.first;
+            int node = front.second;
+            int cost = front.third;
+
+            if(stops > k) continue;
+            
+            for(Pairs iter: adj.get(node)){
+                int adjNode = iter.second;
+                int adjWeight  =iter.first;
+
+                if(cost + adjWeight < dist[adjNode] && stops <= k){
+                    dist[adjNode] = cost + adjWeight;
+                    q.add(new Tuplee(stops + 1,adjNode,cost + adjWeight));
+                }
+
+            }
+
+        }
+
+        if(dist[dst] == (int)1e9){
+            return -1;
+        }
+        return dist[dst];
+
     }
 
     public static void main(String[] args)
