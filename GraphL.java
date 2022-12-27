@@ -1531,6 +1531,48 @@ class GraphL {
 
     }
 
+    // Minimum Multiplications to Reach End
+    static class Mul{
+        int first;
+        int second;
+        Mul(int a, int b){
+            this.first = a;
+            this.second= b;
+        }
+    }
+
+    public static int minimumMultiplications(int[] arr, int start, int end) {
+        Queue<Mul> q = new LinkedList<>();
+
+        int[] dist = new int[100000];
+        Arrays.fill(dist,(int)1e9);
+
+        q.add(new Mul(start, 0));
+        dist[start]  =0;
+        int mod = 100000;
+        while(!q.isEmpty()){
+            Mul front = q.peek();
+            q.poll();
+
+            int node = front.first;
+            int numAdded  = front.second;
+
+            for(int it: arr){
+                int num = (it * node) % mod;
+
+                if(numAdded + 1 < dist[node]){
+                    dist[node] = numAdded + 1;
+                }
+                if(num == end){
+                    return numAdded + 1;
+                }
+                q.add(new Mul(num, numAdded +1));
+            }
+        }
+        return  -1;
+    }
+
+
     public static void main(String[] args)
     {
 

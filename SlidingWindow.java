@@ -51,16 +51,17 @@ class SlidingWindow {
 				if (q.isEmpty()) {
 					ans[i++] = 0;
 				} else {
-					// List as at list 1 number in it 
+					// List as at list 1 number in it
 					ans[i++] = q.peek();
 
 					// Now sliding the window
 					// What here we have done is ,
-					// for name of calculations we have just added the negative number but we havent done anythis with number which are not non negative
+					// for name of calculations we have just added the negative number but we havent
+					// done anythis with number which are not non negative
 					// This will not give error
 					// But, what if the ith ele is added to the list
 					// and we have to move on
-					if(A[start]  == q.peek()){
+					if (A[start] == q.peek()) {
 						q.poll();
 					}
 
