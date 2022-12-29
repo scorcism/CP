@@ -7,7 +7,7 @@ class Temps{
             for(int j = 0; j<=1; j++){
                 int nrow = row + i;
                 int ncol = column + j;
-                System.out.println("nrow: " + nrow  + "ncol: " + ncol); 
+                // System.out.println("nrow: " + nrow  + "ncol: " + ncol); 
             }
         }
     }
@@ -35,7 +35,7 @@ class Tmp {
         // System.out.println(Arrays.toString(ar2));
 
             for(int i = 0; i<ar2.length; i++){
-                System.out.println(ar2[i]);
+                // System.out.println(ar2[i]);
             }
 
         int ar[] = {2, 2, 1, 8, 3, 2, 2, 4, 2};
@@ -92,9 +92,37 @@ class Tmp {
     // System.out.println(Arrays.toString(isWord));
 
     int[] c = new int[5];
-    System.out.println(Arrays.toString(c));
+    // System.out.println(Arrays.toString(c));
 
             
-    System.out.println((int)1e9);
+    // System.out.println((int)1e9);
     }
+
+
+// User function Template for Java
+
+    static public int search(String pat, String txt) {
+        char[] p = new char[256];
+        char[] s = new char[256];
+        int count = 0;
+        int K = pat.length();
+        // put the count of occurance of pat in p
+        for(int i = 0; i< K; i++){
+            p[pat.charAt(i)]++;
+        }
+
+        // acheive the windows size and
+        for(int j  =0 ; j< K-1; j++){
+            s[txt.charAt(j)]++;
+        }
+
+        // windows size is acheived work on the window size
+        for(int end = K-1,start = 0; start < txt.length(); start++, end++){
+
+        }
+
+
+        return count;
+    }
+
 }
