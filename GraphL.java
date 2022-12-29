@@ -856,7 +856,7 @@ class GraphL {
         }
 
         // course schedule
-    public boolean findOrder(int N,int m, ArrayList<ArrayList<Integer>> adj  prerequisites)
+    public boolean findOrder(int N,int m, ArrayList<ArrayList<Integer>> prerequisites)
     {
         // Your Code goes here
         // Creating a adjacency list
@@ -865,7 +865,7 @@ class GraphL {
             adj.add(new ArrayList<>());
         }
 
-        int m = prerequisites.length;
+        // int m = prerequisites.size();
 
         for(int i = 0; i< m; i++){
             // map the 1st 0th index element with the 2nd element
