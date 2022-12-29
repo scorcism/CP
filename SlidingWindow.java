@@ -75,8 +75,82 @@ class SlidingWindow {
 		return ans;
 	}
 
+	public static int searchOwn(String pat, String txt) {
+		int ans = 0;
+		int K = pat.length();
+		int size = txt.length();
+
+		Map<String, Integer> map = new HashMap<>();
+
+		for (int i = 0; i < K; i++) {
+
+			if (map.containsKey(pat.charAt(i))) {
+				System.out.println("Yes");
+			}else{
+				System.out.println("No");
+			}
+
+			if (map.containsKey(pat.charAt(i))) {
+				int val = map.get(i) + 1;
+				System.out.println("YESSS");
+				map.put(String.valueOf(pat.charAt(i)), val);
+			}
+			
+			map.put(String.valueOf(pat.charAt(i)), 1);
+		}
+		System.out.println(map);
+
+		int count  = map.size();
+		int start = 0;
+		int end = 0;
+
+		while(end < size){
+			if(map.containsKey(String.valueOf(txt.charAt(end)))){
+				count--;
+			}
+
+			// acheive the window size
+			if((end - start +1)< K){
+				end++;
+			}
+			// Windows size is achieved
+			else if ((end - start +1) == K){
+				if(count == 0){
+					ans++;
+				}
+				if(map.containsKey(String.valueOf(txt.charAt(start)))){
+					count++;
+				}
+			}
+			start++;
+			end++;
+		}
+
+		return ans;
+	}
+	static public int search(String pat, String txt) {
+        char[] p = new char[256];
+        char[] s = new char[256];
+        int k = pat.length();
+        int cnt = 0;
+        for(int i = 0;i<k;i++){
+            p[pat.charAt(i)]++;
+        }
+        for(int i = 0;i<k-1;i++){
+			s[txt.charAt(i)]++;
+        }
+        for(int i = k-1,j=0;i<txt.length();i++,j++){
+            s[txt.charAt(i)]++;
+            if(Arrays.equals(p,s)) cnt++;
+            s[txt.charAt(j)]--;
+            
+        }
+        return cnt;
+    }
+
 	public static void main(String[] args) {
 		System.out.println("Henlo World");
 
+		// System.out.println(search("kkkkk", "kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"));
 	}
 }
