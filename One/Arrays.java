@@ -21,6 +21,11 @@ class Arrays{
         System.out.println(element);
     }
 
+    // majority using hashmap
+    public static void mj2(int[] array){
+        // after hashmp
+    }
+
     public static void main(String[] args) {
         int[] array = {5,4,4,4,4,1,1,1,1,1};
         mj1(array); 
