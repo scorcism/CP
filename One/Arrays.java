@@ -89,10 +89,23 @@ class Arrays{
         
         return maxProfit;
     }
+    // Best time to Buy and Sell Stock ii
+    public static int leetcode122(int[] array){
+        int profit = 0;
+        // here while iteratige throught the loop we are trying to sell with compare of the previous day
+        for(int i = 1; i< array.length; i++){
+            if(array[i] > array[i-1]){
+                profit = profit + (array[i] - array[i-1]);
+            }
+        }
+        return profit;
+    }
+
+
 
     public static void main(String[] args) {
         int[] array = {5,4,44,1};
         // mj3(array); 
-        System.out.println(getMaxprofit(array));
+        System.out.println(leetcode122(array));
     }
 }
