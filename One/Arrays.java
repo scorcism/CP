@@ -101,11 +101,37 @@ class Arrays{
         return profit;
     }
 
+    // Trapping Rainwater Problem 
+    public static int rainwater(int[] array){
+        int ans = 0;
+        int n = array.length;
+
+        // This process is called preprocessing
+        int[] left = new int[n];
+        int[] right = new int[n];
+
+        left[0] = array[0];
+        for(int i = 1; i< n; i++){
+            left[i] = Math.max(array[i], left[i-1]);
+        }
+
+        right[n-1] = array[n-1];
+        for(int i  = n-2; i>= 0;i-- ){
+            right[i] = Math.max(right[i+1], array[i]);
+        }
+
+        for(int i = 0; i< n ; i++){
+            ans = ans + (Math.min(left[i], right[i]) - array[i]);
+        }
+
+        return ans;
+    }
+
 
 
     public static void main(String[] args) {
         int[] array = {5,4,44,1};
         // mj3(array); 
-        System.out.println(leetcode122(array));
+        System.out.println(rainwater(array));
     }
 }
