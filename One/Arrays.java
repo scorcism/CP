@@ -53,11 +53,30 @@ class Arrays{
             System.out.println(ele);
         }
         return ;
+    }
 
+    // Kadane's Algorithm | Largest Sum Contiguous Subarray
+    public static int sumSubarray(int[] array){
+        int Maxsum = 0;
+        int currSum = 0;
+        int n = array.length;
+        for(int i = 0 ; i< n; i++){
+            currSum = currSum + array[i];
+
+            if(currSum> Maxsum){
+                Maxsum = currSum;
+            }
+            if(currSum < 0){
+                currSum = 0;
+            }
+        }
+
+        return Maxsum;
     }
 
     public static void main(String[] args) {
-        int[] array = {5,4,44,1};
-        mj3(array); 
+        int[] array = {5,4,-44,1};
+        // mj3(array); 
+        System.out.println(sumSubarray(array));
     }
 }
