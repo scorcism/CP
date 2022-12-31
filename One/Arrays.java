@@ -74,9 +74,25 @@ class Arrays{
         return Maxsum;
     }
 
+    // /Best time to buy and sell stock to Maximise Profit 
+    public static int getMaxprofit(int[] array){
+        int maxProfit = 0;
+        int minSoFar = array[0];
+
+        for(int i =0; i< array.length; i++){
+            // get the minimum in the current iteration
+            minSoFar = Math.min(minSoFar, array[i]);
+            // get the profit suppose we are at index 5 then profit will be element at 5 - element at 4
+            int profit = array[i] - minSoFar;
+            maxProfit = Math.max(profit,maxProfit);
+        }
+        
+        return maxProfit;
+    }
+
     public static void main(String[] args) {
-        int[] array = {5,4,-44,1};
+        int[] array = {5,4,44,1};
         // mj3(array); 
-        System.out.println(sumSubarray(array));
+        System.out.println(getMaxprofit(array));
     }
 }
