@@ -11,39 +11,86 @@ public class SortingAlgos {
         // System.out.println(Arrays.toString(bubbleSort(array3)));
         // System.out.println(Arrays.toString(insertionSort(array3)));
         // System.out.println(Arrays.toString(selectionSort(array3)));
-        quickSort(array3,0,array3.length-1);
+        // quickSort(array3,0,array3.length-1);
+        mergeSort(array3, 0, array3.length);
         System.out.println(Arrays.toString(array3));
     }
 
+    // Ω(n log(n)) θ(n log(n)) O(n log(n)) O(n)
+    private static void mergeSort(int[] array, int left, int right) {
+        if (right - left == 1) {
+            return;
+        }
+        int mid = (left + right) / 2;
+        mergeSort(array, left, mid);
+        mergeSort(array, mid, right);
+        merge(array, left, mid, right);
 
-    // 	Ω(n log(n))	θ(n log(n))	O(n^2)	O(n)
-    static void quickSort(int[] arr,int low, int high){
-        if(low >= high){
+    }
+
+    public static void merge(int[] array, int left, int mid, int right) {
+        int[] b = new int[right - left];
+
+        int i = left;
+        int j = mid;
+        int k = 0;
+
+        while (i < mid && j < right) {
+            if (array[i] < array[j]) {
+                b[k] = array[i];
+                i++;
+            } else {
+                b[k] = array[j];
+                j++;
+            }
+            k++;
+        }
+        // if anything is left in any of the array
+        if (i < mid) {
+            b[k] = array[i];
+            i++;
+            k++;
+        }
+        if (j < right) {
+            b[k] = array[j];
+            j++;
+            k++;
+        }
+
+        // copy the new b array into the orifinal array
+        for (int l = 0; l < b.length; l++) {
+            array[l + left] = b[l];
+        }
+    }
+
+    // Ω(n log(n)) θ(n log(n)) O(n^2) O(n)
+    static void quickSort(int[] arr, int low, int high) {
+        if (low >= high) {
             return;
         }
         int s = low;
-        int e =high;
-        int m= s +(e-s) /2;
+        int e = high;
+        int m = s + (e - s) / 2;
         int pivot = arr[m];
-        while(s <= e){
-            while(arr[s] < pivot){
+        while (s <= e) {
+            while (arr[s] < pivot) {
                 s++;
             }
-            while(arr[e] > pivot){
+            while (arr[e] > pivot) {
                 e--;
             }
-            if(s<=e){
+            if (s <= e) {
                 int tmp = arr[s];
                 arr[s] = arr[e];
-                arr[e] =tmp;
+                arr[e] = tmp;
                 s++;
                 e--;
             }
         }
         // now the pivot is at correct index plz sort the two halves
-        quickSort(arr,low,e);
-        quickSort(arr,s,high);
-        
+        quickSort(arr, low, e);
+        quickSort(arr, s, high);
+
     }
 
     // Ω(n^2) θ(n^2) O(n^2) O(1)
