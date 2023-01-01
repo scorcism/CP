@@ -9,9 +9,26 @@ public class SortingAlgos {
         int[] array3 = {-5,-8,-1,3,-9,12,4,6};
         
         // System.out.println(Arrays.toString(bubbleSort(array3)));
+        System.out.println(Arrays.toString(insertionSort(array3)));
     }
 
-    // O(n^2)	O(1)
+    // Ω(n)	θ(n^2)	O(n^2)	O(1)
+    public static int[] insertionSort(int[] array){
+        for(int i = 1; i< array.length ; i++){
+            int tmp = array[i];
+            int j  = i-1;
+            while(j>= 0 && array[j] > tmp){
+                array[j+1] = array[j];
+                j--;
+            }
+
+            array[j+1] = tmp;
+        }
+
+        return array;
+    }
+
+    // 	Ω(n)	θ(n^2)	O(n^2)	O(1)
     public static int[] bubbleSort(int[] array){
         int n = array.length;
         /*
