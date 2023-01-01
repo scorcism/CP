@@ -11,9 +11,42 @@ public class SortingAlgos {
         // System.out.println(Arrays.toString(bubbleSort(array3)));
         // System.out.println(Arrays.toString(insertionSort(array3)));
         // System.out.println(Arrays.toString(selectionSort(array3)));
+        quickSort(array3,0,array3.length-1);
+        System.out.println(Arrays.toString(array3));
     }
 
-    // Ω(n^2)	θ(n^2)	O(n^2)	O(1)
+
+    // 	Ω(n log(n))	θ(n log(n))	O(n^2)	O(n)
+    static void quickSort(int[] arr,int low, int high){
+        if(low >= high){
+            return;
+        }
+        int s = low;
+        int e =high;
+        int m= s +(e-s) /2;
+        int pivot = arr[m];
+        while(s <= e){
+            while(arr[s] < pivot){
+                s++;
+            }
+            while(arr[e] > pivot){
+                e--;
+            }
+            if(s<=e){
+                int tmp = arr[s];
+                arr[s] = arr[e];
+                arr[e] =tmp;
+                s++;
+                e--;
+            }
+        }
+        // now the pivot is at correct index plz sort the two halves
+        quickSort(arr,low,e);
+        quickSort(arr,s,high);
+        
+    }
+
+    // Ω(n^2) θ(n^2) O(n^2) O(1)
     public static int[] selectionSort(int[] array) {
         for (int i = 0; i < array.length - 1; i++) {
             int min = i;
@@ -75,4 +108,9 @@ public class SortingAlgos {
         return array;
     }
 
+    private static void swap(int[] array, int first, int second) {
+        int tmp = array[first];
+        array[second] = array[first];
+        array[first] = tmp;
+    }
 }
