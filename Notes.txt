@@ -19,6 +19,10 @@ throw -> Just throwing an exception
 throws -> Use to declare Exceptions (Used to say that, it may throw an exception)
 
 
-Shallow Copy -> Primitives will be copied as it is , but the reference variable  
+Shallow Copy -> copy the reference, new object witll point to the same address location as of the original one. Change in the values of new object will result in the change of the original.
 
-Deep Copy -> 
+Deep Copy -> Just copy the value. No chnage will be made if the new object is chnaged.
+
+Binary search -> if the array is sorted or we want to allocate something in continuoue fashion. Can be implemented in the search space.
+
+

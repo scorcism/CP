@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 class Arrays {
 
     // Majority Elements in an Array
@@ -208,11 +210,59 @@ class Arrays {
         return -1;
     }
 
+    // Allocate minimum number of pages
+    public static int findPages(int[]A,int N,int M)
+    {
+        //Your code here
+        int res = 0;
+        return res;
+    }
+
+    private static void generateSum(int[] array, int key){
+        for(int i = 0 ; i< array.length-1; i++){
+            for(int j = 0; j< array.length; j++){
+                for(int k = i; k<j; k++){
+                    int sum = array[i] + array[j];
+                    if(sum == key){
+                        System.out.println(i  + " " + j);
+                    }
+                }           
+            }
+        }
+    }
+    // Find Subarray with the given sum k 
+    private static void sebarraySum(int[] array, int sum){
+        int start = 0;
+        int end = -1;
+        int currentSum = 0;
+
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int i = 0; i< array.length -1 ; i++){
+            currentSum+=array[i];
+
+            if(currentSum - sum == 0){
+                start = 0;
+                end = i;
+                break;
+            }
+
+            if(map.containsKey(currentSum - sum)){
+                start = map.get(currentSum -  sum ) + 1;
+                end = i;
+                break;
+            }              
+            map.put(currentSum, i);
+        }
+        System.out.println(start + " " + end);
+    }
+
     public static void main(String[] args) {
         int[] array = { 5, 4, 44, 1 };
         // mj3(array);
         // System.out.println(rainwater(array));
         int[] array2 = { 20, 30, 40, 50, 60, 5, 10 };
-        System.out.println(rotateSorted(array2, 10));
+        int[] array3 = {10,15,-5,15,-10,5};
+        // System.out.println(rotateSorted(array2, 10));
+        // generateSum(array3,5);
     }
 }
