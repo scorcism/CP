@@ -127,11 +127,44 @@ class Arrays{
         return ans;
     }
 
+    private static int binarySearchIterative(int[] array, int target){
+        int low = 0;
+        int high = array.length -1;
+
+        while(low <= high){
+            int mid = (low + high) /2;
+
+            if(array[mid] == target){
+                return mid;
+            }else if(target < array[mid]){
+                high = mid -1;
+            }else{
+                low  = mid +1;
+            }
+        }
+        return -1;
+    }
+    private static int binarySearchRecursive(int[] array, int target,int low, int high){
+
+        if(low > high){
+            return -1;
+        }
+
+        int mid = (low  + high)/2;
+        if(array[mid] == target){
+            return mid;
+        }
+        if(target < array[mid]){
+            return binarySearchRecursive(array, target, mid+1, high);
+        }
+        return binarySearchRecursive(array, target, low, mid -1);
+    }
+
 
 
     public static void main(String[] args) {
         int[] array = {5,4,44,1};
         // mj3(array); 
-        System.out.println(rainwater(array));
+        // System.out.println(rainwater(array));
     }
 }
