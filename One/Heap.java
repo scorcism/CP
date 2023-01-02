@@ -6,7 +6,7 @@ class Heap{
         array[n] = value;
         int i = n;
 
-        while(i<l){
+        while(i>1){
             int parent = i / 2;
             if(array[parent] < array[i]){
                 swap(array,parent,i);
