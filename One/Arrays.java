@@ -160,6 +160,18 @@ class Arrays{
         return binarySearchRecursive(array, target, low, mid -1);
     }
 
+        // Search an element in an Infinite Sorted array 
+        private static int searchInInfinite(int[] array, int key){
+            int low= 0;
+            int high = 1;
+
+            while(array[high] < key){
+                low  = high;
+                high = 2 * high;
+            }
+            return binarySearchRecursive(array, key, low, high);
+        }
+    
 
 
     public static void main(String[] args) {
