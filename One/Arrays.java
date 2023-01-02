@@ -256,13 +256,42 @@ class Arrays {
         System.out.println(start + " " + end);
     }
 
+    static private void countDistint(int[] array, int k){
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for(int i = 0; i< k; i++){
+            map.put(array[i], map.getOrDefault(array[i], 0) + 1);
+        }
+        System.out.println(map.size());
+        for(int i =k; i< array.length; i++){
+
+            // for removing the previous one
+            if(map.get(array[i-k]) == 1){
+                // if the value of key to be remove is 1 then remove the entire key-value
+                map.remove(array[i-k]);
+            }
+            else{
+                // or else just decrease the value by 1
+                map.put(array[i-k], map.getOrDefault(array[i-k],0 ) - 1);       
+            }
+
+            map.put(array[i], map.getOrDefault(array[i],0) +1);
+
+            System.out.println(map.size());
+        }
+    }
+
+
+    
     public static void main(String[] args) {
         int[] array = { 5, 4, 44, 1 };
         // mj3(array);
         // System.out.println(rainwater(array));
         int[] array2 = { 20, 30, 40, 50, 60, 5, 10 };
         int[] array3 = {10,15,-5,15,-10,5};
+        int[] array4 = {1,2,2,1,3,1,1,3};
         // System.out.println(rotateSorted(array2, 10));
         // generateSum(array3,5);
+        countDistint(array4,4);
     }
 }
