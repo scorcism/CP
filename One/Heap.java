@@ -16,10 +16,10 @@ class Heap{
             }
         }
     }
-    private static void Delete(int[] A,n){
+    private static void Delete(int[] A,int n){
         A[1] = A[n];
         n = n-1;
-        i = 1;
+        int i = 1;
         while(i < n){
             int left = A[2 * i];
             int right = A[2 * i + 1];
@@ -60,7 +60,7 @@ class Heap{
             largest = right;
         }
         if(largest != i){
-            swap(array, i, largest)
+            swap(array, i, largest);
             heapify(array,n,largest);
         }
     }
