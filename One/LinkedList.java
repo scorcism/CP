@@ -47,6 +47,34 @@ public class LinkedList {
         return slow;
     }
 
+    // Pallindrome linkedlist
+    public static boolean Pallindrome(Node head){
+        if(head == null){
+            return true;
+        }
+        Node mid = midOfLL(head);
+        
+        Node prev = null;
+        Node currNode = mid.next;
+        
+        while(currNode != null || currNode.next != null){
+            Node tmp = currNode.next;
+            currNode.next = prev;
+            prev = currNode;
+            currNode = tmp;
+        }
+        Node last = prev;
+        Node start = head;
+        while(last != null){
+            if(start.data != last.data){
+                return false;
+            }
+            start = start.next;
+            last = last.next;
+        }
+        return true;
+    }
+
 
     public static void main(String[] args) {
         
