@@ -309,6 +309,7 @@ class Arrays {
         for(int i = 0; i< k; i++){
             pq.add(array[i]);
         }
+        return pq.peek();
     }
     
     public static void main(String[] args) {
