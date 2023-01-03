@@ -92,6 +92,18 @@ public class LinkedList {
         return null;
     }
 
+    // detect a cycle and return the first node
+    public static Node firstCycleNode(Node head){
+        Node start = head;
+        Node meet = detectCycle(head);
+
+        while(start != meet){
+            start = start.next;
+            meet = meet.next;
+        }
+        return start;
+    }
+
 
     public static void main(String[] args) {
         
