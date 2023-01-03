@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.PriorityQueue;
 
 class Arrays {
 
@@ -281,7 +282,34 @@ class Arrays {
         }
     }
 
+    // Find Kth Largest Element in an Array
+    public static int kthLarget(int[] array, int k){
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
 
+        for(int i = 0; i< k ; i++){
+            pq.add(array[i]);
+        }
+
+        for (int i = k; i < array.length; i++) {
+            if(pq.peek() < array[i]){
+                pq.poll();
+                pq.add(array[i]);
+            }
+        }
+        return pq.peek();
+    }
+
+
+    // Find Kth minimum Element in an Array
+    // using max heap
+    // if array[i] < peek then pu
+    public static int kSmallest(int[] array, int k){
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+
+        for(int i = 0; i< k; i++){
+            pq.add(array[i]);
+        }
+    }
     
     public static void main(String[] args) {
         int[] array = { 5, 4, 44, 1 };
