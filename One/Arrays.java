@@ -312,6 +312,33 @@ class Arrays {
         return pq.peek();
     }
     
+    // Connect N Ropes with minimum cost
+    // O(nlogn)
+    private static int connectNropes(int[] array){
+
+        // add all the ith element to the pq min heap
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int i = 0; i< array.length; i++){
+            pq.add(array[i]);
+        } 
+
+        // to store total sum
+        int ans = 0;
+
+        // using min heap we can get two concequitive small element and the add them and then again put those into the pq
+        while(pq.size() > 1){
+            // size >1 coz we are addint 2 elements and puting only one so size will automatically decrease
+            int first = pq.peek();
+            int second = pq.poll();
+            
+            int sum = first + second;
+
+            ans = ans + sum;
+            pq.add(sum);
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         int[] array = { 5, 4, 44, 1 };
         // mj3(array);
