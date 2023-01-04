@@ -128,6 +128,24 @@ public class StackDS {
         return ans;
     }
 
+    // Largest area submatrix with all 1s
+    public static int maxRectangle(int[][] array){
+        int currRow[] = array[0];
+        int maxanx = largestRectangleHistogram(currRow);
+        for(int i =1 ; i< array.length; i++){
+            for(int j= 0; j< array[0].length; j++){
+                if(array[i][j] ==1 ){
+                    currRow[j] += 1;
+                }else{
+                    currRow[j] = 0;
+                }
+            }
+            int currans = largestRectangleHistogram(currRow);
+            maxanx = Math.max(maxanx, currans);
+        }
+        return maxanx;
+    }
+
     public static void main(String[] args) {
         int array[] = { 4, 10, 5, 8, 20, 15, 3, 11 };
         int array2[] = { 4, 2, 1, 5, 6, 3, 2, 4, 2 };
