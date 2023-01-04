@@ -1,10 +1,21 @@
+// class Node{
+// 	int data;
+// 	Node next;
+
+// 	Node(int data){
+// 		this.data= data;
+// 		this.next = null;
+// 	}
+// }
 class Node{
 	int data;
 	Node next;
+    Node random;
 
 	Node(int data){
 		this.data= data;
 		this.next = null;
+		this.random = null;
 	}
 }
 
@@ -100,10 +111,68 @@ public class LinkedList {
         while(start != meet){
             start = start.next;
             meet = meet.next;
-        }
+       }
         return start;
     }
 
+    // remove the cycle from the linekd list
+    public static void removeLoop(Node head){
+        Node meet = detectCycle(head);
+
+        Node ptr1 = meet;
+        Node ptr2 = meet;
+        
+        Node prevNode = ptr1;
+        while(ptr1.next != ptr2){
+            prevNode = ptr1;
+            ptr1 = ptr1.next;
+        }
+        prevNode.next = null;
+        
+    }
+
+    // clone a linked list with nect and random pointer
+    /*
+     *  Node{
+     *      int data;
+     *      Node next;
+     *      Node random;
+     *    }
+     */
+    public static Node cloneLL(Node head){
+        Node curr = head;
+
+        // creating new node and puttingg it in between
+        while(curr!= null){
+            Node tmp = curr.next;
+            curr.next =new Node(curr.data);
+            curr.next.next = tmp;
+            curr =tmp;
+        }
+        curr = head;
+
+        // setting up random pointer of new node
+        while(curr!= null){
+            if(curr.next!=null){
+                curr.next.random = (curr.random != null) ? curr.random.next : null;
+            }
+            curr = curr.next.next;
+        }
+
+        // seperate both the linked list
+        Node original = head;
+        Node copy = head.next;
+        Node tmp = copy;
+
+        while(original != null){
+            original.next  = original.next.next;
+            copy.next = copy.next.next;
+
+            original = original.next;
+            copy = copy.next;
+        }
+        return tmp;
+    }
 
     public static void main(String[] args) {
         
