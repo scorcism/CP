@@ -1,8 +1,7 @@
 
 
 // Extending the Thread class
-
-Extending the Thread classThreadWayOne extends Thread{
+class ThreadWayOne extends Thread{
 
     public void run(){
         System.out.println("Thread runs...");
