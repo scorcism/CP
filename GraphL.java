@@ -673,7 +673,7 @@ class GraphL {
         public boolean isBipartite(int V, ArrayList<ArrayList<Integer>> adj) {
             // Code here
             int colors[] = new int[V];
-            Arrays.fill(colors, -1);
+            ArraysQ.fill(colors, -1);
 
             // for connected components
             for (int i = 0; i < V; i++) {
@@ -1085,7 +1085,7 @@ class GraphL {
 
             // step 2
             int dis[] = new int[N];
-            Arrays.fill(dis, (int) 1e9);
+            ArraysQ.fill(dis, (int) 1e9);
 
             dis[0] = 0;
 
@@ -1499,7 +1499,7 @@ class GraphL {
         }
         Queue<Tuplee> q = new LinkedList<>();
         int[] dist = new int[n];
-        Arrays.fill(dist, (int)1e9);
+        ArraysQ.fill(dist, (int)1e9);
         dist[src] = 0;
         q.add(new Tuplee(0, 0, 0));
 
@@ -1545,7 +1545,7 @@ class GraphL {
         Queue<Mul> q = new LinkedList<>();
 
         int[] dist = new int[100000];
-        Arrays.fill(dist,(int)1e9);
+        ArraysQ.fill(dist,(int)1e9);
 
         q.add(new Mul(start, 0));
         dist[start]  =0;

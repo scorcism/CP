@@ -1,7 +1,7 @@
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
-class Arrays {
+class ArraysQ {
 
     // Majority Elements in an Array
     static public void mj1(int[] array) {

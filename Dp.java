@@ -31,7 +31,7 @@ public class Dp {
 
     public static int climbStairs(int n) {
         int[] dp = new int[n + 1];
-        Arrays.fill(dp, -1);
+        ArraysQ.fill(dp, -1);
         // return CS_solve1(n, dp);
         return CS_solve2(n, dp);
     }
@@ -136,7 +136,7 @@ public class Dp {
         // for memozation
         int[][] dp = new int[nums.length][nums.length + 1];
         for (int row[] : dp)
-            Arrays.fill(row, -1);
+            ArraysQ.fill(row, -1);
 
         System.out.println(memoization_LIS(0, nums, size, -1, dp));
 
@@ -219,8 +219,8 @@ public class Dp {
 
         int[] prev = new int[ind1 + 1];
         int[] curr = new int[ind2 + 1];
-        Arrays.fill(prev, -1);
-        Arrays.fill(curr, -1);
+        ArraysQ.fill(prev, -1);
+        ArraysQ.fill(curr, -1);
 
         for (int j = 0; j < ind2; j++)
             prev[j] = 0;
@@ -246,7 +246,7 @@ public class Dp {
         int[][] dp = new int[text1.length()][text2.length()];
 
         for (int[] arr : dp) {
-            Arrays.fill(arr, -1);
+            ArraysQ.fill(arr, -1);
         }
 
         return LCS(text1.length() - 1, text2.length() - 1, text1, text2, dp);
@@ -362,7 +362,7 @@ public class Dp {
 
     static public int rob1(int[] nums) {
         int[] dp = new int[nums.length +1];
-        Arrays.fill(dp,-1);
+        ArraysQ.fill(dp,-1);
         return r1(nums, nums.length-1,dp);
     }
 
@@ -398,7 +398,7 @@ public class Dp {
         }
 
         int[] dp = new int[nums.length];
-        Arrays.fill(dp, -1);
+        ArraysQ.fill(dp, -1);
 
         int[] tmp1 = new int[nums.length];    
         int[] tmp2 = new int[nums.length];   
@@ -457,7 +457,7 @@ public class Dp {
         int[][] dp = new int[m+1][n+1];
         
         for(int[] ar:dp){
-            Arrays.fill(ar,-1);
+            ArraysQ.fill(ar,-1);
         }
 
         // return uP1(0,0,m,n);

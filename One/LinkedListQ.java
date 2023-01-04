@@ -19,7 +19,7 @@ class Node{
 	}
 }
 
-public class LinkedList {
+public class LinkedListQ {
    
     // reverse a linked list
     public static Node reverseIteratv(Node head){

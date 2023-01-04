@@ -25,7 +25,7 @@ class Tmp {
         // System.out.println(Arrays.toString(ar));
         
         int[] ar2 = {1,2,3,4,5,6,7};
-        Arrays.fill(ar2,11);
+        ArraysQ.fill(ar2,11);
 
         // for(int i = ar2.length - 1; i >= 0 ; i--){
         //     System.out.print(ar2{i} + " ");
@@ -42,7 +42,7 @@ class Tmp {
   
         // To fill complete array with a particular
         // value
-        Arrays.fill(ar, 10);
+        ArraysQ.fill(ar, 10);
         // System.out.println("Array completely filled" +
                 //   " with 10\n" + Arrays.toString(ar));
 

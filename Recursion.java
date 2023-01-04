@@ -187,7 +187,7 @@ class Recursion {
     }
 
     public static void combinationII(int[] array, int target) {
-        Arrays.sort(array);
+        ArraysQ.sort(array);
         ArrayList<Integer> ds = new ArrayList<Integer>();
         findCombination(array, 4, ds, 0);
     }
