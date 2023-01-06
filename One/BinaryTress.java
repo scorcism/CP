@@ -198,6 +198,38 @@ public class BinaryTress {
         return Math.max(root.data, Math.max(maxNode(root.left), maxNode(root.right)));
     }
 
+    static void leftView(Node root) {
+        List<Integer> list = new ArrayList<>();
+        leftViewUtil(root, list, 0);
+    }
+
+    static void leftViewUtil(Node root, List<Integer> list, int level) {
+        if (root == null) {
+            return;
+        }
+        if (list.get(level) == null) {
+            list.set(level, root.data);
+        }
+        leftViewUtil(root.left, list, level + 1);
+        leftViewUtil(root.right, list, level + 1);
+    }
+
+    static void rightView(Node root) {
+        List<Integer> list = new ArrayList<>();
+
+        rightViewUtil(root,list,0);
+    }
+
+    static void rightViewUtil(Node root, List<Integer> list, int level){
+        if(root == null){
+            return;
+        }
+        if(list.get(level) == null){
+            list.set(level, root.data);
+        }
+        rightViewUtil(root.right, list, level+1);
+        rightViewUtil(root.left, list, level+1);
+    }
 
     public static void main(String[] args) {
 
