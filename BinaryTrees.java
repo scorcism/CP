@@ -75,7 +75,7 @@ class BinaryTrees{
             // The Tree is Empty
             return ;
         }
-        Queue<Node> q =  new LinkedList1<>();
+        Queue<Node> q =  new LinkedList<>();
         q.add(root);
         q.add(null);
 
