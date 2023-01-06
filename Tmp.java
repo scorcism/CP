@@ -18,6 +18,13 @@ class Tmp {
 
     public static void main(String[] args){
 
+        for(char i = 'A'; i<= 'A'+5; i++){            
+            System.out.print(i + " ");
+        }
+
+
+
+
         Temps t = new Temps();
         t.printco(2, 2);
 
@@ -25,7 +32,7 @@ class Tmp {
         // System.out.println(Arrays.toString(ar));
         
         int[] ar2 = {1,2,3,4,5,6,7};
-        ArraysQ.fill(ar2,11);
+        // Arrays.fill(ar2,11);
 
         // for(int i = ar2.length - 1; i >= 0 ; i--){
         //     System.out.print(ar2{i} + " ");
@@ -42,7 +49,7 @@ class Tmp {
   
         // To fill complete array with a particular
         // value
-        ArraysQ.fill(ar, 10);
+        // Arrays.fill(ar, 10);
         // System.out.println("Array completely filled" +
                 //   " with 10\n" + Arrays.toString(ar));
 
@@ -117,12 +124,12 @@ class Tmp {
         }
 
         // windows size is acheived work on the window size
-        for(int end = K-1,start = 0; start < txt.length(); start++, end++){
+        // for(int end = K-1,start = 0; start < txt.length(); start++, end++){
 
-        }
+        // }
 
 
-        return count;
+        // return count;
     }
 
 }
