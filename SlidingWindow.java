@@ -141,7 +141,7 @@ class SlidingWindow {
         }
         for(int i = k-1,j=0;i<txt.length();i++,j++){
             s[txt.charAt(i)]++;
-            if(ArraysQ.equals(p,s)) cnt++;
+            if(Arrays.equals(p,s)) cnt++;
             s[txt.charAt(j)]--;
             
         }
