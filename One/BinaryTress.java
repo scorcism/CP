@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.TreeMap;
 import java.util.List;
+import java.util.Map;
 
 public class BinaryTress {
 
@@ -217,18 +219,110 @@ public class BinaryTress {
     static void rightView(Node root) {
         List<Integer> list = new ArrayList<>();
 
-        rightViewUtil(root,list,0);
+        rightViewUtil(root, list, 0);
     }
 
-    static void rightViewUtil(Node root, List<Integer> list, int level){
-        if(root == null){
+    static void rightViewUtil(Node root, List<Integer> list, int level) {
+        if (root == null) {
             return;
         }
-        if(list.get(level) == null){
+        if (list.get(level) == null) {
             list.set(level, root.data);
         }
-        rightViewUtil(root.right, list, level+1);
-        rightViewUtil(root.left, list, level+1);
+        rightViewUtil(root.right, list, level + 1);
+        rightViewUtil(root.left, list, level + 1);
+    }
+
+    static class TopView {
+        int horizontal_distance;
+        Node node;
+
+        TopView(int hd, Node node) {
+            this.horizontal_distance = hd;
+            this.node = node;
+        }
+    }
+
+    // Top view of a binary tree
+    static ArrayList<Integer> topView(Node root) {
+
+        // to store the ans
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        if (root == null) {
+            return ans;
+        }
+        Map<Integer, Integer> map = new TreeMap<>();
+
+        Queue<TopView> q = new LinkedList<TopView>();
+
+        q.add(new TopView(0, root));
+
+        while (!q.isEmpty()) {
+            TopView currNode = q.remove();
+            int hd = currNode.horizontal_distance;
+            Node n = currNode.node;
+
+            if (map.get(hd) == null) {
+                map.put(hd, n.data);
+            }
+
+            if (n.left != null) {
+                q.add(new TopView(hd - 1, n.left));
+            }
+
+            if (n.right != null) {
+                q.add(new TopView(hd + 1, n.right));
+            }
+        }
+
+        // put all the value of the map to arraylist
+
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            ans.add(entry.getValue());
+        }
+
+        return ans;
+    }
+
+    // Bottom view of a binary tree
+    static ArrayList<Integer> bottomiew(Node root) {
+
+        // to store the ans
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        if (root == null) {
+            return ans;
+        }
+        Map<Integer, Integer> map = new TreeMap<>();
+
+        Queue<TopView> q = new LinkedList<TopView>();
+
+        q.add(new TopView(0, root));
+
+        while (!q.isEmpty()) {
+            TopView currNode = q.remove();
+            int hd = currNode.horizontal_distance;
+            Node n = currNode.node;
+
+            map.put(hd, n.data);
+
+            if (n.left != null) {
+                q.add(new TopView(hd - 1, n.left));
+            }
+
+            if (n.right != null) {
+                q.add(new TopView(hd + 1, n.right));
+            }
+        }
+
+        // put all the value of the map to arraylist
+
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            ans.add(entry.getValue());
+        }
+
+        return ans;
     }
 
     public static void main(String[] args) {
