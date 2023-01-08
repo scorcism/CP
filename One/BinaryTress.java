@@ -325,6 +325,30 @@ public class BinaryTress {
         return ans;
     }
 
+    // lowest common ancistors
+    public static Node lca(Node root, int n1, int n2) {
+
+        if(root == null){
+            return null;
+        }
+
+        if (root.data == n1 || root.data == n2) {
+            return root;
+        }
+
+        // call for left side and call for right side
+        Node left = lca(root.left, n1, n2);
+        Node right = lca(root.right, n1, n2);
+
+        if (left == null) {
+            return right;
+        }
+        if (right == null) {
+            return left;
+        }
+        return root;
+    }
+
     public static void main(String[] args) {
 
         int[] nodes = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
