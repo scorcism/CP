@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 public class BinarySearchTreeRecap {
 
@@ -197,6 +199,29 @@ public class BinarySearchTreeRecap {
         }
         return ans;
     }
+
+    static boolean findSum(Node head, int data){
+
+        Set<Integer> set = new HashSet<>();
+        return findSumUtil(head, data,set);
+    }
+
+    static boolean findSumUtil(Node head, int data, Set<Integer> set){
+        if(head == null){
+            return false;
+        }
+        // perform inorder traversal
+        if(!findSumUtil(head.left, data, set)){
+            return false;
+        }
+        if(set.contains(data - head.data)){
+            return true;
+        }
+        set.add(head.data);
+
+        return findSumUtil(head.right, data, set);   
+    }
+
 
     public static void main(String[] args) {
         int[] values = { 5, 1, 3, 4, 2, 7 };
