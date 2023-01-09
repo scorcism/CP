@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -354,6 +355,51 @@ public class BinaryTress {
 
         return ans;
     }
+
+    static class Vertical{
+        int hd;
+        Node node;
+        Vertical(int data, Node n){
+            this.hd = data;
+            this.node = n;
+        }
+
+    }
+
+
+    // Vertical order traversal
+    static void verticalTraversal(Node head){
+        // using level order traveral and a queue
+        // using horizontal distance 
+
+        Queue<Vertical> q = new LinkedList<>();
+        Map<Integer, ArrayList<Integer>> map = new TreeMap<>();
+
+        q.add(new Vertical(0, head) );
+        while(!q.isEmpty()){
+            Vertical currNode = q.poll();
+
+            if(map.containsKey(currNode.hd)){
+                map.get(currNode.hd).add(currNode.node.data);
+            }else{
+                ArrayList<Integer> tmp = new ArrayList<>();
+                tmp.add(currNode.node.data);
+                map.put(currNode.hd, tmp);
+            }
+
+            if(currNode.node.left != null){
+                q.add(new Vertical(currNode.hd -1 , currNode.node.left));
+            }
+            if(currNode.node.right != null){
+                q.add(new Vertical(currNode.hd +1, currNode.node.right));
+            }
+        }
+        ArrayList<Integer> ans = new ArrayList<>();
+        for(Map.Entry<Integer, ArrayList<Integer>> entry: map.entrySet()){
+            ans.addAll(entry.getValue());
+        }
+    }
+
 
     public static void main(String[] args) {
 
