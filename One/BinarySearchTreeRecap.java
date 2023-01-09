@@ -94,6 +94,21 @@ public class BinarySearchTreeRecap {
         return root;
     }
 
+    public static void printInRange(Node root, int X, int Y) {
+        if (root == null) {
+            return;
+        }
+        if (root.data >= X && root.data <= Y) {
+            printInRange(root.left, X, Y);
+            System.out.println(root.data + " ");
+            printInRange(root.right, X, Y);
+        } else if (X >= root.data) {
+            printInRange(root.right, X, Y);
+        } else {
+            printInRange(root.left, X, Y);
+        }
+    }
+
     public static void main(String[] args) {
         int[] values = { 5, 1, 3, 4, 2, 7 };
         Node root = null;
