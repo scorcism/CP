@@ -162,6 +162,42 @@ public class BinarySearchTreeRecap {
         return true;
     }
 
+    static int floor(Node root, int key) {
+        Node tmp = root;
+        int ans = Integer.MAX_VALUE;
+        while (tmp != null) {
+            if (tmp.data == key) {
+                return tmp.data;
+            }
+            if (key < tmp.data) {
+                // answe can be present here,
+                tmp = tmp.left;
+            } else {
+                // if not in left side it will definatlry in the right side
+                ans = tmp.data;
+                tmp = tmp.right;
+            }
+        }
+        return ans;
+    }
+
+    static int ceil(Node root, int key) {
+        int ans = Integer.MIN_VALUE;
+
+        while (root != null) {
+            if (root.data == key) {
+                return root.data;
+            }
+            if (root.data < key) {
+                ans = root.data;
+                root = root.right;
+            } else {
+                root = root.left;
+            }
+        }
+        return ans;
+    }
+
     public static void main(String[] args) {
         int[] values = { 5, 1, 3, 4, 2, 7 };
         Node root = null;
