@@ -126,6 +126,42 @@ public class BinarySearchTreeRecap {
         path.remove(path.size() - 1);
     }
 
+    // Method 1
+    // will check with the max and min range
+    static boolean isBST(Node root) {
+        return isBSTUtil(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    static boolean isBSTUtil(Node root, int min, int max) {
+        if (root == null) {
+            return true;
+        }
+        if (root.data < min || root.data > max) {
+            return false;
+        }
+
+        return isBSTUtil(root.left, min, root.data - 1) && isBSTUtil(root.right, root.data + 1, max);
+    }
+
+    // Method 2
+    // using a previous check
+    static Node prev = null;
+
+    static boolean isBST2(Node root) {
+        if (root != null) {
+
+            if (root.data <= prev.data && prev != null) {
+                return false;
+            }
+            if (!isBST2(root.left)) {
+                return false;
+            }
+            prev = root;
+            return isBST2(root.right);
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         int[] values = { 5, 1, 3, 4, 2, 7 };
         Node root = null;
@@ -135,12 +171,13 @@ public class BinarySearchTreeRecap {
         }
 
         inOrder(root);
-        System.out.println();
+        // System.out.println();
 
-        if (search(root, 41)) {
-            System.out.println("Found");
-        } else {
-            System.out.println("NOT Found");
-        }
+        // if (search(root, 4i)) {
+        // System.out.println("Found");
+        // } else {
+        // System.out.println("NOT Found");
+        // }
+        System.out.println(isBST(root));
     }
 }
