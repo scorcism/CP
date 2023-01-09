@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class BinarySearchTreeRecap {
 
     static class Node {
@@ -107,6 +109,21 @@ public class BinarySearchTreeRecap {
         } else {
             printInRange(root.left, X, Y);
         }
+    }
+
+    public static void root2Leaf(Node root, ArrayList<Integer> path) {
+        if (root == null) {
+            return;
+        }
+        path.add(root.data);
+        if (root.left == null && root.right == null) { // Leaf Node
+            System.out.println(path);
+        } else {
+            // Non-Leaf Node
+            root2Leaf(root.left, path);
+            root2Leaf(root.right, path);
+        }
+        path.remove(path.size() - 1);
     }
 
     public static void main(String[] args) {
