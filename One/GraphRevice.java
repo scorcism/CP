@@ -65,6 +65,23 @@ class GraphRevice{
     }
 
     // Q: Find the number of connected components. 
+    static int countConnected(ArrayList<ArrayList<Integer>> adj, int V){
+        int count = 0;
+        boolean[] visited = new boolean[V];
+
+        for(int i  = 1; i <= V; i++){
+            if(!visited[i]){
+                count++;
+                bfs(adj, i);
+            }
+        }
+
+
+
+        return count;
+    }
+
+
 
     public static void main(String[] args) {
         
