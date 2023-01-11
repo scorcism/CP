@@ -103,6 +103,85 @@ class GraphRevice{
         }
     }
 
+    static class isC{
+        int parent;
+        int current_node;
+
+        isC(int a, int b){
+            this.parent  = a;
+            this.current_node = b;
+        }
+    }
+
+    static boolean isCyclicbfs(int V, ArrayList<ArrayList<Integer>> adj){
+
+        boolean visited[] = new boolean[V];
+
+        for(int i = 0; i< V; i++){
+            if(isCyclicUtil(i, adj,visited)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private static boolean isCyclicUtil(int i, ArrayList<ArrayList<Integer>> adj, boolean[] visited) {
+
+        visited[i] = true;
+
+        Queue<isC> q = new LinkedList<isC>();
+
+        // add source and -1 to the parent
+        q.add(new isC(i, -1));
+
+        while(!q.isEmpty()){
+            int p = q.peek().parent;
+            int n = q.peek().current_node;
+            q.poll();
+
+            for(Integer it: adj.get(n)){
+                if(!visited[it]){
+                    visited[it] = true;
+                    q.add(new isC(p, it));
+                }
+                if(p == it){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    static boolean isCyclicdfs(ArrayList<ArrayList<Integer>> adj, int V){
+
+        boolean[] visited = new boolean[V];
+
+        for(int i = 0; i< V; i++){
+            if(isCyclicdfsUtil(i,adj,visited,-1)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isCyclicdfsUtil(int i, ArrayList<ArrayList<Integer>> adj, boolean[] visited, int parent) {
+        visited[i] = true;
+
+        for(Integer it: adj.get(i)){
+            if(!visited[it]){
+                visited[it] = true;
+                if(isCyclicdfsUtil(it,adj,visited,i)){
+                    return true;
+                }
+                else if(parent == it){
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 
     public static void main(String[] args) {
         ArrayList < ArrayList < Integer >> adj = new ArrayList < > ();
