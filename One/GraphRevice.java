@@ -81,6 +81,27 @@ class GraphRevice{
         return count;
     }
 
+    static ArrayList<Integer> dfs(ArrayList<ArrayList<Integer>> adj, int V){
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        boolean[] visited = new boolean[V];
+
+        dfsUtil(adj,0,visited,ans);
+
+        return ans;
+    }
+
+    private static void dfsUtil(ArrayList<ArrayList<Integer>> adj, int v, boolean[] visited, ArrayList<Integer> ans) {
+        visited[v] = true;
+        ans.add(v);
+
+        for(Integer it: adj.get(v)){
+            if(!visited[it]){
+                visited[it] = true;
+                dfsUtil(adj, it, visited, ans);
+            }
+        }
+    }
 
 
     public static void main(String[] args) {
