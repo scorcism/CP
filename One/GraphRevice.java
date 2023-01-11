@@ -174,8 +174,40 @@ class GraphRevice {
                 }
             }
         }
-
         return false;
+    }
+
+    // Kahn's algorithm
+    static int[] topologicalBFS(int V, ArrayList<ArrayList<Integer>> adj){
+        int[] ans = new int[V];
+        int i = 0;
+        Queue<Integer> q = new LinkedList<>();
+        
+        int[] indegree = new int[V];
+        for(ArrayList<Integer> itt: adj){
+            for(Integer it: itt){
+                indegree[it]++;
+            }
+        }
+
+        for(int p = 0; p< V; p++){
+            if(indegree[i] == 0){
+                q.add(p);
+            }
+        }
+        while(!q.isEmpty()){
+            int front = q.remove();
+            ans[i++] = front;
+            for(Integer it: adj.get(front)){
+                indegree[it]--;
+                if(indegree[it] == 0){
+                    q.add(it)
+                }
+            }
+        }
+
+
+        return ans;
     }
 
     public static void main(String[] args) {
