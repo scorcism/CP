@@ -31,8 +31,39 @@ class GraphRevice{
     }
     
     // Q: FInd the minimum distance between source to destination.
+    static boolean minDistance(ArrayList<ArrayList<Integer>> adj, int src, int dest, int V,int[] pred, int[] dist){
+        Queue<Integer> q = new LinkedList<>();
+        boolean visited[] = new boolean[V];
 
-    
+        for(int i = 0; i< V ; i++){
+            visited[i] = false;
+            dist[i] = Integer.MAX_VALUE;
+            pred[i] = -1;
+        }
+
+        visited[src] = true;
+        dist[src] = 0;
+        q.add(src);
+
+        while(!q.isEmpty()){
+            int curr = q.remove();
+            
+            for(Integer it: adj.get(curr)){
+                if(visited[it] == false){
+                    visited[it] = true;
+                    dist[it] = dist[curr] + 1;
+                    pred[it] = curr;
+                    q.add(it);
+
+                    if(it == dest){
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
     // Q: Find the number of connected components. 
 
     public static void main(String[] args) {
