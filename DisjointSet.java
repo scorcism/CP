@@ -11,12 +11,23 @@ public class DisjointSet {
         }
     }
 
-    int find(int x) {
-        if (parent[x] == x) {
-            return x;
+    /*
+     * 
+     * int find(int x) {
+     * if (parent[x] == x) {
+     * return x;
+     * }
+     * return find(parent[x]);
+     * }
+     */
+
+     int find(int x){
+        if(parent[x] != x){
+            parent[x] = find(x);
         }
-        return find(parent[x]);
-    }
+
+        return parent[x];
+     }
 
     void union(int a, int b) {
         int xRoot = find(a);
@@ -27,12 +38,11 @@ public class DisjointSet {
             return;
         }
 
-        if(rank[xRoot] < rank[yRoot]){
+        if (rank[xRoot] < rank[yRoot]) {
             parent[xRoot] = yRoot;
-        }else if (rank[xRoot] > rank[yRoot]){
+        } else if (rank[xRoot] > rank[yRoot]) {
             parent[yRoot] = xRoot;
-        }
-        else{
+        } else {
             parent[yRoot] = xRoot;
             rank[xRoot] = rank[xRoot] + 1;
         }
