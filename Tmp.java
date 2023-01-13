@@ -18,8 +18,25 @@ class Tmp {
 
     public static void main(String[] args){
 
+        int[] array = new int[10];
+        System.out.println(Arrays.toString(array));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         for(char i = 'A'; i<= 'A'+5; i++){            
-            System.out.print(i + " ");
+            // System.out.print(i + " ");
         }
 
 
@@ -129,7 +146,8 @@ class Tmp {
         // }
 
 
-        // return count;
+        return count;
+
     }
 
 }
