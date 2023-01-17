@@ -343,7 +343,7 @@ public class Dp {
         // Base case
         if(index==0){
             return nums[index];
-        }
+        } 
         if(index < 0){
             return 0;
         }
