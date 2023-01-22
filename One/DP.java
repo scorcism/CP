@@ -53,15 +53,45 @@ public class DP {
                 dp[i][j] = mini;
             }
         }
-        return dp[1][N-1];
+        return dp[1][N - 1];
     }
 
     // Minimum Cost to Cut the Stick
-    static int cost (int n, int c, int[] cuts){
+    static int cost(int n, int c, int[] cuts) {
         int mini = Integer.MAX_VALUE;
 
-
         return mini;
+    }
+
+    // Count Square Submatrices with All Ones
+    static int countSubsequnces(int n, int m, int[][] arr) {
+        int ans = 0;
+        int[][] dp = new int[n][m];
+
+        for (int j = 0; j < m; j++) {
+            dp[0][j] = arr[0][j];
+        }
+        for (int i = 0; i < n; i++) {
+            dp[i][0] = arr[i][0];
+        }
+
+        for (int i = 1; i < m; i++) {
+            for (int j = 1; j < n; j++) {
+                if (arr[i][j] == 0) {
+                    dp[i][j] = 0;
+                } else {
+                    dp[i][j] = 1 + Math.min(arr[i - 1][j], Math.min(arr[i - 1][j - 1], arr[i][j - 1]));
+                }
+            }
+        }
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                ans = ans + dp[i][j];
+            }
+        }
+
+        return ans;
     }
 
     static int maxSumRectangle(int R, int C, int M[][]) {
