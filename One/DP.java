@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class DP {
 
     public static void main(String[] args) {
@@ -10,44 +12,80 @@ public class DP {
 
         System.out.println();
 
-
     }
 
-    static int rodCut(int[] prices , int n ){
-        int[] dp = new int[n+1];
+    static int maxSumRectangle(int R, int C, int M[][]) {
+        int maxSum = Integer.MIN_VALUE;
 
-        for(int i = 1; i< n ; i++){
-            // eg for 4 
+        int[] sum = new int[R];
+
+        for (int cStart = 0; cStart < C; cStart++) {
+            Arrays.fill(sum, 0);
+            for (int cEnd = cStart; cEnd < C; cEnd++) {
+                for (int row = 0; row < R; row++) {
+                    sum[row] += M[row][cEnd];
+                }
+                int currMaxSum = kadans(sum);
+                maxSum = Math.max(currMaxSum, maxSum);
+            }
+        }
+        return maxSum;
+    }
+
+    private static int kadans(int[] sum) {
+        int currSum = 0;
+        int maxSum = 0;
+
+        for (int i = 0; i < sum.length; i++) {
+            currSum = currSum + sum[i];
+
+            if (currSum > maxSum) {
+                maxSum = currSum;
+            }
+            if (currSum < 0) {
+                currSum = 0;
+            }
+        }
+
+        return maxSum;
+    }
+
+    static int rodCut(int[] prices, int n) {
+        int[] dp = new int[n + 1];
+
+        for (int i = 1; i < n; i++) {
+            // eg for 4
             // i = 4;
             // j will run from 0 to 4
-            for(int j = 0; j<i; j++){
-                dp[i] = Math.max(prices[j], dp[i-j-1]);
+            for (int j = 0; j < i; j++) {
+                dp[i] = Math.max(prices[j], dp[i - j - 1]);
             }
         }
         return dp[n];
     }
 
-    static int editDistance(String s1, String s2){
+    static int editDistance(String s1, String s2) {
         int m = s1.length();
         int n = s2.length();
 
-        int dp[][] = new int[m+1][n+1];
+        int dp[][] = new int[m + 1][n + 1];
 
-        for(int i = 0; i<= m; i++){
+        for (int i = 0; i <= m; i++) {
             dp[i][0] = i;
         }
-        for(int j = 0; j<= n ; j++){
+        for (int j = 0; j <= n; j++) {
             dp[0][j] = j;
         }
 
-        for(int i = 1; i<= m ; i++){
-            for(int j = 1; j<= n ; j++){
-                if(s1.charAt(i-1) == s2.charAt(j-1)){
-                    //  if both the characters are matching then write the digonal one 
-                    dp[i][j] = dp[i-1][j-1];
-                }else{
-                    // if not matching get the minimum from the top digonal left and add 1 to it and write it
-                    dp[i][j] = 1 + Math.min(Math.min(dp[i-1][j-1], dp[i-1][j]), dp[i][j-1]);
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    // if both the characters are matching then write the digonal one
+                    dp[i][j] = dp[i - 1][j - 1];
+                } else {
+                    // if not matching get the minimum from the top digonal left and add 1 to it and
+                    // write it
+                    dp[i][j] = 1 + Math.min(Math.min(dp[i - 1][j - 1], dp[i - 1][j]), dp[i][j - 1]);
                 }
             }
         }
