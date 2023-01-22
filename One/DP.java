@@ -56,6 +56,14 @@ public class DP {
         return dp[1][N-1];
     }
 
+    // Minimum Cost to Cut the Stick
+    static int cost (int n, int c, int[] cuts){
+        int mini = Integer.MAX_VALUE;
+
+
+        return mini;
+    }
+
     static int maxSumRectangle(int R, int C, int M[][]) {
         int maxSum = Integer.MIN_VALUE;
 
