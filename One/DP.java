@@ -14,6 +14,27 @@ public class DP {
 
     }
 
+    // Minimum Platforms Problem 
+    static int minPlatform(int[] a, int[] d, int n){
+        Arrays.sort(a);
+        Arrays.sort(d);
+        int count = 0;
+        int ans = 0;
+        int i = 0;
+        int j = 0;
+        while(i<n){
+            if(a[i] < d[j]){
+                count++;
+                ans = Math.max(ans,count);
+                i++;
+            }else{
+                count--;
+                j++;
+            }
+        }
+        return ans;
+    }
+
     // Wine Buying and Selling Problem
     static int wine(int[] arr) {
         int ans = 0;
