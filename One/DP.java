@@ -14,6 +14,40 @@ public class DP {
 
     }
 
+    // Wine Buying and Selling Problem
+    static int wine(int[] arr) {
+        int ans = 0;
+        int sell = 0;
+        int buy = 0;
+        int n = arr.length;
+        while (sell < n && buy < n) {
+            // we can only sell if it is less then 0
+            while (arr[sell] >= 0) {
+                sell++;
+                if (sell == n)
+                    return ans;
+            }
+            // we can only buy if it is greater then 0
+            while (arr[buy] <= 0) {
+                buy++;
+                if (buy == n)
+                    return ans;
+            }
+            if (arr[buy] >= arr[sell]) {
+                ans += (buy - sell) * arr[sell];
+                arr[buy] += arr[sell];
+                arr[sell] = 0;
+            } else {
+                ans += (buy - sell) * arr[buy];
+                arr[buy] = 0;
+                arr[sell] += arr[buy];
+            }
+
+        }
+
+        return ans;
+    }
+
     static int matrixMultiplication(int[] arr, int N) {
         int[][] dp = new int[N][N];
         for (int[] d : dp) {
