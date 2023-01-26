@@ -28,11 +28,11 @@ class Node {
 
 }
 
-public class Trie {
+public class TrieL1 {
 
     private Node root;
 
-    Trie() {
+    TrieL1() {
         root = new Node();
     }
 
