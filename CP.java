@@ -36,4 +36,42 @@ public class CP {
 
         return res.toArray(new int[0][]);
     }
+
+    public int[][] insertInterval(int[][] intervals, int[] newInterval) {
+        List<int[]> res = new ArrayList<>();
+
+        // for(int[] it: intervals){
+        // //
+        // if(newInterval[1] < it[0]){
+        // res.add(newInterval);
+        // }
+        // else if (newInterval[0] <= it[1]){
+        // res.add(it);
+        // newInterval = it;
+
+        // }else{
+        // newInterval[0] = Math.min(newInterval[0], it[0]);
+        // newInterval[1] = Math.max(newInterval[1], it[1]);
+        // }
+        // }
+        // res.add(newInterval);
+        // return res.toArray(new int[res.size()][]);
+
+        for (int[] it : intervals) {
+            if (it[1] < newInterval[0]) {
+                // put this into it into res coz it end is
+                // less then the new interval end
+                res.add(it);
+            } else if (newInterval[1] < it[0]) {
+                res.add(newInterval);
+                newInterval = it;
+            } else {
+                newInterval[0] = Math.min(newInterval[0], it[0]);
+                newInterval[1] = Math.max(newInterval[1], it[1]);
+            }
+        }
+        res.add(newInterval);
+        return res.toArray(new int[res.size()][]);
+
+    }
 }
