@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CP {
@@ -76,19 +77,41 @@ public class CP {
     }
 
     public int eraseOverlapIntervals(int[][] intervals) {
-        Arrays.sort(intervals,(a,b)-> a[0]-b[0]);
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
         int res = 0;
         int prevEnd = intervals[0][1];
-        
-        for(int[] it: intervals){
-            if(it[0] >= prevEnd){
+
+        for (int[] it : intervals) {
+            if (it[0] >= prevEnd) {
                 prevEnd = it[1];
-            }else{
-                res+=1;
+            } else {
+                res += 1;
                 prevEnd = Math.min(it[1], prevEnd);
             }
         }
 
         return res;
+    }
+
+    static public class Interval {
+        int start, end;
+
+        Interval(int start, int end) {
+            this.start = start;
+            this.end = end;
+        }
+    }
+
+    public boolean canAttendMeetings(List<Interval> intervals) {
+        // Write your code here
+
+        Collections.sort(intervals, (a, b) -> a.start);
+
+        for (int i = 1; i < intervals.size(); i++) {
+            if (intervals.get(i).start < intervals.get(i - 1).end) {
+                return false;
+            }
+        }
+        return true;
     }
 }
