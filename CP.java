@@ -74,4 +74,21 @@ public class CP {
         return res.toArray(new int[res.size()][]);
 
     }
+
+    public int eraseOverlapIntervals(int[][] intervals) {
+        Arrays.sort(intervals,(a,b)-> a[0]-b[0]);
+        int res = 0;
+        int prevEnd = intervals[0][1];
+        
+        for(int[] it: intervals){
+            if(it[0] >= prevEnd){
+                prevEnd = it[1];
+            }else{
+                res+=1;
+                prevEnd = Math.min(it[1], prevEnd);
+            }
+        }
+
+        return res;
+    }
 }
