@@ -88,16 +88,16 @@ class Interval {
         return res;
     }
 
-    static public class Interval {
+    static public class Intervall {
         int start, end;
 
-        Interval(int start, int end) {
+        Intervall(int start, int end) {
             this.start = start;
             this.end = end;
         }
     }
 
-    public boolean canAttendMeetings(List<Interval> intervals) {
+    public boolean canAttendMeetings(List<Intervall> intervals) {
         // Write your code here
 
         Collections.sort(intervals, (a, b) -> a.start);
@@ -110,7 +110,7 @@ class Interval {
         return true;
     }
 
-    public int minMeetingRooms(List<Interval> intervals) {
+    public int minMeetingRooms(List<Intervall> intervals) {
         // Write your code here
         // count of minimum meeting rooms required
         int count = 0;
