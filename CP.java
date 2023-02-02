@@ -3,12 +3,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class CP {
-    // CP Questions
-    public static void main(String[] args) {
-
-    }
-
+class Interval {
     public int[][] mergeIntervals(int[][] intervals) {
         List<int[]> res = new ArrayList<>();
 
@@ -150,6 +145,13 @@ public class CP {
             count = Math.max(c, count);
         }
         return count;
+    }
+}
+
+public class CP {
+    // CP Questions
+    public static void main(String[] args) {
+
     }
 
 }
