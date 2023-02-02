@@ -114,4 +114,42 @@ public class CP {
         }
         return true;
     }
+
+    public int minMeetingRooms(List<Interval> intervals) {
+        // Write your code here
+        // count of minimum meeting rooms required
+        int count = 0;
+
+        List<Integer> st = new ArrayList<>();
+        List<Integer> et = new ArrayList<>();
+
+        for (int i = 0; i < intervals.size(); i++) {
+            st.add(intervals.get(i).start);
+            et.add(intervals.get(i).end);
+        }
+
+        // iterate through the start and end which on is small increase the count and
+        // move that pointer
+        // if there is a tie between the start time and end time then
+        // shift the end
+        // if we are iterating thought the end so we will decrease the end pointer by 1
+        // if no start time end
+        int start = 0;
+        int end = 0;
+
+        // maintian the count at each level
+        int c = 0;
+        while (!st.isEmpty()) {
+            if (st.get(start) < et.get(end)) {
+                start++;
+                c++;
+            } else {
+                end++;
+                c++;
+            }
+            count = Math.max(c, count);
+        }
+        return count;
+    }
+
 }
