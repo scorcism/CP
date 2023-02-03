@@ -148,6 +148,53 @@ class Interval {
     }
 }
 
+class General {
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    public ListNode mergeTwoLists(ListNode a, ListNode b) {
+        ListNode tmp = new ListNode(0);
+        ListNode curr = tmp;
+
+        while (a != null && b != null) {
+            if (a.val < b.val) {
+                curr.next = a;
+                a = a.next;
+            } else {
+
+                curr.next = b;
+                b = b.next;
+            }
+        }
+
+        while (b != null) {
+            curr.next = b;
+            b = b.next;
+        }
+
+        while (a != null) {
+            curr.next = a;
+            a = b.next;
+        }
+        return tmp.next;
+    }
+}
+
 public class CP {
     // CP Questions
     public static void main(String[] args) {

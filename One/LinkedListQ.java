@@ -41,8 +41,8 @@ public class LinkedListQ {
         }
 
         Node newHeadNode = reverseRecrsive(head.next);
-        Node newhead = head.next;
-        newhead.next = head;
+        Node headnext = head.next;
+        headnext.next = head;
         head.next = null;
 
         return newHeadNode;
