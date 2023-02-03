@@ -167,7 +167,7 @@ class General {
         }
     }
 
-    public ListNode mergeTwoLists(ListNode a, ListNode b) {
+    public ListNode mergeTwoLists1(ListNode a, ListNode b) {
         ListNode tmp = new ListNode(0);
         ListNode curr = tmp;
 
@@ -192,6 +192,84 @@ class General {
             a = b.next;
         }
         return tmp.next;
+    }
+
+    // using merge sort approach
+    public ListNode mergeKLists(ListNode[] lists) {
+        if (lists == null || lists.length == 0) {
+            return null;
+        }
+
+        // call for merge sort
+        return mergeSortMergeKLists(lists, 0, lists.length - 1);
+    }
+
+    private ListNode mergeSortMergeKLists(ListNode[] lists, int start, int end) {
+        // check at least it has 2 element or not
+        if (start == end) {
+            return lists[end];
+        }
+        // get mid
+        int mid = start + (end - start) / 2;
+        ListNode l1 = mergeSortMergeKLists(lists, start, mid);
+        ListNode l2 = mergeSortMergeKLists(lists, mid + 1, end);
+
+        return mergeKLists(l1, l2);
+    }
+
+    private ListNode mergeKLists(ListNode l1, ListNode l2) {
+        if (l1 == null) {
+            return l2;
+        }
+        if (l2 == null) {
+            return l1;
+        }
+
+        if (l1.val < l2.val) {
+            l1.next = mergeKLists(l1.next, l2);
+            return l1;
+        } else {
+            l2.next = mergeKLists(l1, l2.next);
+            return l2;
+        }
+    }
+
+    public void reorderList(ListNode head) {
+        // get the mid of the LL
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        // this mid element will be the element at positing slow
+
+        // so from next of slow we want to rev the list
+        ListNode prev = null;
+        ListNode nextNode = slow.next; // this is like tmp=head in reversing the list
+        slow.next = null; // means the last element will be the middle one from the original list
+        while (nextNode != null) {
+            ListNode tmp = nextNode.next;
+            nextNode.next = prev;
+            prev = nextNode;
+            nextNode = tmp;
+        }
+
+        // merge two lists
+        ListNode first = head;
+        ListNode second = prev;
+
+        while (second != null) {
+            ListNode tmp1 = first.next;
+            ListNode tmp2 = second.next;
+
+            first.next = second;
+            second.next = tmp1;
+            first = tmp1;
+            second = tmp2;
+        }
+
     }
 }
 
