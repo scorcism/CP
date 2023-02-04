@@ -348,9 +348,9 @@ class Matrix {
             }
         }
 
-        for(int i = 0; i < row ; i++){
-            for(int j = 0; j< col ; j++){
-                if(dummy1[i] == 0 || dummy2[j] == 0){
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                if (dummy1[i] == 0 || dummy2[j] == 0) {
                     matrix[i][j] = 0;
                 }
             }
@@ -364,26 +364,75 @@ class Matrix {
         int row = matrix.length;
         int col = matrix[0].length;
 
-        for(int i = 0; i< row; i++){
-            if(matrix[i][0] == 0) col0 = 0;
-            for(int j = 1 ; j< col; j++){
-                if(matrix[i][j] == 0){
-                    matrix[i][0] = matrix[0][j] = 0; 
+        for (int i = 0; i < row; i++) {
+            if (matrix[i][0] == 0)
+                col0 = 0;
+            for (int j = 1; j < col; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = matrix[0][j] = 0;
                 }
             }
         }
-        
-        for(int i = row -1; i >= 0 ; i--){
-            for(int j = col -1; j >= 1; j--){
-                if(matrix[i][0]  == 0 || matrix[0][j] == 0){
+
+        for (int i = row - 1; i >= 0; i--) {
+            for (int j = col - 1; j >= 1; j--) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
                     matrix[i][j] = 0;
                 }
             }
-            if(col0 == 0){
+            if (col0 == 0) {
                 matrix[i][0] = 0;
             }
         }
     }
+
+    public List<Integer> spiralOrder(int[][] matrix) {
+        List<Integer> ans = new ArrayList<>();
+        if (matrix.length == 0) {
+            return ans;
+        }
+
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int left = 0;
+        int right = m - 1;
+        int top = 0;
+        int bottom = n - 1;
+
+        while (left <= right && top <= bottom) {
+
+            // for 1st row
+            // left -> right
+            for (int i = left; i <= right; i++) {
+                ans.add(matrix[top][i]);
+            }
+            top++;
+
+            // Move from top to bottom
+            for (int i = top; i <= bottom; i++) {
+                ans.add(matrix[i][right]);
+            }
+            right--;
+
+            // at some point bottom is above the top to handle that
+            if (top <= bottom) {
+                for (int i = right; i >= left; i--) {
+                    ans.add(matrix[bottom][i]);
+                }
+                bottom--;
+            }
+            if (left <= right) {
+                for (int i = bottom; i >= top; i--) {
+                    ans.add(matrix[i][left]);
+                }
+                left++;
+            }
+        }
+
+        return ans;
+    }
+
 }
 
 public class CP {
