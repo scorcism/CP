@@ -433,6 +433,49 @@ class Matrix {
         return ans;
     }
 
+    public void rotateImageBrute(int[][] matrix) {
+        // create another matrix and put the row in solumn position
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int[][] m2 = new int[m][n];
+
+        for(int i = 0; i< m; i++){
+            for(int j = 0; j< n; j++){
+                m2[j][n-i-1] = matrix[i][j];
+            }
+        }
+
+        for(int i =0 ; i< m ; i++){
+            for(int j = 0; j< n; j++){
+                matrix[i][j] = m2[i][j];
+            }
+        }
+
+    }
+    
+    public void rotateImageOptimal(int[][] matrix) {
+
+        int m = matrix.length;
+
+        // Transpose the matrix
+        for(int i = 0; i < m ; i++){
+            for(int j = 1; j< m; j++){
+                int tmp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = tmp;
+            }
+        }
+        // Reverse the each row of the matrix
+        for(int i = 0; i<m; i++){
+            for(int j = 0; j< m; j++){
+                int tmp = matrix[i][j];
+                matrix[i][j] = matrix[i][m - j - 1];
+                matrix[i][m-j-1] = tmp;
+            }
+        }
+
+    }
+
 }
 
 public class CP {
