@@ -78,8 +78,13 @@ public class Basic {
 
     public static void main(String[] args) {
         // reverseNumber(321);
-        int[][] mat = {{1,2,3},{4,0,6},{7,8,9}};
+        int[][] mat = {{1,2,3,7},{4,0,6,8},{7,8,9,6}};
         // printMatrix(mat);
-        setZerosBrute(mat);
+        // setZerosBrute(mat);
+        for(int[] m: mat){
+            System.out.println(Arrays.toString(m));
+        }
+        System.out.println(mat.length);
+        System.out.println(mat[0].length);
     }
 }
