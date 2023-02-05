@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import javax.swing.border.Border;
+
 class Interval {
     public int[][] mergeIntervals(int[][] intervals) {
         List<int[]> res = new ArrayList<>();
@@ -439,41 +441,107 @@ class Matrix {
         int n = matrix[0].length;
         int[][] m2 = new int[m][n];
 
-        for(int i = 0; i< m; i++){
-            for(int j = 0; j< n; j++){
-                m2[j][n-i-1] = matrix[i][j];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                m2[j][n - i - 1] = matrix[i][j];
             }
         }
 
-        for(int i =0 ; i< m ; i++){
-            for(int j = 0; j< n; j++){
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
                 matrix[i][j] = m2[i][j];
             }
         }
 
     }
-    
+
     public void rotateImageOptimal(int[][] matrix) {
 
         int m = matrix.length;
 
         // Transpose the matrix
-        for(int i = 0; i < m ; i++){
-            for(int j = 1; j< m; j++){
+        for (int i = 0; i < m; i++) {
+            for (int j = 1; j < m; j++) {
                 int tmp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
                 matrix[j][i] = tmp;
             }
         }
         // Reverse the each row of the matrix
-        for(int i = 0; i<m; i++){
-            for(int j = 0; j< m; j++){
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m; j++) {
                 int tmp = matrix[i][j];
                 matrix[i][j] = matrix[i][m - j - 1];
-                matrix[i][m-j-1] = tmp;
+                matrix[i][m - j - 1] = tmp;
             }
         }
 
+    }
+
+    // Word Search
+    public boolean exist(char[][] board, String word) {
+        int n = board.length;
+        int m = board[0].length;
+
+        boolean[][] visited = new boolean[n][m];
+
+        int k = 0;
+        // for maintaining indexing of word
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (board[i][j] == word.charAt(k) &&
+                        searchWord(i, j, k, board, word, visited)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean searchWord(int i, int j, int k, char[][] board, String word, boolean[][] visited) {
+        // This will be a recursive call
+        // will look in top left right and bottom
+
+        // This will be a recursive call
+        // will look in top left right and bottom
+
+        if (k == word.length()) {
+            return true;
+        }
+
+        if (i < 0 || j < 0 || i >= board.length ||
+                j >= board[i].length || word.charAt(k) != board[i][j] ||
+                visited[i][j]) {
+            return false;
+        }
+
+        visited[i][j] = true;
+
+        // check four side
+        // top left right and bottom
+
+        // if (searchWord(i + 1, j, k + 1, board, word, visited) ||
+        //         searchWord(i - 1, j, k + 1, board, word, visited) ||
+        //         searchWord(i, j + 1, k + 1, board, word, visited) ||
+        //         searchWord(i, j - 1, k + 1, board, word, visited)) {
+        //     return true;
+        // }
+
+        int[] drow = {-1,0,1,0};
+        int[] dcol = {0,1,0,-1};
+
+        for(int index = 0 ; index< 4; index++){
+            int newrow = i+ drow[index];
+            int newcol = j+dcol[index];
+
+            if(searchWord(newrow, newcol, k+1, board, word, visited)){
+                return true;
+            }
+        }
+
+        visited[i][j] = false;
+
+        return false;
     }
 
 }
