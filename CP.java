@@ -520,24 +520,24 @@ class Matrix {
         // check four side
         // top left right and bottom
 
-        // if (searchWord(i + 1, j, k + 1, board, word, visited) ||
-        //         searchWord(i - 1, j, k + 1, board, word, visited) ||
-        //         searchWord(i, j + 1, k + 1, board, word, visited) ||
-        //         searchWord(i, j - 1, k + 1, board, word, visited)) {
-        //     return true;
-        // }
-
-        int[] drow = {-1,0,1,0};
-        int[] dcol = {0,1,0,-1};
-
-        for(int index = 0 ; index< 4; index++){
-            int newrow = i+ drow[index];
-            int newcol = j+dcol[index];
-
-            if(searchWord(newrow, newcol, k+1, board, word, visited)){
-                return true;
-            }
+        if (searchWord(i + 1, j, k + 1, board, word, visited) ||
+                searchWord(i - 1, j, k + 1, board, word, visited) ||
+                searchWord(i, j + 1, k + 1, board, word, visited) ||
+                searchWord(i, j - 1, k + 1, board, word, visited)) {
+            return true;
         }
+
+        // int[] drow = {-1,0,1,0};
+        // int[] dcol = {0,1,0,-1};
+
+        // for(int index = 0 ; index< 4; index++){
+        //     int newrow = i+ drow[index];
+        //     int newcol = j+dcol[index];
+
+        //     if(searchWord(newrow, newcol, k+1, board, word, visited)){
+        //         return true;
+        //     }
+        // }
 
         visited[i][j] = false;
 
