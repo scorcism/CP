@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.swing.border.Border;
@@ -542,6 +544,54 @@ class Matrix {
         visited[i][j] = false;
 
         return false;
+    }
+
+}
+
+class Strings {
+
+    // 3. Longest Substring Without Repeating Characters
+    public int lengthOfLongestSubstringBrute(String s) {
+        
+
+    }
+    public int lengthOfLongestSubstringBetter(String s) {
+        HashSet<Character> set = new HashSet<>();
+        int max = 0;
+        int left = 0;
+        int right = 0;
+        int n = s.length();
+
+        while(right < n){
+            if(!set.contains(s.charAt(right))){
+                set.add(s.charAt(right));
+                right++;
+                max = Math.max(max,set.size() );
+            }else{
+                set.remove(s.charAt(left));
+                left++;
+            }
+        }
+
+        return max;
+    }
+    public int lengthOfLongestSubstringOptimal(String s) {
+        // store character and index
+        HashMap<Character, Integer> map = new HashMap<>();
+        int max = 0;
+        int left=  0;
+        int right = 0;
+        int n = s.length();
+
+        while(right < n){
+            if(map.containsKey(s.charAt(right))){
+                left = Math.max(map.get(s.charAt(right))+1, left);
+            }
+            map.put(s.charAt(right), right);
+            max=  Math.max(max, right - left +1);
+            right ++;
+        }
+        return max;
     }
 
 }
