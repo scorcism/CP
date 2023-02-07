@@ -677,7 +677,48 @@ class Strings {
         }
 
         return s.substring(maxStart, maxEnd);
+    }
 
+
+
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> result = new ArrayList<>();
+        if(s.length() == 0 || s == null){
+            return result;
+        }
+
+        /*  Like a Sliding windows
+            With 2 pointer approach
+            and maintaining hashmap
+         */
+        int start = 0;
+        int end = 0;
+        
+        int[] count_chars = new int[26];
+
+        for(char c: p.toCharArray()){
+            count_chars[c - 'a']++;
+        }
+
+        int count = p.length();
+
+       while(end < s.length()){
+            if(count_chars[s.charAt(end++) -'a']-- >= 1){
+                count--;
+
+            }
+            if(count == 0){
+                result.add(start);
+            }
+
+            if(end - start == p.length() &&
+                count_chars[s.charAt(start++) -'a']++ >= 0
+            ){
+                count++;
+            }
+       }
+
+        return result;
     }
 }
 
