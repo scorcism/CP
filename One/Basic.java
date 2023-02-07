@@ -1,4 +1,6 @@
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Basic {
 
@@ -108,11 +110,28 @@ public class Basic {
         // printMatrix(mat);
         // setZerosBrute(mat);
         // int arr[][] =  {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
-        for (int[] m : mat) {
-            System.out.println(Arrays.toString(m));
-        }
+        // for (int[] m : mat) {
+        //     System.out.println(Arrays.toString(m));
+        // }
         // System.out.println(mat.length);
         // System.out.println(mat[0].length);
-        transposeMatrix(mat);
+        // transposeMatrix(mat);
+
+        mapFunction();
     }
+
+    static void mapFunction(){
+        Map<Integer, String> map = new HashMap<>();
+
+        map.put(1, "One");
+        map.put(2, "Two");
+        map.put(3, "Three");
+        map.put(4, "Four");
+        
+        System.out.println(map);
+        map.remove(2,"Two");
+        System.out.println(map);
+
+
+    }   
 }
