@@ -784,9 +784,6 @@ class Strings {
     private boolean isMathing(char a, Character b) {
         return (a == '(' && b==')' || a== '[' && b==']' || a=='{' && b=='}');
     }
-    private boolean isClosing(char a) {
-        return (a == ')' || a== ']' || a=='{');
-    }
     private boolean isOpening(char a) {
         return (a == '(' || a== '[' || a=='{');
     }
