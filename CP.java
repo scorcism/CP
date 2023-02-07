@@ -720,6 +720,26 @@ class Strings {
 
         return result;
     }
+
+    public boolean isAnagram(String s, String t) {
+        if(s.length() != t.length()){
+            return false;
+        }   
+
+        int[] char_count = new int[26]; // coz max 26 can only be there
+        for(int i = 0; i< s.length(); i++){
+            char_count[s.charAt(i)]++;
+            char_count[t.charAt(i)]--;
+        }
+
+        for(int i: char_count){
+            if(i != 0){
+                return false;
+            }
+        }
+
+        return true;
+    }
 }
 
 public class CP {
