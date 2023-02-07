@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 class Interval {
     public int[][] mergeIntervals(int[][] intervals) {
@@ -757,7 +758,38 @@ class Strings {
         return j-i;
     }
 
+    // 20. Valid Parentheses
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        
 
+        for(char c: s.toCharArray()){
+            if(isOpening(c)){
+                stack.push(c);
+            }else{
+                if(stack.isEmpty()){
+                    return false;
+                }
+                else if(!isMathing(c, stack.peek())){
+                    return false;
+                }else{
+                    stack.pop();
+                }
+
+            }
+        }
+        return stack.isEmpty();
+        
+    }
+    private boolean isMathing(char a, Character b) {
+        return (a == '(' && b==')' || a== '[' && b==']' || a=='{' && b=='}');
+    }
+    private boolean isClosing(char a) {
+        return (a == ')' || a== ']' || a=='{');
+    }
+    private boolean isOpening(char a) {
+        return (a == '(' || a== '[' || a=='{');
+    }
 
 }
 
