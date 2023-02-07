@@ -4,8 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-
-import javax.swing.border.Border;
+import java.util.Map;
 
 class Interval {
     public int[][] mergeIntervals(int[][] intervals) {
@@ -740,6 +739,26 @@ class Strings {
 
         return true;
     }
+
+    public int totalFruitMap(int[] fruits) {
+        Map<Integer, Integer> map = new HashMap<>();
+
+        int i = 0;
+        int j;
+        for(j = 0; j < fruits.length; j++){
+            map.put(fruits[j],map.getOrDefault(fruits[i], 0) +1);
+
+            if(map.size() > 2){
+                map.put(fruits[i], map.getOrDefault(fruits[i], 0)-1);
+                map.remove(fruits[i], 0);
+            }
+        }
+
+        return j-i;
+    }
+
+
+
 }
 
 public class CP {
