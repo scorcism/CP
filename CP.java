@@ -620,11 +620,65 @@ class Strings {
         return max_length;
     }
 
+    // 76. Minimum Window Substring
+    public String minWindow(String s, String t) {
+        int slength = s.length();
+        int tlength = t.length();
 
+        if(slength == 0 || tlength == 0 || tlength> slength){
+            return "";
+        }
 
+        int start = 0;
+        int end = 0;
+        
+        HashMap<Character, Integer> map = new HashMap<>();
+        int count= 0;
 
-    
+        for(char c: t.toCharArray()){
+            map.put(c, map.getOrDefault(c, 0) +1);
+        }   
 
+        count = map.size();
+
+        int maxStart = 0;
+        int maxEnd = 0;
+        int maxlenWindow = Integer.MAX_VALUE; // size of window initialy 
+        while(end < slength){
+            char charAtEnd = s.charAt(end);
+
+            if(map.containsKey(charAtEnd)){
+                map.put(charAtEnd, map.get(charAtEnd) -1);
+
+                if(map.get(charAtEnd) == 0){
+                    count--;
+                }
+            }
+            while(count == 0){
+                // achieve the window size
+                if(maxlenWindow > end - start +1){
+                    maxlenWindow = end - start +1;
+                    maxStart = start;
+                    maxEnd = end + 1;
+                }
+                
+                char charAtStart = s.charAt(start);
+
+                if(map.containsKey(charAtStart)){
+                    map.put(charAtStart, map.get(charAtStart) +1);
+
+                    if(map.get(charAtEnd) == 1){
+                        count++;
+                    }
+                }
+                start++;
+            }
+            end++;
+        }
+
+        return s.substring(maxStart, maxEnd);
+
+    }
 }
 
 public class CP {
