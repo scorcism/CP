@@ -533,12 +533,12 @@ class Matrix {
         // int[] dcol = {0,1,0,-1};
 
         // for(int index = 0 ; index< 4; index++){
-        //     int newrow = i+ drow[index];
-        //     int newcol = j+dcol[index];
+        // int newrow = i+ drow[index];
+        // int newcol = j+dcol[index];
 
-        //     if(searchWord(newrow, newcol, k+1, board, word, visited)){
-        //         return true;
-        //     }
+        // if(searchWord(newrow, newcol, k+1, board, word, visited)){
+        // return true;
+        // }
         // }
 
         visited[i][j] = false;
@@ -552,9 +552,9 @@ class Strings {
 
     // 3. Longest Substring Without Repeating Characters
     public int lengthOfLongestSubstringBrute(String s) {
-        
 
     }
+
     public int lengthOfLongestSubstringBetter(String s) {
         HashSet<Character> set = new HashSet<>();
         int max = 0;
@@ -562,12 +562,12 @@ class Strings {
         int right = 0;
         int n = s.length();
 
-        while(right < n){
-            if(!set.contains(s.charAt(right))){
+        while (right < n) {
+            if (!set.contains(s.charAt(right))) {
                 set.add(s.charAt(right));
                 right++;
-                max = Math.max(max,set.size() );
-            }else{
+                max = Math.max(max, set.size());
+            } else {
                 set.remove(s.charAt(left));
                 left++;
             }
@@ -575,46 +575,48 @@ class Strings {
 
         return max;
     }
+
     public int lengthOfLongestSubstringOptimal(String s) {
         // store character and index
         HashMap<Character, Integer> map = new HashMap<>();
         int max = 0;
-        int left=  0;
+        int left = 0;
         int right = 0;
         int n = s.length();
 
-        while(right < n){
-            if(map.containsKey(s.charAt(right))){
-                left = Math.max(map.get(s.charAt(right))+1, left);
+        while (right < n) {
+            if (map.containsKey(s.charAt(right))) {
+                left = Math.max(map.get(s.charAt(right)) + 1, left);
             }
             map.put(s.charAt(right), right);
-            max=  Math.max(max, right - left +1);
-            right ++;
+            max = Math.max(max, right - left + 1);
+            right++;
         }
         return max;
     }
 
     public int characterReplacement(String s, int k) {
-        
+
         int N = s.length();
         int[] char_count = new int[26];
 
-        int window_start  = 0;
+        int window_start = 0;
         int max_length = 0;
         int max_count = 0;
 
-        for(int window_end=  0; window_end < N ; window_end++){
+        for (int window_end = 0; window_end < N; window_end++) {
             char_count[s.charAt(window_end) - 'A']++;
 
             int current_char_count = char_count[s.charAt(window_end) - 'A'];
             max_count = Math.max(max_count, current_char_count);
 
-            // while windows size is maintaind and it is les then k which means we can chnage that many element to get the max size
-            while(window_end - window_start - max_count +1 > k){
+            // while windows size is maintaind and it is les then k which means we can
+            // chnage that many element to get the max size
+            while (window_end - window_start - max_count + 1 > k) {
                 char_count[s.charAt(window_start) - 'A']--;
                 window_start++;
-            } 
-            max_length = Math.max(max_length, window_end - window_start +1);
+            }
+            max_length = Math.max(max_length, window_end - window_start + 1);
         }
 
         return max_length;
@@ -625,49 +627,49 @@ class Strings {
         int slength = s.length();
         int tlength = t.length();
 
-        if(slength == 0 || tlength == 0 || tlength> slength){
+        if (slength == 0 || tlength == 0 || tlength > slength) {
             return "";
         }
 
         int start = 0;
         int end = 0;
-        
-        HashMap<Character, Integer> map = new HashMap<>();
-        int count= 0;
 
-        for(char c: t.toCharArray()){
-            map.put(c, map.getOrDefault(c, 0) +1);
-        }   
+        HashMap<Character, Integer> map = new HashMap<>();
+        int count = 0;
+
+        for (char c : t.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
 
         count = map.size();
 
         int maxStart = 0;
         int maxEnd = 0;
-        int maxlenWindow = Integer.MAX_VALUE; // size of window initialy 
-        while(end < slength){
+        int maxlenWindow = Integer.MAX_VALUE; // size of window initialy
+        while (end < slength) {
             char charAtEnd = s.charAt(end);
 
-            if(map.containsKey(charAtEnd)){
-                map.put(charAtEnd, map.get(charAtEnd) -1);
+            if (map.containsKey(charAtEnd)) {
+                map.put(charAtEnd, map.get(charAtEnd) - 1);
 
-                if(map.get(charAtEnd) == 0){
+                if (map.get(charAtEnd) == 0) {
                     count--;
                 }
             }
-            while(count == 0){
+            while (count == 0) {
                 // achieve the window size
-                if(maxlenWindow > end - start +1){
-                    maxlenWindow = end - start +1;
+                if (maxlenWindow > end - start + 1) {
+                    maxlenWindow = end - start + 1;
                     maxStart = start;
                     maxEnd = end + 1;
                 }
-                
+
                 char charAtStart = s.charAt(start);
 
-                if(map.containsKey(charAtStart)){
-                    map.put(charAtStart, map.get(charAtStart) +1);
+                if (map.containsKey(charAtStart)) {
+                    map.put(charAtStart, map.get(charAtStart) + 1);
 
-                    if(map.get(charAtEnd) == 1){
+                    if (map.get(charAtEnd) == 1) {
                         count++;
                     }
                 }
@@ -679,61 +681,59 @@ class Strings {
         return s.substring(maxStart, maxEnd);
     }
 
-
-
     public List<Integer> findAnagrams(String s, String p) {
         List<Integer> result = new ArrayList<>();
-        if(s.length() == 0 || s == null){
+        if (s.length() == 0 || s == null) {
             return result;
         }
 
-        /*  Like a Sliding windows
-            With 2 pointer approach
-            and maintaining hashmap
+        /*
+         * Like a Sliding windows
+         * With 2 pointer approach
+         * and maintaining hashmap
          */
         int start = 0;
         int end = 0;
-        
+
         int[] count_chars = new int[26];
 
-        for(char c: p.toCharArray()){
+        for (char c : p.toCharArray()) {
             count_chars[c - 'a']++;
         }
 
         int count = p.length();
 
-       while(end < s.length()){
-            if(count_chars[s.charAt(end++) -'a']-- >= 1){
+        while (end < s.length()) {
+            if (count_chars[s.charAt(end++) - 'a']-- >= 1) {
                 count--;
 
             }
-            if(count == 0){
+            if (count == 0) {
                 result.add(start);
             }
 
-            if(end - start == p.length() &&
-                count_chars[s.charAt(start++) -'a']++ >= 0
-            ){
+            if (end - start == p.length() &&
+                    count_chars[s.charAt(start++) - 'a']++ >= 0) {
                 count++;
             }
-       }
+        }
 
         return result;
     }
 
     public boolean isAnagram(String s, String t) {
-        if(s.length() != t.length()){
+        if (s.length() != t.length()) {
             return false;
-        }   
+        }
 
         int[] char_count = new int[26]; // coz max 26 can only be there
-        for(int i = 0; i< s.length(); i++){
+        for (int i = 0; i < s.length(); i++) {
             char_count[s.charAt(i)]++;
             char_count[t.charAt(i)]--;
         }
 
-        for(int i: char_count){
-            if(i != 0){
+        for (int i : char_count) {
+            if (i != 0) {
                 return false;
             }
         }
@@ -746,46 +746,64 @@ class Strings {
 
         int i = 0;
         int j;
-        for(j = 0; j < fruits.length; j++){
-            map.put(fruits[j],map.getOrDefault(fruits[i], 0) +1);
+        for (j = 0; j < fruits.length; j++) {
+            map.put(fruits[j], map.getOrDefault(fruits[i], 0) + 1);
 
-            if(map.size() > 2){
-                map.put(fruits[i], map.getOrDefault(fruits[i], 0)-1);
+            if (map.size() > 2) {
+                map.put(fruits[i], map.getOrDefault(fruits[i], 0) - 1);
                 map.remove(fruits[i], 0);
             }
         }
 
-        return j-i;
+        return j - i;
     }
 
     // 20. Valid Parentheses
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
-        
 
-        for(char c: s.toCharArray()){
-            if(isOpening(c)){
+        for (char c : s.toCharArray()) {
+            if (isOpening(c)) {
                 stack.push(c);
-            }else{
-                if(stack.isEmpty()){
+            } else {
+                if (stack.isEmpty()) {
                     return false;
-                }
-                else if(!isMathing(c, stack.peek())){
+                } else if (!isMathing(c, stack.peek())) {
                     return false;
-                }else{
+                } else {
                     stack.pop();
                 }
 
             }
         }
         return stack.isEmpty();
-        
+
     }
+
     private boolean isMathing(char a, Character b) {
-        return (a == '(' && b==')' || a== '[' && b==']' || a=='{' && b=='}');
+        return (a == '(' && b == ')' || a == '[' && b == ']' || a == '{' && b == '}');
     }
+
     private boolean isOpening(char a) {
-        return (a == '(' || a== '[' || a=='{');
+        return (a == '(' || a == '[' || a == '{');
+    }
+
+    public int jump(int[] nums) {
+        int n = nums.length - 1;
+        int maxRechableInRange = 0;
+        int currEnd = 0;
+        int jumps = 0;
+
+        for (int i = 0; i < n; i++) {
+            maxRechableInRange = Math.max(maxRechableInRange, i + nums[i]);
+            if (i == currEnd) {
+                currEnd = maxRechableInRange;
+                jumps++;
+            }
+        }
+
+        return jumps;
+
     }
 
 }
