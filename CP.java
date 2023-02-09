@@ -808,15 +808,15 @@ class Strings {
     }
 
     public List<List<String>> groupAnagrams(String[] strings) {
-        Map<String ,LinkedList<String>> map = new HashMap<>();
+        Map<String, LinkedList<String>> map = new HashMap<>();
 
-        for(String s: strings){
+        for (String s : strings) {
             // convert this to array
             char charArray[] = s.toCharArray();
             Arrays.sort(charArray);
             String sortedString = new String(charArray);
 
-            if(!map.containsKey(sortedString)){
+            if (!map.containsKey(sortedString)) {
                 map.put(sortedString, new LinkedList<String>());
             }
             map.get(sortedString).add(s);
@@ -824,6 +824,113 @@ class Strings {
         }
 
         return new LinkedList<>(map.values());
+    }
+
+    public String longestPalindrome(String s) {
+        if (s == null || s.length() < 1) {
+            return "";
+        }
+        int start = 0;
+        int end = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int len1 = expandAround(s, i, i);
+            int len2 = expandAround(s, i, i + 1);
+            int maxLen = Math.max(len1, len2);
+            if (maxLen > end - start) {
+                start = i - (maxLen - 1) / 2;
+                // "racecar" suppose i is at e
+                // 7 coz from e there are 3 in left and 3 in right
+                // so start will be i(3) - (7-1)/2 = 0th index
+                // (7-1)/2 is used to manage array exceptions
+                // we have to move start to the left od i by the max length
+                end = i + (maxLen) / 2;
+                /*
+                 * tart is calculated as (len-1)/2 to take care of both the possibilities. ie.
+                 * palindrome substring being of 'even' or 'odd' length. Let me explain.
+                 * e.g.
+                 * Case-1 : When palindrome substring is of 'odd' length.
+                 * e.g. racecar. This palindrome is of length 7 ( odd ). Here if you see the
+                 * mid, it is letter 'e'.
+                 * Around this mid 'e', you will see start ('r') and end ('r') are 'equidistant'
+                 * from 'e'.
+                 * Lets assume this 'racecar' is present in our string under test-> 'aracecard'
+                 * Now, index of e is '4' in this example.
+                 * if you calculate start as i - (len-1)/2 or i - len/2, there would not be any
+                 * difference as len being 'odd' would lead to (len -1)/2 and (len/2) being
+                 * same. lets use start = i - (len-1)/2, and end = i + (len/2) in this case.
+                 * start = 4 - (6/2) , end = 4 + (7/2)
+                 * start = 4-3, end = 4+3
+                 * start =1, end = 7
+                 * s.substring(1, 7+1) = 'racecar'
+                 * 
+                 * Case-2: When palindrome substring is of 'even' length
+                 * e.g. abba
+                 * Lets see this case. Lets assume given string under test is-> 'eabbad'
+                 * In this case, your i is going to be 2. ( This is most critical part )
+                 * With the given solution by Nick, you would found this palindrome with
+                 * int len2 = expandFromMiddle(s, i, i+1)
+                 * Now if you look at this method, your left which starts with 'i' is always
+                 * being compared with right which starts with i+1
+                 * That would be the case here with 'eabbad'. When i is 2 ie. 'b' . Then your
+                 * left will be 2 (b) and right will be 2+1 ( b) and the comparison will
+                 * proceed.
+                 * In this case, once you have found 'abba' then it being 'even' the index 'i'
+                 * would fall in your 'first half' of the palindrome. ab | ba
+                 * if you calculate start as start = i - (len/2) , it would be wrong!! because
+                 * your i is not in the mid of palindrome.
+                 * lets still try with this formula start = i - len/2
+                 * start = 2 - (4/2) // i =2, len = 4 ( abba)
+                 * start = 2 -2 =0 ( wrong!)
+                 * end = i + (len/2)
+                 * end = 2 + 2 = 4
+                 * s.substring( 0, 4+1) // ''eabba' --> wrong solution!!!
+                 * Here start should have been 1
+                 * lets recalculate start as-
+                 * start = i - (len-1)/2
+                 * start = 2 - (4-1)/2
+                 * start = 2- 3/2
+                 * start = 2 -1 = 1
+                 * s.substring(1, 4+1) // 'abba' --> correct solution
+                 */
+            }
+        }
+        return s.substring(start, end+1);
+    }
+
+    public int expandAround(String s, int left, int right) {
+        if (left > right || s.length() < 1) {
+            return 0;
+        }
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
+            left--;
+            right++;
+
+        }
+
+        return right - left - 1;
+        /*
+         * Providing R - L - 1 explanation:
+         * e.g. racecar (length = 7. Simple math to calculate this would be R - L + 1 (
+         * where L= 0 , R=6 )), considering start index is '0'.
+         * Now, in this example ( 'racecar' ) when loop goes into final iteration, that
+         * time we have just hit L =0, R =6 (ie. length -1)
+         * but before exiting the loop, we are also decrementing L by L - - , and
+         * incrementing R by R ++ for the final time, which will make L and R as ( L =
+         * -1, R = 7 )
+         * Now, after exiting the loop, if you apply the same formula for length
+         * calculation as 'R - L +1', it would return you 7 -( - 1 )+1 = 9 which is
+         * wrong, but point to note is it gives you length increased by 2 units than the
+         * correct length which is 7.
+         * So the correct calculation of length would be when you adjust your R and L .
+         * to do that you would need to decrease R by 1 unit as it was increased by 1
+         * unit before exiting the loop , and increase L by 1 unit as it was decreased
+         * by 1 unit just before exiting the loop.
+         * lets calculate the length with adjusted R and L
+         * ( R -1 ) - ( L +1 ) + 1
+         * R -1 - L -1 + 1
+         * R -L -2 + 1
+         * R - L -1
+         */
     }
 
 }
