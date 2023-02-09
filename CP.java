@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import java.util.LinkedList;
+import java.util.HashSet;;
 
 class Interval {
     public int[][] mergeIntervals(int[][] intervals) {
@@ -933,6 +934,34 @@ class Strings {
          */
     }
 
+    // 2306. Naming a Company
+    public long distinctNames(String[] ideas) {
+        HashSet<String>[] initialGroup = new HashSet[26];
+
+        for(int i = 0; i< 26; i++){
+            initialGroup[i] = new HashSet<>();
+        }
+        for(String s: ideas){
+            initialGroup[s.charAt(0) - 'a'].add(s.substring(1));
+        }
+
+        // calculate no. of valid names from even pair of groups
+        long ans = 0;
+        for(int i  = 0; i< 26; i++){
+            for(int j  = i+1; j < 26; j++){
+
+                long numOfMutual = 0;
+                for(String s: initialGroup[i]){
+                    if(initialGroup[j].contains(s)){
+                        numOfMutual = numOfMutual +1;
+                    }
+                }
+
+                ans += 2 * (initialGroup[i].size() - numOfMutual) * (initialGroup[i].size() - numOfMutual); 
+            }
+        }
+        return ans;
+    }
 }
 
 public class CP {
