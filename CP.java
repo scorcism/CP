@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+import java.util.LinkedList;
 
 class Interval {
     public int[][] mergeIntervals(int[][] intervals) {
@@ -804,6 +805,25 @@ class Strings {
 
         return jumps;
 
+    }
+
+    public List<List<String>> groupAnagrams(String[] strings) {
+        Map<String ,LinkedList<String>> map = new HashMap<>();
+
+        for(String s: strings){
+            // convert this to array
+            char charArray[] = s.toCharArray();
+            Arrays.sort(charArray);
+            String sortedString = new String(charArray);
+
+            if(!map.containsKey(sortedString)){
+                map.put(sortedString, new LinkedList<String>());
+            }
+            map.get(sortedString).add(s);
+
+        }
+
+        return new LinkedList<>(map.values());
     }
 
 }
