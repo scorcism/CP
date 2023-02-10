@@ -895,7 +895,7 @@ class Strings {
                  */
             }
         }
-        return s.substring(start, end+1);
+        return s.substring(start, end + 1);
     }
 
     public int expandAround(String s, int left, int right) {
@@ -938,89 +938,143 @@ class Strings {
     public long distinctNames(String[] ideas) {
         HashSet<String>[] initialGroup = new HashSet[26];
 
-        for(int i = 0; i< 26; i++){
+        for (int i = 0; i < 26; i++) {
             initialGroup[i] = new HashSet<>();
         }
-        for(String s: ideas){
+        for (String s : ideas) {
             initialGroup[s.charAt(0) - 'a'].add(s.substring(1));
         }
 
         // calculate no. of valid names from even pair of groups
         long ans = 0;
-        for(int i  = 0; i< 26; i++){
-            for(int j  = i+1; j < 26; j++){
+        for (int i = 0; i < 26; i++) {
+            for (int j = i + 1; j < 26; j++) {
 
                 long numOfMutual = 0;
-                for(String s: initialGroup[i]){
-                    if(initialGroup[j].contains(s)){
-                        numOfMutual = numOfMutual +1;
+                for (String s : initialGroup[i]) {
+                    if (initialGroup[j].contains(s)) {
+                        numOfMutual = numOfMutual + 1;
                     }
                 }
 
-                ans += 2 * (initialGroup[i].size() - numOfMutual) * (initialGroup[i].size() - numOfMutual); 
+                ans += 2 * (initialGroup[i].size() - numOfMutual) * (initialGroup[i].size() - numOfMutual);
             }
         }
         return ans;
     }
 
-
-    static int lcs(String s1, String s2){
+    static int lcs(String s1, String s2) {
         int len1 = s1.length();
         int len2 = s2.length();
 
         int[][] dp = new int[len1][len2];
 
-        return lcsMemo(s1,s2,len1-1,len2-1,dp);
+        return lcsMemo(s1, s2, len1 - 1, len2 - 1, dp);
 
     }
 
-    private static int lcsMemo(String s1, String s2, int ind1, int ind2,int[][] dp) {
-        if(ind1 <0 || ind2 <0){
+    private static int lcsMemo(String s1, String s2, int ind1, int ind2, int[][] dp) {
+        if (ind1 < 0 || ind2 < 0) {
             return 0;
         }
-        if(dp[ind1][ind2] != 0){
+        if (dp[ind1][ind2] != 0) {
             return dp[ind1][ind2];
         }
-        if(s1.charAt(ind1) == s2.charAt(ind2)){
-            return dp[ind1][ind2]= 1 + lcsMemo(s1, s2, ind1-1, ind2-1,dp);
+        if (s1.charAt(ind1) == s2.charAt(ind2)) {
+            return dp[ind1][ind2] = 1 + lcsMemo(s1, s2, ind1 - 1, ind2 - 1, dp);
         }
-        return dp[ind1][ind2] =  Math.max(lcsMemo(s1, s2, ind1-1, ind2,dp),lcsMemo(s1, s2, ind1, ind2-1,dp));
+        return dp[ind1][ind2] = Math.max(lcsMemo(s1, s2, ind1 - 1, ind2, dp), lcsMemo(s1, s2, ind1, ind2 - 1, dp));
     }
 
-    private static int lcsTabu(String s1, String s2){
+    private static int lcsTabu(String s1, String s2) {
         int n = s1.length();
         int m = s2.length();
 
-        int[][] dp = new int[n+1][m+1];
+        int[][] dp = new int[n + 1][m + 1];
 
         // base case
         // Here we will shift the index
-        for(int i = 0; i<= n; i++){
+        for (int i = 0; i <= n; i++) {
             dp[i][0] = 0;
         }
 
-        for(int j = 0; j<= m; j++){
+        for (int j = 0; j <= m; j++) {
             dp[0][j] = 0;
         }
 
-        for(int i = 1; i<= n ; i++){
-            for(int j = 0;j<= m ; j++){
-                if(s1.charAt(i) == s2.charAt(j)){
-                    dp[i][j] = 1 + dp[i-1][j-1];
-                }else{
-                    dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+        for (int i = 1; i <= n; i++) {
+            for (int j = 0; j <= m; j++) {
+                if (s1.charAt(i) == s2.charAt(j)) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
                 }
             }
         }
 
         return dp[n][m];
     }
+
+    // Print lcs
+    public static String lcsPrint(String s1, String s2) {
+        String res = "";
+
+        int n = s1.length();
+        int m = s2.length();
+
+        int[][] dp = new int[n + 1][m + 1];
+
+        for (int i = 0; i <= n; i++) {
+            dp[i][0] = 0;
+        }
+
+        for (int j = 0; j <= m; j++) {
+            dp[0][j] = 0;
+        }
+
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= m; j++) {
+                if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                    dp[i][j] = 1 + dp[i - 1][j - 1];
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+
+        for (int[] a : dp) {
+            System.out.println(Arrays.toString(a));
+        }
+
+        // for moving backwards
+
+        int len = dp[n][m];
+        for (int i = 0; i < len; i++) {
+            res += '$';
+        }
+
+        int i = n;
+        int j = m;
+
+        while (i > 0 && j > 0) {
+            if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
+                res.charAt(len - 1) = s1.charAt(i - 1);
+            } else if (dp[i - 1][j] > dp[i][j - 1]) {
+                i--;
+            } else {
+                j--;
+            }
+        }
+        return res;
+    }
+
 }
 
 public class CP {
     // CP Questions
     public static void main(String[] args) {
-
+        Strings str = new Strings();
+        System.out.println(str.lcsPrint("abcde", "bdgek"));
     }
 
 }
