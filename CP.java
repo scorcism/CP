@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Stack;
 import java.util.LinkedList;
 import java.util.HashSet;;
+import java.util.Queue;
 
 class Interval {
     public int[][] mergeIntervals(int[][] intervals) {
@@ -1068,6 +1069,73 @@ class Strings {
         return res;
     }
 
+}
+
+class DailyChallenges{
+    
+    
+    // fab 9
+    // https://leetcode.com/problems/as-far-from-land-as-possible/
+    class MaxDistanceClass{
+        int row;
+        int col;
+        int step;
+        MaxDistanceClass(int row,int col, int step){
+            this.row= row;
+            this.col = col;
+            this.step = step;
+        }
+    }
+    public int maxDistance(int[][] grid) {
+        int ans = Integer.MIN_VALUE;
+
+        int n = grid.length;
+        int m = grid[0].length;
+
+        int[][] vis = new int[n][m];
+        int[][] distance = new int[n][m];
+
+        Queue<MaxDistanceClass> q = new LinkedList<>();
+
+        for(int i = 0; i< n ; i++){
+            for(int j = 0; j< m; j++){
+                if(grid[i][j] == 1){
+                    q.add(new MaxDistanceClass(i, j, 0));
+                    vis[i][j] = 1;
+                }else{
+                    vis[i][j] = 0;
+                }
+            }
+        }
+
+        while(!q.isEmpty()){
+            int r = q.peek().row;
+            int c = q.peek().col;
+            int s = q.peek().step;
+            distance[r][c] = s;
+            q.remove();
+            int[] delrow = {-1,0,1,0};
+            int[] delcol = {0,1,0,-1};
+
+            for(int i = 0; i< 4; i++){
+                int newrow = delrow[i] + r;
+                int newcol = delcol[i] + c;
+
+                if(newrow >= 0 && newcol >= 0 && newrow < n && 
+                newcol < m && vis[newrow][newcol] == 0){
+                    q.add(new MaxDistanceClass(newrow, newcol, s+1));
+                    vis[newrow][newcol] = 1;
+                }
+            }
+        }
+
+        for(int i = 0; i< n ; i++){
+            for(int j =  0; j< n ; j++){
+                ans = Math.max(ans, distance[i][j]);
+            }
+        }
+        return ans;
+    }
 }
 
 public class CP {
