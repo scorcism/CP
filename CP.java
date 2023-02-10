@@ -1069,6 +1069,24 @@ class Strings {
         return res;
     }
 
+    public int longestPalindromeCount(String s) {
+
+        int[] char_counts = new int[128];
+ 
+        for(char c: s.toCharArray()){
+            char_counts[c]++;
+        } 
+ 
+         int result = 0;
+        for(int i : char_counts){
+            result += i / 2 * 2;
+            if(result % 2 ==0 && i % 2 == 1 ){
+                result +=1;
+            }
+        }
+        return result;
+     }
+
 }
 
 class DailyChallenges{
