@@ -26,3 +26,11 @@ Deep Copy -> Just copy the value. No chnage will be made if the new object is ch
 Binary search -> if the array is sorted or we want to allocate something in continuoue fashion. Can be implemented in the search space.
 
 
+
+subarray -> Continuous part and maintian order
+
+subsequence -> Maintina order but may or may not be Continuous
+
+subset -> not ordering not Continuous
+
+substring -> same as subarray but in strings
