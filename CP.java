@@ -1085,7 +1085,32 @@ class Strings {
             }
         }
         return result;
-     }
+    }
+
+    private int countSubstringsUtil(String s, int left, int right){
+        int res = 0;
+
+        while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
+            res++;
+            left--;
+            right++;
+        }
+        return res;
+    }
+
+    public int countSubstrings(String s) {
+        
+        int ans = 0;
+
+        for(int i = 0; i<s.length(); i++){
+            
+            ans += countSubstringsUtil(s, i, i);
+            ans += countSubstringsUtil(s, i, i+1);
+            
+        }
+        return ans;
+
+    }
 
 }
 
