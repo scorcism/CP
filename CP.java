@@ -1072,25 +1072,25 @@ class Strings {
     public int longestPalindromeCount(String s) {
 
         int[] char_counts = new int[128];
- 
-        for(char c: s.toCharArray()){
+
+        for (char c : s.toCharArray()) {
             char_counts[c]++;
-        } 
- 
-         int result = 0;
-        for(int i : char_counts){
+        }
+
+        int result = 0;
+        for (int i : char_counts) {
             result += i / 2 * 2;
-            if(result % 2 ==0 && i % 2 == 1 ){
-                result +=1;
+            if (result % 2 == 0 && i % 2 == 1) {
+                result += 1;
             }
         }
         return result;
     }
 
-    private int countSubstringsUtil(String s, int left, int right){
+    private int countSubstringsUtil(String s, int left, int right) {
         int res = 0;
 
-        while(left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)){
+        while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
             res++;
             left--;
             right++;
@@ -1099,36 +1099,73 @@ class Strings {
     }
 
     public int countSubstrings(String s) {
-        
+
         int ans = 0;
 
-        for(int i = 0; i<s.length(); i++){
-            
+        for (int i = 0; i < s.length(); i++) {
+
             ans += countSubstringsUtil(s, i, i);
-            ans += countSubstringsUtil(s, i, i+1);
-            
+            ans += countSubstringsUtil(s, i, i + 1);
+
         }
         return ans;
 
     }
 
+    /*
+     * @param strs: a list of strings
+     * @return: encodes a list of strings to a single string.
+     */
+    public String encode(List<String> strs) {
+        String res = "";
+        int s = strs.size();
+        for(int i = 0; i< s; i++){
+            String currWord = strs.get(i);
+            int currWordLen = currWord.length();
+            String newToAdd = String.valueOf(currWordLen)+ "$" + currWord;
+        }
+        return res;
+    }
+    /*
+     * @param str: A string
+     * @return: dcodes a single string to a list of strings
+     */
+    public List<String> decode(String str) {
+        List<String> list = new ArrayList<String>();
+
+        int n = str.length();
+        int i = 0;
+        while(i < n){
+            int j = i;
+            while (str.charAt(j) != '$'){
+                j++;
+            }
+            int nextwordLen =Integer.parseInt(str.substring(i,j));
+            String nextWord = str.substring(j+1, j+1+nextwordLen);
+            list.add(nextWord);
+            i = j+1+nextwordLen;
+        }
+        return list;
+    }
+
 }
 
-class DailyChallenges{
-    
-    
+class DailyChallenges {
+
     // fab 9
     // https://leetcode.com/problems/as-far-from-land-as-possible/
-    class MaxDistanceClass{
+    class MaxDistanceClass {
         int row;
         int col;
         int step;
-        MaxDistanceClass(int row,int col, int step){
-            this.row= row;
+
+        MaxDistanceClass(int row, int col, int step) {
+            this.row = row;
             this.col = col;
             this.step = step;
         }
     }
+
     public int maxDistance(int[][] grid) {
         int ans = Integer.MIN_VALUE;
 
@@ -1140,40 +1177,40 @@ class DailyChallenges{
 
         Queue<MaxDistanceClass> q = new LinkedList<>();
 
-        for(int i = 0; i< n ; i++){
-            for(int j = 0; j< m; j++){
-                if(grid[i][j] == 1){
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 1) {
                     q.add(new MaxDistanceClass(i, j, 0));
                     vis[i][j] = 1;
-                }else{
+                } else {
                     vis[i][j] = 0;
                 }
             }
         }
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int r = q.peek().row;
             int c = q.peek().col;
             int s = q.peek().step;
             distance[r][c] = s;
             q.remove();
-            int[] delrow = {-1,0,1,0};
-            int[] delcol = {0,1,0,-1};
+            int[] delrow = { -1, 0, 1, 0 };
+            int[] delcol = { 0, 1, 0, -1 };
 
-            for(int i = 0; i< 4; i++){
+            for (int i = 0; i < 4; i++) {
                 int newrow = delrow[i] + r;
                 int newcol = delcol[i] + c;
 
-                if(newrow >= 0 && newcol >= 0 && newrow < n && 
-                newcol < m && vis[newrow][newcol] == 0){
-                    q.add(new MaxDistanceClass(newrow, newcol, s+1));
+                if (newrow >= 0 && newcol >= 0 && newrow < n &&
+                        newcol < m && vis[newrow][newcol] == 0) {
+                    q.add(new MaxDistanceClass(newrow, newcol, s + 1));
                     vis[newrow][newcol] = 1;
                 }
             }
         }
 
-        for(int i = 0; i< n ; i++){
-            for(int j =  0; j< n ; j++){
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
                 ans = Math.max(ans, distance[i][j]);
             }
         }
