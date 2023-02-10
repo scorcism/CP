@@ -1073,8 +1073,8 @@ class Strings {
 public class CP {
     // CP Questions
     public static void main(String[] args) {
-        Strings str = new Strings();
-        System.out.println(str.lcsPrint("abcde", "bdgek"));
+        // Strings str = new Strings();
+        // System.out.println(str.lcsPrint("abcde", "bdgek"));
     }
 
 }
