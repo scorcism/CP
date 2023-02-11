@@ -1216,6 +1216,70 @@ class DailyChallenges {
         }
         return ans;
     }
+
+    // Fab 10
+    // https://leetcode.com/problems/shortest-path-with-alternating-colors/
+    // 1129. Shortest Path with Alternating Colors
+    static class SATNode{
+        int node;
+        int steps;
+        int preColor;
+
+        SATNode(int a, int b, int c){
+            this.node = a;
+            this.steps = b;
+            this.preColor = c;
+        }
+    }
+    public int[] shortestAlternatingPaths(int n, int[][] redEdges, int[][] blueEdges) {
+        // create adj list of the following matrix
+        Map<Integer, List<List<Integer>>> adj = new HashMap<>();
+
+        for(int[] re: redEdges){
+            adj.computeIfAbsent(re[0],k -> new ArrayList<List<Integer>>()).add(Arrays.asList(re[1],0));
+        }
+
+        for(int[] be : blueEdges){
+            adj.computeIfAbsent(be[0], k -> new ArrayList<List<Integer>>()).add(Arrays.asList(be[1],1));
+        }
+
+        int[] answer = new int[n];
+        Arrays.fill(answer, -1);
+        boolean[][] visited = new boolean[n][2];
+
+        Queue<int[]> q = new LinkedList<>();
+
+        visited[0][0]  = visited[0][1] = true;
+        q.offer(new int[] {0,0,-1});
+        answer[0] = 0;
+        while(!q.isEmpty()){
+            int[] element=  q.poll();
+
+            int node = element[0];
+            int steps = element[1];
+            int prevColor = element[2];
+
+            if(!adj.containsKey(node)){
+                continue;
+            }
+
+            for(List<Integer> nei: adj.get(node)){
+                int neighbor = nei.get(0);
+                int color=  nei.get(1);
+
+                if(!visited[neighbor][color] && color!= prevColor){
+                    if(answer[neighbor]==-1){
+                        answer[neighbor] =  1+steps;
+                    }
+                    visited[neighbor][color] = true;
+                    q.offer(new int[] {neighbor, 1+steps, color} );
+                }
+            }
+
+        }
+
+        return answer;
+    }
 }
 
 public class CP {
