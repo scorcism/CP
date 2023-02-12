@@ -148,39 +148,55 @@ class DailyChallenges {
     long minFuel = 0;
     public long minimumFuelCost(int[][] roads, int seats) {
         // convert this roads to adj list
-        int n = roads.length;
+        int n = roads.length+1;
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
         for(int i = 0; i< n+1; i++){
             adj.add(new ArrayList<>());
         }
+        int[] indegree = new int[n];
+        
 
         for(int[] cur: roads){
             adj.get(cur[0]).add(cur[1]);
             adj.get(cur[1]).add(cur[0]);
+            indegree[cur[0]]++;
+            indegree[cur[1]]++;
         }
-        minimumFuelCostDFS(0,-1,adj,seats);
-        return minFuel;
+        
+        return minimumFuelCostBFS(adj,seats,indegree,n);
+        
     }
+    private long minimumFuelCostBFS(ArrayList<ArrayList<Integer>> adj, int seats, int[] indegree, int n) {
+        
+        Queue<Integer> q = new LinkedList<>();
 
-    private long minimumFuelCostDFS(int currentNode, int parent, ArrayList<ArrayList<Integer>> adj, int seats) {
-// all the persons at that node
-        int people = 1;
-
-        if(!adj.contains(currentNode)){
-            return people;
-        }
-
-        for(int it: adj.get(currentNode)){
-            if(it != parent){
-                people += minimumFuelCostDFS(it, currentNode, adj, seats);
+        for(int i = 1; i< n ;i++){
+            if(indegree[i]==1){
+                q.offer(i);
             }
         }
 
-        if(currentNode != 0){
-            minFuel += Math.ceil((double) people/seats);
-        }
+        int[] representative = new int[n];
+        Arrays.fill(representative, 1);
+        long minFeul = 1;
 
-        return people;
+        while(!q.isEmpty()){
+            int node = q.peek();
+            q.poll();
+
+            minFeul += Math.ceil((double)representative[node]/seats);
+
+            for(int neighbor: adj.get(node)){
+                indegree[neighbor]--;
+                representative[neighbor]+=representative[node];
+                if(indegree[neighbor] == 1 && neighbor != 0){
+                    q.offer(neighbor);
+                }
+            }
+        }
+        return minFeul;
+
     }
 
+    
 }
