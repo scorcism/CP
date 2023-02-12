@@ -5,12 +5,12 @@ class CGA <T extends Number> {
     private static int DEFAULT_SIZE = 10;
     private int size = 0; // Also working as an index
 
-    public CGA {
+    public CGA() {
         this.data = new Object[DEFAULT_SIZE];
     }
 
     public void add(T num){
-        if(isFull){
+        if(isFull()){
             resize();
         }
         data[size++] = num;

@@ -370,7 +370,7 @@ class GraphL {
     public static boolean detect(int src, ArrayList<ArrayList<Integer>> adj, boolean[] vis) {
 
         // make it visited
-        vis[i] = true;
+        vis[src] = true;
         // creaet a queue for the bfs
         Queue<CyclePair> q = new LinkedList<CyclePair>();
 
@@ -378,7 +378,7 @@ class GraphL {
         q.add(new CyclePair(src, -1));
 
         // perform the bfs
-        while (!q.isEmpty) {
+        while (!q.isEmpty()) {
             // get the parent and the curren node
             int p = q.peek().parent;
             int c = q.peek().currentNode;

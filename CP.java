@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import java.util.LinkedList;
-import java.util.HashSet;;
+import java.util.HashSet;
 import java.util.Queue;
 
 class Interval {
@@ -555,7 +555,7 @@ class Strings {
 
     // 3. Longest Substring Without Repeating Characters
     public int lengthOfLongestSubstringBrute(String s) {
-
+        return 2;
     }
 
     public int lengthOfLongestSubstringBetter(String s) {
@@ -1059,7 +1059,7 @@ class Strings {
 
         while (i > 0 && j > 0) {
             if (s1.charAt(i - 1) == s2.charAt(j - 1)) {
-                res.charAt(len - 1) = s1.charAt(i - 1);
+                // res.charAt(len - 1) = s1.charAt(i - 1);
             } else if (dp[i - 1][j] > dp[i][j - 1]) {
                 i--;
             } else {

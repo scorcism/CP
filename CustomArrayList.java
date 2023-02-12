@@ -7,7 +7,7 @@ public class CustomArrayList{
     private static int DEFAULT_SIZE = 10;
     private int size = 0; // Also working as an index
 
-    public CustomArrayList {
+    public CustomArrayList() {
         this.data = new int[DEFAULT_SIZE];
     }
 

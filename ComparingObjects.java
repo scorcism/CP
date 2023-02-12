@@ -15,7 +15,7 @@ class Student implements Comparable<Student>{
         // if diff = 0 both are equal
         // if diff is less then 1 o is bigger
         // else o is smaller
-
+        return diff;
     }
 }
 
