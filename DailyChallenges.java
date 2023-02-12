@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Stack;
 import java.util.LinkedList;
-import java.util.HashSet;;
+import java.util.HashSet;
 import java.util.Queue;
 
 
@@ -141,4 +141,46 @@ class DailyChallenges {
 
         return answer;
     }
+
+    // Feb 11
+    // https://leetcode.com/problems/minimum-fuel-cost-to-report-to-the-capital/description/
+    // 2477. Minimum Fuel Cost to Report to the Capital
+    long minFuel = 0;
+    public long minimumFuelCost(int[][] roads, int seats) {
+        // convert this roads to adj list
+        int n = roads.length;
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        for(int i = 0; i< n+1; i++){
+            adj.add(new ArrayList<>());
+        }
+
+        for(int[] cur: roads){
+            adj.get(cur[0]).add(cur[1]);
+            adj.get(cur[1]).add(cur[0]);
+        }
+        minimumFuelCostDFS(0,-1,adj,seats);
+        return minFuel;
+    }
+
+    private long minimumFuelCostDFS(int currentNode, int parent, ArrayList<ArrayList<Integer>> adj, int seats) {
+// all the persons at that node
+        int people = 1;
+
+        if(!adj.contains(currentNode)){
+            return people;
+        }
+
+        for(int it: adj.get(currentNode)){
+            if(it != parent){
+                people += minimumFuelCostDFS(it, currentNode, adj, seats);
+            }
+        }
+
+        if(currentNode != 0){
+            minFuel += Math.ceil((double) people/seats);
+        }
+
+        return people;
+    }
+
 }
