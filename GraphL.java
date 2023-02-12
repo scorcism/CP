@@ -674,13 +674,13 @@ class GraphL {
         public boolean isBipartite(int V, ArrayList<ArrayList<Integer>> adj) {
             // Code here
             int colors[] = new int[V];
-            ArraysQ.fill(colors, -1);
+            Arrays.fill(colors, -1);
 
             // for connected components
             for (int i = 0; i < V; i++) {
                 // check if the node is not being touch
                 if (colors[i] == -1) {
-                    if (checkBFS(i, V, adj, colors) == false) {
+                    if (checkBFS(i, adj, colors) == false) {
                         return false;
                     }
                 }
@@ -784,7 +784,7 @@ class GraphL {
                 q.remove();
                 cnt++;
 
-                for (int it : q.get(front)) {
+                for (int it :q.get(front)) {
                     indegree[it]--;
                     if (indegree[it] == 0) {
                         q.add(it);
