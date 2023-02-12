@@ -178,7 +178,7 @@ class DailyChallenges {
 
         int[] representative = new int[n];
         Arrays.fill(representative, 1);
-        long minFeul = 1;
+        long minFeul = 0;
 
         while(!q.isEmpty()){
             int node = q.peek();
