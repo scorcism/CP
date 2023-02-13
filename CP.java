@@ -1114,20 +1114,23 @@ class Strings {
 
     /*
      * @param strs: a list of strings
+     * 
      * @return: encodes a list of strings to a single string.
      */
     public String encode(List<String> strs) {
         String res = "";
         int s = strs.size();
-        for(int i = 0; i< s; i++){
+        for (int i = 0; i < s; i++) {
             String currWord = strs.get(i);
             int currWordLen = currWord.length();
-            String newToAdd = String.valueOf(currWordLen)+ "$" + currWord;
+            String newToAdd = String.valueOf(currWordLen) + "$" + currWord;
         }
         return res;
     }
+
     /*
      * @param str: A string
+     * 
      * @return: dcodes a single string to a list of strings
      */
     public List<String> decode(String str) {
@@ -1135,35 +1138,63 @@ class Strings {
 
         int n = str.length();
         int i = 0;
-        while(i < n){
+        while (i < n) {
             int j = i;
-            while (str.charAt(j) != '$'){
+            while (str.charAt(j) != '$') {
                 j++;
             }
-            int nextwordLen =Integer.parseInt(str.substring(i,j));
-            String nextWord = str.substring(j+1, j+1+nextwordLen);
+            int nextwordLen = Integer.parseInt(str.substring(i, j));
+            String nextWord = str.substring(j + 1, j + 1 + nextwordLen);
             list.add(nextWord);
-            i = j+1+nextwordLen;
+            i = j + 1 + nextwordLen;
         }
         return list;
     }
 
 }
 
-class trees{
+class trees {
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
 
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        
+        if(p == null && q == null){
+            return true;
+        }
+        if(p == null || q == null){
+            return false;
+        }
+        if(p.val != q.val){
+            return false;
+        }
+        return (isSameTree(p.left, q.left) && isSameTree(p.right, q.right));
     }
-    
+
     public TreeNode invertTree(TreeNode root) {
-        
+
         invert(root);
         return root;
     }
 
-    void invert(TreeNode root){
-        if(root == null){
+    void invert(TreeNode root) {
+        if (root == null) {
             return;
         }
 
