@@ -1150,6 +1150,31 @@ class Strings {
 
 }
 
+class trees{
+
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        
+    }
+    
+    public TreeNode invertTree(TreeNode root) {
+        
+        invert(root);
+        return root;
+    }
+
+    void invert(TreeNode root){
+        if(root == null){
+            return;
+        }
+
+        TreeNode tmp = root.right;
+        root.right = root.left;
+        root.left = tmp;
+        invertTree(root.left);
+        invertTree(root.right);
+    }
+}
+
 public class CP {
     // CP Questions
     public static void main(String[] args) {
