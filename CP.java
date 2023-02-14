@@ -1255,7 +1255,25 @@ class trees {
         }
     }
 
+    public List<List<Integer>> levelOrder(TreeNode root) {
+       List<List<Integer>> ans = new ArrayList<>();
 
+        levelOrderHelper(root,ans,0);
+        return ans;
+    }
+
+    private void levelOrderHelper(TreeNode root, List<List<Integer>> ans, int level) {
+        if(root == null){
+            return;
+        }
+        // if new level doesnt conatain ist for this level
+        if(level >= ans.size()){
+            ans.add(new ArrayList<>());
+        }
+        ans.get(level).add(root.val);
+        levelOrderHelper(root.left,ans,level+1);
+        levelOrderHelper(root.right,ans,level+1);
+    }
 
 
 
