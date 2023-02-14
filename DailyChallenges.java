@@ -10,7 +10,6 @@ import java.util.LinkedList;
 import java.util.HashSet;
 import java.util.Queue;
 
-
 class DailyChallenges {
 
     // fab 9
@@ -81,27 +80,28 @@ class DailyChallenges {
     // Fab 10
     // https://leetcode.com/problems/shortest-path-with-alternating-colors/
     // 1129. Shortest Path with Alternating Colors
-    static class SATNode{
+    static class SATNode {
         int node;
         int steps;
         int preColor;
 
-        SATNode(int a, int b, int c){
+        SATNode(int a, int b, int c) {
             this.node = a;
             this.steps = b;
             this.preColor = c;
         }
     }
+
     public int[] shortestAlternatingPaths(int n, int[][] redEdges, int[][] blueEdges) {
         // create adj list of the following matrix
         Map<Integer, List<List<Integer>>> adj = new HashMap<>();
 
-        for(int[] re: redEdges){
-            adj.computeIfAbsent(re[0],k -> new ArrayList<List<Integer>>()).add(Arrays.asList(re[1],0));
+        for (int[] re : redEdges) {
+            adj.computeIfAbsent(re[0], k -> new ArrayList<List<Integer>>()).add(Arrays.asList(re[1], 0));
         }
 
-        for(int[] be : blueEdges){
-            adj.computeIfAbsent(be[0], k -> new ArrayList<List<Integer>>()).add(Arrays.asList(be[1],1));
+        for (int[] be : blueEdges) {
+            adj.computeIfAbsent(be[0], k -> new ArrayList<List<Integer>>()).add(Arrays.asList(be[1], 1));
         }
 
         int[] answer = new int[n];
@@ -110,30 +110,30 @@ class DailyChallenges {
 
         Queue<int[]> q = new LinkedList<>();
 
-        visited[0][0]  = visited[0][1] = true;
-        q.offer(new int[] {0,0,-1});
+        visited[0][0] = visited[0][1] = true;
+        q.offer(new int[] { 0, 0, -1 });
         answer[0] = 0;
-        while(!q.isEmpty()){
-            int[] element=  q.poll();
+        while (!q.isEmpty()) {
+            int[] element = q.poll();
 
             int node = element[0];
             int steps = element[1];
             int prevColor = element[2];
 
-            if(!adj.containsKey(node)){
+            if (!adj.containsKey(node)) {
                 continue;
             }
 
-            for(List<Integer> nei: adj.get(node)){
+            for (List<Integer> nei : adj.get(node)) {
                 int neighbor = nei.get(0);
-                int color=  nei.get(1);
+                int color = nei.get(1);
 
-                if(!visited[neighbor][color] && color!= prevColor){
-                    if(answer[neighbor]==-1){
-                        answer[neighbor] =  1+steps;
+                if (!visited[neighbor][color] && color != prevColor) {
+                    if (answer[neighbor] == -1) {
+                        answer[neighbor] = 1 + steps;
                     }
                     visited[neighbor][color] = true;
-                    q.offer(new int[] {neighbor, 1+steps, color} );
+                    q.offer(new int[] { neighbor, 1 + steps, color });
                 }
             }
 
@@ -146,32 +146,33 @@ class DailyChallenges {
     // https://leetcode.com/problems/minimum-fuel-cost-to-report-to-the-capital/description/
     // 2477. Minimum Fuel Cost to Report to the Capital
     long minFuel = 0;
+
     public long minimumFuelCost(int[][] roads, int seats) {
         // convert this roads to adj list
-        int n = roads.length+1;
+        int n = roads.length + 1;
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
-        for(int i = 0; i< n+1; i++){
+        for (int i = 0; i < n + 1; i++) {
             adj.add(new ArrayList<>());
         }
         int[] indegree = new int[n];
-        
 
-        for(int[] cur: roads){
+        for (int[] cur : roads) {
             adj.get(cur[0]).add(cur[1]);
             adj.get(cur[1]).add(cur[0]);
             indegree[cur[0]]++;
             indegree[cur[1]]++;
         }
-        
-        return minimumFuelCostBFS(adj,seats,indegree,n);
-        
+
+        return minimumFuelCostBFS(adj, seats, indegree, n);
+
     }
+
     private long minimumFuelCostBFS(ArrayList<ArrayList<Integer>> adj, int seats, int[] indegree, int n) {
-        
+
         Queue<Integer> q = new LinkedList<>();
 
-        for(int i = 1; i< n ;i++){
-            if(indegree[i]==1){
+        for (int i = 1; i < n; i++) {
+            if (indegree[i] == 1) {
                 q.offer(i);
             }
         }
@@ -180,16 +181,16 @@ class DailyChallenges {
         Arrays.fill(representative, 1);
         long minFeul = 0;
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             int node = q.peek();
             q.poll();
 
-            minFeul += Math.ceil((double)representative[node]/seats);
+            minFeul += Math.ceil((double) representative[node] / seats);
 
-            for(int neighbor: adj.get(node)){
+            for (int neighbor : adj.get(node)) {
                 indegree[neighbor]--;
-                representative[neighbor]+=representative[node];
-                if(indegree[neighbor] == 1 && neighbor != 0){
+                representative[neighbor] += representative[node];
+                if (indegree[neighbor] == 1 && neighbor != 0) {
                     q.offer(neighbor);
                 }
             }
@@ -198,5 +199,45 @@ class DailyChallenges {
 
     }
 
-    
+    // Feb 14
+    // https://leetcode.com/problems/add-binary/
+    // 67. Add Binary
+    public String addBinary(String a, String b) {
+        StringBuilder sb = new StringBuilder();
+
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+        int carry = 0; // to count the carry bits
+
+        while (i >= 0 || j >= 0) {
+            // make a temp vairbale sum which will store the sum of 2 value at each
+            // iteration
+            int sum = carry;
+
+            // pick the last of string a and convert it into int
+            if (i >= 0) {
+                sum = sum + a.charAt(i) - '0';
+            }
+
+            if (j >= 0) {
+                sum = sum + b.charAt(j) - '0';
+            }
+
+            sb.append(sum % 2); // store if the num of ith and jth one is 2 to store 0 at that index and more
+            // the next 1 to the carry.
+            carry = sum / 2;
+
+            i--;
+            j--;
+        }
+        // if something is left in carry
+        if (carry != 0) {
+            sb.append(carry);
+        }
+        // return the revse of the string as we are iterating from the back and storing
+        // it in the sequence manner
+        return sb.reverse().toString();
+
+    }
+
 }
