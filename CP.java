@@ -1309,6 +1309,24 @@ class trees {
 
 
 
+    public boolean isValidBST(TreeNode root) {
+      if(root == null){
+        return true;
+      }
+      return isValidBSTUtil(root,Integer.MIN_VALUE, Integer.MAX_VALUE);
+    }
+
+    private boolean isValidBSTUtil(TreeNode root, int minValue, int maxValue) {
+        
+        if(root.val < minValue || root.val > maxValue){
+            return false;
+        }
+
+        return ((isValidBSTUtil(root.left, minValue, root.val)) && (isValidBSTUtil(root.right, root.val, maxValue)));
+    } 
+
+
+
 }
 
 public class CP {
