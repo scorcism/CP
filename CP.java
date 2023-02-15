@@ -1326,6 +1326,44 @@ class trees {
     } 
 
 
+    // 230. Kth Smallest Element in a BST
+    // brute
+    public int kthSmallestBrute(TreeNode root, int k) {
+        // Get the in order traversal 
+        // return the ktn from the list
+        ArrayList<Integer> ans = inorderkthsmallest(root, new ArrayList<Integer>());
+        return ans.get(k);
+    
+    }
+
+    private ArrayList<Integer> inorderkthsmallest(TreeNode root, ArrayList<Integer> list) {
+        if(root == null){
+            return list;
+        }   
+        inorderkthsmallest(root.left, list);
+        list.add(root.val);
+        inorderkthsmallest(root.right, list);
+        return list;
+    }
+
+    public int kthSmallestOptimal(TreeNode root, int k) {
+        LinkedList<TreeNode> stack = new LinkedList<>();
+
+        while(true){
+            while(root != null){
+                stack.push(root);
+                root = root.left;
+            }
+            root = stack.pop();
+            if(--k ==0){
+                return root.val;
+            }
+            root=  root.right;
+        }
+
+    }
+
+
 
 }
 
@@ -1386,7 +1424,6 @@ class easy{
 
         return (int)ans;
     }
-
 
 
 }
