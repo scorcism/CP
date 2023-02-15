@@ -240,4 +240,23 @@ class DailyChallenges {
 
     }
 
+    // https://leetcode.com/problems/add-to-array-form-of-integer/description/
+    // 15 Feb 2023
+    public static List<Integer> addToArrayForm(int[] num, int k) {
+        List<Integer> list = new ArrayList<>();
+
+        int curr = k;
+        int n = num.length;
+        while( --n>=0 || curr >0 ){
+            if(n>=0){
+                curr = curr + num[n];
+            }
+            list.add(curr%10);
+            curr = curr /10;
+        }
+
+        Collections.reverse(list);
+        return list;
+    }
+
 }
