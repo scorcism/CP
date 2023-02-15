@@ -1354,6 +1354,41 @@ class easy{
     }
 
 
+    public int mySqrt(int x) {
+        
+        //  y = underoot of x
+        //  y squre = x
+        // we can get the floor one so 
+        // y sqare less then or eqal to x
+        
+        /*
+        long y  =  0;
+        while(y * y <= x){
+            y++;
+            }
+            
+            return (int)y-1;
+        */
+        // to make it more optiomised insted of linear search we can use binary search
+        long start  =0;
+        long end = Integer.MAX_VALUE;
+        long ans = 0;
+
+        while(start <=end){
+            long mid = start + (end - start )/2;
+            if(mid * mid <= x){
+                ans = mid;
+                start = mid +1;
+            }else{
+                end = mid -1;
+            }
+        }
+
+        return (int)ans;
+    }
+
+
+
 }
 
 public class CP {
