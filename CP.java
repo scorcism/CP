@@ -1329,6 +1329,33 @@ class trees {
 
 }
 
+class easy{
+
+    public String longestCommonPrefix(String[] strs) {
+        if(strs == null ){
+            return "";
+        }
+        // sorting it so that all the strings will be according to the size or the matching characters.
+        Arrays.sort(strs);
+        String first = strs[0];
+        String last = strs[strs.length -1];
+
+        int countSameCharacterInBoth = 0;
+
+        while(countSameCharacterInBoth < first.length()){
+            if(first.charAt(countSameCharacterInBoth) == last.charAt(countSameCharacterInBoth)){
+                countSameCharacterInBoth++;
+            }else{
+                break;
+            }
+        }
+        return (countSameCharacterInBoth == 0 ? "" : first.substring(0,countSameCharacterInBoth));
+        
+    }
+
+
+}
+
 public class CP {
     // CP Questions
     public static void main(String[] args) {
