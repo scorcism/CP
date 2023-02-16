@@ -175,7 +175,7 @@ class General {
                     i += (2 * numRows - 2);
                 }else {
                     if(up){
-                        
+
                     }
                 }
             }
@@ -183,6 +183,22 @@ class General {
         }
 
         return sb.toString();
+    }
+
+
+    public int reverse(int x) {
+        int res = 0;
+
+        while(x != 0){
+            int tmp = x % 10;
+            int newans = res * 10 + tmp;
+
+            if((newans - tmp )/10 != res){
+                return 0;
+            }
+            x  = x / 10;
+        }
+        return res;
     }
 
 
