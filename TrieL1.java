@@ -6,9 +6,7 @@ class Node {
 
     }
 
-    boolean containsKey(char ch) {
-        return (links[ch - 'a'] != null);
-    }
+   
 
     void put(char ch, Node node) {
         links[ch - 'a'] = node;

@@ -1175,13 +1175,13 @@ class trees {
     }
 
     public boolean isSameTree(TreeNode p, TreeNode q) {
-        if(p == null && q == null){
+        if (p == null && q == null) {
             return true;
         }
-        if(p == null || q == null){
+        if (p == null || q == null) {
             return false;
         }
-        if(p.val != q.val){
+        if (p.val != q.val) {
             return false;
         }
         return (isSameTree(p.left, q.left) && isSameTree(p.right, q.right));
@@ -1206,140 +1206,136 @@ class trees {
     }
 
     public boolean isSubtree(TreeNode root, TreeNode subRoot) {
-        
-        if(subRoot == null){
-            return true; 
+
+        if (subRoot == null) {
+            return true;
         }
-        if(root == null){
+        if (root == null) {
             return false;
         }
-        
-        if(issameSubtree(root, subRoot)){
+
+        if (issameSubtree(root, subRoot)) {
             return true;
         }
 
-        return (isSubtree(root.left,  subRoot) || isSubtree(root.right,  subRoot));
+        return (isSubtree(root.left, subRoot) || isSubtree(root.right, subRoot));
     }
 
     private boolean issameSubtree(TreeNode root, TreeNode subRoot) {
-        if(root == null && subRoot == null ){
+        if (root == null && subRoot == null) {
             return true;
         }
 
-        if(root == null || subRoot == null){
+        if (root == null || subRoot == null) {
             return false;
         }
 
-        if(root.val != subRoot.val){
+        if (root.val != subRoot.val) {
             return false;
         }
 
-        return ((issameSubtree(root.left, subRoot.left))&&(issameSubtree(root.right, subRoot.right)));
+        return ((issameSubtree(root.left, subRoot.left)) && (issameSubtree(root.right, subRoot.right)));
 
     }
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
-        if(root == null || root == p || root == q){
+        if (root == null || root == p || root == q) {
             return root;
-        }    
-        TreeNode left =  lowestCommonAncestor(root.left, p, q);
-        TreeNode right =  lowestCommonAncestor(root.right, p, q);
-
-        if(left == null){
-            return  right;
         }
-        else if(right == null){
-            return  left;
-        }else{
+        TreeNode left = lowestCommonAncestor(root.left, p, q);
+        TreeNode right = lowestCommonAncestor(root.right, p, q);
+
+        if (left == null) {
+            return right;
+        } else if (right == null) {
+            return left;
+        } else {
             return root;
         }
     }
 
     public List<List<Integer>> levelOrder(TreeNode root) {
-       List<List<Integer>> ans = new ArrayList<>();
+        List<List<Integer>> ans = new ArrayList<>();
 
-        levelOrderHelper(root,ans,0);
+        levelOrderHelper(root, ans, 0);
         return ans;
     }
 
     private void levelOrderHelper(TreeNode root, List<List<Integer>> ans, int level) {
-        if(root == null){
+        if (root == null) {
             return;
         }
         // if new level doesnt conatain ist for this level
-        if(level >= ans.size()){
+        if (level >= ans.size()) {
             ans.add(new ArrayList<>());
         }
         ans.get(level).add(root.val);
-        levelOrderHelper(root.left,ans,level+1);
-        levelOrderHelper(root.right,ans,level+1);
+        levelOrderHelper(root.left, ans, level + 1);
+        levelOrderHelper(root.right, ans, level + 1);
     }
-
 
     // 105. Construct Binary Tree from Preorder and Inorder Traversal
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         Map<Integer, Integer> map = new HashMap<>();
 
-        for(int i = 0; i< inorder.length; i++){
-            map.put(inorder[i],i);
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
         }
 
-        return buildTreeUtil(preorder, 0, preorder.length-1, inorder, 0, inorder.length-1, map);
-        
+        return buildTreeUtil(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, map);
+
     }
 
-    private TreeNode buildTreeUtil(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd, Map<Integer, Integer> map) {
-        
-        if(preStart>preEnd || inStart> inEnd){
+    private TreeNode buildTreeUtil(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd,
+            Map<Integer, Integer> map) {
+
+        if (preStart > preEnd || inStart > inEnd) {
             return null;
         }
 
-        TreeNode root  = new TreeNode(preorder[preStart]);
+        TreeNode root = new TreeNode(preorder[preStart]);
 
         // get index of the root element from the inorder
         int indexOfRoot = map.get(root.val);
         // find all the element in the left
         int leftEles = indexOfRoot - inStart;
 
-        root.left = buildTreeUtil(preorder, preStart+1, preEnd+leftEles, inorder, inStart, indexOfRoot-1, map);
-        root.right = buildTreeUtil(preorder, preStart+leftEles+1, preEnd, inorder, indexOfRoot+1        , inEnd, map);
+        root.left = buildTreeUtil(preorder, preStart + 1, preEnd + leftEles, inorder, inStart, indexOfRoot - 1, map);
+        root.right = buildTreeUtil(preorder, preStart + leftEles + 1, preEnd, inorder, indexOfRoot + 1, inEnd, map);
 
         return root;
     }
 
-
-
     public boolean isValidBST(TreeNode root) {
-      if(root == null){
-        return true;
-      }
-      return isValidBSTUtil(root,Integer.MIN_VALUE, Integer.MAX_VALUE);
+        if (root == null) {
+            return true;
+        }
+        return isValidBSTUtil(root, Integer.MIN_VALUE, Integer.MAX_VALUE);
     }
 
     private boolean isValidBSTUtil(TreeNode root, int minValue, int maxValue) {
-        
-        if(root.val < minValue || root.val > maxValue){
+
+        if (root.val < minValue || root.val > maxValue) {
             return false;
         }
 
         return ((isValidBSTUtil(root.left, minValue, root.val)) && (isValidBSTUtil(root.right, root.val, maxValue)));
-    } 
-
+    }
 
     // 230. Kth Smallest Element in a BST
     // brute
     public int kthSmallestBrute(TreeNode root, int k) {
-        // Get the in order traversal 
+        // Get the in order traversal
         // return the ktn from the list
         ArrayList<Integer> ans = inorderkthsmallest(root, new ArrayList<Integer>());
         return ans.get(k);
-    
+
     }
 
     private ArrayList<Integer> inorderkthsmallest(TreeNode root, ArrayList<Integer> list) {
-        if(root == null){
+        if (root == null) {
             return list;
-        }   
+        }
         inorderkthsmallest(root.left, list);
         list.add(root.val);
         inorderkthsmallest(root.right, list);
@@ -1349,82 +1345,165 @@ class trees {
     public int kthSmallestOptimal(TreeNode root, int k) {
         LinkedList<TreeNode> stack = new LinkedList<>();
 
-        while(true){
-            while(root != null){
+        while (true) {
+            while (root != null) {
                 stack.push(root);
                 root = root.left;
             }
             root = stack.pop();
-            if(--k ==0){
+            if (--k == 0) {
                 return root.val;
             }
-            root=  root.right;
+            root = root.right;
         }
 
     }
-
-
 
 }
 
-class easy{
+class easy {
 
     public String longestCommonPrefix(String[] strs) {
-        if(strs == null ){
+        if (strs == null) {
             return "";
         }
-        // sorting it so that all the strings will be according to the size or the matching characters.
+        // sorting it so that all the strings will be according to the size or the
+        // matching characters.
         Arrays.sort(strs);
         String first = strs[0];
-        String last = strs[strs.length -1];
+        String last = strs[strs.length - 1];
 
         int countSameCharacterInBoth = 0;
 
-        while(countSameCharacterInBoth < first.length()){
-            if(first.charAt(countSameCharacterInBoth) == last.charAt(countSameCharacterInBoth)){
+        while (countSameCharacterInBoth < first.length()) {
+            if (first.charAt(countSameCharacterInBoth) == last.charAt(countSameCharacterInBoth)) {
                 countSameCharacterInBoth++;
-            }else{
+            } else {
                 break;
             }
         }
-        return (countSameCharacterInBoth == 0 ? "" : first.substring(0,countSameCharacterInBoth));
-        
+        return (countSameCharacterInBoth == 0 ? "" : first.substring(0, countSameCharacterInBoth));
+
     }
 
-
     public int mySqrt(int x) {
-        
-        //  y = underoot of x
-        //  y squre = x
-        // we can get the floor one so 
+
+        // y = underoot of x
+        // y squre = x
+        // we can get the floor one so
         // y sqare less then or eqal to x
-        
+
         /*
-        long y  =  0;
-        while(y * y <= x){
-            y++;
-            }
-            
-            return (int)y-1;
-        */
+         * long y = 0;
+         * while(y * y <= x){
+         * y++;
+         * }
+         * 
+         * return (int)y-1;
+         */
         // to make it more optiomised insted of linear search we can use binary search
-        long start  =0;
+        long start = 0;
         long end = Integer.MAX_VALUE;
         long ans = 0;
 
-        while(start <=end){
-            long mid = start + (end - start )/2;
-            if(mid * mid <= x){
+        while (start <= end) {
+            long mid = start + (end - start) / 2;
+            if (mid * mid <= x) {
                 ans = mid;
-                start = mid +1;
-            }else{
-                end = mid -1;
+                start = mid + 1;
+            } else {
+                end = mid - 1;
             }
         }
 
-        return (int)ans;
+        return (int) ans;
     }
 
+}
+
+class WDNode {
+    WDNode[] links = new WDNode[26];
+    boolean flag = false;
+
+    boolean containsKey(char ch) {
+        return (links[ch - 'a'] != null);
+    }
+
+    void put(char ch, WDNode node) {
+        links[ch - 'a'] = node;
+    }
+
+    WDNode get(char ch) {
+        return links[ch - 'a'];
+    }
+
+    void setEnd() {
+        flag = true;
+    }
+
+    boolean isWord() {
+        return flag;
+    }
+}
+
+class WordDictionary {
+
+    // Create new root
+    private static WDNode root;
+
+    public WordDictionary() {
+        root = new WDNode();
+    }
+
+    public void addWord(String word) {
+        // Create tmp node for iteration
+        WDNode node = root;
+        for (int i = 0; i < word.length(); i++) {
+            if (!node.containsKey(word.charAt(i))) {
+                // if not already presnet put the current char to the node
+                node.put(word.charAt(i), new WDNode());
+            }
+            // after puting the char to the new node
+            // move towards the that node
+            node.get(word.charAt(i));
+        }
+        // set the last ref trie flag to true means word end
+        node.setEnd();
+    }
+
+    // Return word if present, . means any word can be there
+    public boolean search(String word) {
+        return matchS(word, 0, root);
+    }
+
+    private boolean matchS(String word, int pos, WDNode root) {
+        WDNode node= root;
+        
+        if(word.charAt(pos)=='.'){
+            boolean res = false;
+            for(int i  = 0; i<26; ++i){
+                // if we are at the last position
+                if(pos ==word.length()-1 && node.links[i] != null){
+                    node = node.links[i];
+                    res |= node.isWord();
+                    
+                    // If we are in betwwen 
+                }else if(node.links[i] != null && matchS(word, pos+1, root)){
+                    return true;
+                }
+                return res;
+            }
+
+            // if the child exists
+        }else if(node.links[word.charAt(pos) - 'a']!= null){
+            if(pos == word.length() -1){
+                node = node.links[word.charAt(pos) - 'a'];
+                return node.isWord();
+            }
+            return matchS(word, pos+1, root);
+        }
+        return false;
+    }
 
 }
 
