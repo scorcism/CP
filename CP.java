@@ -157,6 +157,36 @@ class Interval {
 
 class General {
 
+    public String convert(String s, int numRows) {
+        if(numRows == 1){
+            return s;
+        }
+        StringBuilder sb = new StringBuilder();
+
+        for(int row = 0; row < numRows; row++){
+            int i = row;
+            boolean up = true;
+
+            while(i < s.length()){
+
+                sb.append(s.charAt(i));
+
+                if(row == 0 || row == numRows-1){
+                    i += (2 * numRows - 2);
+                }else {
+                    if(up){
+                        
+                    }
+                }
+            }
+
+        }
+
+        return sb.toString();
+    }
+
+
+
     public class ListNode {
         int val;
         ListNode next;
@@ -1532,18 +1562,18 @@ class LinkedList {
         int carry = 0;
         ListNode l1p = l1;
         ListNode l2p = l2;
-        while(l1p != null || l2p != null || carry != 0){
-            int sum  =0;
-            if(l1p != null){
+        while (l1p != null || l2p != null || carry != 0) {
+            int sum = 0;
+            if (l1p != null) {
                 sum = sum + l1p.val;
                 l1p = l1p.next;
             }
-            if(l2p != null){
+            if (l2p != null) {
                 sum = sum + l2p.val;
                 l2p = l2p.next;
             }
-            sum  =sum +carry;
-            ListNode temp = new ListNode(sum%10);
+            sum = sum + carry;
+            ListNode temp = new ListNode(sum % 10);
             carry = sum / 10;
             tmp.next = temp;
             tmp = tmp.next;
