@@ -1477,34 +1477,80 @@ class WordDictionary {
     }
 
     private boolean matchS(String word, int pos, WDNode root) {
-        WDNode node= root;
-        
-        if(word.charAt(pos)=='.'){
+        WDNode node = root;
+
+        if (word.charAt(pos) == '.') {
             boolean res = false;
-            for(int i  = 0; i<26; ++i){
+            for (int i = 0; i < 26; ++i) {
                 // if we are at the last position
-                if(pos ==word.length()-1 && node.links[i] != null){
+                if (pos == word.length() - 1 && node.links[i] != null) {
                     node = node.links[i];
                     res |= node.isWord();
-                    
-                    // If we are in betwwen 
-                }else if(node.links[i] != null && matchS(word, pos+1, root)){
+
+                    // If we are in betwwen
+                } else if (node.links[i] != null && matchS(word, pos + 1, root)) {
                     return true;
                 }
                 return res;
             }
 
             // if the child exists
-        }else if(node.links[word.charAt(pos) - 'a']!= null){
-            if(pos == word.length() -1){
+        } else if (node.links[word.charAt(pos) - 'a'] != null) {
+            if (pos == word.length() - 1) {
                 node = node.links[word.charAt(pos) - 'a'];
                 return node.isWord();
             }
-            return matchS(word, pos+1, root);
+            return matchS(word, pos + 1, root);
         }
         return false;
     }
 
+}
+
+class LinkedList {
+
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode ans = new ListNode(0);
+        ListNode tmp = ans;
+        int carry = 0;
+        ListNode l1p = l1;
+        ListNode l2p = l2;
+        while(l1p != null || l2p != null || carry != 0){
+            int sum  =0;
+            if(l1p != null){
+                sum = sum + l1p.val;
+                l1p = l1p.next;
+            }
+            if(l2p != null){
+                sum = sum + l2p.val;
+                l2p = l2p.next;
+            }
+            sum  =sum +carry;
+            ListNode temp = new ListNode(sum%10);
+            carry = sum / 10;
+            tmp.next = temp;
+            tmp = tmp.next;
+
+        }
+        return ans.next;
+    }
 }
 
 public class CP {
