@@ -3,7 +3,7 @@ import java.util.*;
 public class BFS {
     
     public static ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj){
-	// Using Queue
+	// Using Queue in DFS
         ArrayList<Integer> bfs = new ArrayList<>();
 
         boolean vis[] = new boolean[V];
