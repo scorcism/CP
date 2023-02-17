@@ -158,23 +158,23 @@ class Interval {
 class General {
 
     public String convert(String s, int numRows) {
-        if(numRows == 1){
+        if (numRows == 1) {
             return s;
         }
         StringBuilder sb = new StringBuilder();
 
-        for(int row = 0; row < numRows; row++){
+        for (int row = 0; row < numRows; row++) {
             int i = row;
             boolean up = true;
 
-            while(i < s.length()){
+            while (i < s.length()) {
 
                 sb.append(s.charAt(i));
 
-                if(row == 0 || row == numRows-1){
+                if (row == 0 || row == numRows - 1) {
                     i += (2 * numRows - 2);
-                }else {
-                    if(up){
+                } else {
+                    if (up) {
 
                     }
                 }
@@ -185,23 +185,73 @@ class General {
         return sb.toString();
     }
 
-
     public int reverse(int x) {
         int res = 0;
 
-        while(x != 0){
+        while (x != 0) {
             int tmp = x % 10;
             int newans = res * 10 + tmp;
 
-            if((newans - tmp )/10 != res){
+            if ((newans - tmp) / 10 != res) {
                 return 0;
             }
-            x  = x / 10;
+            x = x / 10;
         }
         return res;
     }
 
+    public static int myAtoi(String s) {
+        /*
+         * We have to take care of 4 condiitons
+         * 1) escape white spaces
+         * 2) sign check
+         * 3) overflow check
+         * 4) valid input check
+         */
+        int result = 0;
+        int sign = 1;
+        int index = 0;
+        int n = s.length();
 
+        while (index < n && s.charAt(index) == ' ') {
+            index++;
+        }
+
+        if (s.charAt(index) == '+') {
+            sign = 1;
+            index++;
+        } else if (s.charAt(index) == '-') {
+            sign = -1;
+            index++;
+        }
+        // System.out.println("Index: " + index);
+        // while (index < n && s.charAt(index++) - '0' >= 0 && s.charAt(index++) - '0'
+        // <= 9) {
+        // int digit = s.charAt(index) - '0';
+        // System.out.println("Digit: " + digit);
+        // if (result > Integer.MAX_VALUE / 10
+        // || (digit > Integer.MAX_VALUE % 10 && result == Integer.MAX_VALUE / 10)) {
+        // return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+        // }
+        // result = result * 10 + digit;
+        // System.out.println("Index end: " + index);
+        // }
+
+        for (int i = index; i < n; i++) {
+            if (i < n && s.charAt(i) - '0' >= 0 && s.charAt(i) - '0' <= 9) {
+                int digit = s.charAt(i) - '0';
+                // System.out.println("Digit: " + digit);
+                if (result > Integer.MAX_VALUE / 10
+                        || (digit > Integer.MAX_VALUE % 10 && result == Integer.MAX_VALUE / 10)) {
+                    return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+                }
+                result = result * 10 + digit;
+                // System.out.println("Index end: " + index);
+            }
+        }
+
+        return result * sign;
+    }
 
     public class ListNode {
         int val;
