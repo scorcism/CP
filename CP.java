@@ -653,22 +653,95 @@ class Matrix {
 
 }
 
+class Entry{
+    public int key;
+    public int value;
+    public Entry(int a, int b){
+    this.key = a;
+    this.value = b;
+    }
+}
+
 class MyHashMap {
-    int[] map;
+    // Create a Structure
+    // as hashmap as array of bucket which is linked wil linked of values which whill store 
+    // all the valus with key so to avoid collision
+    // we will create a new custom class which will store the key and value based on hashcode hascode
+    // will be the key % size of out array
+    // we will use array of linkedlist which contains custom Entry
+    // Definign a Structure
+    java.util.LinkedList<Entry>[] map;
+    // size of the array bucket
+    static int SIZE = 1000;
+
     public MyHashMap() {
-        map = new int[100001];
+        map=  new java.util.LinkedList[SIZE];
     }
     
     public void put(int key, int value) {
-        map[key] = value;
+        // getting the buckey 
+        int bucket = key % SIZE;
+        // if the key and value is the 1st for the bucket
+        if(map[bucket] == null){
+            // create new bucket and put the value into it
+            // create a new entry to the bucket
+            map[bucket] = new java.util.LinkedList<Entry>();
+            // add that element to the bucket
+            map[bucket].add(new Entry(key,value));
+        }else{
+            // if we have something in that bucket
+            // traverse the bucket and of the key that matches the key and update its value to he new one
+            for(Entry entry: map[bucket]){
+                if(entry.key== key){
+                    entry.value =  value;
+                    return;
+                }
+            }
+            // if the key is not present add tha new key and add to that bucket
+            map[bucket].add(new Entry(key, value));
+        }
     }
     
     public int get(int key) {
-        return map[key]-1;
+        // Search in the bucket -> buckey is the array whcih store the values
+        // if found search in all the entries
+        int bucket  = key % SIZE; // to get the bucket number
+        // Get all the entries in the bucket
+        java.util.LinkedList<Entry> entrys = map[bucket];
+        // if there is no bucket with the key
+        if(entrys == null){
+            return -1;
+        }
+        // if there are entries iterate and return the value
+        for(Entry ent : entrys){
+            if(ent.key == key){
+                return ent.value;
+            }
+        }
+        // if there is a bucket but the key is not present then return 
+        return -1;
+    
     }
     
     public void remove(int key) {
-        map[key] = 0;'
+        int bucket  = key % SIZE;
+        Entry toRemove = null;
+        // if bucket is not present
+        if(map[bucket]==null){return ;}
+        else{   
+            // if there is iterate and store that value to the tmp entry
+            for(Entry entry: map[bucket]){
+                if(entry.key== key){
+                   toRemove = entry; 
+                }
+            }
+            // if the tmp entry is null
+            if(toRemove == null){
+                return;
+            }
+            // remove that node
+            map[bucket].remove(toRemove);
+        }
     }
 }
 
