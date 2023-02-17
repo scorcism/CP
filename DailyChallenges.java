@@ -247,16 +247,61 @@ class DailyChallenges {
 
         int curr = k;
         int n = num.length;
-        while( --n>=0 || curr >0 ){
-            if(n>=0){
+        while (--n >= 0 || curr > 0) {
+            if (n >= 0) {
                 curr = curr + num[n];
             }
-            list.add(curr%10);
-            curr = curr /10;
+            list.add(curr % 10);
+            curr = curr / 10;
         }
 
         Collections.reverse(list);
         return list;
+    }
+
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
+
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    // Feb 17
+    
+    Integer pre = null;
+    Integer res = Integer.MAX_VALUE;
+    public int minDiffInBST(TreeNode root) {
+        
+        return getminDiffInBST(root);
+    }
+
+    private int getminDiffInBST(TreeNode root) {
+        if(root==null){
+            return 0;
+        } 
+        getminDiffInBST(root.left);
+        if(pre != null){
+            // If we have iterated the 1st ele in in order and we are at the root node of the left mosr tree
+            // We will store the difference in root.val and pre
+            res = Math.min(res, root.val - pre); 
+        }
+        // starting me pre will be none so the current node which will be the lastmost last one in case of inorder whill be the pre
+        pre = root.val;
+        getminDiffInBST(root.right);
+
+        return res;
     }
 
 }
