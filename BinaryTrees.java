@@ -269,6 +269,25 @@ class BinaryTrees {
 		return ans;
     }
 
+    // 124. Binary Tree Maximum Path Sum
+    public int maxPathSum(TreeNode root) {
+        int maxVal[] = new int[1];
+        maxVal[0] = Integer.MIN_VALUE;
+        moveDown(root,maxVal);
+        return maxVal[0];
+    }
+    private int moveDown(TreeNode root, int[] maxVal){
+        if(root == null){
+            return 0;
+        }
+        // here 0 is used to comapre if we got some negative path 
+        int left = Math.max(0,moveDown(root.left,maxVal));
+        int right = Math.max(0,moveDown(root.right,maxVal));
+
+        maxVal[0] = Math.max(maxVal[0], left + right + root.val);
+        return Math.max(left,right) + root.val;
+    }
+
     public static void main(String[] args) {
         // System.out.println("Hello Node");
         int[] nodes = { 1, 2, 4, -1, -1, 5, -1, -1, 3, -1, 6, -1, -1 };
