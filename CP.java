@@ -375,9 +375,8 @@ class General {
 
     }
 
-	public int maxPathSum(TreeNode root) {
-		
-	
+    public int maxPathSum(TreeNode root) {
+
     }
 
 }
@@ -1655,8 +1654,73 @@ class LinkedList {
     }
 }
 
+class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
 
+    TreeNode(int x) {
+        val = x;
+    }
+}
+class Codec {
 
+    // Encodes a tree to a single string.
+    public String serialize(TreeNode root) {
+        // if root is null retrun empty string
+        if(root == null){
+            return "";
+        }
+        // create a sb to store all the strings
+        StringBuilder sb= new StringBuilder();
+        // create a Queue to do level order traversal
+        Queue<TreeNode> q =  new LinkedList<>();
+
+        q.add(root);
+        while(!q.isEmpty()){
+            TreeNode node = q.poll();
+            if(node == null){
+                sb.append("n ");
+                continue;
+            }
+            sb.append(node.val +" ");
+            q.add(node.left);
+            q.add(node.right);
+        }
+        return sb.toString();
+    }
+
+    // Decodes your encoded data to tree.
+    public TreeNode deserialize(String data) {
+        if(data == ""){
+            return null;
+        }
+        // split the data by space so we can get new array
+        String[] values = data.split(" ");
+        // create a new node with the 1st value from the data aka values
+        TreeNode root = new TreeNode(Integer.parseInt(values[0]));
+        // create a quue so what we can do is 
+        // which add the root to the q 
+        // which we we have all the chars in values we will iterate and will get the element from he queue
+        // we it the 1st element which will be the parent and start iterting and we will check if ith one is not equal to n means there is no null so i will be the left one and i+1 will be right one 
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+        for(int i = 1; i< values.length ; i++){
+            TreeNode parent = q.poll();
+            if(!values[i].equals("n")){
+                TreeNode left = new TreeNode(Integer.parseInt(values[i]));
+                parent.left = left;
+                q.add(left);
+            }
+            if(!values[++i].equals("n")){
+                TreeNode right = new TreeNode(Integer.parseInt(values[i]));
+                parent.right = right;
+                q.add(right);
+            }
+        }
+        return root;
+    }
+}
 
 public class CP {
     // CP Questions
