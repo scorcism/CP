@@ -162,6 +162,7 @@ class Tmp {
         // System.out.println(Arrays.toString(c));
 
         // System.out.println((int)1e9);
+        System.out.println(myAtoi("words and 987"));
     }
 
     // User function Template for Java
@@ -188,6 +189,58 @@ class Tmp {
 
         return count;
 
+    }
+
+    public static int myAtoi(String s) {
+        /*
+         * We have to take care of 4 condiitons
+         * 1) escape white spaces
+         * 2) sign check
+         * 3) overflow check
+         * 4) valid input check
+         */
+        int result = 0;
+        int sign = 1;
+        int index = 0;
+        int n = s.length();
+
+        while (index < n && s.charAt(index) == ' ') {
+            index++;
+        }
+
+        if (s.charAt(index) == '+') {
+            sign = 1;
+            index++;
+        } else if (s.charAt(index) == '-') {
+            sign = -1;
+            index++;
+        }
+        // System.out.println("Index: " + index);
+        // while (index < n && s.charAt(index++) - '0' >= 0 && s.charAt(index++) - '0' <= 9) {
+        //     int digit = s.charAt(index) - '0';
+        //     System.out.println("Digit: " + digit);
+        //     if (result > Integer.MAX_VALUE / 10
+        //             || (digit > Integer.MAX_VALUE % 10 && result == Integer.MAX_VALUE / 10)) {
+        //         return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+        //     }
+        //     result = result * 10 + digit;
+        //     System.out.println("Index end: " + index);
+        // }
+
+        for (int i = index; i < n; i++) {
+            if (i < n && s.charAt(i) - '0' >= 0 && s.charAt(i) - '0' <= 9) {
+                int digit = s.charAt(i) - '0';
+                // System.out.println("Digit: " + digit);
+                if (result > Integer.MAX_VALUE / 10
+                        || (digit > Integer.MAX_VALUE % 10 && result == Integer.MAX_VALUE / 10)) {
+                    return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+                }
+                result = result * 10 + digit;
+                // System.out.println("Index end: " + index);
+            }
+        }
+
+        return result * sign;
     }
 
 }
