@@ -107,7 +107,7 @@ class BinaryTrees {
             }
         }
     }
-
+    
     public static int countNodes(Node root) {
 
         if (root == null) {
