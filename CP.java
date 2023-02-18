@@ -6,6 +6,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Stack;
+
+import javax.swing.border.Border;
+
 import java.util.LinkedList;
 import java.util.HashSet;
 import java.util.Queue;
@@ -24,7 +27,7 @@ class Interval {
         int end = intervals[0][1];
 
         for (int[] it : intervals) {
-            if (it[0] <= end) {
+            if (it[0] <= end) 
                 // merge
                 end = Math.max(end, it[1]);
             } else {
@@ -155,7 +158,102 @@ class Interval {
     }
 }
 
+
+
+
+class TrieNode{
+    TrieNode[] links =new TrieNode[26];
+    String word;
+
+}
+
 class General {
+ 
+    public List<String> findWords(char[][] board, String[] words) {
+        List<String> res = new ArrayList<>();
+        TrieNode root = buildTree(words);
+        for(int i = 0; i< board.length; i++){
+            for(int j = 0; j< board[0].length; j++){
+                dfsfw(board,i,j,root,res);
+            }
+        }
+        return res;
+    }
+    public void dfsfw(char[][] board, int i, int j, TreeNode parent, List<String> res){
+    char c = board[i][j];
+        if(c == '#' || parent.links[c-'a'] == null) return;
+        parent = parent.links[c-'a'];
+        if(parent.word!=null){
+            res.add(parent.word);
+            parent.word = null;
+        }
+        board[i][j] = '#';
+        if (i > 0) dfsfw(board, i, j, parent, res); 
+    if (j > 0) dfsfw(board, i, j - 1, p, res);
+    if (i < board.length - 1) dfsfw(board, i + 1, j, p, res); 
+    if (j < board[0].length - 1) dfsfw(board, i, j + 1, p, res); 
+    }
+
+    public TrieNode buildTree(String[] words){
+        TrieNode root = new TrieNode();
+        for(String w: words){
+            TrieNode p = root;
+            for(char c: w.toCharArray()){
+                int i = c -'a';
+                if(p.links[i] == null){
+                    p.links[i] = new TrieNode();
+                }
+                p = p.links[i];
+            }
+            p.word = w;
+        }
+        return root;
+    }
+
+    // Word search I
+    public boolean exist(char[][] board, String word) {
+        int n = board.length;
+        int m = board[0].length;
+        
+        // To keep track of words which are visited
+        boolean[][] vis = new boolean[n][m];    
+        int k = 0;// for word indexing  
+
+
+        for(int i = 0;i< n ; i++){
+            for(int j = 0; i< m; j++){
+                if(board[i][j] == word.charAt(k) && dfsSearch(board,word,i,j,k,vis)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private static boolean dfsSearch(char [][] board, String word, int i, int j, int k,  boolean[][] vis ){
+        if(word.length() == k){
+            return true;
+        }
+        if(i < 0 || j < 0 || i >= border.length || j >= border.length || word.charAt[k] != border[i][j] || vis[i][j]){
+            return false;
+        }
+        vis[i][j] = true;
+        // search in all 4 directions
+        // if (dfsSearch(i + 1, j, k + 1, board, word, vis) ||
+        // dfsSearch(i - 1, j, k + 1, board, word, vis) ||
+        // dfsSearch(i, j + 1, k + 1, board, word,vis ) ||
+        // dfsSearch(i, j - 1, k + 1, board, word,vis )) {
+        // return true;
+        // }
+        // // if word not found in the iteration make vis to false again make the path followed by that dfs to value
+         vis[i][j] = false;
+         return false;
+
+    }
+    
+
+
+
 
     public String convert(String s, int numRows) {
         if (numRows == 1) {
