@@ -3,6 +3,45 @@ import java.util.LinkedList;
 
 public class CP2 {
 
+    class Solution {
+        public int[][] mergeArrays(int[][] nums1, int[][] nums2) {
+
+            List<int[]> list = new ArrayList<>();
+
+            int n1 = nums1.length;
+            int n2 = nums2.length;
+            int i = 0;
+            int j = 0;
+            while (i < n1 && j < n2) {
+                int[] num1val = nums1[i];
+                int[] num2val = nums2[j];
+                if (num1val[0] < num2val[0]) {
+                    list.add(num1val);
+                    i++;
+                } else if (num1val[0] > num2val[0]) {
+                    list.add(num2val);
+                    j++;
+                } else if (num1val[0] == num2val[0]) {
+                    // both are same
+                    int tmp = num1val[1] + num2val[1];
+                    int[] newtmp = { num1val[0], tmp };
+                    list.add(newtmp);
+                    i++;
+                    j++;
+                }
+            }
+            while (i < n1) {
+                list.add(nums1[i]);
+                i++;
+            }
+            while (j < n2) {
+                list.add(nums2[j]);
+                j++;
+            }
+            return list.toArray(new int[list.size()][]);
+        }
+    }
+
     public class TreeNode {
         int val;
         TreeNode left;
@@ -10,9 +49,11 @@ public class CP2 {
 
         TreeNode() {
         }
+
         TreeNode(int val) {
             this.val = val;
         }
+
         TreeNode(int val, TreeNode left, TreeNode right) {
             this.val = val;
             this.left = left;

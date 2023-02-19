@@ -80,20 +80,30 @@ class Tmp {
     public static void main(String[] args) {
 
 
-        List<Integer> list  =new ArrayList<>();
+        // List<Integer> list  =new ArrayList<>();
 
-        list.add(0,12);
-        list.add(0,13);
-        list.add(0,14);
-        list.add(0,15);
-        list.add(0,16);
+        // list.add(0,12);
+        // list.add(0,13);
+        // list.add(0,14);
+        // list.add(0,15);
+        // list.add(0,16);
 
 
-        System.out.println(list);
+        // System.out.println(list);
+        List<int[]> list = new ArrayList<>();
+        list.add(new int[] {2,3,4});
+        list.add(new int[] {2,3,});
+        list.add(new int[] {2,3,4,5});
+        list.add(new int[] {2,3,4,1});
+
+        // System.out.println(list.toArray(new int[list.size()][]));
+        for(int[] r: list.toArray(new int[2][])){
+            System.out.println(Arrays.toString(r));
+        }
 
 
         int[] array = new int[10];
-        System.out.println(Arrays.toString(array));
+        // System.out.println(Arrays.toString(array));
 
         for (char i = 'A'; i <= 'A' + 5; i++) {
             // System.out.print(i + " ");
@@ -175,7 +185,7 @@ class Tmp {
         // System.out.println(Arrays.toString(c));
 
         // System.out.println((int)1e9);
-        System.out.println(myAtoi("words and 987"));
+        // System.out.println(myAtoi("words and 987"));
     }
 
     // User function Template for Java
