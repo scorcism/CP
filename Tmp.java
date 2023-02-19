@@ -79,6 +79,19 @@ class Tmp {
 
     public static void main(String[] args) {
 
+
+        List<Integer> list  =new ArrayList<>();
+
+        list.add(0,12);
+        list.add(0,13);
+        list.add(0,14);
+        list.add(0,15);
+        list.add(0,16);
+
+
+        System.out.println(list);
+
+
         int[] array = new int[10];
         System.out.println(Arrays.toString(array));
 
@@ -87,7 +100,7 @@ class Tmp {
         }
 
         Temps t = new Temps();
-        t.printco(2, 2);
+        // t.printco(2, 2);
 
         // int[] ar = new int[7];
         // System.out.println(Arrays.toString(ar));
@@ -116,12 +129,12 @@ class Tmp {
 
         // System.out.println(Arrays.toString(ar3));
 
-        List<Integer> list = new ArrayList<Integer>();
-        list.add(1);
-        list.add(12);
-        list.add(11);
-        list.add(21);
-        list.add(14);
+        // List<Integer> list = new ArrayList<Integer>();
+        // list.add(1);
+        // list.add(12);
+        // list.add(11);
+        // list.add(21);
+        // list.add(14);
         // System.out.println(list);
         // Collections.sort(list);
         // System.out.println(list);

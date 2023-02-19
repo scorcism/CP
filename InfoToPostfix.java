@@ -50,7 +50,7 @@ public class InfoToPostfix {
 
     public static void main(String[] args) {
         String expression = "a*b/(d+c)*e";
-        String expression2 = "a-b/c*d*e+f";
+        String expression2 = "(x*y)-(z/p)";
         infoToPostfix(expression2);
     }
 }

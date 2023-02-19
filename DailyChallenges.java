@@ -304,4 +304,45 @@ class DailyChallenges {
         return res;
     }
 
+    // day 19
+    // 103. Binary Tree Zigzag Level Order Traversal
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();       
+        
+        //  Performing level order traversal
+        zzloHelper(root, ans, 0);   
+        return ans;
+
+    }
+
+    public static void zzloHelper(TreeNode root, List<List<Integer>> res , int level){
+        
+        if(root == null){
+            return;
+        }
+    
+        // check if the new Arraylist is presnet for the current level
+        if(level >= res.size()){
+            // means here is no arraylist for the current level
+            // so create new arrayList for this level
+            res.add(level, new ArrayList<>());
+        }
+
+        // we want zig zag so what we can do is reverse the every odd level
+        if (level % 2 ==0){
+            // even level
+            res.get(level).add(root.val);
+        }else{
+            // odd level
+            // here waht we are doing is add new new element of that level to 0th position so all next will 
+            //  shifted
+            res.get(level).add(0,root.val);
+        }
+
+        // goto left and right and increae the level
+        zzloHelper(root.left, res, level+1);
+        zzloHelper(root.right, res, level+1);
+
+    }
+
 }

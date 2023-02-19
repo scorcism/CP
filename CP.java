@@ -36,11 +36,12 @@ class Interval {
                 start = it[0];
                 end = it[1];
             }
+            // put last one into the res
+            res.add(new int[]{start,end});
+            
+            return res.toArray(new int[0][]);
         }
-        // put last one into the res
-        res.add(new int[] { start, end });
 
-        return res.toArray(new int[0][]);
     }
 
     public int[][] insertInterval(int[][] intervals, int[] newInterval) {
@@ -158,49 +159,62 @@ class Interval {
     }
 }
 
-
-
-
-class TrieNode{
-    TrieNode[] links =new TrieNode[26];
+class TrieNode {
+    TrieNode[] links = new TrieNode[26];
     String word;
 
 }
 
 class General {
- 
+
+    public void infixToPostfix(String s) {
+        // There will be 4 conditions
+
+    }
+
     public List<String> findWords(char[][] board, String[] words) {
         List<String> res = new ArrayList<>();
         TrieNode root = buildTree(words);
-        for(int i = 0; i< board.length; i++){
-            for(int j = 0; j< board[0].length; j++){
-                dfsfw(board,i,j,root,res);
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                dfsfw(board, i, j, root, res);
             }
         }
         return res;
     }
-    public void dfsfw(char[][] board, int i, int j, TreeNode parent, List<String> res){
-    char c = board[i][j];
-        if(c == '#' || parent.links[c-'a'] == null) return;
-        parent = parent.links[c-'a'];
-        if(parent.word!=null){
-            res.add(parent.word);
-            parent.word = null;
+    static class TrieNode{
+        TrieNode[] links = new TrieNode[26];
+        String word;
+
+    } 
+
+    public void dfsfw(char[][] board, int i, int j, TrieNode parent, List<String> res) {
+        char c = board[i][j];
+        if (c == '#' || parent.links[c - 'a'] == null)
+            return;
+        parent = parent.links[c - 'a'];
+        if (parent.links != null) {
+            res.add("hghfgg");
+            parent.links = null;
         }
         board[i][j] = '#';
-        if (i > 0) dfsfw(board, i, j, parent, res); 
-    if (j > 0) dfsfw(board, i, j - 1, p, res);
-    if (i < board.length - 1) dfsfw(board, i + 1, j, p, res); 
-    if (j < board[0].length - 1) dfsfw(board, i, j + 1, p, res); 
+        if (i > 0)
+            dfsfw(board, i, j, parent, res);
+        if (j > 0)
+            dfsfw(board, i, j - 1, p, res);
+        if (i < board.length - 1)
+            dfsfw(board, i + 1, j, p, res);
+        if (j < board[0].length - 1)
+            dfsfw(board, i, j + 1, p, res);
     }
 
-    public TrieNode buildTree(String[] words){
+    public TrieNode buildTree(String[] words) {
         TrieNode root = new TrieNode();
-        for(String w: words){
+        for (String w : words) {
             TrieNode p = root;
-            for(char c: w.toCharArray()){
-                int i = c -'a';
-                if(p.links[i] == null){
+            for (char c : w.toCharArray()) {
+                int i = c - 'a';
+                if (p.links[i] == null) {
                     p.links[i] = new TrieNode();
                 }
                 p = p.links[i];
@@ -214,15 +228,14 @@ class General {
     public boolean exist(char[][] board, String word) {
         int n = board.length;
         int m = board[0].length;
-        
+
         // To keep track of words which are visited
-        boolean[][] vis = new boolean[n][m];    
-        int k = 0;// for word indexing  
+        boolean[][] vis = new boolean[n][m];
+        int k = 0;// for word indexing
 
-
-        for(int i = 0;i< n ; i++){
-            for(int j = 0; i< m; j++){
-                if(board[i][j] == word.charAt(k) && dfsSearch(board,word,i,j,k,vis)){
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; i < m; j++) {
+                if (board[i][j] == word.charAt(k) && dfsSearch(board, word, i, j, k, vis)) {
                     return true;
                 }
             }
@@ -230,11 +243,11 @@ class General {
         return false;
     }
 
-    private static boolean dfsSearch(char [][] board, String word, int i, int j, int k,  boolean[][] vis ){
-        if(word.length() == k){
+    private static boolean dfsSearch(char[][] board, String word, int i, int j, int k, boolean[][] vis) {
+        if (word.length() == k) {
             return true;
         }
-        if(i < 0 || j < 0 || i >= border.length || j >= border.length || word.charAt[k] != border[i][j] || vis[i][j]){
+        if (i < 0 || j < 0 || i >= border.length || j >= border.length || word.charAt[k] != border[i][j] || vis[i][j]) {
             return false;
         }
         vis[i][j] = true;
@@ -245,15 +258,12 @@ class General {
         // dfsSearch(i, j - 1, k + 1, board, word,vis )) {
         // return true;
         // }
-        // // if word not found in the iteration make vis to false again make the path followed by that dfs to value
-         vis[i][j] = false;
-         return false;
+        // // if word not found in the iteration make vis to false again make the path
+        // followed by that dfs to value
+        vis[i][j] = false;
+        return false;
 
     }
-    
-
-
-
 
     public String convert(String s, int numRows) {
         if (numRows == 1) {
@@ -748,23 +758,25 @@ class Matrix {
         return false;
     }
 
-
 }
 
-class Entry{
+class Entry {
     public int key;
     public int value;
-    public Entry(int a, int b){
-    this.key = a;
-    this.value = b;
+
+    public Entry(int a, int b) {
+        this.key = a;
+        this.value = b;
     }
 }
 
 class MyHashMap {
     // Create a Structure
-    // as hashmap as array of bucket which is linked wil linked of values which whill store 
+    // as hashmap as array of bucket which is linked wil linked of values which
+    // whill store
     // all the valus with key so to avoid collision
-    // we will create a new custom class which will store the key and value based on hashcode hascode
+    // we will create a new custom class which will store the key and value based on
+    // hashcode hascode
     // will be the key % size of out array
     // we will use array of linkedlist which contains custom Entry
     // Definign a Structure
@@ -773,25 +785,26 @@ class MyHashMap {
     static int SIZE = 1000;
 
     public MyHashMap() {
-        map=  new java.util.LinkedList[SIZE];
+        map = new java.util.LinkedList[SIZE];
     }
-    
+
     public void put(int key, int value) {
-        // getting the buckey 
+        // getting the buckey
         int bucket = key % SIZE;
         // if the key and value is the 1st for the bucket
-        if(map[bucket] == null){
+        if (map[bucket] == null) {
             // create new bucket and put the value into it
             // create a new entry to the bucket
             map[bucket] = new java.util.LinkedList<Entry>();
             // add that element to the bucket
-            map[bucket].add(new Entry(key,value));
-        }else{
+            map[bucket].add(new Entry(key, value));
+        } else {
             // if we have something in that bucket
-            // traverse the bucket and of the key that matches the key and update its value to he new one
-            for(Entry entry: map[bucket]){
-                if(entry.key== key){
-                    entry.value =  value;
+            // traverse the bucket and of the key that matches the key and update its value
+            // to he new one
+            for (Entry entry : map[bucket]) {
+                if (entry.key == key) {
+                    entry.value = value;
                     return;
                 }
             }
@@ -799,42 +812,43 @@ class MyHashMap {
             map[bucket].add(new Entry(key, value));
         }
     }
-    
+
     public int get(int key) {
         // Search in the bucket -> buckey is the array whcih store the values
         // if found search in all the entries
-        int bucket  = key % SIZE; // to get the bucket number
+        int bucket = key % SIZE; // to get the bucket number
         // Get all the entries in the bucket
         java.util.LinkedList<Entry> entrys = map[bucket];
         // if there is no bucket with the key
-        if(entrys == null){
+        if (entrys == null) {
             return -1;
         }
         // if there are entries iterate and return the value
-        for(Entry ent : entrys){
-            if(ent.key == key){
+        for (Entry ent : entrys) {
+            if (ent.key == key) {
                 return ent.value;
             }
         }
-        // if there is a bucket but the key is not present then return 
+        // if there is a bucket but the key is not present then return
         return -1;
-    
+
     }
-    
+
     public void remove(int key) {
-        int bucket  = key % SIZE;
+        int bucket = key % SIZE;
         Entry toRemove = null;
         // if bucket is not present
-        if(map[bucket]==null){return ;}
-        else{   
+        if (map[bucket] == null) {
+            return;
+        } else {
             // if there is iterate and store that value to the tmp entry
-            for(Entry entry: map[bucket]){
-                if(entry.key== key){
-                   toRemove = entry; 
+            for (Entry entry : map[bucket]) {
+                if (entry.key == key) {
+                    toRemove = entry;
                 }
             }
             // if the tmp entry is null
-            if(toRemove == null){
+            if (toRemove == null) {
                 return;
             }
             // remove that node
@@ -1854,27 +1868,28 @@ class TreeNode {
         val = x;
     }
 }
+
 class Codec {
 
     // Encodes a tree to a single string.
     public String serialize(TreeNode root) {
         // if root is null retrun empty string
-        if(root == null){
+        if (root == null) {
             return "";
         }
         // create a sb to store all the strings
-        StringBuilder sb= new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         // create a Queue to do level order traversal
-        Queue<TreeNode> q =  new LinkedList<>();
+        Queue<TreeNode> q = new LinkedList<>();
 
         q.add(root);
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             TreeNode node = q.poll();
-            if(node == null){
+            if (node == null) {
                 sb.append("n ");
                 continue;
             }
-            sb.append(node.val +" ");
+            sb.append(node.val + " ");
             q.add(node.left);
             q.add(node.right);
         }
@@ -1883,27 +1898,30 @@ class Codec {
 
     // Decodes your encoded data to tree.
     public TreeNode deserialize(String data) {
-        if(data == ""){
+        if (data == "") {
             return null;
         }
         // split the data by space so we can get new array
         String[] values = data.split(" ");
         // create a new node with the 1st value from the data aka values
         TreeNode root = new TreeNode(Integer.parseInt(values[0]));
-        // create a quue so what we can do is 
-        // which add the root to the q 
-        // which we we have all the chars in values we will iterate and will get the element from he queue
-        // we it the 1st element which will be the parent and start iterting and we will check if ith one is not equal to n means there is no null so i will be the left one and i+1 will be right one 
+        // create a quue so what we can do is
+        // which add the root to the q
+        // which we we have all the chars in values we will iterate and will get the
+        // element from he queue
+        // we it the 1st element which will be the parent and start iterting and we will
+        // check if ith one is not equal to n means there is no null so i will be the
+        // left one and i+1 will be right one
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
-        for(int i = 1; i< values.length ; i++){
+        for (int i = 1; i < values.length; i++) {
             TreeNode parent = q.poll();
-            if(!values[i].equals("n")){
+            if (!values[i].equals("n")) {
                 TreeNode left = new TreeNode(Integer.parseInt(values[i]));
                 parent.left = left;
                 q.add(left);
             }
-            if(!values[++i].equals("n")){
+            if (!values[++i].equals("n")) {
                 TreeNode right = new TreeNode(Integer.parseInt(values[i]));
                 parent.right = right;
                 q.add(right);

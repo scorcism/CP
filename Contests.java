@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.*;
 
 public class Contests {
 
@@ -46,13 +46,24 @@ public class Contests {
         }
         return ans;
     }
-    public static void main(String[] args) {
-        int[] n = {0,1,7,4,4,5};
-        System.out.println(countFairPairs(n, 3, 6));
+    
+    public int[][] mergeArrays(int[][] nums1, int[][] nums2) {
+        
 
+    }
+    
+    public static void main(String[] args) {
+        // int[] n = {0,1,7,4,4,5};
+        // System.out.println(countFairPairs(n, 3, 6));
+    
         // int[] n1= {7,52,2,4};
         // int[] n2 = {5,14,13,8,12};
         // System.out.println(findTheArrayConcVal(n3));
         // System.out.println(findTheArrayConcVal(n2));
+        int[][] nums1 = {{1,2},{2,3},{4,5}}; 
+        int[][] nums2 = {{1,4},{3,2},{4,1}};
+
+        System.out.println();
     }
+
 }

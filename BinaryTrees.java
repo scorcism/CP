@@ -16,7 +16,7 @@ class BinaryTrees {
             this.right = null;
         }
     }
-
+    
     // This class will be used to create a binary tree
     static class BinaryTree {
         // This function will be used to create a Tree and will return a Root node
@@ -44,6 +44,48 @@ class BinaryTrees {
             return newNode;
         }
     }
+    
+    // Morris Traversal
+    // In order traveral
+
+    ArrayList<Integer> getOrder(TreeNode root){
+        ArrayList<Integer> inorder = new ArrayList<>();
+        TreeNode curr_node = root;
+        while(curr_node != null){
+            // Left one is null
+            // it doesnt have the root so the curr is the root node addit to the ans and move to right
+            if(curr_node.left == null){
+                inorder.add(curr_node.val);
+                curr_node = curr_node.right;
+            }else{
+                // If left exists 
+                // Get to the left subtree abd figure out the the last guy to be visited in the right,
+                // right most of the left subtree
+                TreeNode prev  =curr_node.left;
+
+                while(prev.right != null && prev.right != curr_node){
+                    // check if the last node is not null and 
+                    // last node is not pointing to the current node means the thread already exists
+                    prev = prev.right;
+                }
+                if(prev.right == null){
+                    // If right is null means there is no mapping between the current node and the right most of the currNode
+                    prev.right= curr_node;
+                    //  now we have made the mapping so move the left and start the same process again
+                    curr_node = curr_node.left;
+                }
+                else{
+                    // the prev.right is already having a thread to the curr_node so braka the thread
+                    prev.right = null;
+                    inorder.add(curr_node.val);
+                    curr_node = curr_node.right;
+                }
+            }
+        }
+        return inorder;
+    }
+
+
 
     public static void preorder(Node root) {
         if (root == null) {
