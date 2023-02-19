@@ -3,43 +3,56 @@ import java.util.LinkedList;
 
 public class CP2 {
 
-    class Solution {
-        public int[][] mergeArrays(int[][] nums1, int[][] nums2) {
-
-            List<int[]> list = new ArrayList<>();
-
-            int n1 = nums1.length;
-            int n2 = nums2.length;
-            int i = 0;
-            int j = 0;
-            while (i < n1 && j < n2) {
-                int[] num1val = nums1[i];
-                int[] num2val = nums2[j];
-                if (num1val[0] < num2val[0]) {
-                    list.add(num1val);
-                    i++;
-                } else if (num1val[0] > num2val[0]) {
-                    list.add(num2val);
-                    j++;
-                } else if (num1val[0] == num2val[0]) {
-                    // both are same
-                    int tmp = num1val[1] + num2val[1];
-                    int[] newtmp = { num1val[0], tmp };
-                    list.add(newtmp);
-                    i++;
-                    j++;
-                }
+    public static int minOperations(int n) {
+        int res = 0;
+        while (n > 0) {
+            if ((n & 3) == 3) {
+                System.out.println("n " + n);
+                n++;
+                res++;
+            } else {
+                res += n & 1;
+                n >>= 1;
             }
-            while (i < n1) {
-                list.add(nums1[i]);
+        }
+        return res;
+    }
+
+    public int[][] mergeArrays(int[][] nums1, int[][] nums2) {
+
+        List<int[]> list = new ArrayList<>();
+
+        int n1 = nums1.length;
+        int n2 = nums2.length;
+        int i = 0;
+        int j = 0;
+        while (i < n1 && j < n2) {
+            int[] num1val = nums1[i];
+            int[] num2val = nums2[j];
+            if (num1val[0] < num2val[0]) {
+                list.add(num1val);
                 i++;
-            }
-            while (j < n2) {
-                list.add(nums2[j]);
+            } else if (num1val[0] > num2val[0]) {
+                list.add(num2val);
+                j++;
+            } else if (num1val[0] == num2val[0]) {
+                // both are same
+                int tmp = num1val[1] + num2val[1];
+                int[] newtmp = { num1val[0], tmp };
+                list.add(newtmp);
+                i++;
                 j++;
             }
-            return list.toArray(new int[list.size()][]);
         }
+        while (i < n1) {
+            list.add(nums1[i]);
+            i++;
+        }
+        while (j < n2) {
+            list.add(nums2[j]);
+            j++;
+        }
+        return list.toArray(new int[list.size()][]);
     }
 
     public class TreeNode {
@@ -89,6 +102,8 @@ public class CP2 {
     }
 
     public static void main(String[] args) {
-
+        System.out.println(minOperations(15));
+        System.out.println(minOperations(20));
+        System.out.println(minOperations(6126));
     }
 }
