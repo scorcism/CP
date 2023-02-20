@@ -1,7 +1,43 @@
 import java.util.*;
-import java.util.LinkedList;
 
 public class CP2 {
+
+     public static void main(String[] args) {
+        // System.out.println(minOperations(15));
+        // System.out.println(minOperations(20));
+        int[] nums ={1,1,2,3,4,5};
+        topKFrequent(nums, 2);
+        // System.out.println(minOperations(6126));
+    }
+
+
+    public static int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for(int i = 0; i< nums.length; i++){
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+        }
+        
+        PriorityQueue<Integer> pq= new PriorityQueue<>((a,b)->map.get(a)-map.get(b));
+
+        for(int num: map.keySet()){
+            pq.offer(num);
+
+            // if size is greater then k remove the top one coz the buttom once will be greater
+            if(pq.size() > k){
+                pq.poll();
+            }
+        }
+        
+        int[] ans = new int[k];
+        for(int i  = 0; i< k ; i++){
+            ans[i] = pq.poll();
+        }
+
+        return ans;
+    }
+
+
 
     public class ListNode {
         int val;
@@ -154,9 +190,5 @@ public class CP2 {
         return ans;
     }
 
-    public static void main(String[] args) {
-        System.out.println(minOperations(15));
-        System.out.println(minOperations(20));
-        System.out.println(minOperations(6126));
-    }
+   
 }
