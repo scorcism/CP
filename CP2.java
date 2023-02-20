@@ -3,8 +3,61 @@ import java.util.LinkedList;
 
 public class CP2 {
 
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode() {
+        }
+
+        ListNode(int val) {
+            this.val = val;
+        }
+
+        ListNode(int val, ListNode next) {
+            this.val = val;
+            this.next = next;
+        }
+    }
+
+    public ListNode mergeKLists(ListNode[] lists) {
+        if(lists == null || lists.length == 0){
+            return null;
+        }
+
+        // create a new ListNode
+        ListNode tmp = new ListNode(0);
+        ListNode curr = tmp; // for moving the pointers
+
+        // why pq coz we want the elements in ascending order and in pq we can define the order of elements by sorting them so in later by iterating it we get the values in sorted order by default
+
+        // put everything in pq
+        PriorityQueue<ListNode> pq  = new PriorityQueue<>((a,b)->a.val - b.val);
+
+        // Add all the elements to pq
+        for(ListNode node: lists){
+            if(node != null){
+                // if the current node is not null means it is not the last ele of the curren array of LL
+                pq.add(node);
+            }
+        }
+
+        // iterating in the queue to add ele to out own ll
+        while(!pq.isEmpty()){
+            curr.next = pq.poll();
+            curr = curr.next;
+
+            // 
+            if(curr.next != null){
+                pq.add(curr.next);
+            }
+
+        }
+        return tmp.next;
+    }
+
     public static int minOperations(int n) {
-        
+
         int res = 0;
         while (n > 0) {
             if ((n & 3) == 3) {
