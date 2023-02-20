@@ -10,6 +10,25 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> curres,prev =null;    
+
+        for(int i = 0; i< numRows ; i++){
+            curres = new ArrayList<>();
+            for(int j = 0; j<=i; j++){
+                if(j ==0 || j==i){
+                    curres.add(1);
+                }else{
+                    curres.add(prev.get(j-1) + prev.get(j));
+                }
+            }
+            prev = curres;
+            ans.add(curres);
+        }      
+        return ans;  
+    }
+
     public void nextPermutation(int[] nums) {
         if (nums == null || nums.length == 1) {
             return;
@@ -50,6 +69,7 @@ public class CP2 {
             swap(nums, i++, j--);
         }
     }
+
 
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
