@@ -10,6 +10,30 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> res = new ArrayList<>();
+        List<Integer> ds = new ArrayList<>();
+        boolean[] taken = new boolean[nums.length];
+        computePermute(res,ds,taken,nums);
+
+        return res;
+    }
+
+    private void computePermute(List<List<Integer>> res, List<Integer> ds, boolean[] taken, int[] nums) {
+        if(ds.size() == nums.length){
+            res.add(new ArrayList<>(ds));
+            return;
+        }    
+        for(int i = 0; i < nums.length ; i++){
+            if(!taken[i]){
+                ds.add(nums[i]);
+                computePermute(res, ds, taken, nums);   
+                ds.remove(ds.size()-1);
+                taken[i] = false;
+            }        
+        }
+    
+    }
 
     public static int[] topKFrequent(int[] nums, int k) {
         HashMap<Integer, Integer> map = new HashMap<>();
