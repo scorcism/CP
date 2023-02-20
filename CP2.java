@@ -4,10 +4,10 @@ import java.util.LinkedList;
 public class CP2 {
 
     public static int minOperations(int n) {
+        
         int res = 0;
         while (n > 0) {
             if ((n & 3) == 3) {
-                System.out.println("n " + n);
                 n++;
                 res++;
             } else {

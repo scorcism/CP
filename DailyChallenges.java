@@ -345,4 +345,19 @@ class DailyChallenges {
 
     }
 
+    // 35. Search Insert Position
+    // 20 feb
+    class Solution {
+    public int searchInsert(int[] nums, int target) {
+        // iTerate in the nums suppose the current number is greater then or equal to the target means that positionwould be the postion of out target   so return that if not found in the nums means it element is greater then all the lements in the nums it would be at the last position after the last so return nums.length
+        for(int i = 0; i< nums.length; i++){
+            if(nums[i]>= target){
+                return i;
+            }
+        }
+        // element not found
+        return nums.length;
+    }
+}
+
 }
