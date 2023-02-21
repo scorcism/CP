@@ -10,6 +10,9 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+    
+
+
     public List<Integer> getRow(int rowIndex) {
         int[] arr = new int[rowIndex+1];
         arr[0] = 1;
