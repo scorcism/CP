@@ -279,25 +279,28 @@ class DailyChallenges {
     }
 
     // Feb 17
-    
+
     Integer pre = null;
     Integer res = Integer.MAX_VALUE;
+
     public int minDiffInBST(TreeNode root) {
-        
+
         return getminDiffInBST(root);
     }
 
     private int getminDiffInBST(TreeNode root) {
-        if(root==null){
+        if (root == null) {
             return 0;
-        } 
-        getminDiffInBST(root.left);
-        if(pre != null){
-            // If we have iterated the 1st ele in in order and we are at the root node of the left mosr tree
-            // We will store the difference in root.val and pre
-            res = Math.min(res, root.val - pre); 
         }
-        // starting me pre will be none so the current node which will be the lastmost last one in case of inorder whill be the pre
+        getminDiffInBST(root.left);
+        if (pre != null) {
+            // If we have iterated the 1st ele in in order and we are at the root node of
+            // the left mosr tree
+            // We will store the difference in root.val and pre
+            res = Math.min(res, root.val - pre);
+        }
+        // starting me pre will be none so the current node which will be the lastmost
+        // last one in case of inorder whill be the pre
         pre = root.val;
         getminDiffInBST(root.right);
 
@@ -307,51 +310,55 @@ class DailyChallenges {
     // day 19
     // 103. Binary Tree Zigzag Level Order Traversal
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-        List<List<Integer>> ans = new ArrayList<>();       
-        
-        //  Performing level order traversal
-        zzloHelper(root, ans, 0);   
+        List<List<Integer>> ans = new ArrayList<>();
+
+        // Performing level order traversal
+        zzloHelper(root, ans, 0);
         return ans;
 
     }
 
-    public static void zzloHelper(TreeNode root, List<List<Integer>> res , int level){
-        
-        if(root == null){
+    public static void zzloHelper(TreeNode root, List<List<Integer>> res, int level) {
+
+        if (root == null) {
             return;
         }
-    
+
         // check if the new Arraylist is presnet for the current level
-        if(level >= res.size()){
+        if (level >= res.size()) {
             // means here is no arraylist for the current level
             // so create new arrayList for this level
             res.add(level, new ArrayList<>());
         }
 
         // we want zig zag so what we can do is reverse the every odd level
-        if (level % 2 ==0){
+        if (level % 2 == 0) {
             // even level
             res.get(level).add(root.val);
-        }else{
+        } else {
             // odd level
-            // here waht we are doing is add new new element of that level to 0th position so all next will 
-            //  shifted
-            res.get(level).add(0,root.val);
+            // here waht we are doing is add new new element of that level to 0th position
+            // so all next will
+            // shifted
+            res.get(level).add(0, root.val);
         }
 
         // goto left and right and increae the level
-        zzloHelper(root.left, res, level+1);
-        zzloHelper(root.right, res, level+1);
+        zzloHelper(root.left, res, level + 1);
+        zzloHelper(root.right, res, level + 1);
 
     }
 
     // 35. Search Insert Position
     // 20 feb
-    class Solution {
     public int searchInsert(int[] nums, int target) {
-        // iTerate in the nums suppose the current number is greater then or equal to the target means that positionwould be the postion of out target   so return that if not found in the nums means it element is greater then all the lements in the nums it would be at the last position after the last so return nums.length
-        for(int i = 0; i< nums.length; i++){
-            if(nums[i]>= target){
+        // iTerate in the nums suppose the current number is greater then or equal to
+        // the target means that positionwould be the postion of out target so return
+        // that if not found in the nums means it element is greater then all the
+        // lements in the nums it would be at the last position after the last so return
+        // nums.length
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] >= target) {
                 return i;
             }
         }
@@ -363,11 +370,46 @@ class DailyChallenges {
     // 540. Single Element in a Sorted Array
     public int singleNonDuplicate(int[] nums) {
         int xor = 0;
-        for(int i = 0; i< nums.length; i++){
+        for (int i = 0; i < nums.length; i++) {
             xor = xor ^ nums[i];
         }
         return xor;
     }
-}
+
+    // 22 Feb
+    // https://leetcode.com/problems/capacity-to-ship-packages-within-d-days/
+    public int shipWithinDays(int[] weights, int D) {
+        /*
+         * Find the least possible capacity of ship. It will be maximum of -> the
+         * largest item or the weight on one ship if the weight is evenly distributed on
+         * all the ships i.e. (sum_of_all_items)/(total_ships)
+         */
+        int heaviestItem = weights[0];
+        int weightSum = 0;
+        for (int x : weights) {
+            heaviestItem = Math.max(heaviestItem, x);
+            weightSum += x;
+        }
+        int avgWeightOnShip = (int) weightSum / D;
+        // Minimum required weight capacity of a ship
+        int minWeight = Math.max(heaviestItem, avgWeightOnShip);
+
+        // Start from minimum possible size to maximum possible
+        for (int i = minWeight; i <= weights.length * minWeight; i++) {
+            int[] ship = new int[D];
+            int index = 0;
+            // Fill all the ships
+            for (int j = 0; j < ship.length; j++) {
+                // Try to fit as many items as possible
+                while (index < weights.length && ship[j] + weights[index] < i) {
+                    ship[j] += weights[index];
+                    index++;
+                }
+            }
+            if (index == weights.length)
+                return i - 1;
+        }
+        return 0;
+    }
 
 }
