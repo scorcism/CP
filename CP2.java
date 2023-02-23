@@ -10,36 +10,89 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+    public int trap2(int[] height) {
+        int n = height.length;
+        int[] pre = new int[n];
+        int[] post= new int[n];
+        int ans = 0;
+        pre[0] = height[0];
+        post[n-1] = height[n-1];
 
-     public int findKthLargest(int[] nums, int k) {
+        for(int i = 1; i < n; i++){
+            pre[i] = Math.max(pre[i-1],height[i]);
+        }
+
+        for(int i = n-2; i >=0; i--){
+            post[i] = Math.max(post[i+1],height[i]);
+        }
+
+        for(int i  = 0; i<n ; i++){
+            ans+= Math.min(pre[i],post[i]) - height[i];
+        }
+        return ans;
+    }
+
+    public int trap(int[] height){
+        if(height == null  || height.length == 0){
+            return 0;
+        }
+
+        int left=  0;
+        int right = height.length -1;
+        int maxLeft = 0;
+        int maxRight =0;
+        int totalWater = 0;
+
+        while(left < right){
+            if(height[left]<height[right]){
+                if(height[left] >= maxLeft){
+                    maxLeft = height[left];
+                }else{
+                    totalWater+= maxLeft - height[left];
+                }
+                left++;
+            }else{
+                if(height[right] >= maxRight){
+                    maxRight  = height[right];
+                }else{
+                    totalWater += maxRight - height[right];
+                }
+                right--;
+            }
+        }
+
+        return totalWater;
+    }
+
+
+
+    public int findKthLargest(int[] nums, int k) {
 
         PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
 
-        for(int num: nums){
+        for (int num : nums) {
             pq.add(num);
         }
-        for(int i = 1 ; i< k ; i++){
+        for (int i = 1; i < k; i++) {
             pq.poll();
         }
         return pq.poll();
     }
 
-
     public int missingNumber(int[] nums) {
 
-        if(nums.length ==1){
+        if (nums.length == 1) {
             return 0;
         }
 
-        int[] toCheck = new int[nums.length +1];
+        int[] toCheck = new int[nums.length + 1];
         Arrays.fill(toCheck, 0);
-        for(int i = 0;i < nums.length; i++){
+        for (int i = 0; i < nums.length; i++) {
             toCheck[nums[i]] = 1;
         }
 
-
-        for(int i = 1; i< toCheck.length; i++){
-            if(toCheck[i] != 1){
+        for (int i = 1; i < toCheck.length; i++) {
+            if (toCheck[i] != 1) {
                 return i;
             }
         }
@@ -50,14 +103,15 @@ public class CP2 {
         int n = nums.length;
         // Using Maths
         // Here, we have n +1 number
-        // which are in ascending orer form 0 -> n 
-        //  what we can do iss get the sum of all natural numbers till n
-        // and get the sum of all the number in nums and the we subtract it to get the result
-        
-        int sumOfN = (n * (n+1) )/2;
+        // which are in ascending orer form 0 -> n
+        // what we can do iss get the sum of all natural numbers till n
+        // and get the sum of all the number in nums and the we subtract it to get the
+        // result
+
+        int sumOfN = (n * (n + 1)) / 2;
         int sumOfNums = 0;
-        for(int w: nums){
-            sumOfNums = w  +sumOfNums;
+        for (int w : nums) {
+            sumOfNums = w + sumOfNums;
         }
         return sumOfN - sumOfNums;
 
@@ -66,58 +120,58 @@ public class CP2 {
     public static int missingNumberMethod3(int[] nums) {
         // USing xor
         // we knwo xor of same number is 0
-        // so, we will xor nums[i] with each other and the output we will xor withe the xor of n natural number
-        // n natural number =  nxor = = (1^2^3^4)
+        // so, we will xor nums[i] with each other and the output we will xor withe the
+        // xor of n natural number
+        // n natural number = nxor = = (1^2^3^4)
         // suppose nums = numsxor = (1^2^4)
-        // ans = nxor ^ numsxoor 
+        // ans = nxor ^ numsxoor
         int numsxor = 0;
-        for(int i= 0; i<nums.length; i++){
+        for (int i = 0; i < nums.length; i++) {
             numsxor = numsxor ^ nums[i];
         }
 
         int nxor = 0;
-        for(int i = 0; i< nums.length +1; i++){
+        for (int i = 0; i < nums.length + 1; i++) {
             nxor = nxor ^ i;
         }
 
         return numsxor ^ nxor;
 
     }
-    
 
     public List<Integer> getRow(int rowIndex) {
-        int[] arr = new int[rowIndex+1];
+        int[] arr = new int[rowIndex + 1];
         arr[0] = 1;
-        for(int i = 1; i<rowIndex ; i++){
-            for(int j = i; j>0 ; j--){
-                arr[j] = arr[j] + arr[j-1];
+        for (int i = 1; i < rowIndex; i++) {
+            for (int j = i; j > 0; j--) {
+                arr[j] = arr[j] + arr[j - 1];
             }
-        }   
+        }
 
         List<Integer> res = new ArrayList<>();
-        for(int a: arr){
-            res.add(a);            
+        for (int a : arr) {
+            res.add(a);
         }
         return res;
     }
 
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> curres,prev =null;    
+        List<Integer> curres, prev = null;
 
-        for(int i = 0; i< numRows ; i++){
+        for (int i = 0; i < numRows; i++) {
             curres = new ArrayList<>();
-            for(int j = 0; j<=i; j++){
-                if(j ==0 || j==i){
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
                     curres.add(1);
-                }else{
-                    curres.add(prev.get(j-1) + prev.get(j));
+                } else {
+                    curres.add(prev.get(j - 1) + prev.get(j));
                 }
             }
             prev = curres;
             ans.add(curres);
-        }      
-        return ans;  
+        }
+        return ans;
     }
 
     public void nextPermutation(int[] nums) {
@@ -160,7 +214,6 @@ public class CP2 {
             swap(nums, i++, j--);
         }
     }
-
 
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
