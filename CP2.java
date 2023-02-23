@@ -10,6 +10,21 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+
+     public int findKthLargest(int[] nums, int k) {
+
+        PriorityQueue<Integer> pq = new PriorityQueue<>(Collections.reverseOrder());
+
+        for(int num: nums){
+            pq.add(num);
+        }
+        for(int i = 1 ; i< k ; i++){
+            pq.poll();
+        }
+        return pq.poll();
+    }
+
+
     public int missingNumber(int[] nums) {
 
         if(nums.length ==1){
