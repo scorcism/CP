@@ -10,6 +10,10 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+    public int findMin(int[] nums) {
+        Arrays.sort(nums);
+        return nums[0];
+    }
 
     public int[] productExceptSelfM1(int[] nums) {
         int n = nums.length;
