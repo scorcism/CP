@@ -5,12 +5,69 @@ public class CP2 {
     public static void main(String[] args) {
         // System.out.println(minOperations(15));
         // System.out.println(minOperations(20));
-        int[] nums = { 1, 1, 2, 3, 4, 5 };
-        topKFrequent(nums, 2);
+        // int[] nums = { 1, 1, 2, 3, 4, 5 };
+        // topKFrequent(nums, 2);
         // System.out.println(minOperations(6126));
     }
 
-    
+    public int missingNumber(int[] nums) {
+
+        if(nums.length ==1){
+            return 0;
+        }
+
+        int[] toCheck = new int[nums.length +1];
+        Arrays.fill(toCheck, 0);
+        for(int i = 0;i < nums.length; i++){
+            toCheck[nums[i]] = 1;
+        }
+
+
+        for(int i = 1; i< toCheck.length; i++){
+            if(toCheck[i] != 1){
+                return i;
+            }
+        }
+        return nums.length;
+    }
+
+    public static int missingNumberMethod2(int[] nums) {
+        int n = nums.length;
+        // Using Maths
+        // Here, we have n +1 number
+        // which are in ascending orer form 0 -> n 
+        //  what we can do iss get the sum of all natural numbers till n
+        // and get the sum of all the number in nums and the we subtract it to get the result
+        
+        int sumOfN = (n * (n+1) )/2;
+        int sumOfNums = 0;
+        for(int w: nums){
+            sumOfNums = w  +sumOfNums;
+        }
+        return sumOfN - sumOfNums;
+
+    }
+
+    public static int missingNumberMethod3(int[] nums) {
+        // USing xor
+        // we knwo xor of same number is 0
+        // so, we will xor nums[i] with each other and the output we will xor withe the xor of n natural number
+        // n natural number =  nxor = = (1^2^3^4)
+        // suppose nums = numsxor = (1^2^4)
+        // ans = nxor ^ numsxoor 
+        int numsxor = 0;
+        for(int i= 0; i<nums.length; i++){
+            numsxor = numsxor ^ nums[i];
+        }
+
+        int nxor = 0;
+        for(int i = 0; i< nums.length +1; i++){
+            nxor = nxor ^ i;
+        }
+
+        return numsxor ^ nxor;
+
+    }
     
 
     public List<Integer> getRow(int rowIndex) {
