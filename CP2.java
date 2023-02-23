@@ -10,6 +10,72 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+
+    public int[] productExceptSelfM1(int[] nums) {
+        int n = nums.length;
+        int produtOfArray = 1;
+        for(int k: nums){
+            produtOfArray  = produtOfArray * k;
+        }
+        int[] res = new int[n];
+
+        for(int i = 0; i< n; i++){
+            if(nums[i]>0){
+                res[i] =produtOfArray/ nums[i];
+            }else{
+                res[i] = 0;
+            }
+        }
+        return res;
+    }
+
+    public int[] productExceptSelfM2(int[] nums) {
+        int n = nums.length;
+        int[] left = new int[n];
+        int[] right = new int[n];
+
+        left[0] = nums[0];
+        right[n-1] = nums[n-1];
+
+        for(int i = 1; i< n; i++){
+            left[i] = left[i-1]* nums[i];
+        }
+
+        for(int i = n-2; i>=0; i--){
+            right[i] = right[i+1] * nums[i];
+        }
+        // System.out.println(Arrays.toString(left));
+        // System.out.println(Arrays.toString(right));
+        int[] ans = new int[n];
+
+        ans[0] = right[1];
+        ans[n-1] = left[n-2];
+        for(int i = 1; i< n-1; i++){
+            ans[i] = left[i-1] * right[i+1];
+        }
+        return ans;
+    }
+
+    public int[] productExceptSelfM3(int[] nums) {
+        int n = nums.length;
+        int[] res = new int[n];
+        if(n<1){
+            return res;
+        }
+        res[0] = nums[0];
+        for(int i = 1; i< n; i++){
+            res[i] = res[i-1] * nums[i];           
+        }
+        int product = 1;
+        for(int i = n-1; i> 0; i++){
+            res[i] = res[i-1] * product;
+            product = product * nums[i];
+        }   
+        res[0] = product;
+        return res;
+    }
+
+
     public int trap2(int[] height) {
         int n = height.length;
         int[] pre = new int[n];
