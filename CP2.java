@@ -11,7 +11,7 @@ public class CP2 {
     }
 
     
-
+    
 
     public List<Integer> getRow(int rowIndex) {
         int[] arr = new int[rowIndex+1];

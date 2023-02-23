@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
 import java.util.Stack;
 import java.util.LinkedList;
 import java.util.HashSet;
@@ -411,5 +412,46 @@ class DailyChallenges {
         }
         return 0;
     }
+
+    static class Project implements Comparable<Project>{
+        int capital,profit;
+
+        public Project(int c, int p){
+            this.capital = c;
+            this.profit = p;
+        }
+
+        public int compareTo(Project project){
+            return capital  - project.capital;
+        }
+    }
+
+    public static  int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
+        int n = profits.length;
+
+        Project[] projects = new Project[n];
+        for(int i = 0; i<n; i++){
+            projects[i] = new Project(capital[i],profits[i]);
+        }
+        Arrays.sort(projects);
+        // Maintianing max heap
+        // default is min heap so we have to reverse thee order using collection reverse
+        PriorityQueue<Integer> pq = new PriorityQueue<>(n,Collections.reverseOrder());
+
+        int ptr = 0;
+        for(int i = 0; i< k; i++){
+            while(ptr<n && projects[ptr].capital <= w){
+                pq.add(projects[ptr++].profit);
+            }
+            if(pq.isEmpty()){
+                break;
+            }
+            w+= pq.poll();
+        }
+
+        return w;
+    }
+
+
 
 }
