@@ -10,11 +10,44 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
-    public int maxProduct(int[] nums) {
-        
-        
+    public int maxProfit(int[] nums) {
+        // Using peek and valley techinque
+        int max = 0;
+        int valley = nums[0];
+        int peek = nums[0];
+        int i = 0;
+        while (i < nums.length - 1) {
+            while (i < nums.length - 1 && nums[i] >= nums[i + 1]) {
+                // This is the peek value
+                i++;
+            }
+            valley = nums[i];
+            // getting the valley
+            while (i < nums.length - 1 && nums[i] <= nums[i + 1]) {
+                // This is the peek value
+                i++;
+            }
+            peek = nums[i];
+            max += peek - valley;
+
+        }
+        return max;
     }
 
+    public int maxProfit2(int[] prices) {
+        int max = 0;
+        for (int i = 1; i < prices.length; i++) {
+            if (prices[i] >= prices[i - 1]) {
+                max += prices[i] - prices[i - 1];
+            }
+        }
+        return max;
+
+    }
+
+    public int maxProductMethod1(int[] nums) {
+
+    }
 
     public int findMin(int[] nums) {
         Arrays.sort(nums);
@@ -24,15 +57,15 @@ public class CP2 {
     public int[] productExceptSelfM1(int[] nums) {
         int n = nums.length;
         int produtOfArray = 1;
-        for(int k: nums){
-            produtOfArray  = produtOfArray * k;
+        for (int k : nums) {
+            produtOfArray = produtOfArray * k;
         }
         int[] res = new int[n];
 
-        for(int i = 0; i< n; i++){
-            if(nums[i]>0){
-                res[i] =produtOfArray/ nums[i];
-            }else{
+        for (int i = 0; i < n; i++) {
+            if (nums[i] > 0) {
+                res[i] = produtOfArray / nums[i];
+            } else {
                 res[i] = 0;
             }
         }
@@ -45,23 +78,23 @@ public class CP2 {
         int[] right = new int[n];
 
         left[0] = nums[0];
-        right[n-1] = nums[n-1];
+        right[n - 1] = nums[n - 1];
 
-        for(int i = 1; i< n; i++){
-            left[i] = left[i-1]* nums[i];
+        for (int i = 1; i < n; i++) {
+            left[i] = left[i - 1] * nums[i];
         }
 
-        for(int i = n-2; i>=0; i--){
-            right[i] = right[i+1] * nums[i];
+        for (int i = n - 2; i >= 0; i--) {
+            right[i] = right[i + 1] * nums[i];
         }
         // System.out.println(Arrays.toString(left));
         // System.out.println(Arrays.toString(right));
         int[] ans = new int[n];
 
         ans[0] = right[1];
-        ans[n-1] = left[n-2];
-        for(int i = 1; i< n-1; i++){
-            ans[i] = left[i-1] * right[i+1];
+        ans[n - 1] = left[n - 2];
+        for (int i = 1; i < n - 1; i++) {
+            ans[i] = left[i - 1] * right[i + 1];
         }
         return ans;
     }
@@ -69,68 +102,67 @@ public class CP2 {
     public int[] productExceptSelfM3(int[] nums) {
         int n = nums.length;
         int[] res = new int[n];
-        if(n<1){
+        if (n < 1) {
             return res;
         }
         res[0] = nums[0];
-        for(int i = 1; i< n; i++){
-            res[i] = res[i-1] * nums[i];           
+        for (int i = 1; i < n; i++) {
+            res[i] = res[i - 1] * nums[i];
         }
         int product = 1;
-        for(int i = n-1; i> 0; i++){
-            res[i] = res[i-1] * product;
+        for (int i = n - 1; i > 0; i++) {
+            res[i] = res[i - 1] * product;
             product = product * nums[i];
-        }   
+        }
         res[0] = product;
         return res;
     }
 
-
     public int trap2(int[] height) {
         int n = height.length;
         int[] pre = new int[n];
-        int[] post= new int[n];
+        int[] post = new int[n];
         int ans = 0;
         pre[0] = height[0];
-        post[n-1] = height[n-1];
+        post[n - 1] = height[n - 1];
 
-        for(int i = 1; i < n; i++){
-            pre[i] = Math.max(pre[i-1],height[i]);
+        for (int i = 1; i < n; i++) {
+            pre[i] = Math.max(pre[i - 1], height[i]);
         }
 
-        for(int i = n-2; i >=0; i--){
-            post[i] = Math.max(post[i+1],height[i]);
+        for (int i = n - 2; i >= 0; i--) {
+            post[i] = Math.max(post[i + 1], height[i]);
         }
 
-        for(int i  = 0; i<n ; i++){
-            ans+= Math.min(pre[i],post[i]) - height[i];
+        for (int i = 0; i < n; i++) {
+            ans += Math.min(pre[i], post[i]) - height[i];
         }
         return ans;
     }
 
-    public int trap(int[] height){
-        if(height == null  || height.length == 0){
+    public int trap(int[] height) {
+        if (height == null || height.length == 0) {
             return 0;
         }
 
-        int left=  0;
-        int right = height.length -1;
+        int left = 0;
+        int right = height.length - 1;
         int maxLeft = 0;
-        int maxRight =0;
+        int maxRight = 0;
         int totalWater = 0;
 
-        while(left < right){
-            if(height[left]<height[right]){
-                if(height[left] >= maxLeft){
+        while (left < right) {
+            if (height[left] < height[right]) {
+                if (height[left] >= maxLeft) {
                     maxLeft = height[left];
-                }else{
-                    totalWater+= maxLeft - height[left];
+                } else {
+                    totalWater += maxLeft - height[left];
                 }
                 left++;
-            }else{
-                if(height[right] >= maxRight){
-                    maxRight  = height[right];
-                }else{
+            } else {
+                if (height[right] >= maxRight) {
+                    maxRight = height[right];
+                } else {
                     totalWater += maxRight - height[right];
                 }
                 right--;
@@ -139,8 +171,6 @@ public class CP2 {
 
         return totalWater;
     }
-
-
 
     public int findKthLargest(int[] nums, int k) {
 
