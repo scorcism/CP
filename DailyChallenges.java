@@ -413,45 +413,44 @@ class DailyChallenges {
         return 0;
     }
 
-    static class Project implements Comparable<Project>{
-        int capital,profit;
+    static class Project implements Comparable<Project> {
+        int capital, profit;
 
-        public Project(int c, int p){
+        public Project(int c, int p) {
             this.capital = c;
             this.profit = p;
         }
 
-        public int compareTo(Project project){
-            return capital  - project.capital;
+        public int compareTo(Project project) {
+            return capital - project.capital;
         }
     }
 
-    public static  int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
+    public static int findMaximizedCapital(int k, int w, int[] profits, int[] capital) {
         int n = profits.length;
 
         Project[] projects = new Project[n];
-        for(int i = 0; i<n; i++){
-            projects[i] = new Project(capital[i],profits[i]);
+        for (int i = 0; i < n; i++) {
+            projects[i] = new Project(capital[i], profits[i]);
         }
         Arrays.sort(projects);
         // Maintianing max heap
         // default is min heap so we have to reverse thee order using collection reverse
-        PriorityQueue<Integer> pq = new PriorityQueue<>(n,Collections.reverseOrder());
+        PriorityQueue<Integer> pq = new PriorityQueue<>(n, Collections.reverseOrder());
 
         int ptr = 0;
-        for(int i = 0; i< k; i++){
-            while(ptr<n && projects[ptr].capital <= w){
+        for (int i = 0; i < k; i++) {
+            while (ptr < n && projects[ptr].capital <= w) {
                 pq.add(projects[ptr++].profit);
             }
-            if(pq.isEmpty()){
+            if (pq.isEmpty()) {
                 break;
             }
-            w+= pq.poll();
+            w += pq.poll();
         }
 
         return w;
     }
-
 
     // Feb 24
     // https://leetcode.com/problems/minimize-deviation-in-array/description/
@@ -485,13 +484,39 @@ class DailyChallenges {
         return Math.min(diff, pq.peek() - min);
     }
 
-
     // Feb 26
     // https://leetcode.com/problems/edit-distance/
+
     public int minDistance(String word1, String word2) {
-        
-        
+        /*
+         * // Get the lcs
+         * suppose we have
+         * horse and ros so lcs of horse and ros is rs which of length 2
+         * so total deletion in horse will be len(horse) - len(lcs) = 5 - 3 = 2
+         * and total inserting in horse will be len(ros) - len(lcs) = 3 -2 = 1
+         */
+        return word1.length() + word2.length() - 2 * lcs(word1, word2);
     }
 
+    private int lcs(String s1, String s2) {
+        int dp[][] = new int[s1.length()][s2.length()];
+        for (int[] d : dp) {
+            Arrays.fill(d, -1);
+        }
+        return lcsmemo(s1, s2, s1.length() - 1, s2.length() - 1, dp);
+    }
+
+    private int lcsmemo(String s1, String s2, int ind1, int ind2, int[][] dp) {
+        if (ind1 < 0 || ind2 < 0) {
+            return 0;
+        }
+        if (dp[ind1][ind2] != -1) {
+            return dp[ind1][ind2];
+        }
+        if (s1.charAt(ind1) == s2.charAt(ind2)) {
+            return dp[ind1][ind2] = 1 + lcsmemo(s1, s2, ind1 - 1, ind2 - 2, dp);
+        }
+        return dp[ind1][ind2] = Math.max(lcsmemo(s1, s2, ind1 - 1, ind2, dp), lcsmemo(s1, s2, ind1, ind2 - 1, dp));
+    }
 
 }
