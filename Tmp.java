@@ -1,5 +1,12 @@
 import java.util.*;
 
+
+
+
+
+
+
+
 class Temps {
 
     public static void printco(int row, int column) {
@@ -16,69 +23,37 @@ class Temps {
 
 class Tmp {
 
-    static void tmp() {
-        String s = "timetopractice";
-        String t = "toct";
+    public static  int longestCommonSubsequence(String text1, String text2) {
+        int n = text1.length();
+        int m = text2.length();
 
-        int sLen = s.length();
-
-        int tLen = t.length();
-
-        if (tLen > sLen)
-            System.out.println("Invalid Input");
-
-        HashMap<Character, Integer> countMap = new HashMap<>();
-
-        for (char c : t.toCharArray()) {
-            countMap.put(c, countMap.getOrDefault(c, 0) + 1);
+        int dp[][] = new int[n+1][m+1];
+        
+        for(int j = 0; j<= m; j++){
+            dp[0][j] = 0;
+        }
+        for(int i = 0; i<= n; i++){
+            dp[i][0] = 0;
         }
 
-        int start = 0;
-        int end = 0;
 
-        int maxLen = Integer.MAX_VALUE;
-
-        int maxStart = 0; // to track Start index of substring
-        int maxEnd = 0; // to track End index of substring
-
-        int count = countMap.size();
-
-        while (end < sLen) {
-
-            char tempCharEnd = s.charAt(end);
-
-            if (countMap.containsKey(tempCharEnd)) {
-                countMap.put(tempCharEnd, countMap.get(tempCharEnd) - 1);
-
-                if (countMap.get(tempCharEnd) == 0) {
-                    count--;
+        for(int i = 1; i<= n; i++){
+            for(int j = 1; i<= m; j++){
+                if(text1.charAt(i-1)==text2.charAt(j-1)){
+                    dp[i][j] = 1 + dp[i-1][j-1];
+                }else{
+                    dp[i][j] =Math.max(dp[i-1][j],dp[i][j-1]);
                 }
             }
-
-            while (count == 0) {
-                if (maxLen > end - start + 1) {
-                    maxLen = end - start + 1;
-                    maxStart = start;
-                    maxEnd = end + 1;
-                }
-                char tempCharStart = s.charAt(start);
-                if (countMap.containsKey(tempCharStart)) {
-                    countMap.put(tempCharStart, countMap.get(tempCharStart) + 1);
-                    if (countMap.get(tempCharStart) > 0) {
-                        count++;
-                    }
-                }
-                start++;
-            }
-            end++;
         }
-        System.out.println(maxLen);
-        System.out
-                .println("Start Index : " + maxStart + " End Index :" + maxEnd + ": " + s.substring(maxStart, maxEnd));
+
+        return dp[n][m];
+
     }
 
     public static void main(String[] args) {
 
+        System.out.println(longestCommonSubsequence("null", "ll"));
 
         // List<Integer> list  =new ArrayList<>();
 
@@ -187,6 +162,69 @@ class Tmp {
         // System.out.println((int)1e9);
         // System.out.println(myAtoi("words and 987"));
     }
+
+    static void tmp() {
+        String s = "timetopractice";
+        String t = "toct";
+
+        int sLen = s.length();
+
+        int tLen = t.length();
+
+        if (tLen > sLen)
+            System.out.println("Invalid Input");
+
+        HashMap<Character, Integer> countMap = new HashMap<>();
+
+        for (char c : t.toCharArray()) {
+            countMap.put(c, countMap.getOrDefault(c, 0) + 1);
+        }
+
+        int start = 0;
+        int end = 0;
+
+        int maxLen = Integer.MAX_VALUE;
+
+        int maxStart = 0; // to track Start index of substring
+        int maxEnd = 0; // to track End index of substring
+
+        int count = countMap.size();
+
+        while (end < sLen) {
+
+            char tempCharEnd = s.charAt(end);
+
+            if (countMap.containsKey(tempCharEnd)) {
+                countMap.put(tempCharEnd, countMap.get(tempCharEnd) - 1);
+
+                if (countMap.get(tempCharEnd) == 0) {
+                    count--;
+                }
+            }
+
+            while (count == 0) {
+                if (maxLen > end - start + 1) {
+                    maxLen = end - start + 1;
+                    maxStart = start;
+                    maxEnd = end + 1;
+                }
+                char tempCharStart = s.charAt(start);
+                if (countMap.containsKey(tempCharStart)) {
+                    countMap.put(tempCharStart, countMap.get(tempCharStart) + 1);
+                    if (countMap.get(tempCharStart) > 0) {
+                        count++;
+                    }
+                }
+                start++;
+            }
+            end++;
+        }
+        System.out.println(maxLen);
+        System.out
+                .println("Start Index : " + maxStart + " End Index :" + maxEnd + ": " + s.substring(maxStart, maxEnd));
+    }
+    
+
 
     // User function Template for Java
 
