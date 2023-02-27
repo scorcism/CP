@@ -10,6 +10,32 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+    public int[][] mergeIntevals(int[][] intervals) {
+        List<int[]> list = new ArrayList<>();
+        if(intervals == null || intervals.length == 0){
+            return new int[0][];
+        }
+        // sort on the bases of start index
+        Arrays.sort(intervals, (a,b)->a[0]-b[0]);
+        int start = intervals[0][0];
+        int end = intervals[0][1];
+
+        for(int i =0 ; i< intervals.length; i++){
+            // check if the new ith array in intervals has start less then prev inteval end if yes the merge the end with start
+            int[] curr = intervals[i];
+            if(curr[0] <= end ){
+                end = Math.max(end,curr[1]);                
+            }else{
+                // If is is a new interval then
+                list.add(new int[]{start,end});
+                start = curr[0];
+                end = curr[1];
+            }
+        }
+        list.add(new int[]{start,end});
+
+        return list.toArray(new int[0][]);
+    }
 
     public static int kthSmallest(int[] arr, int l, int r, int k) 
     { 
