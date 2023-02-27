@@ -10,6 +10,32 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+    public List<List<Integer>> threeSum(int[] nums) {
+        Set<List<Integer>> ans =  new HashSet<>();
+        if(nums.length < 3){
+            return new ArrayList<>();
+        }
+        Arrays.sort(nums);
+        for(int i = 0; i< nums.length-2; i++){
+            int first = i;
+            int second = i +1;
+            int last = nums.length-1;
+            while(second < last){
+                int sum = nums[first] + nums[second]+ nums[last];
+                if(sum == 0){
+                    ans.add(Arrays.asList(nums[i],nums[second++], nums[last--]));   
+                }else if(sum > 0){
+                    last--;
+                }else if(sum < 0){
+                    second++;
+                }
+                
+            }
+        }
+        return new ArrayList<>(ans);
+    }
+
+
     public int search(int[] nums, int target) {
         int left = 0;
         int right = nums.length -1;
@@ -34,9 +60,6 @@ public class CP2 {
         }
         return -1;
     }
-
-
-
 
     public int maxProfit(int[] nums) {
         // Using peek and valley techinque
