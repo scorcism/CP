@@ -53,7 +53,13 @@ class Tmp {
 
     public static void main(String[] args) {
 
-        System.out.println(longestCommonSubsequence("null", "ll"));
+        // for(int i = 0; i<10;){
+        //     System.out.println(i + "i is printied");
+        //     i++;
+        // }
+
+
+        // System.out.println(longestCommonSubsequence("null", "ll"));
 
         // List<Integer> list  =new ArrayList<>();
 
@@ -65,16 +71,16 @@ class Tmp {
 
 
         // System.out.println(list);
-        List<int[]> list = new ArrayList<>();
-        list.add(new int[] {2,3,4});
-        list.add(new int[] {2,3,});
-        list.add(new int[] {2,3,4,5});
-        list.add(new int[] {2,3,4,1});
+        // List<int[]> list = new ArrayList<>();
+        // list.add(new int[] {2,3,4});
+        // list.add(new int[] {2,3,});
+        // list.add(new int[] {2,3,4,5});
+        // list.add(new int[] {2,3,4,1});
 
         // System.out.println(list.toArray(new int[list.size()][]));
-        for(int[] r: list.toArray(new int[2][])){
-            System.out.println(Arrays.toString(r));
-        }
+        // for(int[] r: list.toArray(new int[2][])){
+            // System.out.println(Arrays.toString(r));
+        // }
 
 
         int[] array = new int[10];
