@@ -10,6 +10,24 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+
+    public static int kthSmallest(int[] arr, int l, int r, int k) 
+    { 
+        //Your code here
+        // Arrays.sort(arr);
+        // return arr[k-1];
+        
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int a: arr){
+            pq.add(a);
+        }
+        for(int i = 0; i< k-1; i++){
+            pq.poll();
+        }
+        return pq.peek();
+    } 
+
+
     int Countpair(int a[], int n, int sum)
     {
         // Complete the function
