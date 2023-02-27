@@ -10,6 +10,41 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+    /* 
+        Input: 
+        N = 5
+        Arr[] = {3, 30, 34, 5, 9}
+        Output: 9534330
+        Explanation: Given numbers are {3, 30, 34,
+        5, 9}, the arrangement 9534330 gives the
+        largest value.
+
+        Input: 
+        N = 4
+        Arr[] = {54, 546, 548, 60}
+        Output: 6054854654
+        Explanation: Given numbers are {54, 546,
+        548, 60}, the arrangement 6054854654 
+        gives the largest value.
+     */
+
+    public static String printLargest(String[] arr){
+        StringBuilder sb = new StringBuilder();
+        Arrays.sort(arr, new Comparator<String>(){
+            public int compare(String a, String b){
+                String ab = a+b;
+                String ba = b+a;
+
+                return ab.compareTo(ba) > 0 ? -1:1;
+            }
+        });
+        for(String s: arr){
+            sb.append(s);
+        }
+        return sb.toString();
+    }
+
+
     public static int findMindOps(int[] nums){
         int ans = 0;
         for(int i = 0, j = nums.length-1; i<j;){
