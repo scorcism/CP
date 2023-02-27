@@ -10,6 +10,26 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+    int Countpair(int a[], int n, int sum)
+    {
+        // Complete the function
+        int count = 0;
+        // using hashing
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i< n; i++){
+            if(map.containsKey(sum-a[i])){
+                count+= map.get(sum - a[i]);
+            }
+            if(map.containsKey(a[i])){
+                map.put(a[i], map.get(a[i])+1);
+            }else{
+                map.put(a[i],1);
+            }
+        }
+        
+        return count > 0 ? count : -1;
+    }
+
     public int maxArea(int[] height) {
         // base * heigh will be the max water container at each level
         int left = 0;
