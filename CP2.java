@@ -10,6 +10,24 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+    public int maxArea(int[] height) {
+        // base * heigh will be the max water container at each level
+        int left = 0;
+        int right = height.length -1;
+        int max  = Integer.MIN_VALUE;
+        while(left < right){
+            int area = (right - left) * Math.min(height[left],height[right]);
+            // width * height -> area of rectangle
+            max = Math.max(max,area);
+            if(height[left] < height[right]){
+                left++;
+            }else{
+                right--;
+            }
+        }
+        return max;
+    }
+
     public List<List<Integer>> threeSum(int[] nums) {
         Set<List<Integer>> ans =  new HashSet<>();
         if(nums.length < 3){
