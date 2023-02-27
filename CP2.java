@@ -10,6 +10,27 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
 
+    public static int findMindOps(int[] nums){
+        int ans = 0;
+        for(int i = 0, j = nums.length-1; i<j;){
+            if(nums[i] == nums[j]){
+                i++;
+                j--;
+            }else if(nums[i] > nums[j]){
+                // if ith one is greater then merge the two right me 
+                j--;
+                nums[j]+=nums[j+1];
+                ans++;
+            }else{
+                i++;
+                nums[i]+=nums[i-1];
+                ans++;
+            }
+        }
+        return ans;
+    }
+
+
     public int[][] mergeIntevals(int[][] intervals) {
         List<int[]> list = new ArrayList<>();
         if(intervals == null || intervals.length == 0){
