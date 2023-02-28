@@ -10,6 +10,41 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
     
+    public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
+        List<TreeNode> ans = new ArrayList<>();
+        postorder(root, new HashMap<>(), ans); // run a post order to iterate in the tree
+        return ans;
+    }
+    
+
+    private String postorder(TreeNode curr,Map<String, Integer> map, List<TreeNode> ans) {
+        if(curr == null){
+            return "#"; // If the root is null we have to take that position also into consideration
+        }
+        String serial = curr.val + "," + postorder(curr.left, map, ans) + "," + postorder(curr.right, map, ans); // serial entire root + left + right 
+        map.put(serial,map.getOrDefault(serial, 0)+1 ); // store the serialied string into the hash map with values of its occurance
+        if(map.get(serial) == 2){
+            //  if the serialised node is already present before the add to the main anser
+            ans.add(curr);
+        }
+        // return the serialized string which can be used for further analyses in postorder
+        return serial;
+    }
+
+
+public class TreeNode {
+      int val;
+      TreeNode left;
+      TreeNode right;
+      TreeNode() {}
+      TreeNode(int val) { this.val = val; }
+      TreeNode(int val, TreeNode left, TreeNode right) {
+          this.val = val;
+          this.left = left;
+          this.right = right;
+      }
+  }
+  
     int longSubarrWthSumDivByKMethod1(int a[], int n, int k)
     {
         // Complete the function
