@@ -9,6 +9,48 @@ public class CP2 {
         // topKFrequent(nums, 2);
         // System.out.println(minOperations(6126));
     }
+    
+    int longSubarrWthSumDivByKMethod1(int a[], int n, int k)
+    {
+        // Complete the function
+        int max_len = 0;
+        for(int i  = 0; i< n; i++){
+            int local_sum = 0;
+            for(int j = i; j< n; j++){
+                local_sum = local_sum+a[j] ;
+                if(local_sum %k== 0){
+                    max_len = Math.max(max_len, j-i+1);
+                }
+            }
+        }
+        return max_len;
+    }
+
+    int longSubarrWthSumDivByKMethod2(int a[], int n, int k)
+    {
+        int max_len = 0;
+        int[] modati = new int[n]; // To store mod of each index
+        int curr_sum = 0; // to store the prefix sum at that index from 0
+        HashMap<Integer, Integer> hm = new HashMap<>();
+        for(int i  = 0; i< n; i++){
+            curr_sum += a[i];
+            modati[i] = (curr_sum%k +k)%k;
+
+            if(modati[i] ==0 ){
+                max_len = i+1;
+            }
+            else if(!hm.containsKey(modati[i])){
+                hm.put(modati[i], i);
+            }else{
+                if(max_len<(i-hm.get(modati[i]))){
+                    max_len = i - hm.get(modati[i]);
+                }
+            }
+        }
+        return max_len;
+    }
+
+
 
     public static String printLargest(String[] arr){
         StringBuilder sb = new StringBuilder();
