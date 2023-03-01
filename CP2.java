@@ -57,6 +57,24 @@ public class CP2 {
         return nums;
     }    
 
+    public int[] sortArraySelectionSort(int[] nums) {
+         /*
+         * same as insertion sort but insted we will pick the smallest one from the unsorted array
+        */
+        for(int i = 0; i< nums.length - 1; i++){
+            int min = i;
+            for(int j = i+1; j< nums.length; j++){
+                if(nums[j]< nums[min]){
+                    min = j;
+                }
+            } 
+            if(min != i){
+                swap(nums, min, i);
+            }
+        }
+
+        return nums; 
+    }
 
     public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
         List<TreeNode> ans = new ArrayList<>();
