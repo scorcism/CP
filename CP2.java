@@ -10,6 +10,25 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     }
     
+    public int[] sortArrayBubbleSort(int[] nums) {
+        // Compare the two consequitive one and swap lf i-1 is greater then i
+        // TC -> O(n^2)
+        boolean isSwapped = false;
+        for(int i  = 0; i<nums.length; i++){
+            for(int j = 1; j<nums.length -i; j++){
+                if(nums[j] < nums[j-1]){
+                    swap(nums, j, j-1);
+                    isSwapped = true;
+                }
+            }
+            if(!isSwapped){
+                // means the array is already in sorted order
+                break;
+            }
+        }
+    }    
+
+
     public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
         List<TreeNode> ans = new ArrayList<>();
         postorder(root, new HashMap<>(), ans); // run a post order to iterate in the tree
