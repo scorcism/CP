@@ -5,9 +5,50 @@ public class CP2 {
     public static void main(String[] args) {
         // System.out.println(minOperations(15));
         // System.out.println(minOperations(20));
-        // int[] nums = { 1, 1, 2, 3, 4, 5 };
+        int[] nums = { 5, 4, 2, 3, 1 };
         // topKFrequent(nums, 2);
         // System.out.println(minOperations(6126));
+    }
+
+
+    public static int[] sortArrayQuickSort(int[] nums) {
+        quickSort(nums, 0, nums.length -1);
+        return nums;        
+    }
+
+
+    private static void quickSort(int[] nums, int low, int high) {
+        if(low <= high){
+            int part = partition(nums, low, high);
+            quickSort(nums, low, part-1);
+            quickSort(nums, part+1, high);
+        }
+    }
+
+    static int partition(int[] nums,int low, int high){
+         int left = low;
+        int right=  high;
+        int pivot = nums[low];
+
+        while(left < right){
+            while(nums[left] <= pivot){
+                left++;
+            }
+            while(nums[right]>= pivot){
+                right--;
+            }
+            if(left < right){
+                swapp(nums, left, right);
+            }
+        }
+        swapp(nums, low , right);
+        return right;
+    }
+
+    private static void swapp(int[] nums, int a, int b){
+        int tmp = nums[a];
+        nums[a] = nums[b];
+        nums[b] = tmp;
     }
 
     public int[] sortArrayBubbleSort(int[] nums) {
@@ -28,6 +69,7 @@ public class CP2 {
         }
     }
 
+    
     public int[] sortArrayInsertionSort(int[] nums) {
         //
         // TC ->
@@ -627,7 +669,7 @@ public class CP2 {
         reverse(nums, ind1 + 1, nums.length - 1);
     }
 
-    private void swap(int[] nums, int i, int j) {
+    private static void swap(int[] nums, int i, int j) {
         int tmp = nums[i];
         nums[i] = nums[j];
         nums[j] = tmp;
