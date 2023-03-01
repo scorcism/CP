@@ -3,13 +3,67 @@ import java.util.*;
 public class CP2 {
 
     public static void main(String[] args) {
+        
+        // int[] nums = { 5, 4, 2, 3, 1 };
+        // System.out.println(sortArrayMergeSort(nums));
+    }
+    // public static void main(String[] args) {
         // System.out.println(minOperations(15));
         // System.out.println(minOperations(20));
-        int[] nums = { 5, 4, 2, 3, 1 };
         // topKFrequent(nums, 2);
         // System.out.println(minOperations(6126));
+    // }
+
+    public static int[] sortArrayMergeSort(int[] nums) {
+        mergeSort(nums, 0, nums.length -1);
+        return nums;
     }
 
+     public static  void mergeSort(int[] nums, int left, int right){
+        if(left < right){
+            int mid = (left + right )/2;
+            mergeSort(nums, left, mid);
+            mergeSort(nums, mid+1, right);
+            merge(nums, left, mid, right);
+        }
+    }
+
+    private static void merge(int[] nums, int left, int mid, int right) {
+        int[] b = new int[right-left+1];
+        int i = left;
+        int j = mid+1;
+        int k = 0;
+
+        while(i<= mid && j<= right){
+            if(nums[i]<=nums[j]){
+                b[k] = nums[i];
+                i++;
+            }else{
+                b[k] = nums[j];
+                j++;
+            }
+            k++;
+        }
+        
+        if(i>mid){
+
+        while (j <= right) {
+            b[k++] = nums[j++];
+        }
+        }else{
+
+       
+        while (i <= mid) {
+            b[k++] = nums[i++];
+        }
+        }
+        
+        
+        for(int ptr = 0; ptr < k; ptr++){
+            nums[left++] = b[ptr];
+        }
+
+    }
 
     public static int[] sortArrayQuickSort(int[] nums) {
         quickSort(nums, 0, nums.length -1);
