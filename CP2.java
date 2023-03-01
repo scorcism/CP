@@ -9,28 +9,28 @@ public class CP2 {
         // topKFrequent(nums, 2);
         // System.out.println(minOperations(6126));
     }
-    
+
     public int[] sortArrayBubbleSort(int[] nums) {
         // Compare the two consequitive one and swap lf i-1 is greater then i
         // TC -> O(n^2)
         boolean isSwapped = false;
-        for(int i  = 0; i<nums.length; i++){
-            for(int j = 1; j<nums.length -i; j++){
-                if(nums[j] < nums[j-1]){
-                    swap(nums, j, j-1);
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = 1; j < nums.length - i; j++) {
+                if (nums[j] < nums[j - 1]) {
+                    swap(nums, j, j - 1);
                     isSwapped = true;
                 }
             }
-            if(!isSwapped){
+            if (!isSwapped) {
                 // means the array is already in sorted order
                 break;
             }
         }
-    }    
+    }
 
     public int[] sortArrayInsertionSort(int[] nums) {
-        // 
-        // TC -> 
+        //
+        // TC ->
         /*
          * Suppose the case is
          * 1 4 8 | 5 9 2
@@ -38,42 +38,44 @@ public class CP2 {
          * i will more in forward direction
          * and j will move in backward direction
          * i for 1 to n
-         * j form i-1 till >= 0 
+         * j form i-1 till >= 0
          * we will store the ith one in tmp to allow swapping
          */
         int n = nums.length;
-        for(int i = 1; i< n; i++){
+        for (int i = 1; i < n; i++) {
             int tmp = nums[i];
-            int j = i-1; // eg stoting 5 in this case
-            while(j >= 0 && nums[j]> tmp){
-                // if the i-1 i.e j is is greter then tmp means 8 is greater then 5 so swap the elements
-                nums[j+1] = nums[j];// move 8 at 5 postiion
+            int j = i - 1; // eg stoting 5 in this case
+            while (j >= 0 && nums[j] > tmp) {
+                // if the i-1 i.e j is is greter then tmp means 8 is greater then 5 so swap the
+                // elements
+                nums[j + 1] = nums[j];// move 8 at 5 postiion
                 j--;
             }
-            // at this point 4 is not greatre then 5 so 
+            // at this point 4 is not greatre then 5 so
             // we wil put 5 at j+1 position
-            nums[j+1] = tmp;
+            nums[j + 1] = tmp;
         }
         return nums;
-    }    
+    }
 
     public int[] sortArraySelectionSort(int[] nums) {
-         /*
-         * same as insertion sort but insted we will pick the smallest one from the unsorted array
-        */
-        for(int i = 0; i< nums.length - 1; i++){
+        /*
+         * same as insertion sort but insted we will pick the smallest one from the
+         * unsorted array
+         */
+        for (int i = 0; i < nums.length - 1; i++) {
             int min = i;
-            for(int j = i+1; j< nums.length; j++){
-                if(nums[j]< nums[min]){
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[j] < nums[min]) {
                     min = j;
                 }
-            } 
-            if(min != i){
+            }
+            if (min != i) {
                 swap(nums, min, i);
             }
         }
 
-        return nums; 
+        return nums;
     }
 
     public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
@@ -81,69 +83,78 @@ public class CP2 {
         postorder(root, new HashMap<>(), ans); // run a post order to iterate in the tree
         return ans;
     }
-    
 
-    private String postorder(TreeNode curr,Map<String, Integer> map, List<TreeNode> ans) {
-        if(curr == null){
+    private String postorder(TreeNode curr, Map<String, Integer> map, List<TreeNode> ans) {
+        if (curr == null) {
             return "#"; // If the root is null we have to take that position also into consideration
         }
-        String serial = curr.val + "," + postorder(curr.left, map, ans) + "," + postorder(curr.right, map, ans); // serial entire root + left + right 
-        map.put(serial,map.getOrDefault(serial, 0)+1 ); // store the serialied string into the hash map with values of its occurance
-        if(map.get(serial) == 2){
-            //  if the serialised node is already present before the add to the main anser
+        String serial = curr.val + "," + postorder(curr.left, map, ans) + "," + postorder(curr.right, map, ans); // serial
+                                                                                                                 // entire
+                                                                                                                 // root
+                                                                                                                 // +
+                                                                                                                 // left
+                                                                                                                 // +
+                                                                                                                 // right
+        map.put(serial, map.getOrDefault(serial, 0) + 1); // store the serialied string into the hash map with values of
+                                                          // its occurance
+        if (map.get(serial) == 2) {
+            // if the serialised node is already present before the add to the main anser
             ans.add(curr);
         }
-        // return the serialized string which can be used for further analyses in postorder
+        // return the serialized string which can be used for further analyses in
+        // postorder
         return serial;
     }
 
+    public class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
 
-public class TreeNode {
-      int val;
-      TreeNode left;
-      TreeNode right;
-      TreeNode() {}
-      TreeNode(int val) { this.val = val; }
-      TreeNode(int val, TreeNode left, TreeNode right) {
-          this.val = val;
-          this.left = left;
-          this.right = right;
-      }
-  }
-  
-    int longSubarrWthSumDivByKMethod1(int a[], int n, int k)
-    {
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
+    int longSubarrWthSumDivByKMethod1(int a[], int n, int k) {
         // Complete the function
         int max_len = 0;
-        for(int i  = 0; i< n; i++){
+        for (int i = 0; i < n; i++) {
             int local_sum = 0;
-            for(int j = i; j< n; j++){
-                local_sum = local_sum+a[j] ;
-                if(local_sum %k== 0){
-                    max_len = Math.max(max_len, j-i+1);
+            for (int j = i; j < n; j++) {
+                local_sum = local_sum + a[j];
+                if (local_sum % k == 0) {
+                    max_len = Math.max(max_len, j - i + 1);
                 }
             }
         }
         return max_len;
     }
 
-    int longSubarrWthSumDivByKMethod2(int a[], int n, int k)
-    {
+    int longSubarrWthSumDivByKMethod2(int a[], int n, int k) {
         int max_len = 0;
         int[] modati = new int[n]; // To store mod of each index
         int curr_sum = 0; // to store the prefix sum at that index from 0
         HashMap<Integer, Integer> hm = new HashMap<>();
-        for(int i  = 0; i< n; i++){
+        for (int i = 0; i < n; i++) {
             curr_sum += a[i];
-            modati[i] = (curr_sum%k +k)%k;
+            modati[i] = (curr_sum % k + k) % k;
 
-            if(modati[i] ==0 ){
-                max_len = i+1;
-            }
-            else if(!hm.containsKey(modati[i])){
+            if (modati[i] == 0) {
+                max_len = i + 1;
+            } else if (!hm.containsKey(modati[i])) {
                 hm.put(modati[i], i);
-            }else{
-                if(max_len<(i-hm.get(modati[i]))){
+            } else {
+                if (max_len < (i - hm.get(modati[i]))) {
                     max_len = i - hm.get(modati[i]);
                 }
             }
@@ -151,122 +162,116 @@ public class TreeNode {
         return max_len;
     }
 
-
-
-    public static String printLargest(String[] arr){
+    public static String printLargest(String[] arr) {
         StringBuilder sb = new StringBuilder();
-        Arrays.sort(arr, new Comparator<String>(){
-            public int compare(String a, String b){
-                String ab = a+b;
-                String ba = b+a;
+        Arrays.sort(arr, new Comparator<String>() {
+            public int compare(String a, String b) {
+                String ab = a + b;
+                String ba = b + a;
 
-                return ab.compareTo(ba) > 0 ? -1:1;
+                return ab.compareTo(ba) > 0 ? -1 : 1;
             }
         });
-        for(String s: arr){
+        for (String s : arr) {
             sb.append(s);
         }
         return sb.toString();
     }
 
-
-    public static int findMindOps(int[] nums){
+    public static int findMindOps(int[] nums) {
         int ans = 0;
-        for(int i = 0, j = nums.length-1; i<j;){
-            if(nums[i] == nums[j]){
+        for (int i = 0, j = nums.length - 1; i < j;) {
+            if (nums[i] == nums[j]) {
                 i++;
                 j--;
-            }else if(nums[i] > nums[j]){
-                // if ith one is greater then merge the two right me 
+            } else if (nums[i] > nums[j]) {
+                // if ith one is greater then merge the two right me
                 j--;
-                nums[j]+=nums[j+1];
+                nums[j] += nums[j + 1];
                 ans++;
-            }else{
+            } else {
                 i++;
-                nums[i]+=nums[i-1];
+                nums[i] += nums[i - 1];
                 ans++;
             }
         }
         return ans;
     }
 
-
     public int[][] mergeIntevals(int[][] intervals) {
         List<int[]> list = new ArrayList<>();
-        if(intervals == null || intervals.length == 0){
+        if (intervals == null || intervals.length == 0) {
             return new int[0][];
         }
         // sort on the bases of start index
-        Arrays.sort(intervals, (a,b)->a[0]-b[0]);
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
         int start = intervals[0][0];
         int end = intervals[0][1];
 
-        for(int i =0 ; i< intervals.length; i++){
-            // check if the new ith array in intervals has start less then prev inteval end if yes the merge the end with start
+        for (int i = 0; i < intervals.length; i++) {
+            // check if the new ith array in intervals has start less then prev inteval end
+            // if yes the merge the end with start
             int[] curr = intervals[i];
-            if(curr[0] <= end ){
-                end = Math.max(end,curr[1]);                
-            }else{
+            if (curr[0] <= end) {
+                end = Math.max(end, curr[1]);
+            } else {
                 // If is is a new interval then
-                list.add(new int[]{start,end});
+                list.add(new int[] { start, end });
                 start = curr[0];
                 end = curr[1];
             }
         }
-        list.add(new int[]{start,end});
+        list.add(new int[] { start, end });
 
         return list.toArray(new int[0][]);
     }
 
-    public static int kthSmallest(int[] arr, int l, int r, int k) 
-    { 
-        //Your code here
+    public static int kthSmallest(int[] arr, int l, int r, int k) {
+        // Your code here
         // Arrays.sort(arr);
         // return arr[k-1];
-        
+
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int a: arr){
+        for (int a : arr) {
             pq.add(a);
         }
-        for(int i = 0; i< k-1; i++){
+        for (int i = 0; i < k - 1; i++) {
             pq.poll();
         }
         return pq.peek();
-    } 
+    }
 
-
-    int Countpair(int a[], int n, int sum)
-    {
+    int Countpair(int a[], int n, int sum) {
         // Complete the function
         int count = 0;
         // using hashing
         HashMap<Integer, Integer> map = new HashMap<>();
-        for(int i = 0; i< n; i++){
-            if(map.containsKey(sum-a[i])){
-                count+= map.get(sum - a[i]);
+        for (int i = 0; i < n; i++) {
+            if (map.containsKey(sum - a[i])) {
+                count += map.get(sum - a[i]);
             }
-            if(map.containsKey(a[i])){
-                map.put(a[i], map.get(a[i])+1);
-            }else{
-                map.put(a[i],1);
+            if (map.containsKey(a[i])) {
+                map.put(a[i], map.get(a[i]) + 1);
+            } else {
+                map.put(a[i], 1);
             }
         }
-        
+
         return count > 0 ? count : -1;
     }
 
     public int maxArea(int[] height) {
         // base * heigh will be the max water container at each level
         int left = 0;
-        int right = height.length -1;
-        int max  = Integer.MIN_VALUE;
-        while(left < right){
-            int area = (right - left) * Math.min(height[left],height[right]);
+        int right = height.length - 1;
+        int max = Integer.MIN_VALUE;
+        while (left < right) {
+            int area = (right - left) * Math.min(height[left], height[right]);
             // width * height -> area of rectangle
-            max = Math.max(max,area);
-            if(height[left] < height[right]){
+            max = Math.max(max, area);
+            if (height[left] < height[right]) {
                 left++;
-            }else{
+            } else {
                 right--;
             }
         }
@@ -274,50 +279,49 @@ public class TreeNode {
     }
 
     public List<List<Integer>> threeSum(int[] nums) {
-        Set<List<Integer>> ans =  new HashSet<>();
-        if(nums.length < 3){
+        Set<List<Integer>> ans = new HashSet<>();
+        if (nums.length < 3) {
             return new ArrayList<>();
         }
         Arrays.sort(nums);
-        for(int i = 0; i< nums.length-2; i++){
+        for (int i = 0; i < nums.length - 2; i++) {
             int first = i;
-            int second = i +1;
-            int last = nums.length-1;
-            while(second < last){
-                int sum = nums[first] + nums[second]+ nums[last];
-                if(sum == 0){
-                    ans.add(Arrays.asList(nums[i],nums[second++], nums[last--]));   
-                }else if(sum > 0){
+            int second = i + 1;
+            int last = nums.length - 1;
+            while (second < last) {
+                int sum = nums[first] + nums[second] + nums[last];
+                if (sum == 0) {
+                    ans.add(Arrays.asList(nums[i], nums[second++], nums[last--]));
+                } else if (sum > 0) {
                     last--;
-                }else if(sum < 0){
+                } else if (sum < 0) {
                     second++;
                 }
-                
+
             }
         }
         return new ArrayList<>(ans);
     }
 
-
     public int search(int[] nums, int target) {
         int left = 0;
-        int right = nums.length -1;
-        while(left < right){
-            int mid = left + (right - left)/2;
-            if(nums[mid]== target){
+        int right = nums.length - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] == target) {
                 return mid;
-            }  
-            if(nums[left] <= nums[mid]){
-                if(target >= nums[left] && target <= nums[mid]){
-                    right = mid -1;
-                }else{
-                    left = mid+1;
+            }
+            if (nums[left] <= nums[mid]) {
+                if (target >= nums[left] && target <= nums[mid]) {
+                    right = mid - 1;
+                } else {
+                    left = mid + 1;
                 }
-            }else{
-                if(target >=nums[mid] && target <= nums[right]){
-                    left = mid +1;
-                }else{
-                    right  = mid -1;
+            } else {
+                if (target >= nums[mid] && target <= nums[right]) {
+                    left = mid + 1;
+                } else {
+                    right = mid - 1;
                 }
             }
         }
