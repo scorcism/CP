@@ -28,6 +28,35 @@ public class CP2 {
         }
     }    
 
+    public int[] sortArrayInsertionSort(int[] nums) {
+        // 
+        // TC -> 
+        /*
+         * Suppose the case is
+         * 1 4 8 | 5 9 2
+         * before | is the sorted array and after | is an unsorted array
+         * i will more in forward direction
+         * and j will move in backward direction
+         * i for 1 to n
+         * j form i-1 till >= 0 
+         * we will store the ith one in tmp to allow swapping
+         */
+        int n = nums.length;
+        for(int i = 1; i< n; i++){
+            int tmp = nums[i];
+            int j = i-1; // eg stoting 5 in this case
+            while(j >= 0 && nums[j]> tmp){
+                // if the i-1 i.e j is is greter then tmp means 8 is greater then 5 so swap the elements
+                nums[j+1] = nums[j];// move 8 at 5 postiion
+                j--;
+            }
+            // at this point 4 is not greatre then 5 so 
+            // we wil put 5 at j+1 position
+            nums[j+1] = tmp;
+        }
+        return nums;
+    }    
+
 
     public List<TreeNode> findDuplicateSubtrees(TreeNode root) {
         List<TreeNode> ans = new ArrayList<>();
