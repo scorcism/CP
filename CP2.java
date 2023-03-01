@@ -14,6 +14,20 @@ public class CP2 {
         // System.out.println(minOperations(6126));
     // }
 
+    // https://leetcode.com/problems/reverse-bits/solutions/54738/sharing-my-2ms-java-solution-with-explanation/
+    public int reverseBits(int n) {
+        int result = 0;
+        for(int i = 0; i < 32; i++){
+            result <<=1;
+            if((n&1)==1){
+                result++;
+            }
+            n>>=1;
+        }
+        return result;
+    }
+
+
     public static int[] sortArrayMergeSort(int[] nums) {
         mergeSort(nums, 0, nums.length -1);
         return nums;
