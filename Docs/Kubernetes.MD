@@ -89,4 +89,4 @@
 
 ## Conclusion
 
-#### Kubernetes is a powerful container orchestration platform that provides a highly scalable and fault-tolerant platform for running containerized applications. Kubernetes automates the deployment, scaling, and management of containerized workloads, making it easier for developers to focus on building and deploying their applications. With its declarative approach, Kubernetes ensures that the actual state of the application matches the desired state, and its self-healing and auto-scaling features make it ideal for running applications at scale.
+ Kubernetes is a powerful container orchestration platform that provides a highly scalable and fault-tolerant platform for running containerized applications. Kubernetes automates the deployment, scaling, and management of containerized workloads, making it easier for developers to focus on building and deploying their applications. With its declarative approach, Kubernetes ensures that the actual state of the application matches the desired state, and its self-healing and auto-scaling features make it ideal for running applications at scale.
