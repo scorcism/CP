@@ -13,6 +13,28 @@ import java.util.Comparator;
 public class CP3 {
     public static void main(String[] args) {
 
+        String one = "Abhishek";
+        String two = "his";
+        System.out.println(strStr(one, two));
+    }
+
+    public static int strStr(String haystack, String needle) {
+        if(needle.length() == 0){
+            return 0;
+        }
+        for(int i = 0; i<=haystack.length() - needle.length(); i++){
+            for(int j = 0; j<needle.length(); j++){
+                if(haystack.charAt(i+j) != needle.charAt((j))){
+                    // System.out.println("heystack i j : " +haystack.charAt(i+j) + " needle j: " + needle.charAt(j) );
+                    break;
+                }
+                if(j == needle.length() -1){
+                    // System.out.println("i: " + i);
+                    return i;
+                }
+            }
+        }
+        return -1;
     }
 
     public static int compressM2(char[] chars){
