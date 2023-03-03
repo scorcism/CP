@@ -136,6 +136,21 @@ docker stack deploy -c docker-compose.yml myapp
 ## Docker Networking: 
 #### Docker Networking allows you to create virtual networks that connect Docker containers together. This enables you to isolate applications and control the flow of traffic between them.
 
+#### Docker networking is the process of creating and managing communication channels between Docker containers and between containers and the host system or other network resources. Docker provides different networking options that allow containers to communicate with each other and with the external network.
+
+#### Docker creates a default network bridge when it is installed on a system. This bridge network provides a private network for containers on a single Docker host, and it allows containers to communicate with each other using IP addresses. When a container is created, it is assigned an IP address within the bridge network, and it can communicate with other containers on the same network using their IP addresses.
+
+#### Docker also provides other network types, such as host networking and overlay networking. Host networking allows containers to use the network interface of the host system directly, without any network address translation (NAT) or port mapping. This can improve network performance, but it also exposes the container to the same network security risks as the host system.
+
+#### Overlay networking is used in Docker Swarm mode to create a virtual network that spans across multiple Docker hosts. This network allows containers to communicate with each other and with external resources across different Docker hosts, and it provides load balancing and failover capabilities.
+
+#### In addition to these built-in networking options, Docker also allows users to create their own custom networks. Custom networks can be used to isolate containers from each other or from the external network, or to provide different levels of network access to different containers.
+
+#### Docker networking can also be configured using tools like Docker Compose and Kubernetes, which provide additional networking features like service discovery, load balancing, and automatic network configuration.
+
+#### Overall, Docker networking provides a flexible and powerful way to manage communication between containers and with the external network, and it is an essential part of building and deploying containerized applications.
+
+
 ## Docker Volumes: 
 #### Docker Volumes allow you to store data outside of a container's file system. This enables you to persist data even if the container is deleted or recreated.
 
