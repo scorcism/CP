@@ -19,20 +19,22 @@ public class CP3 {
     }
 
     public static int strStr(String haystack, String needle) {
-        if(needle.length() == 0){
+          if(needle.length() == 0){
             return 0;
         }
-        for(int i = 0; i<=haystack.length() - needle.length(); i++){
-            for(int j = 0; j<needle.length(); j++){
-                if(haystack.charAt(i+j) != needle.charAt((j))){
-                    // System.out.println("heystack i j : " +haystack.charAt(i+j) + " needle j: " + needle.charAt(j) );
-                    break;
-                }
-                if(j == needle.length() -1){
-                    // System.out.println("i: " + i);
-                    return i;
-                }
+        if(needle.length() > haystack.length()){
+            return -1;
+        }
+        int i = 0;
+        int j =needle.length();
+        while(j<= haystack.length()){
+            // System.out.println(i +" i");
+            if(needle.equals(haystack.substring(i,j))){
+                // System.out.println("i j " + i + " " + j + " ");
+                return i;
             }
+            i++;
+            j++;
         }
         return -1;
     }
