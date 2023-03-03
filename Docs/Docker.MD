@@ -126,7 +126,7 @@ services:
 ```
  This Docker Compose file defines a service called `web` that uses the `nginx:latest` image. It also sets some deployment options, like the number of replicas, restart policy, and resource limi
 
-# To deploy this service to a Docker Swarm cluster, you can use the Docker CLI:
+#### To deploy this service to a Docker Swarm cluster, you can use the Docker CLI:
 ```
 docker stack deploy -c docker-compose.yml myapp
 ```
