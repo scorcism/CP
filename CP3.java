@@ -13,9 +13,32 @@ import java.util.Comparator;
 public class CP3 {
     public static void main(String[] args) {
 
-        String one = "Abhishek";
-        String two = "his";
-        System.out.println(strStr(one, two));
+        // String one = "Abhishek";
+        // String two = "his";
+        // System.out.println(strStr(one, two));
+    }
+
+
+    public long countSubarraysMethod1(int[] nums, int minK, int maxK) {
+        long leftMostMin = -1;
+        long leftMin = -1;
+        long rightMax = -1;
+        long totalSubArray = 0;
+
+        for(int i = 0; i< nums.length; ++i){
+            if(nums[i] < minK || nums[i] >maxK){
+                leftMostMin = i;
+            }
+            if(nums[i]==minK){
+                leftMin = i;
+            }
+            if(nums[i]==maxK){
+                rightMax = i;
+            }
+            totalSubArray += Math.max(0L,Math.min(leftMin,rightMax)-leftMostMin);
+        }
+        return totalSubArray;
+        
     }
 
     public static int strStr(String haystack, String needle) {
