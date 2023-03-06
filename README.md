@@ -1,3 +1,3 @@
 ## CP
 ### All the CP Codes here :) 
-- Day Started :  **Jun 23, 2022**
+- Repo Init Date :  **Jun 23, 2022**
