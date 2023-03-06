@@ -17,7 +17,33 @@ public class CP3 {
         // String one = "Abhishek";
         // String two = "his";
         // System.out.println(strStr(one, two));
+        int[] arr = {2,3,4,7,11};
+        int k = 7;
+        // System.out.println(findKthPositive(arr, k));
     }
+
+    public static  int findKthPositive(int[] arr, int k) {
+        int left = 0;
+        int right = arr.length -1;
+
+        while(left <= right){
+            int mid = left + (right - left)/2;
+            System.out.println("mid: " + mid);
+            if(arr[mid]-mid-1<k){
+                System.out.println("arr[mid]-mid-1: "+ (arr[mid]-mid-1));
+                left = mid +1;
+                System.out.println("left = mid+1");
+                System.out.println("left: " + left);
+            }else{
+                right = mid -1;
+                System.out.println("right = mid -1");
+                System.out.println("right:"  +right);
+            }
+        }
+        System.out.println("left: " + left);
+        return left + k;
+    }
+
 
     public int minJumps(int[] arr) {
         int n = arr.length;
