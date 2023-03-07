@@ -22,6 +22,45 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
+
+    public long minimumTime(int[] time, int totalTrips) {
+        // Initialize the search space as the range of possible minimum times required for all buses to complete at least totalTrips trips.
+        // The minimum time required for each bus to complete totalTrips trips is the minimum time taken by any bus multiplied by totalTrips, and the maximum time required is the sum of times taken by all buses multiplied by totalTrips.
+        long l = 1;
+        long r = Arrays.stream(time).min().getAsInt() * (long) totalTrips;
+        
+        // Use binary search to find the minimum time required to complete totalTrips trips.
+        while (l < r) {
+            // Calculate the mid-point time value.
+            final long m = (l + r) / 2;
+            
+            // Calculate the total number of trips completed for all buses at the mid-point time value.
+            long numTrips = numTrips(time, m);
+            
+            // If the total number of trips completed is greater than or equal to totalTrips, the current mid-point time is a valid candidate for the minimum time required.
+            // Therefore, update the search space to the lower half of the current range.
+            if (numTrips >= totalTrips)
+                r = m;
+            // If the total number of trips completed is less than totalTrips, the current mid-point time is too high, and we need to increase the minimum time required.
+            // Therefore, update the search space to the upper half of the current range.
+            else
+                l = m + 1;
+        }
+        
+        // Return the minimum time required to complete totalTrips trips.
+        return l;
+    }
+    
+    // Helper function to calculate the total number of trips completed by all buses at any given time.
+    private long numTrips(int[] time, long m) {
+        // Calculate the total number of trips completed for each bus at the mid-point time value.
+        // The total number of trips completed for a bus is the floor division of m by the time taken by the bus.
+        // We then sum up the total number of trips completed for all buses.
+        return Arrays.stream(time).asLongStream().reduce(0L, (subtotal, t) -> subtotal + m / t);
+    }
+
+
+
     public static  int findKthPositive(int[] arr, int k) {
         int left = 0;
         int right = arr.length -1;
