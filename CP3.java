@@ -22,6 +22,44 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
+    public int lengthOfLongestSubstring(String s) {
+        HashSet<Character> set = new HashSet<>();
+        int left = 0;
+        int right = 0;
+        int maxLen = 0;
+
+        while(right < s.length()){
+            if(set.contains(s.charAt(right))){
+                set.remove(s.charAt(left));
+                left++;
+            }else{
+                set.add(s.charAt(right));
+                right++;
+                maxLen = Math.max(maxLen, right - left+1);
+            }
+        }
+        return maxLen;
+    }
+
+    public int lengthOfLongestSubstringM2(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int left = 0;
+        int right = 0;
+        int maxLen = 0;
+
+        while(right < s.length()){
+            if(map.containsKey(s.charAt(right))){
+                left = Math.max(left,map.get(s.charAt(right))+1);
+            }
+            map.put(s.charAt(right), right);
+            maxLen = Math.max(maxLen,right - left +1);
+            right++;
+        }
+
+        return maxLen;
+    }
+
+
     static void printAllDuplicates(String s) {
         /*
          * Given a string of characters from a to z. Print the duplicate
