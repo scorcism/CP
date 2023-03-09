@@ -22,6 +22,48 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
+    
+
+    static void printAllDuplicates(String s){
+        /*
+         * Given a string of characters from a to z. Print the duplicate characters(which are occurring 
+         * more than once) in the given string with their occurrences count.
+         */
+        if(s.length() == 0|| s == null){
+            System.out.println(0);
+        }
+        HashMap<Character, Integer> map = new HashMap<>(26);
+        for(int i  = 0; i<s.length(); i++){
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0)+1);
+        }
+        
+        for(Map.Entry<Character, Integer> entry : map.entrySet()){
+            if(entry.getValue()>1){
+                System.out.println(entry.getKey() + " - " + entry.getValue());
+            }
+        }
+    }
+
+    static void printAllDuplicatesM2(String s){
+        /*
+         * Given a string of characters from a to z. Print the duplicate characters(which are occurring 
+         * more than once) in the given string with their occurrences count.
+         */
+        // using aray
+        int[] char_count = new int[26];
+        
+        for(int i = 0; i< s.length(); i++){
+            char_count[s.charAt(i)-'a']++;
+        }
+
+        for(int i = 0; i< 26; i++){
+            if(char_count[i]>1){
+                System.out.println("Char: " + (char)(i+'a') + " Count: " + char_count[i]);
+            }
+        }
+        
+    }
+
     String printSequence(String S) { 
         // code here
         String[] numpad ={ "2",    "22",  "222", "3",   "33", "333",
