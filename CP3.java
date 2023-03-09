@@ -22,6 +22,54 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
+    static class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+            next = null;
+        }
+    }
+
+    public ListNode detectCycle(ListNode head) {
+        // BruteForce using Set
+        HashSet<ListNode> map = new HashSet<>();
+        ListNode tmp = head;
+        while(tmp!=null){
+            if(map.contains(tmp)){
+                return tmp;
+            }else{
+                map.add(tmp);
+            }
+            tmp = tmp.next;
+        }
+        return null;
+    }
+
+    public ListNode detectCycle2(ListNode head) {
+        if(head == null || head.next == null){
+            return null;
+        }
+
+        ListNode slow = head;
+        ListNode fast = head;
+        ListNode entry = head;
+        while(fast.next!=null && fast.next.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+            if(slow == fast){ // we found that , there is a cycle
+                while(slow != entry){
+                    slow = slow.next;
+                    fast = fast.next;
+                }
+                return entry;
+            }
+        }
+        return null;
+    }
+
+
     int minEatingSpeed2(int[] piles, int h) {
         int left = 1;
         int right = 1000000000;
@@ -51,7 +99,7 @@ public class CP3 {
             if(pile % k != 0) hours++; // if remainder value is not 0, we need to have an extra hour
         }
         return hours <= h;
-
+    }
     public int minEatingSpeed(int[] piles, int H) {
         int l = 1, r = 1000000000;
         while (l < r) {
