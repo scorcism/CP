@@ -22,6 +22,32 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
+    String printSequence(String S) { 
+        // code here
+        String[] numpad ={ "2",    "22",  "222", "3",   "33", "333",
+        "4",    "44",  "444", "5",   "55", "555",
+        "6",    "66",  "666", "7",   "77", "777",
+                "7777", "8",   "88",  "888", "9",  "99",
+                "999",  "9999" };
+                
+                return getStringSequence(S,numpad);
+    }
+            
+    private String getStringSequence(String input, String[] numpad) {
+        StringBuilder sb = new StringBuilder();
+        int len = input.length();
+
+        for(int i  = 0; i<len; i++){
+            if(input.charAt(i)== ' '){
+                sb.append("0");
+            }else{
+                sb.append(numpad[input.charAt(i)-'A']);
+            }
+        }
+
+        return sb.toString();
+    }
+
     static class ListNode {
         int val;
         ListNode next;
