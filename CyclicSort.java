@@ -21,6 +21,24 @@ public class CyclicSort {
         }
     }
 
+    public int findDuplicate(int[] nums) {
+        
+        // performing modified cyclic sort
+        int index = 0;
+        while(index < nums.length){
+            if(nums[index]!=index+1){
+                if(nums[index] != nums[nums[index]-1]){
+                    swap(nums,index,nums[index]-1);
+                }else{
+                    return nums[index];
+                }
+            }else{
+                index++;
+            }
+        }
+        return -1;
+    }
+
     public List<Integer> findDisappearedNumbers(int[] nums) {
         List<Integer> ans = new ArrayList<>();
         if(nums == null){
