@@ -21,6 +21,26 @@ public class CyclicSort {
         }
     }
 
+    public int firstMissingPositive(int[] nums) {
+        
+        int index = 0;
+        while(index < nums.length){
+            if( nums[index]>0 && nums[index]!= nums[nums[index]-1]){
+                swap(nums, index, nums[index]-1);
+            }else{
+                index++;
+            }
+        }
+
+        for(int i = 0; i< nums.length; i++){
+            if(i+1 != nums[i]){
+                return i+1;
+            }
+        }
+        return -1;
+    }
+
+
     public int[] findErrorNums(int[] nums) {
         int index = 0;
         while(index<nums.length){
