@@ -23,6 +23,26 @@ class Temps {
 
 class Tmp {
 
+    void cyclicSort(int[] nums){
+        int index = 0;
+        while(index < nums.length){
+            // get the correct index of nums[i]
+            //  index   0 1 2 3 4
+            // if       3 5 2 1 4
+            // get the correct position where should 3 belongs to 
+            // 3 will belong to index 2
+            // This is the postion 
+            int correctIndex = nums[index]-1;
+            // if the value at index i is not equal to value at nums[index]-1 then swap
+            if(nums[index] !=nums[nums[index]-1]){
+                swap(nums,index,nums[index]-1);
+            }else{
+                index++ ;}
+        }
+    }
+
+
+
     public static  int longestCommonSubsequence(String text1, String text2) {
         int n = text1.length();
         int m = text2.length();

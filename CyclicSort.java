@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class CyclicSort {    
     public static void main(String[] args) {
@@ -11,19 +13,38 @@ public class CyclicSort {
 
         int index = 0;
         while(index < nums.length){
-            // 3 5 2 1 4
-            // staring with 0 index 
-            // if 0 is not equal to value at 0th index -1
-            //  means that
-            // if we take and ordered pair
-            //1 2 3 4 5
-            // index 2 has the value of 3 means value 3 -1 will be the postion of 3 in the array
-            if((index != nums[index] -1)){
+            if((nums[index] != nums[nums[index]-1])){
                 swap(nums,index,nums[index]-1);
             }else{
                 index++;
             }
         }
+    }
+
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> ans = new ArrayList<>();
+        if(nums == null){
+            return ans;
+        }
+        // perform cyclic sort
+        // and check if element at that index +1 appread or not if not add to the list
+
+        // cyclic sort
+        int index = 0;
+        while(index<nums.length){
+            if(nums[index] != nums[nums[index]-1]){
+                swap(nums, index, nums[index]-1);
+            }else{
+                index++;
+            }
+        }
+
+        for(int i = 0; i< nums.length; i++){
+            if(i+1 != nums[i]){
+                ans.add(i+1);
+            }
+        }
+        return ans;
     }
 
     private static void swap(int[] nums, int index, int index2) {
