@@ -21,6 +21,27 @@ public class CyclicSort {
         }
     }
 
+    public List<Integer> findDuplicates(int[] nums) {
+        List<Integer>  list  = new ArrayList<>();
+        int index = 0;
+        while(index < nums.length){
+            if(nums[index] != nums[nums[index]-1]){
+                swap(nums, index, nums[index]-1);
+            }else{
+                index++;
+            }
+        }
+
+        for(int i = 0; i < nums.length; i++){
+            if(i+1 != nums[i]){
+                list.add(nums[i]);
+            }
+        }
+
+        return list;
+    }
+
+
     public int findDuplicate(int[] nums) {
         
         // performing modified cyclic sort
