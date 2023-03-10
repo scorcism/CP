@@ -10,6 +10,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Queue;
+import java.util.Random;
 
 public class CP3 {
     public static void main(String[] args) {
@@ -21,6 +22,44 @@ public class CP3 {
         int k = 7;
         // System.out.println(findKthPositive(arr, k));
     }
+
+
+    // https://leetcode.com/problems/linked-list-random-node/description/
+    static class SolutionLLRN {
+        ArrayList<Integer> list = new ArrayList<>();
+        public SolutionLLRN(ListNode head) {
+            while(head!=null){
+                list.add(head.val);
+                head = head.next;
+            }
+        }
+        
+        public int getRandom() {
+            double random = Math.random()*list.size();
+            return list.get((int)random);
+        }
+    }
+    static class SolutionLLRN2 {
+        ListNode head;
+        public SolutionLLRN2(ListNode head) {
+            this.head = head;
+        }
+        
+        public int getRandom() {
+            int result = 1;
+            ListNode node = head;
+            Random rand = new Random();
+            for(int i = 1; node!=null; i++){
+                if(rand.nextInt(i) == i-1){
+                    result = node.val;
+                }
+                node = node.next;
+            }   
+
+            return result;
+        }
+    }
+
 
     public int lengthOfLongestSubstring(String s) {
         HashSet<Character> set = new HashSet<>();
