@@ -39,12 +39,12 @@ public class CP3 {
             slow = slow.next;
             fast = fast.next.next;
         }
-        
-        TreeNode res = new TreeNode(slow.next.val);
-        ListNode righthalf = slow.next.next;
-        slow.next=  null;
-        res.left = sortedListToBST(head);
-        res.right = sortedListToBST(righthalf);
+
+        TreeNode res = new TreeNode(slow.next.val); // Thi is the middle of ll
+        ListNode righthalf = slow.next.next; // seperating right side
+        slow.next=  null; // detach left side 
+        res.left = sortedListToBST(head); // run same for left side
+        res.right = sortedListToBST(righthalf); // for right side
         return res;
 
     }
