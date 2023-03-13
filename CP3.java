@@ -23,6 +23,34 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
+
+    public int characterReplacement(String s, int k) {
+        int size = s.length();
+        
+        int max_count = 0;
+        int length = 0;
+        int start = 0;
+        int[] char_count = new int[26];
+        for(int end = 0; end < size; end++){
+            // add current one to char count
+            char_count[s.charAt(end)-'A']++;
+
+            // get the current char count
+            int current_char_count = char_count[s.charAt(end)-'A'];
+            max_count = Math.max(max_count, current_char_count);
+
+            while((end - start)-max_count +1> k){
+                char_count[s.charAt(start)-'A']--;
+                start++;
+            } 
+            length  = Math.max(length, end - start+1);
+
+        }
+        return length;
+    }
+
+
+
     public boolean isSymmetricIterative(TreeNode root) {
         if(root == null){
             return true;
