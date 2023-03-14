@@ -23,6 +23,20 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
+    public int sumNumbers(TreeNode root) {
+        return snhelper(root, 0);
+    }
+
+    private int snhelper(TreeNode root, int ans) {
+        if(root == null){
+            return 0;
+        }
+        ans = ans * 10 + root.val;
+        if(root.left == null && root.right == null){
+            return ans;
+        }
+        return snhelper(root.left, ans)+snhelper(root.right, ans);
+    }
 
     public int characterReplacement(String s, int k) {
         int size = s.length();
