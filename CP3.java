@@ -1,6 +1,7 @@
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Arrays;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.LinkedList;
@@ -21,6 +22,22 @@ public class CP3 {
         int[] arr = { 2, 3, 4, 7, 11 };
         int k = 7;
         // System.out.println(findKthPositive(arr, k));
+    }
+
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String,LinkedList<String>> map = new HashMap<>();
+        
+        for(String s: strs){
+            char[] chars = s.toCharArray();
+            Arrays.sort(chars);
+            String word = new String(chars);
+
+            if(!map.containsKey(word)){
+                map.put(word,new LinkedList<String>());
+            }
+            map.get(word).add(word);
+        }
+        return new LinkedList<>(map.values());
     }
 
     public int sumNumbers(TreeNode root) {
