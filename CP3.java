@@ -24,6 +24,29 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
+
+    public boolean isCompleteTree(TreeNode root) {
+        Queue<TreeNode> q = new LinkedList<>();
+        q.add(root);
+
+        while(!q.isEmpty()){
+            TreeNode node = q.poll();
+
+            if (node!= null){
+                q.add(node.left);
+                q.add(node.right);
+            }else{
+                while(!q.isEmpty()){
+                    if( q.poll() != null){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
+
     public List<List<String>> groupAnagrams(String[] strs) {
         Map<String,LinkedList<String>> map = new HashMap<>();
         
