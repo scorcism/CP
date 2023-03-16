@@ -24,6 +24,39 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
+    public TreeNode buildTreePreorderInorder(int[] preorder, int[] inorder) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for(int i = 0; i< inorder.length; i++){
+            map.put(inorder[i],i);
+        }
+        int inStart = 0;
+        int inEnd = inorder.length -1;
+        int prestart = 0;
+        int preEnd = preorder.length -1;
+        
+        return buildTreePreorderInorderHelper(preorder,prestart,preEnd, inorder,inStart,inEnd,map);
+    }
+
+
+
+    private TreeNode buildTreePreorderInorderHelper(int[] preorder, int prestart, int preEnd, int[] inorder, int inStart, int inEnd, Map<Integer, Integer> map) {
+        
+        if(prestart > preEnd || inStart > inEnd ){
+            return null;
+        }
+
+        TreeNode root = new TreeNode(preorder[prestart]);
+        int indexOfRoot = map.get(root.val);
+
+        int numsBetweenRoot = indexOfRoot - inStart;
+
+        root.left = buildTreePreorderInorderHelper(preorder, prestart+1, preEnd+numsBetweenRoot, inorder, inStart, indexOfRoot-1, map);
+        
+        root.right = buildTreePreorderInorderHelper(preorder,prestart+ numsBetweenRoot+1, preEnd, inorder, indexOfRoot+1, inEnd, map);
+
+
+        return root;
+    }
 
     public boolean isCompleteTree(TreeNode root) {
         Queue<TreeNode> q = new LinkedList<>();
