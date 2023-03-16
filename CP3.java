@@ -24,24 +24,70 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
-    public TreeNode buildTreePreorderInorder(int[] preorder, int[] inorder) {
+    public TreeNode buildTreePost(int[] inorder, int[] postorder) {
         Map<Integer, Integer> map = new HashMap<>();
-        for(int i = 0; i< inorder.length; i++){
-            map.put(inorder[i],i);
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
         }
-        int inStart = 0;
-        int inEnd = inorder.length -1;
-        int prestart = 0;
-        int preEnd = preorder.length -1;
-        
-        return buildTreePreorderInorderHelper(preorder,prestart,preEnd, inorder,inStart,inEnd,map);
+        return buildTreePostHelper(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1, map);
     }
 
+    private TreeNode buildTreePostHelper(int[] inorder, int inStart, int inEnd, int[] postorder, int postStart,
+            int postEnd, Map<Integer, Integer> map) {
+        if (inEnd < inStart || postEnd < postStart) {
+            return null;
+        }
 
+        TreeNode root = new TreeNode(postorder[postEnd]);
 
-    private TreeNode buildTreePreorderInorderHelper(int[] preorder, int prestart, int preEnd, int[] inorder, int inStart, int inEnd, Map<Integer, Integer> map) {
+        int indexRootInOrder = map.get(postorder[postEnd]);
+
+        int diffInIndexandEnd = indexRootInOrder - inStart;
+
+        root.left = buildTreePostHelper(inorder, inStart, indexRootInOrder - 1, postorder, postStart,
+                postStart + diffInIndexandEnd - 1, map);
+
+        root.right = buildTreePostHelper(inorder, indexRootInOrder + 1, inEnd, postorder, postStart + diffInIndexandEnd,
+                postEnd - 1, map);
+
+        return root;
+    }
+
+    private TreeNode buildTreePostHelper2(int[] inorder, int is, int ie, int[] postorder, int ps, int pe,
+            Map<Integer, Integer> map) {
+        if (ps > pe || is > ie) {
+            return null;
+        }
+        TreeNode root = new TreeNode(postorder[pe]);
+
+        int inRoot = map.get(postorder[pe]);
+
+        int numsLeft = inRoot - is;
         
-        if(prestart > preEnd || inStart > inEnd ){
+        root.left = buildTreePostHelper2(inorder, is, inRoot -1, postorder, ps, ps+numsLeft-1, map);
+
+        root.right = buildTreePostHelper2(inorder, inRoot+1, ie, postorder, ps+numsLeft, pe-1, map);
+
+        return root;
+    }
+
+    public TreeNode buildTreePreorderInorder(int[] preorder, int[] inorder) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        int inStart = 0;
+        int inEnd = inorder.length - 1;
+        int prestart = 0;
+        int preEnd = preorder.length - 1;
+
+        return buildTreePreorderInorderHelper(preorder, prestart, preEnd, inorder, inStart, inEnd, map);
+    }
+
+    private TreeNode buildTreePreorderInorderHelper(int[] preorder, int prestart, int preEnd, int[] inorder,
+            int inStart, int inEnd, Map<Integer, Integer> map) {
+
+        if (prestart > preEnd || inStart > inEnd) {
             return null;
         }
 
@@ -50,10 +96,11 @@ public class CP3 {
 
         int numsBetweenRoot = indexOfRoot - inStart;
 
-        root.left = buildTreePreorderInorderHelper(preorder, prestart+1, preEnd+numsBetweenRoot, inorder, inStart, indexOfRoot-1, map);
-        
-        root.right = buildTreePreorderInorderHelper(preorder,prestart+ numsBetweenRoot+1, preEnd, inorder, indexOfRoot+1, inEnd, map);
+        root.left = buildTreePreorderInorderHelper(preorder, prestart + 1, preEnd + numsBetweenRoot, inorder, inStart,
+                indexOfRoot - 1, map);
 
+        root.right = buildTreePreorderInorderHelper(preorder, prestart + numsBetweenRoot + 1, preEnd, inorder,
+                indexOfRoot + 1, inEnd, map);
 
         return root;
     }
@@ -62,15 +109,15 @@ public class CP3 {
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root);
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             TreeNode node = q.poll();
 
-            if (node!= null){
+            if (node != null) {
                 q.add(node.left);
                 q.add(node.right);
-            }else{
-                while(!q.isEmpty()){
-                    if( q.poll() != null){
+            } else {
+                while (!q.isEmpty()) {
+                    if (q.poll() != null) {
                         return false;
                     }
                 }
@@ -79,17 +126,16 @@ public class CP3 {
         return true;
     }
 
-
     public List<List<String>> groupAnagrams(String[] strs) {
-        Map<String,LinkedList<String>> map = new HashMap<>();
-        
-        for(String s: strs){
+        Map<String, LinkedList<String>> map = new HashMap<>();
+
+        for (String s : strs) {
             char[] chars = s.toCharArray();
             Arrays.sort(chars);
             String word = new String(chars);
 
-            if(!map.containsKey(word)){
-                map.put(word,new LinkedList<String>());
+            if (!map.containsKey(word)) {
+                map.put(word, new LinkedList<String>());
             }
             map.get(word).add(word);
         }
@@ -101,62 +147,60 @@ public class CP3 {
     }
 
     private int snhelper(TreeNode root, int ans) {
-        if(root == null){
+        if (root == null) {
             return 0;
         }
         ans = ans * 10 + root.val;
-        if(root.left == null && root.right == null){
+        if (root.left == null && root.right == null) {
             return ans;
         }
-        return snhelper(root.left, ans)+snhelper(root.right, ans);
+        return snhelper(root.left, ans) + snhelper(root.right, ans);
     }
 
     public int characterReplacement(String s, int k) {
         int size = s.length();
-        
+
         int max_count = 0;
         int length = 0;
         int start = 0;
         int[] char_count = new int[26];
-        for(int end = 0; end < size; end++){
+        for (int end = 0; end < size; end++) {
             // add current one to char count
-            char_count[s.charAt(end)-'A']++;
+            char_count[s.charAt(end) - 'A']++;
 
             // get the current char count
-            int current_char_count = char_count[s.charAt(end)-'A'];
+            int current_char_count = char_count[s.charAt(end) - 'A'];
             max_count = Math.max(max_count, current_char_count);
 
-            while((end - start)-max_count +1> k){
-                char_count[s.charAt(start)-'A']--;
+            while ((end - start) - max_count + 1 > k) {
+                char_count[s.charAt(start) - 'A']--;
                 start++;
-            } 
-            length  = Math.max(length, end - start+1);
+            }
+            length = Math.max(length, end - start + 1);
 
         }
         return length;
     }
 
-
-
     public boolean isSymmetricIterative(TreeNode root) {
-        if(root == null){
+        if (root == null) {
             return true;
         }
         Queue<TreeNode> q = new LinkedList<>();
         q.add(root.left);
         q.add(root.right);
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
             TreeNode left = q.poll();
             TreeNode right = q.poll();
 
-            if(left == null && right == null){
+            if (left == null && right == null) {
                 continue;
             }
-            if((left ==null && right != null) || (left != null && right == null)){
+            if ((left == null && right != null) || (left != null && right == null)) {
                 return false;
             }
-            if(left.val != right.val){
-                return  false;
+            if (left.val != right.val) {
+                return false;
             }
             q.add(left.left);
             q.add(right.right);
@@ -165,42 +209,43 @@ public class CP3 {
         }
         return true;
     }
+
     public boolean isSymmetric(TreeNode root) {
-        return isSymmetricCall(root.left,root.right);
+        return isSymmetricCall(root.left, root.right);
     }
 
     private boolean isSymmetricCall(TreeNode left, TreeNode right) {
-        if(left == null && right == null){
+        if (left == null && right == null) {
             return true;
         }
-        if((left == null && right != null) ||  (left != null && right == null)){
+        if ((left == null && right != null) || (left != null && right == null)) {
             return false;
         }
-        if(left.val != right.val ){
+        if (left.val != right.val) {
             return false;
         }
         return isSymmetricCall(left.left, right.right) && isSymmetricCall(left.right, right.left);
     }
 
     public TreeNode sortedListToBST(ListNode head) {
-        if(head == null){
+        if (head == null) {
             return null;
-        }        
-        if(head.next == null){
+        }
+        if (head.next == null) {
             return new TreeNode(head.val);
         }
 
         ListNode slow = head;
         ListNode fast = head.next.next;
 
-        while(fast != null && fast.next != null){
+        while (fast != null && fast.next != null) {
             slow = slow.next;
             fast = fast.next.next;
         }
 
         TreeNode res = new TreeNode(slow.next.val); // Thi is the middle of ll
         ListNode righthalf = slow.next.next; // seperating right side
-        slow.next=  null; // detach left side 
+        slow.next = null; // detach left side
         res.left = sortedListToBST(head); // run same for left side
         res.right = sortedListToBST(righthalf); // for right side
         return res;
@@ -210,39 +255,41 @@ public class CP3 {
     // https://leetcode.com/problems/linked-list-random-node/description/
     static class SolutionLLRN {
         ArrayList<Integer> list = new ArrayList<>();
+
         public SolutionLLRN(ListNode head) {
-            while(head!=null){
+            while (head != null) {
                 list.add(head.val);
                 head = head.next;
             }
         }
-        
+
         public int getRandom() {
-            double random = Math.random()*list.size();
-            return list.get((int)random);
+            double random = Math.random() * list.size();
+            return list.get((int) random);
         }
     }
+
     static class SolutionLLRN2 {
         ListNode head;
+
         public SolutionLLRN2(ListNode head) {
             this.head = head;
         }
-        
+
         public int getRandom() {
             int result = 1;
             ListNode node = head;
             Random rand = new Random();
-            for(int i = 1; node!=null; i++){
-                if(rand.nextInt(i) == i-1){
+            for (int i = 1; node != null; i++) {
+                if (rand.nextInt(i) == i - 1) {
                     result = node.val;
                 }
                 node = node.next;
-            }   
+            }
 
             return result;
         }
     }
-
 
     public int lengthOfLongestSubstring(String s) {
         HashSet<Character> set = new HashSet<>();
@@ -250,14 +297,14 @@ public class CP3 {
         int right = 0;
         int maxLen = 0;
 
-        while(right < s.length()){
-            if(set.contains(s.charAt(right))){
+        while (right < s.length()) {
+            if (set.contains(s.charAt(right))) {
                 set.remove(s.charAt(left));
                 left++;
-            }else{
+            } else {
                 set.add(s.charAt(right));
                 right++;
-                maxLen = Math.max(maxLen, right - left+1);
+                maxLen = Math.max(maxLen, right - left + 1);
             }
         }
         return maxLen;
@@ -269,18 +316,17 @@ public class CP3 {
         int right = 0;
         int maxLen = 0;
 
-        while(right < s.length()){
-            if(map.containsKey(s.charAt(right))){
-                left = Math.max(left,map.get(s.charAt(right))+1);
+        while (right < s.length()) {
+            if (map.containsKey(s.charAt(right))) {
+                left = Math.max(left, map.get(s.charAt(right)) + 1);
             }
             map.put(s.charAt(right), right);
-            maxLen = Math.max(maxLen,right - left +1);
+            maxLen = Math.max(maxLen, right - left + 1);
             right++;
         }
 
         return maxLen;
     }
-
 
     static void printAllDuplicates(String s) {
         /*
