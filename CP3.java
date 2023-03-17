@@ -23,7 +23,29 @@ public class CP3 {
         int k = 7;
         // System.out.println(findKthPositive(arr, k));
     }
+
+
+    public int countSubstrings(String s) {
+        int count= 0;
+        for(int i = 0; i< s.length(); i++){
+            count+=countSubstringsUtil(s,i,i);
+            count+=countSubstringsUtil(s,i,i+1);
+        }
+        return count;
+    }
+
     
+    private int countSubstringsUtil(String s, int i, int i2) {
+        int count = 0;
+        while(i>=0 && i2 < s.length() && s.charAt(i)==s.charAt(i2)){
+            count++;
+            i--;
+            i2++;
+        }
+        return count;
+    }
+
+
     public String longestPalindromeLCS(String s) {
         String ans = "";
         int resLen = 0;
