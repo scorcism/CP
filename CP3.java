@@ -23,6 +23,40 @@ public class CP3 {
         int k = 7;
         // System.out.println(findKthPositive(arr, k));
     }
+    
+    public String longestPalindromeLCS(String s) {
+        String ans = "";
+        int resLen = 0;
+
+        for(int i = 0; i< s.length(); i++){
+            int left = i;
+            int right = i;
+            while(left >=0 && right <s.length() && s.charAt(left) == s.charAt(right)){
+                // if the new windows size is greter then old one the
+                if(right - left +1 > resLen){
+                    resLen = right - left+1;
+                    ans = s.substring(left, right+1);
+                }
+                left--;
+                right++;
+            }
+            left = i;
+            right= i+1;
+            while(left >=0 && right <s.length() && s.charAt(left) == s.charAt(right)){
+                // if the new windows size is greter then old one the
+                if(right - left +1 > resLen){
+                    resLen = right - left+1;
+                    ans = s.substring(left, right+1);
+                }
+                left--;
+                right++;
+            }
+        }
+
+        return ans;
+        
+    }
+    
 
     static class  Node{
         Node[] links = new Node[26];
