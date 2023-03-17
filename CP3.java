@@ -25,6 +25,44 @@ public class CP3 {
     }
 
 
+    static List<Integer> nextPermutation(int N, int arr[]){
+        List<Integer> ans = new ArrayList<>();
+
+        int index1 = N-2;
+        while(index1 >= 0 && (arr[index1] >= arr[index1+1] )){
+            index1--;
+        }
+
+        int index2 = 0;
+        while(index2>=0 && (arr[index2] <= arr[index1])){
+            index2--;
+        }
+        swap(arr,index1,index2);
+
+        reverse(arr,index1+1,N);
+
+        for(int n:arr){
+            ans.add(n);
+        }
+
+        return ans;
+    }
+
+
+    private static void reverse(int[] arr, int i, int n) {
+        while(i<n){
+            swap(arr,i++,n--);
+        }
+    }
+
+
+    private static void swap(int[] arr, int index1, int index2) {
+        int tmp = arr[index1];
+        arr[index1] = arr[index2];
+        arr[index2] = tmp;
+    }
+
+
     // Little Same as https://leetcode.com/problems/longest-palindromic-substring/
     public int countSubstrings(String s) {
         int count= 0;
