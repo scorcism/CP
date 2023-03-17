@@ -25,6 +25,7 @@ public class CP3 {
     }
 
 
+    // Little Same as https://leetcode.com/problems/longest-palindromic-substring/
     public int countSubstrings(String s) {
         int count= 0;
         for(int i = 0; i< s.length(); i++){
@@ -45,7 +46,7 @@ public class CP3 {
         return count;
     }
 
-
+    //  Little same as https://leetcode.com/problems/longest-palindromic-substring/
     public String longestPalindromeLCS(String s) {
         String ans = "";
         int resLen = 0;
