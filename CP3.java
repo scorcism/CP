@@ -25,6 +25,38 @@ public class CP3 {
     }
 
 
+    
+
+
+    long countPS(String str){
+        // Your code here
+        int n = str.length();
+        long[][] dp = new long[1000][1000];
+        for(long[] arr:dp){
+            Arrays.fill(arr,-1);
+        }
+        return countPSUtil(str, 0, n-1,dp);
+    }
+
+    private long countPSUtil(String str, int i, int j,long[][] dp) {
+        if(i>j){
+            return 0;
+        }
+        if(i==j){
+            return 1;
+        }
+        if(dp[i][j]!=-1){
+            return dp[i][j];
+        }
+
+        else if(str.charAt(i) == str.charAt(j)){
+            return dp[i][j] = countPSUtil(str, i++, j, dp) + countPSUtil(str, i, j--, dp) + 1;
+        }else{
+            return dp[i][j] = countPSUtil(str, i++, j, dp) + countPSUtil(str, i, j--, dp) + countPSUtil(str, i++, j--, dp);
+        }
+    }
+
+
     static List<Integer> nextPermutation(int N, int arr[]){
         List<Integer> ans = new ArrayList<>();
 
