@@ -4,9 +4,9 @@
 # You use this as an alias 
 
 git add .
-echo "########## Git add DONE ##########"
+echo "########## git add DONE ##########"
 echo "Commit Message: $1 "
 git commit -m "$1"
-echo "########## git commit DONE ##########"
+echo "########## git commit DONE - $1 ##########"
 git push
 echo "########## git push DONE ##########"
