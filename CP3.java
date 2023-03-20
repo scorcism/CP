@@ -24,69 +24,80 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
+    public boolean canPlaceFlowers(int[] flowerbed, int n) {
+        int count = 0;
+        for (int i = 0; i < flowerbed.length; i++) {
 
-    
+            if (flowerbed[i] == 0) {
+                boolean leftOne = (i == 0) || (flowerbed[i - 1] == 0);
+                boolean rightOne = (i == flowerbed.length - 1) || (flowerbed[i + 1] == 0);
 
+                if (leftOne && rightOne) {
+                    flowerbed[i] = 1;
+                    count++;
+                }
+            }
+        }
+        return count > n;
+    }
 
-    long countPS(String str){
+    long countPS(String str) {
         // Your code here
         int n = str.length();
         long[][] dp = new long[1000][1000];
-        for(long[] arr:dp){
-            Arrays.fill(arr,-1);
+        for (long[] arr : dp) {
+            Arrays.fill(arr, -1);
         }
-        return countPSUtil(str, 0, n-1,dp);
+        return countPSUtil(str, 0, n - 1, dp);
     }
 
-    private long countPSUtil(String str, int i, int j,long[][] dp) {
-        if(i>j){
+    private long countPSUtil(String str, int i, int j, long[][] dp) {
+        if (i > j) {
             return 0;
         }
-        if(i==j){
+        if (i == j) {
             return 1;
         }
-        if(dp[i][j]!=-1){
+        if (dp[i][j] != -1) {
             return dp[i][j];
         }
 
-        else if(str.charAt(i) == str.charAt(j)){
+        else if (str.charAt(i) == str.charAt(j)) {
             return dp[i][j] = countPSUtil(str, i++, j, dp) + countPSUtil(str, i, j--, dp) + 1;
-        }else{
-            return dp[i][j] = countPSUtil(str, i++, j, dp) + countPSUtil(str, i, j--, dp) + countPSUtil(str, i++, j--, dp);
+        } else {
+            return dp[i][j] = countPSUtil(str, i++, j, dp) + countPSUtil(str, i, j--, dp)
+                    + countPSUtil(str, i++, j--, dp);
         }
     }
 
-
-    static List<Integer> nextPermutation(int N, int arr[]){
+    static List<Integer> nextPermutation(int N, int arr[]) {
         List<Integer> ans = new ArrayList<>();
 
-        int index1 = N-2;
-        while(index1 >= 0 && (arr[index1] >= arr[index1+1] )){
+        int index1 = N - 2;
+        while (index1 >= 0 && (arr[index1] >= arr[index1 + 1])) {
             index1--;
         }
 
         int index2 = 0;
-        while(index2>=0 && (arr[index2] <= arr[index1])){
+        while (index2 >= 0 && (arr[index2] <= arr[index1])) {
             index2--;
         }
-        swap(arr,index1,index2);
+        swap(arr, index1, index2);
 
-        reverse(arr,index1+1,N);
+        reverse(arr, index1 + 1, N);
 
-        for(int n:arr){
+        for (int n : arr) {
             ans.add(n);
         }
 
         return ans;
     }
 
-
     private static void reverse(int[] arr, int i, int n) {
-        while(i<n){
-            swap(arr,i++,n--);
+        while (i < n) {
+            swap(arr, i++, n--);
         }
     }
-
 
     private static void swap(int[] arr, int index1, int index2) {
         int tmp = arr[index1];
@@ -94,21 +105,19 @@ public class CP3 {
         arr[index2] = tmp;
     }
 
-
     // Little Same as https://leetcode.com/problems/longest-palindromic-substring/
     public int countSubstrings(String s) {
-        int count= 0;
-        for(int i = 0; i< s.length(); i++){
-            count+=countSubstringsUtil(s,i,i);
-            count+=countSubstringsUtil(s,i,i+1);
+        int count = 0;
+        for (int i = 0; i < s.length(); i++) {
+            count += countSubstringsUtil(s, i, i);
+            count += countSubstringsUtil(s, i, i + 1);
         }
         return count;
     }
 
-    
     private int countSubstringsUtil(String s, int i, int i2) {
         int count = 0;
-        while(i>=0 && i2 < s.length() && s.charAt(i)==s.charAt(i2)){
+        while (i >= 0 && i2 < s.length() && s.charAt(i) == s.charAt(i2)) {
             count++;
             i--;
             i2++;
@@ -116,30 +125,30 @@ public class CP3 {
         return count;
     }
 
-    //  Little same as https://leetcode.com/problems/longest-palindromic-substring/
+    // Little same as https://leetcode.com/problems/longest-palindromic-substring/
     public String longestPalindromeLCS(String s) {
         String ans = "";
         int resLen = 0;
 
-        for(int i = 0; i< s.length(); i++){
+        for (int i = 0; i < s.length(); i++) {
             int left = i;
             int right = i;
-            while(left >=0 && right <s.length() && s.charAt(left) == s.charAt(right)){
+            while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
                 // if the new windows size is greter then old one the
-                if(right - left +1 > resLen){
-                    resLen = right - left+1;
-                    ans = s.substring(left, right+1);
+                if (right - left + 1 > resLen) {
+                    resLen = right - left + 1;
+                    ans = s.substring(left, right + 1);
                 }
                 left--;
                 right++;
             }
             left = i;
-            right= i+1;
-            while(left >=0 && right <s.length() && s.charAt(left) == s.charAt(right)){
+            right = i + 1;
+            while (left >= 0 && right < s.length() && s.charAt(left) == s.charAt(right)) {
                 // if the new windows size is greter then old one the
-                if(right - left +1 > resLen){
-                    resLen = right - left+1;
-                    ans = s.substring(left, right+1);
+                if (right - left + 1 > resLen) {
+                    resLen = right - left + 1;
+                    ans = s.substring(left, right + 1);
                 }
                 left--;
                 right++;
@@ -147,77 +156,76 @@ public class CP3 {
         }
 
         return ans;
-        
-    }
-    
 
-    static class  Node{
+    }
+
+    static class Node {
         Node[] links = new Node[26];
         boolean flag = false;
 
-        boolean containsKey(char c){
-            return (links[c-'a']!=null);
+        boolean containsKey(char c) {
+            return (links[c - 'a'] != null);
         }
 
-        void put(char ch, Node node){
-            links[ch-'a'] = node;
+        void put(char ch, Node node) {
+            links[ch - 'a'] = node;
         }
 
-        Node get(char ch){
-            return links[ch-'a'];
+        Node get(char ch) {
+            return links[ch - 'a'];
         }
-        void setEnd(){
+
+        void setEnd() {
             flag = true;
         }
 
-        boolean isEnd(){
+        boolean isEnd() {
             return flag;
         }
 
     }
 
-
     class Trie {
         Node root;
-    public Trie() {
-        root = new Node();
-    }
-    
-    public void insert(String word) {
-        Node node = root; // for iterating purpose
-        for(int i = 0; i< word.length(); i++){
-            if(!node.containsKey(word.charAt(i))){
-                node.put(word.charAt(i), new Node());
-            }
-            // GOTO next node
-            node = node.get(word.charAt(i));
-        }
-        node.setEnd();
-    }
-    
-    public boolean search(String word) {
-        Node node = root;
-        for(int i = 0; i< word.length(); i++){
-            if(!node.containsKey(word.charAt(i))){
-                return false;
-            }
-            node = node.get(word.charAt(i));
-        }
-        return node.isEnd();
-    }
-    
-    public boolean startsWith(String prefix) {
-        Node node = root;
-        for(int i = 0; i< prefix.length(); i++){
-            if(!node.containsKey(prefix.charAt(i))){
-                return false;
-            }
-            node = node.get(prefix.charAt(i));
-        }
-        return true;
-    }
-}
 
+        public Trie() {
+            root = new Node();
+        }
+
+        public void insert(String word) {
+            Node node = root; // for iterating purpose
+            for (int i = 0; i < word.length(); i++) {
+                if (!node.containsKey(word.charAt(i))) {
+                    node.put(word.charAt(i), new Node());
+                }
+                // GOTO next node
+                node = node.get(word.charAt(i));
+            }
+            node.setEnd();
+        }
+
+        public boolean search(String word) {
+            Node node = root;
+            for (int i = 0; i < word.length(); i++) {
+                if (!node.containsKey(word.charAt(i))) {
+                    return false;
+                }
+                node = node.get(word.charAt(i));
+            }
+            return node.isEnd();
+        }
+
+        public boolean startsWith(String prefix) {
+            Node node = root;
+            for (int i = 0; i < prefix.length(); i++) {
+                if (!node.containsKey(prefix.charAt(i))) {
+                    return false;
+                }
+                node = node.get(prefix.charAt(i));
+            }
+            return true;
+        }
+    }
 
     public TreeNode buildTreePost(int[] inorder, int[] postorder) {
         Map<Integer, Integer> map = new HashMap<>();
@@ -258,10 +266,10 @@ public class CP3 {
         int inRoot = map.get(postorder[pe]);
 
         int numsLeft = inRoot - is;
-        
-        root.left = buildTreePostHelper2(inorder, is, inRoot -1, postorder, ps, ps+numsLeft-1, map);
 
-        root.right = buildTreePostHelper2(inorder, inRoot+1, ie, postorder, ps+numsLeft, pe-1, map);
+        root.left = buildTreePostHelper2(inorder, is, inRoot - 1, postorder, ps, ps + numsLeft - 1, map);
+
+        root.right = buildTreePostHelper2(inorder, inRoot + 1, ie, postorder, ps + numsLeft, pe - 1, map);
 
         return root;
     }
