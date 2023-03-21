@@ -24,6 +24,23 @@ public class CP3 {
         // System.out.println(findKthPositive(arr, k));
     }
 
+    public long zeroFilledSubarray(int[] nums) {
+        int subArray = 0;
+        int asn= 0;
+
+        for(int n: nums){
+            if(n ==0){
+                subArray++;
+            }else{
+                subArray = 0;
+            }
+            asn = asn + subArray;
+        }
+
+        return ans;
+    }
+
+
     public boolean canPlaceFlowers(int[] flowerbed, int n) {
         int count = 0;
         for (int i = 0; i < flowerbed.length; i++) {
