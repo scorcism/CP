@@ -1,32 +1,6 @@
 public class CP4 {
     public static void main(String[] args) {
 
-        BitTricks bt = new BitTricks();
-        // bt.AtoZee();
-        // bt.atozee();
-        System.out.println("A to a method 1");
-        for(char i  ='A'; i<= 'E'; i++){
-            bt.Atoa1(i);
-        }
-        
-        System.out.println("a to A method 1");
-        for(char i  ='a'; i<= 'e'; i++){
-            bt.atoA1(i);
-        }
-
-        System.out.println("A to a method 2");
-        for(char i  ='A'; i<= 'E'; i++){
-            bt.Atoa2(i);
-        }
-
-        System.out.println("a to A method 2");
-        for(char i  ='A'; i<= 'E'; i++){
-            bt.atoA2(i);
-        }
-
-        bt.clearLSBTilli(59,3);
-        bt.clearMSBTilli(59,3);
-
     }
 }
 
