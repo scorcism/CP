@@ -10,6 +10,20 @@ public class Number_Theory {
 
 class NumberTheory{
 
+    public int gcd(int a, int b){
+        if(b==0) return a;
+        return gcd(b,a%b); 
+    }
+
+    public int lcm(int a, int b){
+        return ((a * b)/ gcd(a,b));
+    }
+
+    public int minFraction(int a, int b){
+        return (a/gcd(a,b)/ b/gcd(a,b));
+    }
+
+
     public void swapsingXor(int a, int b){
         a = a ^ b;
         b = a ^ b;
