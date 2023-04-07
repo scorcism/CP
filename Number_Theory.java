@@ -34,6 +34,18 @@ class NumberTheory {
         }
     }
 
+    int binaryExponentiationIterative(int a, int b){
+        int ans = 0;
+        while(b>0){
+            // check if 0th bit is set
+            if((b&1)!=0){
+                ans = ans * a;
+            }
+            
+        }
+        return ans;
+    }
+
     public int gcd(int a, int b) {
         if (b == 0)
             return a;
