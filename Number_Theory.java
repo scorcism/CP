@@ -13,6 +13,17 @@ public class Number_Theory {
 class NumberTheory {
 
 
+    public void seive_divisors(){
+        int N = 100;
+        int[] div = new int[N];
+
+        for(int i = 2; i< N; i++){
+            for(int j = i ; i<N; i+=i){
+                div[j] = i;
+            }
+        }
+    }
+
     public void sieve_versions(){
         // lowest prime and highest prime
         int N = 100;
@@ -37,6 +48,18 @@ class NumberTheory {
                 }
             }
         }
+
+        int num = 24;
+        ArrayList<Integer> factors = new ArrayList<>();
+
+        while(num >1){
+            int prime_factor = hp[num];
+            while(num % prime_factor ==0){
+                num /= prime_factor;
+                factors.add(prime_factor);
+            }
+        }
+
     }
 
     public void sieve_algo(){
