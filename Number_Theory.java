@@ -12,11 +12,14 @@ public class Number_Theory {
 
 class NumberTheory {
 
-    public static void sieve_algo(){
+    public void sieve_algo(){
         int N = 100;
         boolean[] isPrime = new boolean[N];
+        
         Arrays.fill(isPrime, true);
+
         isPrime[0] = isPrime[1] = false;
+
         for(int i =2; i<N; i++){
             if(isPrime[i]){
                 for(int j = 2*i; j<N; j+=i){
@@ -24,8 +27,8 @@ class NumberTheory {
                 }
             }
         }
+        
         System.out.println(Arrays.toString(isPrime));
-
     }
 
 
