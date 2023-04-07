@@ -190,7 +190,7 @@ class NumberTheory {
                     ans.add(arr[i]);
                 }
             }
-            System.out.pritnln(ans);
+            System.out.println(ans);
         }
     }
 
