@@ -10,19 +10,28 @@ public class Number_Theory {
 
 class NumberTheory {
 
-
-    public static void all_divisors(int a){
-        for(int i =1; i<= a; i++){
-            if(a% i == 0){
-                System.out.println(i);
+    public static void all_divisors(int a) {
+        int count = 0;
+        int sum = 0;
+        for (int i = 1; i * i <= a; i++) {
+            if (a % i == 0) {
+                System.out.println(i + " " + a / i);
+                count++;
+                sum = sum + i;
+                if (a / i != i) {
+                    count++;
+                    sum += a / i;
+                }
             }
         }
+        System.out.println(count);
+        System.out.println(sum);
     }
 
     long binaryExponentiationRecur(int a, int b) {
         /*
-         *if(b==0) return 1;
-         *  if((b&1)!=0){
+         * if(b==0) return 1;
+         * if((b&1)!=0){
          * // if b is odd
          * return a * binaryExponentiationRecur(a, b/2) * binaryExponentiationRecur(a,
          * b/2);
@@ -31,23 +40,23 @@ class NumberTheory {
          * }
          */
 
-        if(b==0){
+        if (b == 0) {
             return 1;
         }
 
-        long res = binaryExponentiationRecur(a, b/2);
-        if((b&1)!=0){
+        long res = binaryExponentiationRecur(a, b / 2);
+        if ((b & 1) != 0) {
             return a * res * res;
-        }else{
+        } else {
             return res * res;
         }
     }
 
-    int binaryExponentiationIterative(int a, int b){
+    int binaryExponentiationIterative(int a, int b) {
         int ans = 0;
-        while(b>0){
+        while (b > 0) {
             // check if 0th bit is set
-            if((b&1)!=0){
+            if ((b & 1) != 0) {
                 ans = ans * a;
             }
             a = a * a;
