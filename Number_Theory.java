@@ -1,14 +1,33 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Number_Theory {
     public static void main(String[] args) {
         // half in CP4.java
-
+        NumberTheory nt = new NumberTheory();
+        nt.sieve_algo();
     }
 
 }
 
 class NumberTheory {
+
+    public static void sieve_algo(){
+        int N = 100;
+        boolean[] isPrime = new boolean[N];
+        Arrays.fill(isPrime, true);
+        isPrime[0] = isPrime[1] = false;
+        for(int i =2; i<N; i++){
+            if(isPrime[i]){
+                for(int j = 2*i; j<N; j+=i){
+                    isPrime[j] = false;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(isPrime));
+
+    }
+
 
     public static void prime_factors(int a){
         ArrayList<Integer> ans = new ArrayList<>();
