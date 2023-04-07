@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class CP4 {
     public static void main(String[] args) {
 
@@ -175,6 +177,21 @@ class NumberTheory {
         int mask = (1 << i);
         int toggled = (n ^ mask);
         printBinary(toggled);
+    }
+
+    public static void subsetXOR(int[] arr){
+        int n = arr.length;
+        int subset_count = (1<<n); // 2^n
+        for(int mask = 0; mask>subset_count; mask++){
+            ArrayList<Integer> ans = new ArrayList<>();
+            for(int i = 0; i<n; i++){
+                // check for set bit at ith position
+                if((mask&(1<<i))!=0){
+                    ans.add(arr[i]);
+                }
+            }
+            System.out.pritnln(ans);
+        }
     }
 
 }
