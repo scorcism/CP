@@ -12,6 +12,33 @@ public class Number_Theory {
 
 class NumberTheory {
 
+
+    public void sieve_versions(){
+        // lowest prime and highest prime
+        int N = 100;
+        boolean[] isPrime = new boolean[N];
+        Arrays.fill(isPrime,true);
+        isPrime[0] = isPrime[1] = false;
+
+        int[] lp = new int[N];
+        int[] hp = new int[N];
+        Arrays.fill(lp,0);
+        Arrays.fill(hp,0);
+
+
+        for(int i = 2; i< N; i++){
+            if(isPrime[i]){
+                for(int j = 2*i; j<N; j+=i){
+                    isPrime[j] = false;
+                    hp[j] = i;
+                    if(lp[j] == 0){
+                        lp[j] = i;
+                    }
+                }
+            }
+        }
+    }
+
     public void sieve_algo(){
         int N = 100;
         boolean[] isPrime = new boolean[N];
@@ -27,7 +54,7 @@ class NumberTheory {
                 }
             }
         }
-        
+
         System.out.println(Arrays.toString(isPrime));
     }
 
