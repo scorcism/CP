@@ -10,6 +10,17 @@ public class Number_Theory {
 
 class NumberTheory {
 
+    public static void prime_factors(int a){
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        for(int i  =2; i<=a; i++){
+            while(a%i==0){
+                ans.add(i);
+                a/=i;
+            }
+        }
+    }
+
     public static void all_divisors(int a) {
         int count = 0;
         int sum = 0;
