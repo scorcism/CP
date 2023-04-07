@@ -41,7 +41,8 @@ class NumberTheory {
             if((b&1)!=0){
                 ans = ans * a;
             }
-            
+            a = a * a;
+            b >>= 1;
         }
         return ans;
     }
