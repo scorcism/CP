@@ -5,10 +5,10 @@ public class Number_Theory {
     public static void main(String[] args) {
         // half in CP4.java
         NumberTheoryy nt = new NumberTheoryy();
-        nt.inverse(2);
     }
 
 }
+
 
 class NumberTheoryy {
 
@@ -33,6 +33,16 @@ class NumberTheoryy {
         return ans;
     }
 
+    public static void factoralTillN(){
+        int M = (int)1e9+7;
+        int N = (int)1e6+7;
+        long[] fact = new long[N];
+        fact[0]  =1;
+        for(int i = 2 ; i<N;i++){
+            fact[i] = (fact[i-1] * i)%M;
+        }
+        System.out.println(Arrays.toString(fact));
+    }
 
 
     public void seive_divisors(){
