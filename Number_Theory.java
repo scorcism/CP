@@ -38,7 +38,7 @@ class NumberTheoryy {
         int N = (int)1e6+7;
         long[] fact = new long[N];
         fact[0]  =1;
-        for(int i = 2 ; i<N;i++){
+        for(int i = 1 ; i<N;i++){
             fact[i] = (fact[i-1] * i)%M;
         }
         System.out.println(Arrays.toString(fact));
