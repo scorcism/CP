@@ -4,13 +4,35 @@ import java.util.Arrays;
 public class Number_Theory {
     public static void main(String[] args) {
         // half in CP4.java
-        NumberTheory nt = new NumberTheory();
-        nt.sieve_algo();
+        NumberTheoryy nt = new NumberTheoryy();
+        nt.inverse(2);
     }
 
 }
 
-class NumberTheory {
+class NumberTheoryy {
+
+    public static void inverse(int a){
+        long M = (int)1e9+7;
+        long inve = binaryExp(a,M-2,M);
+        System.out.println("inv: " + inve);
+    }
+    
+
+
+    private static long binaryExp(long a, long b, long M) {
+        long ans = 1;
+
+        while(b>0){
+            if((b&1)!=0){
+                ans =( ans * a)%M;
+            }
+            a = (a * a)%M;
+            b>>=1;
+        }
+        return ans;
+    }
+
 
 
     public void seive_divisors(){
