@@ -31,6 +31,42 @@ class NumberTheoryy {
         }
     }
 
+
+    // https://www.hackerearth.com/practice/basic-programming/bit-manipulation/basics-of-bit-manipulation/practice-problems/algorithm/xor-challenge-2420f189/
+    public static void aXORChallenge(){
+        Scanner sc = new Scanner(System.in);
+        int c  = sc.nextInt();
+
+        int bit_count = (int)(Math.log(c)/Math.log(2))+1;
+        int a = 0;
+        int b = 0;
+        ArrayList<Integer> set_bits = new ArrayList<>();
+        for(int i = 0; i<bit_count; i++){
+            if((c & (1<<i))!=0){
+                set_bits.add(i);
+            }else{
+                a |= (1<<i);
+                b |= (1<<i);
+            }
+        }
+        long ans = -1;
+        // generate all subset of set_bits array
+        int size = (1<<set_bits.size());
+        for(int mask = 0; mask<size; mask++){
+            int a_copy = a;
+            int b_copy = b;
+            for(int j = 0; j<set_bits.size(); j++){
+                if((mask & (1<<j))!=0){
+                    a_copy |= (1<<set_bits.get(j));
+                }else{
+                    b_copy |= (1<<set_bits.get(j));
+                }
+            }
+            ans = Math.max(ans,a_copy*b_copy);
+        }
+        System.out.println(ans);
+    }
+
     public static void inverse(int a){
         long M = (int)1e9+7;
         long inve = binaryExp(a,M-2,M);
