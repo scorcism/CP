@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Number_Theory {
     public static void main(String[] args) {
@@ -11,6 +12,24 @@ public class Number_Theory {
 
 
 class NumberTheoryy {
+
+
+    // https://www.hackerearth.com/problem/algorithm/monk-and-his-father-93b639f4/
+    public static void monkAndHisFather(){
+        Scanner sc = new Scanner(System.in);
+        int T= sc.nextInt();
+        while(T-->0){
+            int n = sc.nextInt();
+            int count = 0;
+            while(n>0){
+                if((n&1)!=0){
+                    count++;
+                }
+                n>>=1;
+            }
+            System.out.println(count);
+        }
+    }
 
     public static void inverse(int a){
         long M = (int)1e9+7;
