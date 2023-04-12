@@ -95,4 +95,64 @@ public class Pre_Computation {
         }
         
     }
+
+    public static void prefix_sum1(){
+        /*
+         * Given an array of N integers. Given Q queries and in each query given L and R print sum of array elements from index L to R (L,R included) 
+         * Constrainst:
+         * 1 <= N <= 10^5
+         * 1 <= a[i] <= 10^9
+         * 1 <= Q <= 10^5
+         * 1 <= L, R <= N
+         */
+        // Preferred to use 1 based array
+         int N = (int)1e6+10;
+         int[] a = new int[N];
+         Scanner sc = new Scanner(System.in);
+         int n = sc.nextInt();
+
+        for(int i = 1; i<= n; i++){
+            a[i] = sc.nextInt();
+        }
+
+        int q;
+        q = sc.nextInt();
+
+        while(q-->0){
+            int l = sc.nextInt();
+            int r = sc.nextInt();
+            long sum = 0;
+            for(int i = l; i<=r; i++){
+                sum = sum + a[i];
+            }
+            System.out.println(sum);
+
+        }
+        // O(N) + O(Q*N) = 10 ^ 10
+    }
+
+    public static void prefix_sum2(){
+        int N = (int)1e6+10;
+        int[] a = new int[N];
+        int[] prefix_sum = new int[N];
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+
+        for(int i = 1; i<= n; i++){
+            a[i] = sc.nextInt();
+            prefix_sum[i] = prefix_sum[i-1]+a[i];
+        }
+
+        int q;
+        q = sc.nextInt();
+
+        while(q-->0){
+            int l = sc.nextInt();
+            int r = sc.nextInt();
+            
+            System.out.println(prefix_sum[r]-prefix_sum[l-1]);
+
+        }
+
+    }
 }
