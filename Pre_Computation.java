@@ -155,4 +155,76 @@ public class Pre_Computation {
         }
 
     }
+
+    public static void prefix_2D_array1(){
+        /*
+         * Given 2d array a of N*N integers. Give Q queries and in each query given a,b,c and d print sum of squar rpresented by (a,b) as top left point and (c,d) as bottom right point
+         * 
+         * Constraints
+         * 1 <= N <= 10^3
+         * 1 <= a[i][j] <= 10^9
+         * 1 <= Q <= 10^5
+         * a <= a,b,c,d <= N
+         */
+
+         int N = (int)1e3+10;
+         int ar[][] = new int[N][N];
+
+         Scanner sc  = new Scanner(System.in);
+         int n  = sc.nextInt();
+         for(int i = 1; i<=n; i++){
+            for(int j = 1; j<=n; j++){
+                ar[i][j] = sc.nextInt();
+            }
+         }
+
+         int q = sc.nextInt();
+
+         while(q-->0){
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
+            int d = sc.nextInt();
+            long sum = 0;
+            for(int i = a; i<= c; i++){
+                for(int j = b; j<=d; j++){
+                    sum+=ar[i][j];
+                }
+            }
+            System.out.println(sum);
+
+            // O(N^2) + O(Q*N^2) = 10 ^ 5  * 10 ^ 6 = 10^11
+         }
+
+    }
+
+    public static void prefix_2D_array2(){
+
+         int N = (int)1e3+10;
+         int ar[][] = new int[N][N];
+         int prefix_sum[][] = new int[N][N];
+
+         Scanner sc  = new Scanner(System.in);
+         int n  = sc.nextInt();
+         for(int i = 1; i<=n; i++){
+            for(int j = 1; j<=n; j++){
+                ar[i][j] = sc.nextInt();
+                prefix_sum[i][j] = prefix_sum[i][j]+prefix_sum[i][j-1]+prefix_sum[i-1][j];
+            }
+         }
+
+         int q = sc.nextInt();
+
+         while(q-->0){
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int c = sc.nextInt();
+            int d = sc.nextInt();
+
+            System.out.println(prefix_sum[c][d]-prefix_sum[a-1][d]-prefix_sum[c][b-1]+prefix_sum[a-1][b-a]);
+
+            // O(N^2) + O(Q)  = 10 ^ 6 + 10 ^5 = 10 ^ 6
+         }
+
+    }
 }
