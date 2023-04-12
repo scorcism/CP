@@ -317,6 +317,61 @@ public class Pre_Computation {
         return __gcd(b,a%b);
     }
 
+    // https://www.hackerrank.com/challenges/crush/problem
+    public static void array_manupulation1(){
+        int N = (int)1e7+10;
+        long[] ar = new long[N];
+
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        while(m-->0){
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int d = sc.nextInt();
+            for(int i = a; i<=b; i++){
+                ar[i] +=d;
+            }
+            long max = 0;
+            for(int i = 1; i<=n;i++){
+                if(max<ar[i]){
+                    max = ar[i];
+                }
+            }
+            System.out.println(max);
+            // O(m*n+N) = 2 * 10 ^ 5 * 10 ^ 7
+        }
+    }
+    
+    public static void array_manupulation2(){
+        int N = (int)1e7+10;
+        long[] ar = new long[N];
+
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        while(m-->0){
+            int a = sc.nextInt();
+            int b = sc.nextInt();
+            int d = sc.nextInt();
+            
+            ar[a] += d;
+            ar[b+1]-=d;
+
+            for(int i = 1; i<=n ; i++){
+                ar[i] += ar[i-1];
+            }
+
+            long max = 0;
+            for(int i = 1; i<=n;i++){
+                if(max<ar[i]){
+                    max = ar[i];
+                }
+            }
+            System.out.println(max);
+            // O(m+N) = 2 * 10 ^ 5 + 10 ^ 7 ~ 10^7
+        }
+    }
 
 
 }
