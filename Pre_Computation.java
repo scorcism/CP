@@ -227,4 +227,96 @@ public class Pre_Computation {
          }
 
     }
+
+    // https://www.codechef.com/problems/GCDQ
+    public static void gcdQ1(){
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n, q;
+            n = sc.nextInt();
+            q = sc.nextInt();
+
+            int a[] = new int[n+10];
+            for(int i = 1; i<=n; i++){
+                a[i] =sc.nextInt();
+            }
+
+            while(q-->0){
+                int l;
+                int r;
+                l = sc.nextInt();
+                r = sc.nextInt();
+
+                int gc = 0;
+                for(int i = 1; i<=l-1; i++){
+                    gc = __gcd(gc, a[i]);
+                }
+                
+                for(int i = r+1; i<=n; i++){
+                    gc = __gcd(gc, a[i]);
+                }
+                System.out.println(gc);
+
+            } 
+            // O(T * (N + Q * (N))) = O(T * N * T *N*Q) 
+        }
+
+    }
+    public static void gcdQ2(){
+        // Using forward and backward  prefix gcd array
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        while(t-->0){
+            int n, q;
+            n = sc.nextInt();
+            q = sc.nextInt();
+
+            int a[] = new int[n+10];
+            for(int i = 1; i<=n; i++){
+                a[i] =sc.nextInt();
+            }
+
+             // forward array
+             int[] forward = new int[n+10];
+             // backward array
+             int[] backward = new int[n+10];
+ 
+             forward[0] = 0;
+             backward[n+1] = 0;
+
+             for(int i = 1; i<=n;i++){
+                forward[i] = __gcd(forward[i-1],a[i]);
+             }
+
+             for(int i = n; i>=0;i--){
+                backward[i] = __gcd(backward[i+1],a[i]);
+             }
+
+
+            while(q-->0){
+                int l;
+                int r;
+                l = sc.nextInt();
+                r = sc.nextInt();
+
+                int gc = __gcd(forward[l-1],backward[r+1]);
+                
+                System.out.println(gc);
+
+            } 
+            
+        }
+
+    }
+
+    public static int __gcd(int a, int b){
+        if(b == 0){
+            return a;
+        }
+        return __gcd(b,a%b);
+    }
+
+
+
 }
