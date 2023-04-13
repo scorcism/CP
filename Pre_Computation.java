@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class Pre_Computation {
     
@@ -372,6 +373,98 @@ public class Pre_Computation {
             // O(m+N) = 2 * 10 ^ 5 + 10 ^ 7 ~ 10^7
         }
     }
+    
+    public static void palindromeSubstringRearrange1(){
+        int t ;
+        Scanner sc = new Scanner(System.in);
+        t = sc.nextInt();
+        while(t-->0){
+            int n,q;
+            n = sc.nextInt();
+            q = sc.nextInt();
 
+            String word;
+            word = sc.nextLine();
+            while(q-->0){
+                int l,r;
+                l = sc.nextInt();
+                r = sc.nextInt();
+
+                int[] hashes = new int[26];
+                Arrays.fill(hashes,0);
+
+                l--;r--;
+                for(int i = l; i<=r;i++){
+                    hashes[word.charAt(i)-'a']++;
+                }
+
+                // check the odd count of characters
+                // if odd count is > 1 we cant cannot rearrage to make it a pallindrome
+
+                int oddCount = 0;
+                for(int i = 0; i<26; i++){
+                    if(hashes[i]%2!=0){
+                        oddCount++;
+                    }
+                }
+                if(oddCount>1){
+                    System.out.println("NO");
+                }else{
+                    System.out.println("YES");
+                }
+            }
+            // O(t*(n*q*(26+n+26))) = O(t*q*n) = 10^10
+        }
+    }
+    
+    public static void palindromeSubstringRearrange2(){
+        int t ;
+        int N = (int)1e9+10;
+        int hashes[][] = new int[N][26];
+        Scanner sc = new Scanner(System.in);
+        t = sc.nextInt();
+        while(t-->0){
+            Arrays.fill(hashes,0);
+
+            int n,q;
+            n = sc.nextInt();
+            q = sc.nextInt();
+
+            String word;
+            word = sc.nextLine();
+
+
+            for(int i = 0; i< n; i++){
+                hashes[i+1][word.charAt(i)-'a']++;
+            }
+
+            // calculating prefix sum
+            for(int i = 0; i< 26; i++){
+                for(int j = 1; i<= n; j++){
+                    hashes[j][i] += hashes[j-1][i];
+                }
+            }
+
+            while(q-->0){
+                int l,r;
+                l = sc.nextInt();
+                r = sc.nextInt();
+
+                int oddCount = 0;
+                for(int i = 0; i<26; i++){
+                    int charCount = hashes[r][i] - hashes[l-1][i];
+                    if(charCount%2!=0){
+                        oddCount++;
+                    }
+                }
+                if(oddCount>1){
+                    System.out.println("NO");
+                }else{
+                    System.out.println("YES");
+                }
+            }
+        }
+        // O(t * (n+n* 26+q*26)) = O(t*n*26) = 
+    }
 
 }
