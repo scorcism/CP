@@ -1,32 +1,39 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-04-15 08:54:09
+// Date: 2023-04-15 23:00:00
 
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class CodeForces {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
        
-        String s1 = sc.next();
-        String s2 = sc.next();
-        s1 = s1.toLowerCase();
-        s2 = s2.toLowerCase();
+        String t = sc.next();
+        
+        // int[] number_count = new int[4];
+        // for(int i  = 0; i<t.length(); i++){
+        //     if(t.charAt(i) != '+'){
+        //         number_count[t.charAt(i)-'0']++;
+        //     }
+        // }
+        // System.out.println(Arrays.toString(number_count));
+        String ans = "";
 
-        if(s1.equals(s2)){
-            System.out.println(0);
-            ;
-        }
+        char[] char_number = t.toCharArray();
+        Arrays.sort(char_number);
+        String a  = new String(char_number);
 
-        for(int i = 0; i < s1.length(); i++){
-            if(s1.charAt(i)==s2.charAt(i)){
-                continue;
-            }else if (s1.charAt(i)<s2.charAt(i)){
-                System.out.println(-1);
-                break;
-            }else {
-                System.out.println(1);
-                break;
+        // System.out.println(a);
+
+        for(int i  = 0 ; i<a.length(); i++){
+            if(a.charAt(i)!='+'){
+                ans+=a.charAt(i);
+                if(i != a.length()-1){
+                    ans+="+";
+                }
             }
         }
+        System.out.println(ans);
+
     }
 }
