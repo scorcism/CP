@@ -1,22 +1,25 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-04-15 23:32:40
+// Date: 2023-04-15 23:51:20
 
 import java.util.Scanner;
 
 public class CodeForces {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int t = sc.nextInt();
        
-        String color= sc.next();
-
+        int k = sc.nextInt();
+        int n = sc.nextInt();
+        int w = sc.nextInt();
         
-        int count = 0;
-        for(int i = 0; i<t-1; i++){
-            if(color.charAt(i) == color.charAt(i+1)){
-                count++;
-            }
+        int t = 0;
+        for(int i = 1; i<=w; i++){
+            t += k*i;
         }
-        System.out.println(count);
+        if(t-n <=0){
+            System.out.println(0);
+        }else{
+            System.out.println(t-n);
+
+        }
     }
 }
