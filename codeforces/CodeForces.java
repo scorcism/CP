@@ -1,24 +1,29 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-04-16 00:41:57
+// Date: 2023-04-16 17:56:43
 
+import java.util.HashSet;
 import java.util.Scanner;
 
 public class CodeForces {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
        
-        int n = sc.nextInt();
-        int k = sc.nextInt();
-
+        int t = sc.nextInt();
         
-        while(k-->0){
-            int tmp = n % 10;
-            if(tmp == 0){
-                n /= 10;
-            }else if(tmp !=0){
-                n = n-1;
+        String cf = "codeforces";
+
+        HashSet<Character> hash = new HashSet<>();
+        for(char c: cf.toCharArray()){
+            hash.add(c);
+        }
+
+        for(int i = 0; i<t; i++){
+            char c = sc.next().charAt(0);
+            if(hash.contains(c)){
+                System.out.println("YES");
+            }else{
+                System.out.println("NO");
             }
         }
-        System.out.println(n);
     }
 }
