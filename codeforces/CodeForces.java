@@ -1,8 +1,8 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-04-16 17:56:43
+// Date: 2023-04-16 18:05:53
 
-import java.util.HashSet;
 import java.util.Scanner;
+import java.util.Arrays;
 
 public class CodeForces {
     public static void main(String[] args) {
@@ -10,20 +10,22 @@ public class CodeForces {
        
         int t = sc.nextInt();
         
-        String cf = "codeforces";
-
-        HashSet<Character> hash = new HashSet<>();
-        for(char c: cf.toCharArray()){
-            hash.add(c);
-        }
-
         for(int i = 0; i<t; i++){
-            char c = sc.next().charAt(0);
-            if(hash.contains(c)){
-                System.out.println("YES");
-            }else{
-                System.out.println("NO");
+            // int a = sc.nextInt();
+            // int b = sc.nextInt();
+            // int c = sc.nextInt();
+
+            // int min = Math.min(Math.min(a, b),c);
+            // int max = Math.max(Math.max(a, b),c);
+
+            int[] ar = new int[3];
+            for(int j = 0; j<3; j++){
+                ar[j] = sc.nextInt();
             }
+            Arrays.sort(ar);
+            System.out.println(ar[1]);
+
+
         }
     }
 }
