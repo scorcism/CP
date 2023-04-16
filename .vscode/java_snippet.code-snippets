@@ -28,5 +28,38 @@
 
 		],
         "description": "Java CP Template Snippet"
+	},
+	"Template for cp codechef":{
+		"prefix": "cptemplatecodechef",
+		"scope":"java",
+		"body": [
+			"// Abhishek Pathak - scor32k",
+			"// Date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
+			
+			"",
+			
+			"import java.util.Scanner;",
+			"import java.util.*;",
+			"import java.lang.*;",
+			"import java.io.*;",
+			"",
+
+			"class Codechef {",
+				"    public static void main(String[] args) throws java.lang.Exception {",
+					"        Scanner sc = new Scanner(System.in);",
+					"       $1",
+					"        int t = sc.nextInt();",
+					"        ",
+					"        for(int i = 0; i<t; i++){",
+					"            System.out.println($2);",
+						"            $3",
+
+					"        }",
+
+				"    }",
+			"}",
+
+		],
+		"description": "Java CP Template Snippet"
 	}
 }
