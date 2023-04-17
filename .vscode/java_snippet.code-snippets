@@ -1,6 +1,6 @@
 {
 	"Template for cp":{
-		"prefix": "cptemplate",
+		"prefix": "cpcf",
 		"scope":"java",
 		"body": [
 			"// Abhishek Pathak - scor32k",
@@ -30,7 +30,7 @@
         "description": "Java CP Template Snippet"
 	},
 	"Template for cp codechef":{
-		"prefix": "cptemplatecodechef",
+		"prefix": "cpcc",
 		"scope":"java",
 		"body": [
 			"// Abhishek Pathak - scor32k",
