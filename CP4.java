@@ -1,12 +1,38 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class CP4 {
     public static void main(String[] args) {
+        // lps("acccbaaacccbaac");
     }
 
     public static boolean match(String wild, String pattern) {
         return matchfunc(wild, wild.length() - 1, pattern, pattern.length() - 1);
+    }
+
+
+    public static void lps(String s) {
+        // code here
+        int[] lpss = new int[s.length()];
+        int i = 1;
+        int j  = 0;
+        lpss[0] = 0;
+        while(i<s.length()){
+            if(s.charAt(i) == s.charAt(j)){
+                j++;
+                lpss[i] = j;
+                i++;
+            }else{
+                if(j != 0){
+                    j = lpss[j-1];
+                }else{
+                    lpss[i] = 0;
+                    i++;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(lpss));
     }
 
     public static boolean matchfunc(String w, int wlen, String p, int plen) {
