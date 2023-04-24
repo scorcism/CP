@@ -3,8 +3,45 @@ import java.util.HashMap;
 
 public class CP4 {
     public static void main(String[] args) {
-        
     }
+
+    public static boolean match(String wild, String pattern)
+    {
+        return matchfunc(wild,wild.length()-1,pattern,pattern.length()-1);
+    }
+
+    public static boolean matchfunc(String w, int wlen, String p, int plen ){
+
+        if(wlen < 0 && plen <0){
+            return true;
+        }
+
+        if(wlen <0 && plen >=0){
+            return false;    
+        }
+
+        if(wlen >=0 && plen <0){
+            for(int i  = 0; i<wlen; i++){
+                if(w.charAt(i) != '*'){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+
+        if( w.charAt(wlen) == p.charAt(plen) ||w.charAt(wlen) == '?'){
+            return matchfunc(w, wlen-1, p, plen-1);
+        }
+
+        if(w.charAt(wlen) == '*'){
+            return (matchfunc(w, wlen-1, p, plen) || matchfunc(w, wlen, p, plen-1));
+        }
+
+        return false;
+
+    }
+
 
     public static String smallestWindow(String s, String p){
         int slen = s.length();
