@@ -1,9 +1,78 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CP4 {
     public static void main(String[] args) {
-
+        
     }
+
+    public static String smallestWindow(String s, String p){
+        int slen = s.length();
+        int plen = p.length();
+        
+        if(plen > slen){
+            return "-1";
+        }
+
+        HashMap<Character, Integer> map = new HashMap<>();
+        
+        for(char c: p.toCharArray()){
+            map.put(c,map.getOrDefault(c, 0)+1);
+        }
+
+        int count = map.size();
+
+        int end = 0;
+        int start = 0;
+        int minStart =  0;
+        int maxEnd = 0;
+        int windowSize = Integer.MAX_VALUE;
+
+        while(end <slen){
+            char charAtend = s.charAt(end);
+            if(map.containsKey(charAtend)){
+                map.put(s.charAt(end), map.get(s.charAt(end))-1);
+
+                if(map.get(s.charAt(end)) ==0){
+                    count--;
+                }
+            }
+
+            while(count ==0 ){
+                char charAtstart = s.charAt(start);
+                if(windowSize > end - start +1){
+                    windowSize = end - start +1;
+                    minStart = start;
+                    maxEnd = end+1;
+                }
+                
+
+                if(map.containsKey(charAtstart)){
+                    map.put(charAtstart,map.get(charAtstart)+1);
+                
+                    if(map.get(charAtstart)==1){
+                        count++;
+                    }
+                }
+                start++;
+            }
+            end++;
+
+
+        }
+
+        // return windowSize>0?s.substring(minStart, maxEnd):"-1";
+        // System.out.println(windowSize);
+        if( windowSize!=Integer.MAX_VALUE && windowSize >0){
+            return s.substring(minStart, maxEnd);
+        }else{
+            
+        String minus1 = new String("-1");
+        return minus1;
+        }
+    }
+
+
 }
 
 class BitTricks extends NumberTheory {
