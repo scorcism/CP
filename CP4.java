@@ -15,29 +15,38 @@ public class CP4 {
         int n  = A.length()-1;
         int m = B.length()-1;
 
-        if(n!=m){
+        if(n != m){
             return -1;
         }
-        int min = 0;
-        // System.out.println("m: "+ m + " n: " + n);
-        while(n > 0 && m >0){
-            if(A.charAt(n) == B.charAt(m)){
-                // System.out.println("a: " + A.charAt(n) + " b: " + B.charAt(m));
-                n--;
-                m--;
-                // System.out.println("in if");
-                // System.out.println("m: "+ m + " n: " + n);
-            }else if (A.charAt(n) != B.charAt(m)){
-                while(A.charAt(n)!=B.charAt(m)){
-                    n--;
-                }
-                // System.out.println("in else if");
-                // System.out.println("m: "+ m + " n: " + n);
-                min=  (m-n)+1;
-                break;
+
+        int[] char_count = new int[26];
+        for(int i = 0; i < n; i++){
+            char_count[A.charAt(i)]++;
+            char_count[B.charAt(i)]--;
+        }
+
+        for(int k: char_count){
+            if(k!=0){
+                return -1;
             }
         }
-        return min;
+
+        int i = n - 1, j = n - 1;
+        int res = 0;
+        while (i >= 0 && j >= 0)
+        {
+            while (i >= 0 && A.charAt(i) != B.charAt(j))
+            {
+                i--;
+                res++;
+            }
+    
+            i--;
+            j--;
+        }
+    
+        return res;
+
     }
 
 
