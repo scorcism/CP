@@ -7,6 +7,10 @@ public class CP4 {
         // lps("acccbaaacccbaac");
     }
 
+    
+
+
+
     public static boolean match(String wild, String pattern) {
         return matchfunc(wild, wild.length() - 1, pattern, pattern.length() - 1);
     }
