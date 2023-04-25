@@ -5,10 +5,40 @@ import java.util.HashMap;
 public class CP4 {
     public static void main(String[] args) {
         // lps("acccbaaacccbaac");
+        System.out.println(transform("abcd", "efgh"));
     }
 
     
+    public static int transform (String A, String B)
+    {
+        // code here
+        int n  = A.length()-1;
+        int m = B.length()-1;
 
+        if(n!=m){
+            return -1;
+        }
+        int min = 0;
+        // System.out.println("m: "+ m + " n: " + n);
+        while(n > 0 && m >0){
+            if(A.charAt(n) == B.charAt(m)){
+                // System.out.println("a: " + A.charAt(n) + " b: " + B.charAt(m));
+                n--;
+                m--;
+                // System.out.println("in if");
+                // System.out.println("m: "+ m + " n: " + n);
+            }else if (A.charAt(n) != B.charAt(m)){
+                while(A.charAt(n)!=B.charAt(m)){
+                    n--;
+                }
+                // System.out.println("in else if");
+                // System.out.println("m: "+ m + " n: " + n);
+                min=  (m-n)+1;
+                break;
+            }
+        }
+        return min;
+    }
 
 
     public static boolean match(String wild, String pattern) {
