@@ -5,7 +5,25 @@ import java.util.HashMap;
 public class CP4 {
     public static void main(String[] args) {
         // lps("acccbaaacccbaac");
-        System.out.println(transform("abcd", "efgh"));
+        // System.out.println(transform("abcd", "efgh"));
+        
+        int[][] A = {{1, 2, 3},
+        {4, 5, 6},
+        {7, 8, 9}};
+        System.out.println(downwardDiagonal(3, A));
+    }
+
+    static ArrayList<Integer> downwardDiagonal(int N, int A[][])
+    {
+        ArrayList<Integer> ans = new ArrayList<>();
+        
+        for(int i = 0; i<N; i++){
+            for(int j = 0; j<N; j++){
+                ans.add(A[i][j]);
+            }
+        }
+
+        return ans;
     }
 
     
