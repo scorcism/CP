@@ -3,6 +3,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Queue;
+import java.util.LinkedList;
 
 public class CP4 {
     public static void main(String[] args) {
@@ -33,6 +35,66 @@ public class CP4 {
         // rotate2(arr);
     }
 
+    public int numIslands(char[][] grid) {
+        int count = 0;
+        int m = grid.length;
+        int n = grid[0].length;
+
+        boolean vis[][] = new boolean[m][n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1' && vis[i][j] == false) {
+                    count++;
+                    numIslandsBFS(grid, i, j, vis);
+                }
+            }
+        }
+
+        return count;
+    }
+
+    static class PairsIsland {
+        int i;
+        int j;
+
+        PairsIsland(int a, int b) {
+            this.i = a;
+            this.j = b;
+        }
+    }
+
+    private static void numIslandsBFS(char[][] grid, int i, int j, boolean[][] vis) {
+
+        Queue<PairsIsland> q = new LinkedList();
+
+        q.add(new PairsIsland(i, j));
+        vis[i][j] = true;
+
+        while (!q.isEmpty()) {
+            PairsIsland value = q.peek();
+            int r = value.i;
+            int s = value.j;
+            q.poll();
+
+            int[] fori = { -1, -1, 0, +1, +1, +1, 0, -1 };
+            int[] forj = { 0, +1, +1, +1, 0, -1, -1, -1 };
+
+            for (int k = 0; k < 8; k++) {
+                int newI = r + fori[k];
+                int newJ = s + forj[k];
+
+                if (newI >= 0 && newJ >= 0 &&
+                        newI < grid.length && newJ < grid[0].length &&
+                        grid[newI][newJ] == '1' && vis[newI][newJ] == false) {
+                    vis[newI][newJ] = true;
+                    q.add(new PairsIsland(newI, newJ));
+                }
+
+            }
+        }
+    }
+
     public boolean exist(char[][] board, String word) {
         // using dfs
         int m = board.length;
@@ -41,9 +103,8 @@ public class CP4 {
         int k = 0;
         for (int i = 0; i < m; i++) {
             for (int j = 0; j < n; j++) {
-                if(board[i][j] == word.charAt(k) &&
-                    searchWord(i, j,k, vis, board,word)
-                ){
+                if (board[i][j] == word.charAt(k) &&
+                        searchWord(i, j, k, vis, board, word)) {
                     return true;
                 }
             }
@@ -51,21 +112,19 @@ public class CP4 {
         return false;
     }
 
-    private boolean searchWord(int i, int j,int k, boolean[][] vis, char[][] board, String word) {
-        if(k == word.length()){
+    private boolean searchWord(int i, int j, int k, boolean[][] vis, char[][] board, String word) {
+        if (k == word.length()) {
             return true;
         }
-        if(i<0 || j<0 ||board[i][j] != word.charAt(k) || vis[i][j]){
+        if (i < 0 || j < 0 || board[i][j] != word.charAt(k) || vis[i][j]) {
             return false;
         }
 
         // look for all four sides
-        if(
-        searchWord(i+1, j, k+1, vis, board, word)||
-        searchWord(i-1, j, k+1, vis, board, word)||
-        searchWord(i, j+1, k+1, vis, board, word)||
-        searchWord(i, j-1, k+1, vis, board, word)
-        ){
+        if (searchWord(i + 1, j, k + 1, vis, board, word) ||
+                searchWord(i - 1, j, k + 1, vis, board, word) ||
+                searchWord(i, j + 1, k + 1, vis, board, word) ||
+                searchWord(i, j - 1, k + 1, vis, board, word)) {
             return true;
         }
 
