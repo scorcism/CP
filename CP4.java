@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +36,32 @@ public class CP4 {
         // rotate2(arr);
     }
 
+    ArrayList<Integer> commonElements(int A[], int B[], int C[], int n1, int n2, int n3) {
+        // code here
+        HashSet<Integer> ans = new HashSet<>();
+        int i = 0;
+        int j = 0;
+        int k = 0;
+
+        while (i < n1 && j < n2 && k < n3) {
+            if (A[i] == B[j] && B[j] == C[k]) {
+                ans.add(A[i]);
+                i++;
+                j++;
+                k++;
+            } else if (A[i] < B[j]) {
+                i++;
+            } else if (B[j] < C[k]) {
+                j++;
+            } else {
+                k++;
+            }
+        }
+        ArrayList<Integer> ans2 = new ArrayList<>(ans); 
+        Collections.reverse(ans2);
+        return ans2;
+    }
+
     static char[][] fill(int n, int m, char a[][]) {
         // The idea is that if there is any 0 in edge then all the connected 0 cannot be
         // replaced to 0 as if will not follow the rule.
@@ -54,20 +81,20 @@ public class CP4 {
         }
         // for 1st row and last row
         for (int i = 0; i < m; i++) {
-            if(a[i][0] == 'O'){
+            if (a[i][0] == 'O') {
                 fillDfs(i, 0, a, vis);
             }
-            if(a[i][m-1] == 'O'){
-                fillDfs(i, m-1, a, vis);
+            if (a[i][m - 1] == 'O') {
+                fillDfs(i, m - 1, a, vis);
             }
         }
 
-        for(int i = 0; i< n; i++){
-            for(int j = 0; j< m ; j++){
-                if(a[i][j] == 'O' && vis[i][j] == 0){
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (a[i][j] == 'O' && vis[i][j] == 0) {
                     a[i][j] = 'X';
                 }
-            
+
             }
         }
 
@@ -80,14 +107,15 @@ public class CP4 {
         vis[i][j] = 1;
 
         // check all the four sides
-        int[] deltarow = {-1,0,+1,0};
-        int[] deltacol = {0,+1,0,-1};
+        int[] deltarow = { -1, 0, +1, 0 };
+        int[] deltacol = { 0, +1, 0, -1 };
 
-        for(int k = 0; k< 4; k++){
-            int newI = i + deltarow[k]; 
-            int newJ = j + deltacol[k]; 
+        for (int k = 0; k < 4; k++) {
+            int newI = i + deltarow[k];
+            int newJ = j + deltacol[k];
 
-            if(newI >=0 && newJ >= 0 && newI < a.length && newJ < a[0].length && a[newI][newJ] == 'O' && vis[newI][newJ] == 0){
+            if (newI >= 0 && newJ >= 0 && newI < a.length && newJ < a[0].length && a[newI][newJ] == 'O'
+                    && vis[newI][newJ] == 0) {
                 fillDfs(newI, newJ, a, vis);
             }
         }
