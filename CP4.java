@@ -38,28 +38,29 @@ public class CP4 {
         ArrayList<Integer> ans = new ArrayList<>();
 
         int startrow = 0;
-        int startcol = 0;
         int endrow = m - 1;
+        int startcol = 0;
         int endcol = n - 1;
 
-        while (startrow <= endrow && startcol < endcol) {
+        while (startrow <= endrow && startcol <= endcol) {
             for (int i = startcol; i <= endcol; i++) {
                 ans.add(matrix[startrow][i]);
+                // System.out.println(matrix[startrow][i]);
             }
-
             startrow++;
-
-            for (int i = endcol; i <= endrow; i++) {
+            
+            for (int i = startrow; i <= endrow; i++) {
                 ans.add(matrix[i][endcol]);
+                // System.out.println(matrix[i][endcol]);
             }
-            endcol++;
+            endcol--;
 
-            for (int i = endcol; i >= startcol; i++) {
+            for (int i = endcol; startrow <= endrow && i >= startcol; i--) {
                 ans.add(matrix[endrow][i]);
             }
-            endrow++;
+            endrow--;
 
-            for (int i = endrow; i >= startrow; i++) {
+            for (int i = endrow;startrow <= endrow && i >= startrow; i--) {
                 ans.add(matrix[i][startcol]);
             }
             startcol++;
