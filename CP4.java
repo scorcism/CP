@@ -35,6 +35,64 @@ public class CP4 {
         // rotate2(arr);
     }
 
+    static char[][] fill(int n, int m, char a[][]) {
+        // The idea is that if there is any 0 in edge then all the connected 0 cannot be
+        // replaced to 0 as if will not follow the rule.
+        // iterating in all th boundary and rinning a dfs and if 0 is found marking all
+        // the 0 with 1
+        // code here
+        int[][] vis = new int[n][m];
+
+        // for 1st col and last col
+        for (int i = 0; i < n; i++) {
+            if (a[0][i] == 'O') {
+                fillDfs(0, i, a, vis);
+            }
+            if (a[n - 1][i] == 'O') {
+                fillDfs(n - 1, i, a, vis);
+            }
+        }
+        // for 1st row and last row
+        for (int i = 0; i < m; i++) {
+            if(a[i][0] == 'O'){
+                fillDfs(i, 0, a, vis);
+            }
+            if(a[i][m-1] == 'O'){
+                fillDfs(i, m-1, a, vis);
+            }
+        }
+
+        for(int i = 0; i< n; i++){
+            for(int j = 0; j< m ; j++){
+                if(a[i][j] == 'O' && vis[i][j] == 0){
+                    a[i][j] = 'X';
+                }
+            
+            }
+        }
+
+        return a;
+
+    }
+
+    private static void fillDfs(int i, int j, char[][] a, int[][] vis) {
+        // mark the current one has visited
+        vis[i][j] = 1;
+
+        // check all the four sides
+        int[] deltarow = {-1,0,+1,0};
+        int[] deltacol = {0,+1,0,-1};
+
+        for(int k = 0; k< 4; k++){
+            int newI = i + deltarow[k]; 
+            int newJ = j + deltacol[k]; 
+
+            if(newI >=0 && newJ >= 0 && newI < a.length && newJ < a[0].length && a[newI][newJ] == 'O' && vis[newI][newJ] == 0){
+                fillDfs(newI, newJ, a, vis);
+            }
+        }
+    }
+
     public int numIslands(char[][] grid) {
         int count = 0;
         int m = grid.length;
