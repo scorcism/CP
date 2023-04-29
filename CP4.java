@@ -29,33 +29,34 @@ public class CP4 {
                 { 7, 8, 9 }
         };
         // System.out.println(spiralOrder(arr));
-        rotate2(arr);
+        // rotate2(arr);
     }
 
     public static void rotate2(int[][] matrix) {
         int m = matrix.length;
-        int n = matrix[0].length;
 
         // get the transpose
         for(int i  = 0; i< m ; i++){
-            for(int j = 0; j< n; j++){
+            for(int j = i+1; j< m; j++){
                 int tmp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
                 matrix[j][i] = tmp;
             }
         }
-        for(int a[]: matrix){
-            System.out.println(Arrays.toString(a));
-        }
+        // for(int a[]: matrix){
+        //     System.out.println(Arrays.toString(a));
+        // }
         // reverse each row in transpose
         for(int i  = 0; i<m; i++){
-            for(int j = 0; j<=n/2; j++){
-                // get the last value
-                int tmp = matrix[i][matrix[0].length - i - 1];
-                matrix[i][matrix[0].length - i - 1] = matrix[i][j]; 
-                matrix[i][j] = tmp;
+            for(int j = 0; j<m/2; j++){
+                int tmp = matrix[i][j];
+                matrix[i][j] = matrix[i][m-j-1];
+                matrix[i][m-j-1] = tmp;
             }
         }
+        // for(int a[]: matrix){
+        //     System.out.println(Arrays.toString(a));
+        // }
     }
 
 
