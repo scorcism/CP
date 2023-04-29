@@ -34,48 +34,70 @@ public class CP4 {
     }
 
     public boolean exist(char[][] board, String word) {
-        HashSet<Character> hash = new HashSet<>();
-        for(int i = 0; i<board.length; i++){
-            for(int j = 0; j< board[0].length; j++){
-                hash.add(board[i][j]);
+        // using dfs
+        int m = board.length;
+        int n = board[0].length;
+        boolean vis[][] = new boolean[m][n];
+        int k = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if(board[i][j] == word.charAt(k) &&
+                    searchWord(i, j,k, vis, board,word)
+                ){
+                    return true;
+                }
             }
-        }   
-        for(int i = 0; i< word.length(); i++){
-            if(!hash.contains(word.charAt(i))){
-                return false;
-            }
-            hash.remove(word.charAt(i));
         }
-        return true;
+        return false;
+    }
+
+    private boolean searchWord(int i, int j,int k, boolean[][] vis, char[][] board, String word) {
+        if(k == word.length()){
+            return true;
+        }
+        if(i<0 || j<0 ||board[i][j] != word.charAt(k) || vis[i][j]){
+            return false;
+        }
+
+        // look for all four sides
+        if(
+        searchWord(i+1, j, k+1, vis, board, word)||
+        searchWord(i-1, j, k+1, vis, board, word)||
+        searchWord(i, j+1, k+1, vis, board, word)||
+        searchWord(i, j-1, k+1, vis, board, word)
+        ){
+            return true;
+        }
+
+        return false;
     }
 
     public static void rotate2(int[][] matrix) {
         int m = matrix.length;
 
         // get the transpose
-        for(int i  = 0; i< m ; i++){
-            for(int j = i+1; j< m; j++){
+        for (int i = 0; i < m; i++) {
+            for (int j = i + 1; j < m; j++) {
                 int tmp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
                 matrix[j][i] = tmp;
             }
         }
         // for(int a[]: matrix){
-        //     System.out.println(Arrays.toString(a));
+        // System.out.println(Arrays.toString(a));
         // }
         // reverse each row in transpose
-        for(int i  = 0; i<m; i++){
-            for(int j = 0; j<m/2; j++){
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < m / 2; j++) {
                 int tmp = matrix[i][j];
-                matrix[i][j] = matrix[i][m-j-1];
-                matrix[i][m-j-1] = tmp;
+                matrix[i][j] = matrix[i][m - j - 1];
+                matrix[i][m - j - 1] = tmp;
             }
         }
         // for(int a[]: matrix){
-        //     System.out.println(Arrays.toString(a));
+        // System.out.println(Arrays.toString(a));
         // }
     }
-
 
     public List<Integer> spiralOrder2(int[][] matrix) {
         ArrayList<Integer> ans = new ArrayList<>();
@@ -96,23 +118,23 @@ public class CP4 {
             startrow++;
 
             // move top to bottom
-            for(int i = startrow; i<=endrow; i++){
+            for (int i = startrow; i <= endrow; i++) {
                 ans.add(matrix[i][endcol]);
             }
             endcol--;
 
             // move right to left
-            if(startcol <= endcol){
+            if (startcol <= endcol) {
 
-                for(int i = endcol; i>=startcol; i--){
+                for (int i = endcol; i >= startcol; i--) {
                     ans.add(matrix[endrow][i]);
                 }
             }
             endrow--;
 
             // move bottom to top
-            if(startcol<=endcol){
-                for(int i = endrow; i>=startrow; i--){
+            if (startcol <= endcol) {
+                for (int i = endrow; i >= startrow; i--) {
                     ans.add(matrix[i][startcol]);
                 }
             }
