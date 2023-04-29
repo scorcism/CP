@@ -1,24 +1,104 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Arrays;
 
 public class CP4 {
     public static void main(String[] args) {
         // lps("acccbaaacccbaac");
         // System.out.println(transform("abcd", "efgh"));
-        
-        int[][] A = {{1, 2, 3},
-        {4, 5, 6},
-        {7, 8, 9}};
-        System.out.println(downwardDiagonal(3, A));
+
+        int[][] A = {
+                { 1, 2, 3 },
+                { 4, 0, 6 },
+                { 7, 8, 9 }
+        };
+        int[][] A2 = {
+                { 0,1,2,0 },
+                { 3,4,5,2 },
+                { 1,3,1,5},
+        };
+
+        setZeroes2(A2);
+        for (int[] a : A2) {
+            System.out.println(Arrays.toString(a));
+        }
     }
 
-    static ArrayList<Integer> downwardDiagonal(int N, int A[][])
-    {
+    public static void setZeroes(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        // Better approach
+        int[] row = new int[m];
+        int[] col = new int[n];
+        Arrays.fill(row, -1);
+        Arrays.fill(col, -1);
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (matrix[i][j] == 0) {
+
+                    row[i] = 0;
+                    col[j] = 0;
+                }
+                // System.out.println();
+            }
+        }
+
+        // System.out.println(Arrays.toString(row));
+        // System.out.println(Arrays.toString(col));
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (row[i] == 0 || col[j] == 0) {
+                    // System.out.print(row[i] + " " + j + " i j ");
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+    }
+
+    public static void setZeroes2(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        // Optimal approach
+        int col00 = 1;
+
+        for (int i = 0; i < m; i++) {
+            if (matrix[i][0] == 0) {
+                col00 = 0;
+                // if we have any 0 in any of the 1st row column we mark it with coll00 with
+                // false so the row 00 will not be affected
+            }
+            // starting form 1st col coz the 0th col will be handled by col00 variable
+            for (int j = 1; j < n; j++) {
+                if (matrix[i][j] == 0) {
+                    matrix[i][0] = matrix[0][j] = 0;
+                }
+            }
+        }
+
+        // iterating form back side coz if we start from the front side the 00 or 01 or
+        // 10 wil affect the row or col
+        for (int i = m - 1; i >= 0; i--) {
+            for (int j = n - 1; j >= 1; j--) {
+                if (matrix[i][0] == 0 || matrix[0][j] == 0) {
+                    matrix[i][j] = 0;
+                }
+            }
+            if(col00 == 0){
+                matrix[i][0] = 0;   
+            }
+        }
+    }
+
+    static ArrayList<Integer> downwardDiagonal(int N, int A[][]) {
         ArrayList<Integer> ans = new ArrayList<>();
-        
-        for(int i = 0; i<N; i++){
-            for(int j = 0; j<N; j++){
+
+        for (int i = 0; i < N; i++) {
+            for (int j = 0; j < N; j++) {
                 ans.add(A[i][j]);
             }
         }
@@ -26,68 +106,62 @@ public class CP4 {
         return ans;
     }
 
-    
-    public static int transform (String A, String B)
-    {
+    public static int transform(String A, String B) {
         // code here
-        int n  = A.length()-1;
-        int m = B.length()-1;
+        int n = A.length() - 1;
+        int m = B.length() - 1;
 
-        if(n != m){
+        if (n != m) {
             return -1;
         }
 
         int[] char_count = new int[26];
-        for(int i = 0; i < n; i++){
+        for (int i = 0; i < n; i++) {
             char_count[A.charAt(i)]++;
             char_count[B.charAt(i)]--;
         }
 
-        for(int k: char_count){
-            if(k!=0){
+        for (int k : char_count) {
+            if (k != 0) {
                 return -1;
             }
         }
 
         int i = n - 1, j = n - 1;
         int res = 0;
-        while (i >= 0 && j >= 0)
-        {
-            while (i >= 0 && A.charAt(i) != B.charAt(j))
-            {
+        while (i >= 0 && j >= 0) {
+            while (i >= 0 && A.charAt(i) != B.charAt(j)) {
                 i--;
                 res++;
             }
-    
+
             i--;
             j--;
         }
-    
+
         return res;
 
     }
-
 
     public static boolean match(String wild, String pattern) {
         return matchfunc(wild, wild.length() - 1, pattern, pattern.length() - 1);
     }
 
-
     public static void lps(String s) {
         // code here
         int[] lpss = new int[s.length()];
         int i = 1;
-        int j  = 0;
+        int j = 0;
         lpss[0] = 0;
-        while(i<s.length()){
-            if(s.charAt(i) == s.charAt(j)){
+        while (i < s.length()) {
+            if (s.charAt(i) == s.charAt(j)) {
                 j++;
                 lpss[i] = j;
                 i++;
-            }else{
-                if(j != 0){
-                    j = lpss[j-1];
-                }else{
+            } else {
+                if (j != 0) {
+                    j = lpss[j - 1];
+                } else {
                     lpss[i] = 0;
                     i++;
                 }
@@ -267,7 +341,7 @@ class BitTricks extends NumberTheory {
         System.out.println((char) (c & '_'));
     }
 
-    public void summaryCapitaltoSmall(){
+    public void summaryCapitaltoSmall() {
 
         /*
          * To convert A to a "perform or operation wth ' '(space)"
@@ -277,12 +351,12 @@ class BitTricks extends NumberTheory {
         // A to a
         char A = 'A';
         char a = A | ' ';
-        System.out.println(char(a));
+        // System.out.println(char(a));
 
         // a to A
         char a = 'a';
         char A = a & '_';
-        System.out.println(char(A));
+        // System.out.println(char(A));
     }
 
     public void clearLSBTilli(int a, int i) {
