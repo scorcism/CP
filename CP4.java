@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Arrays;
+import java.util.List;
 
 public class CP4 {
     public static void main(String[] args) {
@@ -14,15 +14,58 @@ public class CP4 {
                 { 7, 8, 9 }
         };
         int[][] A2 = {
-                { 0,1,2,0 },
-                { 3,4,5,2 },
-                { 1,3,1,5},
+                { 0, 1, 2, 0 },
+                { 3, 4, 5, 2 },
+                { 1, 3, 1, 5 },
         };
 
-        setZeroes2(A2);
-        for (int[] a : A2) {
-            System.out.println(Arrays.toString(a));
+        // setZeroes2(A2);
+        // for (int[] a : A2) {
+        // System.out.println(Arrays.toString(a));
+        // }
+        int[][] arr = {
+                {1,2,3},
+                {4,5,6},
+                {7,8,9}
+        };
+        System.out.println(spiralOrder(arr));
+    }
+
+    public static List<Integer> spiralOrder(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        int startrow = 0;
+        int startcol = 0;
+        int endrow = m - 1;
+        int endcol = n - 1;
+
+        while (startrow <= endrow && startcol < endcol) {
+            for (int i = startcol; i <= endcol; i++) {
+                ans.add(matrix[startrow][i]);
+            }
+
+            startrow++;
+
+            for (int i = endcol; i <= endrow; i++) {
+                ans.add(matrix[i][endcol]);
+            }
+            endcol++;
+
+            for (int i = endcol; i >= startcol; i++) {
+                ans.add(matrix[endrow][i]);
+            }
+            endrow++;
+
+            for (int i = endrow; i >= startrow; i++) {
+                ans.add(matrix[i][startcol]);
+            }
+            startcol++;
         }
+
+        return ans;
     }
 
     public static void setZeroes(int[][] matrix) {
@@ -88,8 +131,8 @@ public class CP4 {
                     matrix[i][j] = 0;
                 }
             }
-            if(col00 == 0){
-                matrix[i][0] = 0;   
+            if (col00 == 0) {
+                matrix[i][0] = 0;
             }
         }
     }
