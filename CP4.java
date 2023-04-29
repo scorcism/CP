@@ -31,31 +31,7 @@ public class CP4 {
         // System.out.println(spiralOrder(arr));
     }
 
-    public static void rotate2(int[][] matrix) {
-        int m = matrix.length;
-        int n = matrix[0].length;
-
-        // get the transpose
-        for(int i  = 0; i< m ; i++){
-            for(int j = 0; j< n; j++){
-                int tmp = matrix[i][j];
-                matrix[i][j] = matrix[j][i];
-                matrix[j][i] = tmp;
-            }
-        }
-        for(int a[]: matrix){
-            System.out.println(Arrays.toString(a));
-        }
-        // reverse each row in transpose
-        for(int i  = 0; i<m; i++){
-            for(int j = 0; j<=n/2; j++){
-                // get the last value
-                int tmp = matrix[i][matrix[0].length - i - 1];
-                matrix[i][matrix[0].length - i - 1] = matrix[i][j]; 
-                matrix[i][j] = tmp;
-            }
-        }
-    }
+    
 
 
     public List<Integer> spiralOrder2(int[][] matrix) {
