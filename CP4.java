@@ -24,11 +24,56 @@ public class CP4 {
         // System.out.println(Arrays.toString(a));
         // }
         int[][] arr = {
-                {1,2,3},
-                {4,5,6},
-                {7,8,9}
+                { 1, 2, 3 },
+                { 4, 5, 6 },
+                { 7, 8, 9 }
         };
-        System.out.println(spiralOrder(arr));
+        // System.out.println(spiralOrder(arr));
+    }
+
+    public List<Integer> spiralOrder2(int[][] matrix) {
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int startrow = 0;
+        int startcol = 0;
+        int endrow = m - 1;
+        int endcol = n - 1;
+
+        while (startcol <= endcol && startrow <= endrow) {
+            // move left to right
+            for (int i = startcol; i <= endcol; i++) {
+                ans.add(matrix[startrow][i]);
+            }
+            startrow++;
+
+            // move top to bottom
+            for(int i = startrow; i<=endrow; i++){
+                ans.add(matrix[i][endcol]);
+            }
+            endcol--;
+
+            // move right to left
+            if(startcol <= endcol){
+
+                for(int i = endcol; i>=startcol; i--){
+                    ans.add(matrix[endrow][i]);
+                }
+            }
+            endrow--;
+
+            // move bottom to top
+            if(startcol<=endcol){
+                for(int i = endrow; i>=startrow; i--){
+                    ans.add(matrix[i][startcol]);
+                }
+            }
+            startcol++;
+
+        }
+        return ans;
     }
 
     public static List<Integer> spiralOrder(int[][] matrix) {
@@ -48,7 +93,7 @@ public class CP4 {
                 // System.out.println(matrix[startrow][i]);
             }
             startrow++;
-            
+
             for (int i = startrow; i <= endrow; i++) {
                 ans.add(matrix[i][endcol]);
                 // System.out.println(matrix[i][endcol]);
@@ -60,7 +105,7 @@ public class CP4 {
             }
             endrow--;
 
-            for (int i = endrow;startrow <= endrow && i >= startrow; i--) {
+            for (int i = endrow; startrow <= endrow && i >= startrow; i--) {
                 ans.add(matrix[i][startcol]);
             }
             startcol++;
