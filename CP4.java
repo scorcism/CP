@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class CP4 {
@@ -30,6 +31,22 @@ public class CP4 {
         };
         // System.out.println(spiralOrder(arr));
         // rotate2(arr);
+    }
+
+    public boolean exist(char[][] board, String word) {
+        HashSet<Character> hash = new HashSet<>();
+        for(int i = 0; i<board.length; i++){
+            for(int j = 0; j< board[0].length; j++){
+                hash.add(board[i][j]);
+            }
+        }   
+        for(int i = 0; i< word.length(); i++){
+            if(!hash.contains(word.charAt(i))){
+                return false;
+            }
+            hash.remove(word.charAt(i));
+        }
+        return true;
     }
 
     public static void rotate2(int[][] matrix) {
