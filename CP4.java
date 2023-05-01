@@ -45,6 +45,19 @@ public class CP4 {
         // previousSmaller(arr2);
         // nextSmaller(arr2);
         // largestrectangleArea(arr2);
+
+        // System.out.println(setBits(787897));
+    }
+
+    static int setBits(int N) {
+        int count = 0;
+        for(int i  = 31; i>=0; i--){
+            if(((N>>i)&1 ) == 1){
+                // System.out.println("in");
+                count++;
+            }
+        }
+        return count;
     }
 
     int largestrectangleAreaOptimized(int[] height) {
