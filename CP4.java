@@ -49,16 +49,16 @@ public class CP4 {
         int[] ngr = new int[n];
         Stack<Integer> s = new Stack<>();
 
-        for (int i = n - 1; i >= 0; i--) {
-            while(!s.isEmpty() && s.peek() <= arr[i]){
+        for (int i = 2n - 1; i >= 0; i--) {
+            while(!s.isEmpty() && s.peek() <= arr[i%n]){
                 s.pop();
             }
             if(!s.isEmpty()){
-                ngr[i] = s.peek();
+                ngr[i%n] = s.peek();
             }else{
-                ngr[i] = -1;
+                ngr[i%n] = -1;
             }
-            s.add(arr[i]);
+            s.add(arr[i%n]);
         }
         System.out.println(Arrays.toString(ngr));
     }
