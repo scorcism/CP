@@ -47,6 +47,18 @@ public class CP4 {
         // singleNumber(new int[] { 2, 1, 3, 2 });
     }
 
+    public static boolean isPowerofTwo(long n){
+        if(n<1){
+            return false;
+        }
+        
+        if((n & (n-1)) == 0){
+            return true;
+        }   
+        return false;
+    }
+
+
     public static void singleNumber(int[] nums) {
         int xor = 0;
         for (int i = 0; i < nums.length; i++) {
