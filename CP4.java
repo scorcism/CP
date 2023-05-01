@@ -45,6 +45,21 @@ public class CP4 {
 
         // System.out.println(setBits(787897));
         // singleNumber(new int[] { 2, 1, 3, 2 });
+        System.out.println(countBitsFlip(10, 20));
+    }
+
+    public static int countBitsFlip(int a, int b){
+        int count = 0;
+        // int i = 0;
+        for(int i = 31; i>=0; i--){
+            if(
+            (((a>>i)&1)==1)^(((b>>i)&1)==1)
+            ){
+                count++;
+            }
+        }
+
+        return count;
     }
 
     static int findPosition(int N) {
