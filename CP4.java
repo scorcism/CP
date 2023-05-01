@@ -43,7 +43,54 @@ public class CP4 {
         int[] arr2 = {4,12,5,3,1,2,5,3,1,2,4,6};
         // nextGreater(arr2);
         // previousSmaller(arr2);
-        nextSmaller(arr2);
+        // nextSmaller(arr2);
+        // largestrectangleArea(arr2);
+    }
+
+    // for previous one's run loop from 0>n
+    // for next ones run toop form n -> 0
+    public static int largestrectangleArea(int[] height){
+        int max = 0;
+        int n = height.length;
+        int[] ps = new int[n];
+        int[] ns = new int[n];
+        Stack<Integer> st = new Stack<>();
+        // previous smaller
+        for(int i = 0; i< n ; i++){
+            // coz we are working with indices
+            while(!st.isEmpty() && height[st.peek()] >= height[i] ){
+                st.pop();
+            }
+            if(st.isEmpty()){
+                ps[i] = 0;
+            }else{
+                ps[i] = st.peek()+1;
+            }
+            st.add(i);
+        }
+        // empty the stack for recuse
+        while(!st.isEmpty()){
+            st.pop();
+        }
+        // next smaller
+        for(int i= n-1; i>=0;i--){
+            while(!st.isEmpty() && height[st.peek()] >= height[i]){
+                st.pop();
+            }
+            if(st.isEmpty()){
+                ns[i] = n-1;
+            }
+            else{
+                ns[i] = st.peek()-1;
+            }
+            st.add(i);
+        }
+        // iterating in all the index
+        for(int i  = 0; i< n; i++){
+            max = Math.max(max, (ns[i]-ps[i]+1) * height[i]);
+        }
+
+        return max;
     }
 
     public static void nextSmaller(int[] arr){
