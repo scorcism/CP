@@ -41,7 +41,16 @@ public class CP4 {
         // fill0X(5, 6);
 
         int[] arr2 = {4,12,5,3,1,2,5,3,1,2,4,6};
-        nextGreater(arr2);
+        // nextGreater(arr2);
+    }
+
+    public static void nextSmaller(int[] arr){
+        int n  =arr.length;
+        int[] ns= new int[n];
+
+        for(int i = n-1; i>=0; i++){
+            while()
+        }
     }
 
     public static void nextGreater(int[] arr) {
@@ -49,7 +58,7 @@ public class CP4 {
         int[] ngr = new int[n];
         Stack<Integer> s = new Stack<>();
 
-        for (int i = 2n - 1; i >= 0; i--) {
+        for (int i = (2*n) - 1; i >= 0; i--) {
             while(!s.isEmpty() && s.peek() <= arr[i%n]){
                 s.pop();
             }
@@ -61,6 +70,7 @@ public class CP4 {
             s.add(arr[i%n]);
         }
         System.out.println(Arrays.toString(ngr));
+        // TC -> 
     }
 
     public static void fill0X(int m, int n) {
