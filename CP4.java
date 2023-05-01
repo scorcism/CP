@@ -40,26 +40,26 @@ public class CP4 {
         // rotate2(arr);
         // fill0X(5, 6);
 
-        int[] arr2 = {4,12,5,3,1,2,5,3,1,2,4,6};
+        int[] arr2 = { 4, 12, 5, 3, 1, 2, 5, 3, 1, 2, 4, 6 };
         // nextGreater(arr2);
         // previousSmaller(arr2);
         // nextSmaller(arr2);
         // largestrectangleArea(arr2);
     }
 
-    int largestrectangleAreaOptimized(int[] height){
+    int largestrectangleAreaOptimized(int[] height) {
         Stack<Integer> st = new Stack<>();
         int max = 0;
         int n = height.length;
-        for(int i = 0 ; i<=n ; i++){
-            while(!st.isEmpty() && (i==n || height[st.peek()] >= height[i])){
+        for (int i = 0; i <= n; i++) {
+            while (!st.isEmpty() && (i == n || height[st.peek()] >= height[i])) {
                 int h = height[st.peek()];
                 st.pop();
-                int width= 0;
-                if(st.isEmpty()){
+                int width = 0;
+                if (st.isEmpty()) {
                     width = i;
-                }else{
-                    width = i - st.peek() -1;
+                } else {
+                    width = i - st.peek() - 1;
                 }
                 max = Math.max(max, width * h);
             }
@@ -68,84 +68,81 @@ public class CP4 {
         return max;
     }
 
-
     // for previous one's run loop from 0>n
     // for next ones run toop form n -> 0
-    public static int largestrectangleArea(int[] height){
+    public static int largestrectangleArea(int[] height) {
         int max = 0;
         int n = height.length;
         int[] ps = new int[n];
         int[] ns = new int[n];
         Stack<Integer> st = new Stack<>();
         // previous smaller
-        for(int i = 0; i< n ; i++){
+        for (int i = 0; i < n; i++) {
             // coz we are working with indices
-            while(!st.isEmpty() && height[st.peek()] >= height[i] ){
+            while (!st.isEmpty() && height[st.peek()] >= height[i]) {
                 st.pop();
             }
-            if(st.isEmpty()){
+            if (st.isEmpty()) {
                 ps[i] = 0;
-            }else{
-                ps[i] = st.peek()+1;
+            } else {
+                ps[i] = st.peek() + 1;
             }
             st.add(i);
         }
         // empty the stack for recuse
-        while(!st.isEmpty()){
+        while (!st.isEmpty()) {
             st.pop();
         }
         // next smaller
-        for(int i= n-1; i>=0;i--){
-            while(!st.isEmpty() && height[st.peek()] >= height[i]){
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && height[st.peek()] >= height[i]) {
                 st.pop();
             }
-            if(st.isEmpty()){
-                ns[i] = n-1;
-            }
-            else{
-                ns[i] = st.peek()-1;
+            if (st.isEmpty()) {
+                ns[i] = n - 1;
+            } else {
+                ns[i] = st.peek() - 1;
             }
             st.add(i);
         }
         // iterating in all the index
-        for(int i  = 0; i< n; i++){
-            max = Math.max(max, (ns[i]-ps[i]+1) * height[i]);
+        for (int i = 0; i < n; i++) {
+            max = Math.max(max, (ns[i] - ps[i] + 1) * height[i]);
         }
 
         return max;
     }
 
-    public static void nextSmaller(int[] arr){
+    public static void nextSmaller(int[] arr) {
         int n = arr.length;
         int[] ns = new int[n];
         Stack<Integer> st = new Stack<>();
-        for(int i  = n-1; i>=0; i--){
-            while(!st.isEmpty() && arr[st.peek()] >= arr[i]){
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && arr[st.peek()] >= arr[i]) {
                 st.pop();
             }
-            if(st.isEmpty()){
-                ns[i] = n-1;
-            }else{
-                ns[i]  = st.peek()-1;
+            if (st.isEmpty()) {
+                ns[i] = n - 1;
+            } else {
+                ns[i] = st.peek() - 1;
             }
             st.add(i);
         }
         System.out.println(Arrays.toString(ns));
     }
 
-    public static void previousSmaller(int[] arr){
-        int n  =arr.length;
-        int[] ps= new int[n];
-        Stack<Integer> s= new Stack<>();
-        for(int i = 0; i<n; i++){
-            while(!s.isEmpty() && arr[s.peek()] >= arr[i]){
+    public static void previousSmaller(int[] arr) {
+        int n = arr.length;
+        int[] ps = new int[n];
+        Stack<Integer> s = new Stack<>();
+        for (int i = 0; i < n; i++) {
+            while (!s.isEmpty() && arr[s.peek()] >= arr[i]) {
                 s.pop();
             }
-            if(s.isEmpty()){
+            if (s.isEmpty()) {
                 ps[i] = 0;
-            }
-            else{
-                ps[i]  = s.peek()+1;
+            } else {
+                ps[i] = s.peek() + 1;
             }
             s.add(i);
         }
@@ -157,19 +154,19 @@ public class CP4 {
         int[] ngr = new int[n];
         Stack<Integer> s = new Stack<>();
 
-        for (int i = (2*n) - 1; i >= 0; i--) {
-            while(!s.isEmpty() && s.peek() <= arr[i%n]){
+        for (int i = (2 * n) - 1; i >= 0; i--) {
+            while (!s.isEmpty() && s.peek() <= arr[i % n]) {
                 s.pop();
             }
-            if(!s.isEmpty()){
-                ngr[i%n] = s.peek();
-            }else{
-                ngr[i%n] = -1;
+            if (!s.isEmpty()) {
+                ngr[i % n] = s.peek();
+            } else {
+                ngr[i % n] = -1;
             }
-            s.add(arr[i%n]);
+            s.add(arr[i % n]);
         }
         System.out.println(Arrays.toString(ngr));
-        // TC -> 
+        // TC ->
     }
 
     public static void fill0X(int m, int n) {
