@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
+
+import javax.swing.plaf.nimbus.State;
+
 import java.util.LinkedList;
 
 public class CP4 {
@@ -34,7 +38,29 @@ public class CP4 {
         };
         // System.out.println(spiralOrder(arr));
         // rotate2(arr);
-        fill0X(5, 6);
+        // fill0X(5, 6);
+
+        int[] arr2 = {4,12,5,3,1,2,5,3,1,2,4,6};
+        nextGreater(arr2);
+    }
+
+    public static void nextGreater(int[] arr) {
+        int n = arr.length;
+        int[] ngr = new int[n];
+        Stack<Integer> s = new Stack<>();
+
+        for (int i = n - 1; i >= 0; i--) {
+            while(!s.isEmpty() && s.peek() <= arr[i]){
+                s.pop();
+            }
+            if(!s.isEmpty()){
+                ngr[i] = s.peek();
+            }else{
+                ngr[i] = -1;
+            }
+            s.add(arr[i]);
+        }
+        System.out.println(Arrays.toString(ngr));
     }
 
     public static void fill0X(int m, int n) {
