@@ -42,9 +42,27 @@ public class CP4 {
 
         int[] arr2 = {4,12,5,3,1,2,5,3,1,2,4,6};
         // nextGreater(arr2);
+        previousSmaller(arr2);
     }
 
-    
+    public static void previousSmaller(int[] arr){
+        int n  =arr.length;
+        int[] ps= new int[n];
+        Stack<Integer> s= new Stack<>();
+        for(int i = 0; i<n; i++){
+            while(!s.isEmpty() && arr[s.peek()] >= arr[i]){
+                s.pop();
+            }
+            if(s.isEmpty()){
+                ps[i] = 0;
+            }
+            else{
+                ps[i]  = s.peek()+1;
+            }
+            s.add(i);
+        }
+        System.out.println(Arrays.toString(ps));
+    }
 
     public static void nextGreater(int[] arr) {
         int n = arr.length;
