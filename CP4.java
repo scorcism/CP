@@ -47,6 +47,23 @@ public class CP4 {
         // singleNumber(new int[] { 2, 1, 3, 2 });
     }
 
+    static int findPosition(int N) {
+        int count = 0;
+        int first = 0;
+        for(int i = 31; i>=0; i++){
+            if(((N>>i) & 1) == 1){
+                count++;
+                if(first == 0){
+                    first = i;
+                }
+            }
+        }
+        if(count == 0 || count > 1){
+            return -1;
+        }
+        return first;
+    }
+
     public static boolean isPowerofTwo(long n){
         if(n<1){
             return false;
