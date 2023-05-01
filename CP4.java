@@ -44,14 +44,7 @@ public class CP4 {
         // nextGreater(arr2);
     }
 
-    public static void nextSmaller(int[] arr){
-        int n  =arr.length;
-        int[] ns= new int[n];
-
-        for(int i = n-1; i>=0; i++){
-            while()
-        }
-    }
+    
 
     public static void nextGreater(int[] arr) {
         int n = arr.length;
