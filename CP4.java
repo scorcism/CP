@@ -34,6 +34,46 @@ public class CP4 {
         };
         // System.out.println(spiralOrder(arr));
         // rotate2(arr);
+        fill0X(5, 6);
+    }
+
+    public static void fill0X(int m, int n) {
+        char p = 'X';
+        int startrow = 0;
+        int endrow = m - 1;
+        int startcol = 0;
+        int endcol = n - 1;
+
+        char[][] arr = new char[m][n];
+
+        while (startrow <= endrow && startcol <= endcol) {
+            for (int i = startcol; i <= endcol; i++) {
+                arr[startrow][i] = p;
+            }
+            startrow++;
+            for (int i = startrow; i <= endrow; i++) {
+                arr[i][endcol] = p;
+            }
+            endcol--;
+            if (startcol <= endcol) {
+                for (int i = endcol; i >= startcol; i--) {
+                    arr[endrow][i] = p;
+                }
+            }
+            endrow--;
+            if (startrow <= endrow) {
+                for (int i = endrow; i >= startrow; i--) {
+                    arr[i][startcol] = p;
+                }
+            }
+            startcol++;
+
+            // change char
+            p = (p == '0') ? 'X' : '0';
+        }
+        for (char[] c : arr) {
+            System.out.println(Arrays.toString(c));
+        }
     }
 
     ArrayList<Integer> commonElements(int A[], int B[], int C[], int n1, int n2, int n3) {
@@ -57,7 +97,7 @@ public class CP4 {
                 k++;
             }
         }
-        ArrayList<Integer> ans2 = new ArrayList<>(ans); 
+        ArrayList<Integer> ans2 = new ArrayList<>(ans);
         Collections.reverse(ans2);
         return ans2;
     }
