@@ -6,9 +6,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.Stack;
-
-import javax.swing.plaf.nimbus.State;
-
 import java.util.LinkedList;
 
 public class CP4 {
@@ -47,12 +44,35 @@ public class CP4 {
         // largestrectangleArea(arr2);
 
         // System.out.println(setBits(787897));
+        // singleNumber(new int[] { 2, 1, 3, 2 });
+    }
+
+    public static void singleNumber(int[] nums) {
+        int xor = 0;
+        for (int i = 0; i < nums.length; i++) {
+            xor = xor ^ nums[i];
+        }
+        System.out.println(xor);
+        // get the right most set bit
+        xor = (xor & -(xor - 1));
+        System.out.println("-xor "  + xor);
+        int x = 0;
+        int y = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if ((nums[i] & xor) > 0) {
+                System.out.println((nums[i]&xor) + " &");
+                x = x ^ nums[i];
+            } else {
+                y = y ^ nums[i];
+            }
+        }
+        System.out.println(x + " " + y);
     }
 
     static int setBits(int N) {
         int count = 0;
-        for(int i  = 31; i>=0; i--){
-            if(((N>>i)&1 ) == 1){
+        for (int i = 31; i >= 0; i--) {
+            if (((N >> i) & 1) == 1) {
                 // System.out.println("in");
                 count++;
             }
