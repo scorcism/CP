@@ -47,6 +47,28 @@ public class CP4 {
         // largestrectangleArea(arr2);
     }
 
+    int largestrectangleAreaOptimized(int[] height){
+        Stack<Integer> st = new Stack<>();
+        int max = 0;
+        int n = height.length;
+        for(int i = 0 ; i<=n ; i++){
+            while(!st.isEmpty() && (i==n || height[st.peek()] >= height[i])){
+                int h = height[st.peek()];
+                st.pop();
+                int width= 0;
+                if(st.isEmpty()){
+                    width = i;
+                }else{
+                    width = i - st.peek() -1;
+                }
+                max = Math.max(max, width * h);
+            }
+            st.push(i);
+        }
+        return max;
+    }
+
+
     // for previous one's run loop from 0>n
     // for next ones run toop form n -> 0
     public static int largestrectangleArea(int[] height){
