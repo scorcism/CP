@@ -48,6 +48,21 @@ public class CP4 {
         System.out.println(countBitsFlip(10, 20));
     }
 
+     public static int countSetBits(int n){
+    
+        // Your code here
+        int[] arr = new int[n+1];
+        arr[0] = 0;
+        int count = 0;
+        for(int i = 1; i< n+1; i++){
+            int c = arr[i/2] + i%2;
+            arr[i] = c;
+            count +=c;
+        }
+        return count;
+    }
+
+
     public static int countBitsFlip(int a, int b){
         int count = 0;
         // int i = 0;
