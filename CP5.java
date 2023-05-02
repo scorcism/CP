@@ -1,8 +1,7 @@
 public class CP5 {
     
     public static void main(String[] args) {
-        
-        System.out.println(squareOfNumber(30));
+        System.out.println(squareOfNumber(15));
     }
 
     public static int squareOfNumber(int n){
@@ -11,12 +10,12 @@ public class CP5 {
         int square = 0;
 
         int noOfBits = (int)((Math.log(n)/ Math.log(2)) +1);
-        // System.out.println(noOfBits);
         
         for(int i  = 0; i<noOfBits; i++){
             if(((n>>i)&1)==1){
 
-                square += n << (1<<i);
+                // square += n * (1<<i);
+                square += n << i;
             }
         }
 
