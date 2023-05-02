@@ -1,8 +1,29 @@
+import java.util.ArrayList;
+import java.util.List;
+
+
 public class CP5 {
     
     public static void main(String[] args) {
         // System.out.println(squareOfNumber(15));
-        System.out.println(divide(3, 33));
+        // System.out.println(divide(3, 33));
+        List<List<Integer>> ans = powerSet(new int[] {1,2,3});
+        System.out.println(ans);
+    }
+
+    public static List<List<Integer>> powerSet(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int size = nums.length;
+        for(int i = 0; i<(1<<size); i++){
+            List<Integer> a = new ArrayList<>();
+            for(int j = 0; j<size; j++){
+                if(((i>>j) & 1)==1){
+                    a.add(nums[j]);
+                }
+            }
+            ans.add(a);
+        }
+        return ans;
     }
 
     public static int divide(int a, int b)
