@@ -48,43 +48,40 @@ public class CP4 {
         System.out.println(countBitsFlip(10, 20));
     }
 
-    public static int countSetBitsDP(int n){
-        int[] dp = new int[n+1];
+    public static int countSetBitsDP(int n) {
+        int[] dp = new int[n + 1];
         int count = 0;
         int offset = 1;
 
-        for(int i = 1; i<=n; i++){
-            if(offset * 2 ==i){
+        for (int i = 1; i <= n; i++) {
+            if (offset * 2 == i) {
                 offset = i;
             }
-            dp[i] = 1 + dp[i-offset];
-            count += 1+ dp[i-offset];
+            dp[i] = 1 + dp[i - offset];
+            count += 1 + dp[i - offset];
         }
         return count;
     }
 
-    public static int countSetBits(int n){
-    
+    public static int countSetBits(int n) {
+
         // Your code here
-        int[] arr = new int[n+1];
+        int[] arr = new int[n + 1];
         arr[0] = 0;
         int count = 0;
-        for(int i = 1; i< n+1; i++){
-            int c = arr[i/2] + i%2;
+        for (int i = 1; i < n + 1; i++) {
+            int c = arr[i / 2] + i % 2;
             arr[i] = c;
-            count +=c;
+            count += c;
         }
         return count;
     }
 
-
-    public static int countBitsFlip(int a, int b){
+    public static int countBitsFlip(int a, int b) {
         int count = 0;
         // int i = 0;
-        for(int i = 31; i>=0; i--){
-            if(
-            (((a>>i)&1)==1)^(((b>>i)&1)==1)
-            ){
+        for (int i = 31; i >= 0; i--) {
+            if ((((a >> i) & 1) == 1) ^ (((b >> i) & 1) == 1)) {
                 count++;
             }
         }
@@ -95,31 +92,30 @@ public class CP4 {
     static int findPosition(int N) {
         int count = 0;
         int first = 0;
-        for(int i = 31; i>=0; i++){
-            if(((N>>i) & 1) == 1){
+        for (int i = 31; i >= 0; i++) {
+            if (((N >> i) & 1) == 1) {
                 count++;
-                if(first == 0){
+                if (first == 0) {
                     first = i;
                 }
             }
         }
-        if(count == 0 || count > 1){
+        if (count == 0 || count > 1) {
             return -1;
         }
         return first;
     }
 
-    public static boolean isPowerofTwo(long n){
-        if(n<1){
+    public static boolean isPowerofTwo(long n) {
+        if (n < 1) {
             return false;
         }
-        
-        if((n & (n-1)) == 0){
+
+        if ((n & (n - 1)) == 0) {
             return true;
-        }   
+        }
         return false;
     }
-
 
     public static void singleNumber(int[] nums) {
         int xor = 0;
@@ -129,12 +125,12 @@ public class CP4 {
         System.out.println(xor);
         // get the right most set bit
         xor = (xor & -(xor - 1));
-        System.out.println("-xor "  + xor);
+        System.out.println("-xor " + xor);
         int x = 0;
         int y = 0;
         for (int i = 0; i < nums.length; i++) {
             if ((nums[i] & xor) > 0) {
-                System.out.println((nums[i]&xor) + " &");
+                System.out.println((nums[i] & xor) + " &");
                 x = x ^ nums[i];
             } else {
                 y = y ^ nums[i];
