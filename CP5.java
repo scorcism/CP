@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 
 public class CP5 {
 
@@ -8,7 +9,36 @@ public class CP5 {
         // System.out.println(divide(3, 33));
         // List<List<Integer>> ans = powerSet(new int[] {1,2,3});
         // System.out.println(ans);
+        System.out.println(Arrays.toString(singleNumber(new int[] {1,2,3,2,1,4})));
     }
+
+    public static int[] singleNumber(int[] nums)
+    {
+        int[] ans= new int[2];
+        int n = nums.length;
+        int xor = 0;
+        for(int i = 0; i< n ; i++){
+            xor ^= nums[i];
+        }
+
+        // getting the right most set bit 
+        int rightmostSetBit = xor & ~(xor-1);
+        int x = 0;
+        int y = 0;
+
+        for(int i = 0; i<n; i++){
+            if((nums[i] & rightmostSetBit )!=0){
+                x = x ^ nums[i];
+            }else{
+                y = y ^ nums[i];
+            }   
+        }
+        ans[0] = x;
+        ans[1] = y;
+        Arrays.sort(ans);
+        return ans;
+    }
+
 
     public int arraySign(int[] nums) {
         int countp = 0;
