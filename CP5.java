@@ -16,7 +16,7 @@ public class CP5 {
         for(int i  = 0; i<noOfBits; i++){
             if(((n>>i)&1)==1){
 
-                square += n * (1<<i);
+                square += n << (1<<i);
             }
         }
 
