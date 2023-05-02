@@ -45,8 +45,26 @@ public class CP4 {
 
         // System.out.println(setBits(787897));
         // singleNumber(new int[] { 2, 1, 3, 2 });
-        System.out.println(countBitsFlip(10, 20));
+        // System.out.println(countBitsFlip(10, 20));
+
+        System.out.println(setSetBit(16, 2, 1, 3));
     }
+
+    static int setSetBit(int x, int y, int l, int r){
+        
+        for(int i = l ; i<=r; ++i){
+            // if(((y>>i)&1) == 1){
+            //     int mask   = (1<<i-1);
+            //     x = x  | mask;
+            // }
+            int mask = 1 <<(i-1);
+            if((y&mask)!=0){
+                x = x | mask;
+            }   
+        }
+        return x;
+    }
+
 
     public static int countSetBitsDP(int n) {
         int[] dp = new int[n + 1];
