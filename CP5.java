@@ -7,8 +7,25 @@ public class CP5 {
     public static void main(String[] args) {
         // System.out.println(squareOfNumber(15));
         // System.out.println(divide(3, 33));
-        List<List<Integer>> ans = powerSet(new int[] {1,2,3});
-        System.out.println(ans);
+        // List<List<Integer>> ans = powerSet(new int[] {1,2,3});
+        // System.out.println(ans);
+    }
+
+    public int arraySign(int[] nums) {
+        int countp = 0;
+        int countn = 0;
+        for(int n : nums){
+            if(n == 0){
+                return 0;
+            }
+            if(n<0){
+                countn++;
+            }else if(n>0){
+                countp++;
+            }
+        }
+        
+        return ((countn&1)==1)?-1:1;
     }
 
     public static List<List<Integer>> powerSet(int[] nums) {
