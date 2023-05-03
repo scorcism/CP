@@ -5,7 +5,9 @@ public class Algebra {
 
     public static void main(String[] args) {
 
-        System.out.println(binaryExponentaionRecursive(2, 4));
+        // System.out.println(binaryExponentaionRecursive(2, 4));
+        // System.out.println(__gcd(18, 12));
+        // System.out.println(__lcm(18, 12));
     }
 
     // Binary Exponentiation
@@ -78,12 +80,21 @@ public class Algebra {
     static int gcd_recursive(int a, int b){
         while(b>0){
             a %= b;
-            swap(a,b);
+            // swap(a,b);
         }
         return a;
     }
 
+    static int __gcd(int a, int b){
+        if(b ==0){
+            return a;
+        }
+        return __gcd(b, a%b);
+    }
 
+    static int __lcm(int a, int b){
+        return (a*b)/__gcd(a, b);
+    }
 
 
 }
