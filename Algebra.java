@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class Algebra {
 
@@ -8,8 +10,9 @@ public class Algebra {
         // System.out.println(binaryExponentaionRecursive(2, 4));
         // System.out.println(__gcd(18, 12));
         // System.out.println(__lcm(18, 12));
-        System.out.println(__gcd(12, 18));
-        System.out.println(__lcm(12, 18));
+        // System.out.println(__gcd(12, 18));
+        // System.out.println(__lcm(12, 18));
+        extended_euc();
     }
 
     // Binary Exponentiation
@@ -98,7 +101,32 @@ public class Algebra {
         return (a*b)/__gcd(a, b);
     }
 
+    static int[] extended_gcd(int a, int b){
+        if(b==0){
+            // return a;
+            // as we want x and y 
+            return new int[] {1,1}; 
+            // ax  +b*0 = a
+            // x  = 1
+            // y  = 1
+        }
+        int[] ans = extended_gcd(b, a%b);
+        // ans[0] = x1;
+        // ans[1] = y1
+        int x = ans[1];
+        int y = ans[0] - (a/b) * ans[1];
+        return new int[] {x,y};
+    }
 
+    // Extended Euclid Algorithm
+    static void extended_euc(){
+        // gcd(a,b) = ax+ by
+        Scanner sc = new Scanner(System.in);
+        int a  = sc.nextInt();
+        int b = sc.nextInt();
+        int[] ans = extended_gcd(a, b);
+        System.out.println(Arrays.toString(ans));
+    }
 }
 
 
