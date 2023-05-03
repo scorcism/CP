@@ -12,6 +12,10 @@ public class CP5 {
         System.out.println(Arrays.toString(singleNumber(new int[] {1,2,3,2,1,4})));
     }
 
+
+    
+
+
     public static int[] singleNumber(int[] nums)
     {
         int[] ans= new int[2];
