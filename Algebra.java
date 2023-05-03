@@ -8,6 +8,8 @@ public class Algebra {
         // System.out.println(binaryExponentaionRecursive(2, 4));
         // System.out.println(__gcd(18, 12));
         // System.out.println(__lcm(18, 12));
+        System.out.println(__gcd(12, 18));
+        System.out.println(__lcm(12, 18));
     }
 
     // Binary Exponentiation
