@@ -9,11 +9,33 @@ public class CP5 {
         // System.out.println(divide(3, 33));
         // List<List<Integer>> ans = powerSet(new int[] {1,2,3});
         // System.out.println(ans);
-        System.out.println(Arrays.toString(singleNumber(new int[] {1,2,3,2,1,4})));
+        // System.out.println(Arrays.toString(singleNumber(new int[] {1,2,3,2,1,4})));
+        System.out.println(FindMaxSum(new int[] {5,5,10,100,10,5}, 6));
     }
 
 
-    
+    //Function to find the maximum money the thief can get.
+    static public int FindMaxSum(int arr[], int n)
+    {
+        if(n==0){
+            return arr[0];
+        }
+        return fms(arr,n-1);
+    }
+
+
+    private static int fms(int[] arr, int i) {
+        if(i<0){
+            return 0;
+        }
+
+        // we have two option 
+        // to include or exclude
+        int include = fms(arr, i-2) + arr[i];
+        int exclude = fms(arr, i-1) + 0;
+
+        return Math.max(include, exclude);
+    }
 
 
     public static int[] singleNumber(int[] nums)
