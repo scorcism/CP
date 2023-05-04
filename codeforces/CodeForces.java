@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-03 20:42:31
+// Date: 2023-05-03 21:54:36
 
 import java.util.Scanner;
 
@@ -10,8 +10,8 @@ public class CodeForces {
         int t = sc.nextInt();
         
         for(int i = 0; i<t; i++){
-            int n = sc.nextInt();
-            System.out.println(n/2);
+            int x = sc.nextInt();
+            System.out.println(1 + " " + (x-1));
             
         }
     }
