@@ -1,65 +1,129 @@
 {
-	"Template for cp":{
-		"prefix": "cpcf",
-		"scope":"java",
+	// Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and 
+	// description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope 
+	// is left empty or omitted, the snippet gets applied to all languages. The prefix is what is 
+	// used to trigger the snippet and the body will be expanded and inserted. Possible variables are: 
+	// $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders. 
+	// Placeholders with the same ids are connected.
+	// Example:
+	// "Print to console": {
+	// 	"scope": "javascript,typescript",
+	// 	"prefix": "log",
+	// 	"body": [
+	// 		"console.log('$1');",
+	// 		"$2"
+	// 	],
+	// 	"description": "Log output to console"
+	// }
+	"Template for cp codeforces": {
+		"prefix": "cc",
+		"scope": "java",
 		"body": [
 			"// Abhishek Pathak - scor32k",
 			"// Date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
-			
 			"",
-			
 			"import java.util.Scanner;",
 			"",
-
 			"public class CodeForces {",
-				"    public static void main(String[] args) {",
-					"        Scanner sc = new Scanner(System.in);",
-					"       $1",
-					"        int t = sc.nextInt();",
-					"        ",
-					"        for(int i = 0; i<t; i++){",
-					"            System.out.println($2);",
-						"            $3",
-
-					"        }",
-
-				"    }",
+			"    public static void main(String[] args) {",
+			"        Scanner sc = new Scanner(System.in);",
+			"       $1",
+			"        int t = sc.nextInt();",
+			"        ",
+			"        for(int i = 0; i<t; i++){",
+			"            System.out.println($2);",
+			"            $3",
+			"        }",
+			"    }",
 			"}",
-
-		],
-        "description": "Java CP Template Snippet"
+		]
 	},
-	"Template for cp codechef":{
-		"prefix": "cpcc",
-		"scope":"java",
+	"Template for cp codeforces 2.0": {
+		"prefix": "cc2",
+		"scope": "java",
 		"body": [
 			"// Abhishek Pathak - scor32k",
 			"// Date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
-			
 			"",
-			
 			"import java.util.Scanner;",
-			"import java.util.*;",
-			"import java.lang.*;",
-			"import java.io.*;",
 			"",
-
-			"class Codechef {",
-				"    public static void main(String[] args) throws java.lang.Exception {",
-					"        Scanner sc = new Scanner(System.in);",
-					"       $1",
-					"        int t = sc.nextInt();",
-					"        ",
-					"        for(int i = 0; i<t; i++){",
-					"            System.out.println($2);",
-						"            $3",
-
-					"        }",
-
-				"    }",
-			"}",
-
-		],
-		"description": "Java CP Template Snippet"
-	}
+			"public class CodeForces {",
+			"    static Scanner sc = new Scanner(System.in);",
+			"    public static void main(String[] args) {",
+			"       $1",
+			"        int t = sc.nextInt();",
+			"        $2",
+			"        for(int i = 0; i<t; i++){",
+			"            solve();",
+			"            $3",
+			"        }",
+			"    }",
+			"",
+			"    public static void solve(){",
+			" ",
+			"        int n = sc.nextInt();",
+			"        $4",
+			"        ",
+			"    }",
+		"}",
+		"",
+		"",
+		"",
+		"",
+		"",
+		"",
+	]
+},
+"Template for codechef": {
+	"prefix": "cf",
+	"scope": "java",
+	"body": [
+		"// Abhishek Pathak - scor32k",
+		"// Date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
+		"",
+		"import java.util.Scanner;",
+		"import java.util.*;",
+		"import java.lang.*;",
+		"import java.io.*;",
+		"",
+		"class Codechef {",
+		"    public static void main(String[] args) throws java.lang.Exception {",
+		"        Scanner sc = new Scanner(System.in);",
+		"       $1",
+		"        int t = sc.nextInt();",
+		"        ",
+		"        for(int i = 0; i<t; i++){",
+		"            System.out.println($2);",
+		"            $3",
+		"        }",
+		"    }",
+		"}",
+	],
+	"description": "Java CP Template Snippet"
+},
+"cp cf template": {
+	"prefix": "bufffercf",
+	"scope": "java",
+	"body": [
+		"// Abhishek Pathak - scor32k",
+		"// Date: $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
+		"",
+		"import java.io.BufferedReader;",
+		"import java.io.IOException;",
+		"import java.io.InputStreamReader;",
+		"",
+		"public class CodeForces {",
+		"    public static void main(String[] args) throws IOException {",
+		"        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));",
+		"       $1",
+		"        int t = Integer.parseInt(br.readLine());",
+		"        ",
+		"        for(int i = 0; i<t; i++){",
+		"            System.out.println($2);",
+		"            $3",
+		"        }",
+		"    }",
+		"}",
+	]
+},
 }
