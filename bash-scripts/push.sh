@@ -6,7 +6,6 @@
 echo "START"
 git add .
 git commit -m "$1"
-echo "commit $1 ##########"
 git push
 echo "END"
 
