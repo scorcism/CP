@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -171,6 +172,28 @@ class Subsequences{
             a.remove(a.size()-1);
         }
     }
+
+    // subset sum I
+    ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int N){
+        // TC -> 2^n log n - log n for sorting and 2^n for choices
+        ArrayList<Integer> ans= new ArrayList<>();
+        ssSolve(arr, N, 0, 0,ans);
+        Collections.sort(ans);
+        return ans;
+    }
+
+    private void ssSolve(ArrayList<Integer> arr, int n, int index, int sum, ArrayList<Integer> ans) {
+        if(index == n){
+            ans.add(sum);
+            return;
+        }
+        // sum+=arr.get(index);
+        // call for take
+        ssSolve(arr, n, index+1, sum+arr.get(index), ans);
+        // call for not taoe / not pick 
+        ssSolve(arr, n, index+1, sum, ans);
+    }
+
 
 }
 
