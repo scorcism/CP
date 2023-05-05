@@ -1,3 +1,5 @@
+package Revision;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -196,8 +198,22 @@ class Subsequences{
 
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
-        solveSD();
+        Arrays.sort(nums);
+        solveSD(nums, 0,ans, new ArrayList<>()  );
         return ans;
+    }
+
+    private void solveSD(int[] nums, int index,     List<List<Integer>> ans, ArrayList<Integer> a) {
+        ans.add(new ArrayList<>(a));
+
+        for(int i = index; i< nums.length; i++){
+            if(i!=index && nums[i] == nums[i-1]){
+                continue;
+            }
+            a.add(nums[index]);
+            solveSD(nums, index+1, ans, a);
+            a.remove(a.size()-1);
+        }
     }
 
 }
