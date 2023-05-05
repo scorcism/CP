@@ -6,12 +6,33 @@ public class RecursionRedo {
     public static void main(String[] args) {
 
         Subsequences sub = new Subsequences();
-        // sub.printSubsequences(new int[] {1,2,3});
+        sub.subsequenceSumK(new int[] {1,2,1}, 2);
     }
 }
 
 class Subsequences{
     // take not take bases
+
+
+    // Print subsequence whose sum is K
+    public void subsequenceSumK(int[] nums, int K) {
+        printsubWithSumk(nums,0,K,0,nums.length,new ArrayList<Integer>());
+    }
+
+    private void printsubWithSumk(int[] nums, int i, int target, int sum, int n, ArrayList<Integer> list) {
+        if(i == n){
+            if(sum==target){
+                System.out.println(list);
+            }
+            return;
+        }
+
+        list.add(nums[i]);
+        printsubWithSumk(nums, i+1, target, sum+=nums[i], n, list);
+        list.remove(list.size()-1);
+        printsubWithSumk(nums, i+1, target, sum-nums[i], n, list);
+    }
+
 
     public  void printSubsequences(int[] arr){
         /*
