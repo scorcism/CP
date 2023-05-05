@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class RecursionRedo {
@@ -108,6 +109,42 @@ class Subsequences{
 
         return left + right;
     }
+
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        // Pick and Not-Pick
+        // TC -> 2 ^k * k
+        // SC -> K * X 
+        List<List<Integer>> ans= new ArrayList<>();
+        solvecs1(candidates, target, 0,  ans, new ArrayList<Integer>());
+        return ans;
+    }
+
+    private void solvecs1(int[] nums, int target, int index, List<List<Integer>> list, ArrayList<Integer> a) {
+        if(index == nums.length){
+            if(target ==0){
+                list.add(new ArrayList<>(a));
+            }
+            return;
+        }
+
+        // we need to specift a stopping condition or else the take will go on and onnn
+        if(nums[index] <= target){
+
+            // add current one to tmp ans i.e a;
+            a.add(nums[index]);
+            
+            solvecs1(nums, target-nums[index], index, list, a);
+           
+            //remove the last added one
+            a.remove(a.size()-1);
+        }
+
+        // for not pick
+        solvecs1(nums, target, index+1 ,list, a);
+
+    }
+
+    
 
 }
 
