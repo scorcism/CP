@@ -6,7 +6,7 @@ public class RecursionRedo {
     public static void main(String[] args) {
 
         Subsequences sub = new Subsequences();
-        // sub.sub1stWithSumk(new int[] {1,2,1}, 2);
+        sub.sub1stWithSumkCount(new int[] {1,2,1}, 2);
     }
 }
 
@@ -86,7 +86,28 @@ class Subsequences{
         return false;
     }
 
+    // 4. Print the count of Sq which sums to K
+    public void sub1stWithSumkCount(int[] nums, int K) {
+       System.out.println(printsubWithSumkCount(nums,0,K,0,nums.length,new ArrayList<Integer>()));
+    }
 
+    private int printsubWithSumkCount(int[] nums, int i, int target, int sum, int n, ArrayList<Integer> list) {
+        if(i == n){
+            if(sum==target){
+                return 1;
+            }
+            return 0;
+        }
+
+        list.add(nums[i]);
+        int left = printsubWithSumkCount(nums, i+1, target, sum+=nums[i], n, list);
+
+        list.remove(list.size()-1);
+
+        int right = printsubWithSumkCount(nums, i+1, target, sum-nums[i], n, list);
+
+        return left + right;
+    }
 
 }
 
