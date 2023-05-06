@@ -216,6 +216,33 @@ class Subsequences{
         }
     }
 
+    static List<List<Integer>> permuation(int[] arr){
+
+        // TC -> n! * n (copy) * n(iterate)
+        // Sc -> O(n+n)
+        List<List<Integer>> ans = new ArrayList<>();
+        boolean freq[] = new boolean[arr.length];
+        solvep1(arr, arr.length,freq,  new ArrayList<Integer>(), ans);
+        return ans;
+    }
+
+    private static void solvep1(int[] arr, int length, boolean[] freq, ArrayList<Integer> a, List<List<Integer>> ans) {
+        if(a.size() == length-1){
+            ans.add(new ArrayList<>(a));
+            return;
+        }
+
+        for(int i = 0;i<length; i++){
+            if(!freq[i]){
+                freq[i] = true;
+                a.add(arr[i]);
+                solvep1(arr, length, freq ,a, ans);
+                a.remove(a.size()-1);
+                freq[i] = false;
+            }
+        }
+    }
+
 }
 
 
