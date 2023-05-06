@@ -243,6 +243,35 @@ class Subsequences{
         }
     }
 
+    static List<List<Integer>> permuation2(int[] arr){
+        List<List<Integer>> ans = new ArrayList<>();
+        solvep2(arr, arr.length,0,  new ArrayList<Integer>(), ans);
+        return ans;
+    }
+
+    private static void solvep2(int[] arr, int length, int index, ArrayList<Integer> a, List<List<Integer>> ans) {
+        if(index == length){
+            List<Integer> ds = new ArrayList<>();
+            for(int i = 0; i< arr.length; i++){
+                ds.add(arr[i]);
+            }
+            ans.add(new ArrayList<>(ds));
+            return;
+        }
+
+        for(int i = index; i< length ; i++){
+            swap(arr,index, i);
+            solvep2(arr, length, index+1, a, ans);
+            swap(arr,index, i);
+        }
+    }
+
+    static void swap(int[] arr, int a, int b){
+        int tmp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = tmp; 
+    }
+
 }
 
 
