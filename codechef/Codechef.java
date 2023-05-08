@@ -14,28 +14,10 @@ class Codechef
         int t = sc.nextInt();
 
         for(long i = 0; i< t; i++){
-            long A = sc.nextLong();
-            long B = sc.nextLong();
-            
-            // co for gcd a should be always greater then b
-            long max = Math.max(A,B);
-            long min = Math.min(A,B);
-
-            long gcd =   __gcd(max,min);
-            long lcm = (A*B)/gcd;
-
-            System.out.println(gcd + " " + lcm);
+            System.out.println("HEllo");
         }
 
 	}
-
-    private static long __gcd(long a, long b) {
-        if(b==0){
-            return a;
-        }else{
-            return __gcd(b, a%b);
-        }
-    }
 
     
 }
