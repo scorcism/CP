@@ -44,7 +44,7 @@ public class Backtracking {
 
     private List<String> contruct(char[][] board) {
         List<String> res = new ArrayList<>();
-        for(int i = 0; i< board.length; i++){
+        for (int i = 0; i < board.length; i++) {
             String s = new String(board[i]);
             res.add(s);
         }
@@ -52,30 +52,33 @@ public class Backtracking {
     }
 
     private boolean canfill(int row, int col, char[][] board) {
-        
+
         int drow = row;
         int dcol = col;
 
         // top left
-        while(row >=0 && col >=0){
-            if(board[row][col]=='Q') return false;
+        while (row >= 0 && col >= 0) {
+            if (board[row][col] == 'Q')
+                return false;
             row--;
-            col--; 
-        }
-        
-        // left
-        row  = drow;
-        col = dcol;
-        while(col >=0){
-            if(board[row][col]=='Q') return false;
-            col--; 
+            col--;
         }
 
-        row  = drow;
+        // left
+        row = drow;
         col = dcol;
-        while(col >=0 && row <board.length){
-            if(board[row][col]=='Q') return false;
-            col--; 
+        while (col >= 0) {
+            if (board[row][col] == 'Q')
+                return false;
+            col--;
+        }
+
+        row = drow;
+        col = dcol;
+        while (col >= 0 && row < board.length) {
+            if (board[row][col] == 'Q')
+                return false;
+            col--;
             row++;
         }
 
