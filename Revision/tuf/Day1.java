@@ -15,6 +15,19 @@ public class Day1 {
 
     }
 
+    // 121. Best Time to Buy and Sell Stock
+    public int maxProfit(int[] prices) {
+        int mini = Integer.MAX_VALUE;
+        int profit = 0;
+        for(int i = 0; i< prices.length; i++){
+            mini = Math.min(mini, prices[i]);
+            int currentCost = prices[i] - mini;
+            profit = Math.max(profit, currentCost);
+        }
+        return profit;
+    }
+
+
     // 75. Sort Colors
     public void sortColors(int[] nums) {
         int n = nums.length;
