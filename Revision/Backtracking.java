@@ -12,6 +12,45 @@ public class Backtracking {
 
     }
 
+
+    public boolean graphColoring(boolean graph[][], int m, int n) {
+        // T.C -> (N^M)
+        // S.C -> (N+N)
+        int color[] = new int[n];
+        for(int i = 0; i<n; i++) color[i] = 0;
+        if(graphColoringUtil(graph, m, color, 0, n) == false){
+            return false;
+        }
+        return true;
+    }
+
+    private boolean graphColoringUtil(boolean[][] graph, int m, int[] color, int node, int n) {
+        if(node == n){
+            return true;
+        }
+        for(int c = 1; c <= m ; c++){
+            if(issafetocolor(graph, node, color, c,n)){
+                color[node]=c;
+                if(graphColoringUtil(graph, node+1, color, c,n)==true){
+                    return true;
+                }
+                color[node]=0;
+            }
+        }
+        return false;
+    }
+
+
+    private boolean issafetocolor(boolean[][] graph, int node, int[] color, int c, int n) {
+        for(int i = 0; i< n; i++){
+            if(graph[node][i] && c ==color[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     public void solveSudoku(char[][] board) {
         solvingSudoku(board);
     }
