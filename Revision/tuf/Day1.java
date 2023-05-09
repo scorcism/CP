@@ -14,6 +14,40 @@ public class Day1 {
     public static void main(String[] args) {
 
     }
+    // 53. Maximum Subarray
+    public int maxSubArray1(int[] nums) {
+        // N^3
+        // O(1)
+        int ans = Integer.MIN_VALUE;
+        int n = nums.length;
+        for(int i = 0; i< n; i++){
+            for(int j = i; j<n ; j++){
+                int sum = 0;
+                for(int k = i;k<j; k++){
+                    sum+=nums[i];
+                }
+                ans = Math.max(ans, sum); 
+            }
+        }
+        return ans;
+    }
+    public int maxSubArray2(int[] nums) {
+        // Kadane
+        // O(1)
+        int ans = Integer.MIN_VALUE;
+        int sum = 0;
+        for(int i = 0; i< nums.length; i++){
+            sum+=nums[i];
+
+            if(sum > ans){
+                ans =sum;
+            }
+            if(sum <0){
+                sum  = 0;
+            }
+        }
+        return ans;
+    }
 
     // 31. Next Permutation
     public void nextPermutation(int[] nums) {
