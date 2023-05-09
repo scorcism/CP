@@ -15,6 +15,42 @@ public class Day1 {
 
     }
 
+    // 31. Next Permutation
+    public void nextPermutation(int[] nums) {
+        int index1 = -1;
+        for(int i = nums.length-2; i>=0; i--){
+            if(nums[i]< nums[i+1]){
+                index1 = i;
+                break;
+            }
+        }
+
+        if(index1 == -1){
+            reverse(nums, 0, nums.length-1);
+            return;
+        }
+
+        for(int i = nums.length-1;i>index1; i--){
+            if(nums[i] > nums[index1]){
+                swap(nums,i, index1);
+                break;
+            }
+        }
+        reverse(nums,index1+1, nums.length-1);
+    }
+    private void reverse(int[] nums, int i, int j) {
+        while(i<j){
+            swap(nums, i++, j--);
+        }
+    }
+
+    void swap(int[] arr, int a, int b){
+        int tmp = arr[a];
+        arr[a] = arr[b];
+        arr[b] = tmp;
+    }
+
+
     // 118. Pascal's Triangle
     public List<List<Integer>> generate(int numRows) {
         List<List<Integer>> ans = new ArrayList<>();
