@@ -12,6 +12,50 @@ public class Backtracking {
 
     }
 
+    public void solveSudoku(char[][] board) {
+        solvingSudoku(board);
+    }
+
+    private boolean solvingSudoku(char[][] board) {
+
+        int n = board.length;
+        int m = board[0].length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (board[i][j] == '.') {
+                    for (char k = '1'; k <= '9'; k++) {
+                        if (canFitNumber(i, j, board, k)) {
+                            board[i][j] = k;
+                            if (solvingSudoku(board)) {
+                                return true;
+                            } else {
+                                board[i][j] = '.';
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean canFitNumber(int row, int col, char[][] board, char c) {
+        for (int i = 0; i < 9; i++) {
+            if (board[i][col] == c)
+                return false;
+            if (board[row][i] == c)
+                return false;
+
+            // checking in the kube box
+            if (board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == c) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public List<List<String>> solveNQueens(int n) {
         List<List<String>> ans = new ArrayList<>();
 
@@ -85,8 +129,6 @@ public class Backtracking {
         return true;
     }
 
-
-
     // optimized method
     public List<List<String>> solveNQueens2(int n) {
         List<List<String>> ans = new ArrayList<>();
@@ -98,32 +140,32 @@ public class Backtracking {
             }
         }
         int[] forRow = new int[n];
-        int[] forLowerDiagonal = new int[2*n-1];
-        int[] forUpperDiagonal = new int[2*n-1];
-
+        int[] forLowerDiagonal = new int[2 * n - 1];
+        int[] forUpperDiagonal = new int[2 * n - 1];
 
         solveQueens2(0, board, ans, n, forRow, forLowerDiagonal, forUpperDiagonal);
         return ans;
     }
 
-    private void solveQueens2(int col, char[][] board, List<List<String>> ans, int n, int[] forRow, int[] forLowerDiagonal, int[] forUpperDiagonal) {
+    private void solveQueens2(int col, char[][] board, List<List<String>> ans, int n, int[] forRow,
+            int[] forLowerDiagonal, int[] forUpperDiagonal) {
 
-        if(col == board.length){
+        if (col == board.length) {
             ans.add(contruct(board));
             return;
         }
 
-        for(int row  = 0; row < n; row++){
-            if(forRow[row]==0 && forLowerDiagonal[row+col] ==0 && forUpperDiagonal[n-1 + col - row] ==0 ){
+        for (int row = 0; row < n; row++) {
+            if (forRow[row] == 0 && forLowerDiagonal[row + col] == 0 && forUpperDiagonal[n - 1 + col - row] == 0) {
                 board[row][col] = 'Q';
-                forRow[row]  = 1;
-                forLowerDiagonal[row+col] = 1;
-                forUpperDiagonal[n-1 + col - row] =1;
-                solveQueens2(col+1, board, ans, n, forRow, forLowerDiagonal, forUpperDiagonal);
+                forRow[row] = 1;
+                forLowerDiagonal[row + col] = 1;
+                forUpperDiagonal[n - 1 + col - row] = 1;
+                solveQueens2(col + 1, board, ans, n, forRow, forLowerDiagonal, forUpperDiagonal);
                 board[row][col] = '.';
-                forRow[row]  = 0;
-                forLowerDiagonal[row+col] = 0;
-                forUpperDiagonal[n-1 + col - row] =0;
+                forRow[row] = 0;
+                forLowerDiagonal[row + col] = 0;
+                forUpperDiagonal[n - 1 + col - row] = 0;
             }
         }
 
