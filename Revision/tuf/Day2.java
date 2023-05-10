@@ -6,11 +6,61 @@ public class Day2 {
 
     // Commit format => tuf-dayNo-ProblemName
     public static void main(String[] args) {
-        // missingAndRepeating2(new int[] { 1, 2, 2, 4 });
+        // numberOfInversionss(new int[] { 8, 4, 2, 1 });
 
     }
 
-    
+    static void numberOfInversionss(int[] arr) {
+        int n = arr.length;
+        int[] tmp = new int[n];
+        int ans = _mergeSortInversion(arr, tmp, 0, n - 1);
+        System.out.println(ans + " - inversions");
+    }
+
+    private static int _mergeSortInversion(int[] arr, int[] tmp, int left, int right) {
+        int mid, inv_count = 0;
+        if (right > left) {
+            mid = (right + left) / 2;
+            inv_count += _mergeSortInversion(arr, tmp, left, mid);
+            inv_count += _mergeSortInversion(arr, tmp, mid + 1, right);
+            inv_count += _merge(arr, tmp, left, mid + 1, right);
+
+        }
+        return inv_count;
+    }
+
+    private static int _merge(int[] arr, int[] tmp, int left, int mid, int right) {
+        int i, j, k = 0;
+        int inv_count = 0;
+        i = left; // index for left sub-array
+        j = mid; // index for right sub-array
+        k = left; // for resutant array
+        while ((i <= mid - 1) && (j <= right)) {
+            if (arr[i] <= arr[j]) {
+                tmp[k++] = arr[i++];
+            } else {
+                tmp[k++] = arr[j++];
+
+                // mid - i -> i is the start index of left array and mid is the end as
+                // specidifed in the condition if left one is greater measn all the number in
+                // left one will be the inversikn so the length or elements in that left bound
+                // will be the count.
+                inv_count = inv_count + (mid - i);
+            }
+        }
+
+        while (i <= mid - 1) {
+            tmp[k++] = arr[i++];
+        }
+        while (j <= right) {
+            tmp[k++] = arr[j++];
+        }
+
+        for (i = left; i <= right; i++) {
+            arr[i] = tmp[i];
+        }
+        return inv_count;
+    }
 
     static void missingAndRepeating(int[] arr) {
         // Hashing method
