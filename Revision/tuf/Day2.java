@@ -11,6 +11,35 @@ public class Day2 {
 
 
     
+
+    // 56. Merge Intervals
+    public int[][] merge(int[][] intervals) {
+        List<int[]> ans = new ArrayList<>();
+        // check for empty intervals
+        if (intervals.length == 0 || intervals == null) {
+            return ans.toArray(new int[0][]);
+        }
+
+        Arrays.sort(intervals, (a, b) -> a[0] - b[0]);
+
+        int[] first = intervals[0];
+        for (int[] a : intervals) {
+            if (a[0] <= first[1]) {
+                // its merging time
+                first[1] = Math.max(a[1], first[1]);
+            } else {
+                // not merging
+                // add to the ans list
+                ans.add(new int[] { first[0], first[1] });
+                // make first to current one
+                first = a;
+            }
+        }
+        ans.add(new int[] { first[0], first[1] });
+        return ans.toArray(new int[0][]);
+
+    }
+
     // 48. Rotate Image
     public void rotate(int[][] matrix) {
         // O(N*N)
