@@ -9,6 +9,39 @@ public class Day2 {
 
     }
 
+    public int findDuplicate(int[] nums) {
+        // performing modified cyclic sort
+        int index = 0;
+        while (index < nums.length) {
+            if (nums[index] != index + 1) {
+                int correctIndex = nums[index];
+                if (nums[index] != nums[correctIndex]) {
+                    swap(nums, index, correctIndex);
+                } else {
+                    return nums[index];
+                }
+            }
+        }
+        return -1;
+    }
+
+    public int findDuplicate2(int[] nums) {
+        // performing modified cyclic sort
+        int slow = nums[0];
+        int fast = nums[0];
+        do {
+            slow = nums[slow];
+            fast = nums[nums[fast]];
+        } while (slow != fast);
+        fast = nums[0];
+
+        while (slow != fast) {
+            slow = nums[slow];
+            fast = nums[fast];
+        }
+        return slow;
+    }
+
     // 88. Merge Sorted Array
     public void merge1(int[] nums1, int m, int[] nums2, int n) {
         int i = 0;
