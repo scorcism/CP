@@ -6,7 +6,56 @@ public class Day2 {
 
     // Commit format => tuf-dayNo-ProblemName
     public static void main(String[] args) {
+        // missingAndRepeating2(new int[] { 1, 2, 2, 4 });
 
+    }
+
+    
+
+    static void missingAndRepeating(int[] arr) {
+        // Hashing method
+        int misssing = -1;
+        int repeating = -1;
+        boolean[] hash = new boolean[arr.length + 1];
+        for (int a : arr) {
+            if (hash[a]) {
+                repeating = a;
+                break;
+            } else {
+                hash[a] = true;
+            }
+        }
+        for (int i = 1; i < hash.length; i++) {
+            if (hash[i] == false) {
+                misssing = i;
+                break;
+            }
+        }
+        System.out.println("Missing: " + misssing + " Repeating: " + repeating);
+    }
+
+    static void missingAndRepeating2(int[] arr) {
+        // Using Algebra
+        int n = arr.length;
+
+        long sumN = (n * (n + 1)) / 2;
+        long sumn2 = (n * (n + 1) * (2 * n + 1)) / 6;
+        long arrsum = 0;
+        long arrsquare = 0;
+        for (int a : arr) {
+            arrsum += a;
+            arrsquare += a * a;
+        }
+        // sn-sa
+        // s2n-s2a;
+        long val1 = sumN - arrsum; // x - y
+        long val2 = sumn2 - arrsquare; // x^2 - y^2
+
+        val2 = val2 / val1; // x + y
+        long x = (val1 + val2) / 2;
+        long y = x - val1;
+
+        System.out.println("Missing: " + x + " Repeating: " + y);
     }
 
     public int findDuplicate(int[] nums) {
