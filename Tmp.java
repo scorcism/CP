@@ -23,6 +23,8 @@ class Temps {
 
 class Tmp {
 
+
+
     void cyclicSort(int[] nums){
         int index = 0;
         while(index < nums.length){
@@ -71,8 +73,25 @@ class Tmp {
 
     }
 
-    public static void main(String[] args) {
+    static void transpose(int[][] matrix){
+        for(int i = 0; i< matrix.length; i++){
+            for(int j = 1+i; j<matrix[0].length; j++){
+                int tmp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = tmp;
+            }
+        }
+        for(int[] c: matrix){
+            System.out.println(Arrays.toString(c));
+        }
+    }
 
+    public static void main(String[] args) {
+        transpose(new int[][] {
+            {1,2,3},
+            {4,5,6},
+            {7,8,9}
+        });
         // for(int i = 0; i<10;){
         //     System.out.println(i + "i is printied");
         //     i++;
