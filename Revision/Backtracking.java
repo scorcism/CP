@@ -15,29 +15,29 @@ public class Backtracking {
     public List<List<String>> partition(String s) {
         List<List<String>> ans = new ArrayList<>();
         ArrayList<String> paths = new ArrayList<>();
-        pallindromePartiioning(s, 0,paths, ans);
+        pallindromePartiioning(s, 0, paths, ans);
         return ans;
     }
 
-    static void pallindromePartiioning(String s, int index, ArrayList<String> paths , List<List<String>> ans){
-        if(index == s.length()){
+    static void pallindromePartiioning(String s, int index, ArrayList<String> paths, List<List<String>> ans) {
+        if (index == s.length()) {
             ans.add(new ArrayList<>(paths));
             return;
         }
 
-        for(int i = index; i< s.length(); i++){
-            if(isPallindromePossible(s,index,i)){
-                paths.add(s.substring(index, i+1));
-                pallindromePartiioning(s, index+1, paths, ans);
-                paths.remove(path.size()-1);
+        for (int i = index; i < s.length(); i++) {
+            if (isPallindromePossible(s, index, i)) {
+                paths.add(s.substring(index, i + 1));
+                pallindromePartiioning(s, index + 1, paths, ans);
+                paths.remove(path.size() - 1);
             }
         }
 
     }
 
-    static boolean isPallindromePossible(String s, int x, int y){
-        while(x < y){
-            if(s.charAt(x) !=s.charAt(y)){
+    static boolean isPallindromePossible(String s, int x, int y) {
+        while (x < y) {
+            if (s.charAt(x) != s.charAt(y)) {
                 return false;
             }
             x++;
@@ -46,45 +46,42 @@ public class Backtracking {
         return true;
     }
 
-
-
     public boolean graphColoring(boolean graph[][], int m, int n) {
         // T.C -> (N^M)
         // S.C -> (N+N)
         int color[] = new int[n];
-        for(int i = 0; i<n; i++) color[i] = 0;
-        if(graphColoringUtil(graph, m, color, 0, n) == false){
+        for (int i = 0; i < n; i++)
+            color[i] = 0;
+        if (graphColoringUtil(graph, m, color, 0, n) == false) {
             return false;
         }
         return true;
     }
 
     private boolean graphColoringUtil(boolean[][] graph, int m, int[] color, int node, int n) {
-        if(node == n){
+        if (node == n) {
             return true;
         }
-        for(int c = 1; c <= m ; c++){
-            if(issafetocolor(graph, node, color, c,n)){
-                color[node]=c;
-                if(graphColoringUtil(graph, node+1, color, c,n)==true){
+        for (int c = 1; c <= m; c++) {
+            if (issafetocolor(graph, node, color, c, n)) {
+                color[node] = c;
+                if (graphColoringUtil(graph, node + 1, color, c, n) == true) {
                     return true;
                 }
-                color[node]=0;
+                color[node] = 0;
             }
         }
         return false;
     }
 
-
     private boolean issafetocolor(boolean[][] graph, int node, int[] color, int c, int n) {
-        for(int i = 0; i< n; i++){
-            if(graph[node][i] && c ==color[i]){
+        for (int i = 0; i < n; i++) {
+            if (graph[node][i] && c == color[i]) {
                 return false;
             }
         }
         return true;
     }
-
 
     public void solveSudoku(char[][] board) {
         solvingSudoku(board);
