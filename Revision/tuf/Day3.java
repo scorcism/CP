@@ -8,6 +8,41 @@ public class Day3 {
 
     }
 
+    
+
+    public int majorityElement2(int[] nums) {
+        // Hashing
+        HashMap<Integer, Integer> hash = new HashMap<>();
+        for (int c : nums) {
+            hash.put(c, hash.getOrDefault(c, 0) + 1);
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (hash.get(nums[i]) > hash.size() / 2) {
+                return nums[i];
+            }
+        }
+        return -1;
+    }
+
+    public int majorityElement3(int[] nums) {
+        // Moore's Algo
+        int element = 0;
+        int count = 0;
+        for (int c : nums) {
+            if (count == 0) {
+                element = c;
+                count = 1;
+            } else if (c == element) {
+                count++;
+            } else
+                count--;
+
+        }
+
+        return element;
+    }
+
     public double myPow(double x, int n) {
         // using binary exponentiation a^b
         // not working for - exponenti
