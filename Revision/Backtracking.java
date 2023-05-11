@@ -12,8 +12,32 @@ public class Backtracking {
 
     }
 
+    public String getPermutation(int n, int k) {
 
-    
+        int fact = 1;
+        List<Integer> numbers = new ArrayList<>(); // for storing numbers
+
+        // computing n-1 factorial
+        for (int i = 1; i < n; i++) {
+            fact = fact * i;
+            numbers.add(fact);
+        }
+        numbers.add(n);
+        String ans = ""; // store the ans
+        k = k - 1; // using 0 based indexing
+        while (true) {
+            ans = ans + numbers.get(k / fact);
+            numbers.remove(k / fact);
+            if (numbers.size() == 0) {
+                break;
+            }
+            k = k % fact;
+            fact = fact / numbers.size();
+        }
+        return ans;
+
+    }
+
     // Rat in a Maze Problem - I
     public static ArrayList<String> findPath(int[][] m, int n) {
         // TC -> 4^(n*n)
