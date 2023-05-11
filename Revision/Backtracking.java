@@ -12,6 +12,85 @@ public class Backtracking {
 
     }
 
+
+    
+    // Rat in a Maze Problem - I
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        // TC -> 4^(n*n)
+        // SC -> O(n*n)
+        ArrayList<String> ans = new ArrayList<>();
+
+        int[][] vis = new int[n][n];
+
+        if (m[0][0] == 1) {
+            fpSolve(m, n, 0, 0, "", ans, vis);
+        }
+        return ans;
+    }
+
+    private static void fpSolve(int[][] m, int n, int i, int j, String moves, ArrayList<String> ans, int[][] vis) {
+        if (i >= n - 1 && j >= n - 1) {
+            ans.add(moves);
+            return;
+        }
+        // move in all 4 directions
+        // in lexical order i.r D-L-R-U
+
+        // Down
+        if (i + 1 < n && vis[i + 1][j] != 1 && a[i + 1][j] == 1) {
+            vis[i][j] = 1;
+            fpSolve(m, n, i + 1, j, moves + "D", ans, vis);
+            vis[i][j] = 0;
+        }
+
+        // Left
+        if (j - 1 >= 0 && vis[i][j - 1] != 1 && a[i][j - 1] == 1) {
+            vis[i][j] = 1;
+            fpSolve(m, n, i, j - 1, moves + "L", ans, vis);
+            vis[i][j] = 0;
+        }
+
+        // RIGHT
+        if (j + 1 < n && vis[i][j + 1] != 1 && a[i][j + 1] == 1) {
+            vis[i][j] = 1;
+            fpSolve(m, n, i, j + 1, moves + "R", ans, vis);
+            vis[i][j] = 0;
+        }
+
+        // Up
+        if (i - 1 >= 0 && vis[i - 1][j] != 1 && a[i - 1][j] == 1) {
+            vis[i][j] = 1;
+            fpSolve(m, n, i - 1, j, moves +
+                    "U", ans, vis);
+            vis[i][j] = 0;
+        }
+    }
+
+    private static void fpSolve2(int[][] a, int n, int i, int j, String moves, ArrayList<String> ans, int[][] vis) {
+        if (i >= n - 1 && j >= n - 1) {
+            ans.add(moves);
+            return;
+        }
+
+        int[] drow = { -1, 0, +1, 0 };
+        int[] dcol = { 0, 1, 0, -1 };
+        String directions = "DLRU";
+
+        for (int index = 0; index < 4; index++) {
+
+            int newrow = drow[index] + i;
+            int newcol = dcol[index] + j;
+
+            if (newrow >= 0 && newcol >= 0 && newrow < n && newcol < n && a[newrow][newcol] == 1
+                    && vis[newrow][newcol] != 1) {
+                vis[newrow][newcol] = 1;
+                fpSolve2(a, n, newrow, newcol, moves + directions.charAt(index), ans, vis);
+                vis[newrow][newcol] = 0;
+            }
+        }
+
+    }
+
     public List<List<String>> partition(String s) {
         List<List<String>> ans = new ArrayList<>();
         ArrayList<String> paths = new ArrayList<>();
