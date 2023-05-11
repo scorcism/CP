@@ -12,6 +12,41 @@ public class Backtracking {
 
     }
 
+    public List<List<String>> partition(String s) {
+        List<List<String>> ans = new ArrayList<>();
+        ArrayList<String> paths = new ArrayList<>();
+        pallindromePartiioning(s, 0,paths, ans);
+        return ans;
+    }
+
+    static void pallindromePartiioning(String s, int index, ArrayList<String> paths , List<List<String>> ans){
+        if(index == s.length()){
+            ans.add(new ArrayList<>(paths));
+            return;
+        }
+
+        for(int i = index; i< s.length(); i++){
+            if(isPallindromePossible(s,index,i)){
+                paths.add(s.substring(index, i+1));
+                pallindromePartiioning(s, index+1, paths, ans);
+                paths.remove(path.size()-1);
+            }
+        }
+
+    }
+
+    static boolean isPallindromePossible(String s, int x, int y){
+        while(x < y){
+            if(s.charAt(x) !=s.charAt(y)){
+                return false;
+            }
+            x++;
+            y--;
+        }
+        return true;
+    }
+
+
 
     public boolean graphColoring(boolean graph[][], int m, int n) {
         // T.C -> (N^M)
