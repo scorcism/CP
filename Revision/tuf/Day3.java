@@ -10,6 +10,96 @@ public class Day3 {
 
     
 
+    public List<Integer> majorityElementII1(int[] nums) {
+        List<Integer> ans = new ArrayList<>();
+        // Brute Force
+        // ans can have only 2 elements
+        for (int i = 0; i < nums.length; i++) {
+            // check if the current is not already added or taken
+            if (ans.size() == 0 || ans.get(0) != nums[i]) {
+                int count = 0;
+                for (int j = 0; j < nums.length; j++) {
+                    if (nums[j] == nums[i]) {
+                        count++;
+                    }
+                }
+                if (count > nums.length / 3) {
+                    ans.add(nums[i]);
+                }
+            }
+            if (ans.size() == 2) {
+                break;
+            }
+        }
+
+        return ans;
+    }
+
+    public List<Integer> majorityElementII2(int[] nums) {
+        List<Integer> ans = new ArrayList<>();
+        // Hashing
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int n : nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
+            if (map.get(n) == (nums.length / 3) + 1) {
+                ans.add(n);
+            }
+            if (ans.size() == 2)
+                break;
+        }
+
+        return ans;
+    }
+
+    public List<Integer> majorityElementII3(int[] nums) {
+        // same like moore
+        // but as ele should be greater then n/3 measn each ele count should be > 3
+        // means 4 so we can only has 2 such solutions in any case
+        List<Integer> ans = new ArrayList<>();
+
+        int count1 = 0;
+        int count2 = 0;
+        int element1 = Integer.MIN_VALUE;
+        int element2 = Integer.MIN_VALUE;
+
+        for (int c : nums) {
+            if (count1 == 0 && element2 != c) {
+                element1 = c;
+                count1 = 1;
+            } else if (count2 == 0 && element1 != c) {
+                element2 = c;
+                count2 = 1;
+            } else if (c == element1) {
+                count1++;
+            } else if (c == element2) {
+                count2++;
+            } else {
+                count1--;
+                count2--;
+            }
+        }
+        // at thsi point we got the answer
+        // now we need to verify these, if these are the two or not
+        count1 = 0;
+        count2 = 0;
+
+        for (int c : nums) {
+            if (c == element1) {
+                count1++;
+            } else if (c == element2) {
+                count2++;
+            }
+        }
+        int min = nums.length / 3;
+        if (count1 > min) {
+            ans.add(element1);
+        }
+        if (count2 > min) {
+            ans.add(element2);
+        }
+        return ans;
+    }
+
     public int majorityElement2(int[] nums) {
         // Hashing
         HashMap<Integer, Integer> hash = new HashMap<>();
