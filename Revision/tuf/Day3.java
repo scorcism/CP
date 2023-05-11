@@ -8,7 +8,50 @@ public class Day3 {
 
     }
 
-    
+    public int uniquePaths(int m, int n) {
+
+        return uP1(m, n, 0, 0);
+    }
+
+    private int uP1(int m, int n, int i, int j) {
+        // Recursion
+        if (i >= m || j >= n) {
+            return 0;
+        }
+        if (i == m - 1 && j == n - 1) {
+            return 1;
+        }
+        int left = uP1(m, n, i + 1, j);
+        int right = uP1(m, n, i, j + 1);
+        return left + right;
+    }
+
+    private int uP2(int m, int n, int i, int j, int[][] dp) {
+        // DP -> meoization top down
+        if (i >= m || j >= n) {
+            return 0;
+        }
+        if (i == m - 1 && j == n - 1) {
+            return 1;
+        }
+        if (dp[i][j] != -1) {
+            return dp[i][j];
+        }
+        return dp[i][j] = uP2(m, n, i + 1, j, dp) + uP2(m, n, i, j + 1, dp);
+    }
+
+    private int uP3(int m, int n) {
+        // using combinations
+        int N = n + m - 2;
+        int r = m - 2;
+        double res = 1;
+
+        for (int i = 1; i <= r; i++) {
+            res = res * (N - r + i) / i;
+        }
+
+        return (int) res;
+    }
 
     public List<Integer> majorityElementII1(int[] nums) {
         List<Integer> ans = new ArrayList<>();
