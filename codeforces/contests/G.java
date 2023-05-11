@@ -1,3 +1,4 @@
+package contests;
 // Abhishek Pathak - scor32k
 // Date: 2023-05-08 08:23:59
 
