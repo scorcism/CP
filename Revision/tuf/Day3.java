@@ -8,6 +8,28 @@ public class Day3 {
 
     }
 
+    public double myPow(double x, int n) {
+        // using binary exponentiation a^b
+        // not working for - exponenti
+        double ans = 1.0;
+        long tmpn = n;
+        if (n < 0) {
+            tmpn = (-1) * tmpn;
+        }
+
+        while (tmpn > 0) {
+            if ((tmpn & 1) == 1) {
+                ans = x * ans;
+            }
+            x = x * x;
+            tmpn >>= 1;
+        }
+        if (n < 0) {
+            ans = 1 / ans;
+        }
+        return ans;
+    }
+
     public boolean searchMatrix3(int[][] matrix, int target) {
         // squeezing the matrix
         int n = matrix.length;
