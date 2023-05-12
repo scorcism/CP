@@ -14,6 +14,80 @@ public class Day4 {
     public static void main(String[] args) {
 
     }
+    
+
+    public List<List<Integer>> fourSum1(int[] nums, int target) {
+        // Brute
+        // using 4 loops
+        // easy
+        List<List<Integer>> ans = new ArrayList<>();
+        return ans;
+    }
+
+    public List<List<Integer>> fourSum2(int[] nums, int target) {
+        // Better
+        // Using Hashing
+        int n = nums.length;
+        List<List<Integer>> ans = new ArrayList<>();
+        Set<List<Integer>> set = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                HashSet<Integer> s = new HashSet<>();
+                for (int k = j + 1; k < n; k++) {
+                    long sum = nums[i];
+                    sum += nums[j];
+                    sum += nums[k];
+                    long fourthOne = target - sum;
+                    if (s.contains((int) fourthOne)) {
+                        set.add(Arrays.asList(nums[i], nums[j], nums[k], (int) fourthOne));
+                    }
+
+                    s.add(nums[k]);
+                }
+            }
+        }
+        ans.addAll(set);
+        return ans;
+    }
+
+    public List<List<Integer>> fourSum3(int[] nums, int target) {
+        // Better
+        // Using Hashing
+        int n = nums.length;
+        Arrays.sort(nums);// to get sorted answers
+        List<List<Integer>> ans = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            if (i > 0 && nums[i] == nums[i - 1])
+                continue;
+            for (int j = i + 1; j < n; j++) {
+                if (j != i + 1 && nums[j] == nums[j - 1])
+                    continue;
+                // making two pointer
+                int low = j + 1;
+                int high = n - 1;
+                long sumNeeded = target - (nums[i] + nums[j]);
+                while (low < high) {
+                    if (nums[low] + nums[high] == sumNeeded) {
+                        // we got the sum
+                        ans.add(Arrays.asList(nums[i], nums[j], nums[low], nums[high]));
+                        low++;
+                        high--;
+                        while (low < high && nums[low] == nums[low - 1]) {
+                            low++;
+                        }
+                        while (low < high && nums[high] == nums[high + 1]) {
+                            high--;
+                        }
+                    } else if (nums[low] + nums[high] < sumNeeded) {
+                        low++;
+                    } else {
+                        high--;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
 
     // 3 Sum
     public List<List<Integer>> threeSum1(int[] nums) {
