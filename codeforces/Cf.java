@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-11 21:51:35
+// Date: 2023-05-12 22:02:43
 
 
 import java.io.BufferedReader;
@@ -13,14 +13,26 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
 
-public class CodeForces {
+public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
         
         for(int tt = 0; tt < T; tt++){
-               
+            int n = fs.nextInt();
+            int[] arr = fs.nextIntArray(n);
+            int count = 0;
+            int max_count = 0;
+            for(int a: arr){
+                if(a==0){
+                    count++;
+                }else if(a==1){
+                    count = 0;
+                }
+                max_count = Math.max(count, max_count);
+            }
+            System.out.println(max_count);
         }
             
         out.close();
