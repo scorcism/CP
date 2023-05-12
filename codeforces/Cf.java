@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-12 22:06:56
+// Date: 2023-05-12 22:55:06
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,39 +17,23 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        /*
-         
-         */
+
         for (int tt = 0; tt < T; tt++) {
-            int n = fs.nextInt();
-            long left = Integer.MAX_VALUE;
-            long right = Integer.MAX_VALUE;
-            long both = Integer.MAX_VALUE;
-            for (int i = 0; i < n; i++) {
-                int num = fs.nextInt();
-                char[] s = fs.next().toCharArray();
-                // System.out.println(s[0] + " " + s[1] + " s");
-                if (s[0] == '0') {
-                    if (s[1] == '0') {
-                        //skip current one
-                    } else {
-                        right = Math.min(right, num);
-                    }
-                } else if (s[0] == '1') {
-                    if (s[1] == '0') {
-                        left = Math.min(num, left);
-                    } else {
-                        both = Math.min(both, num);
-                    }
+            String s = fs.next();
+            long ans = 1;
+            if (s.charAt(0) == '0') {
+                ans = 0;
+            }
+            if (s.charAt(0) == '?') {
+                ans *= 9;
+            }
+            for (int i = 1; i < s.length(); i++) {
+                if (s.charAt(i) == '?') {
+
+                    ans *= 10;
                 }
             }
-            long ans = Math.min(both, left + right);
-            if(ans >= Integer.MAX_VALUE){
-                System.out.println(-1);
-            }else{
-                System.out.println(ans);
-            }
-
+            System.out.println(ans);
         }
 
         out.close();
