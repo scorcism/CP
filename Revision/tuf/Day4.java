@@ -19,6 +19,91 @@ public class Day4 {
 
 
     
+    // Largest subarray with 0 sum
+    static int maxLen1(int arr[], int n) {
+        // target = 0
+        // O(n^3)
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                int sum = 0;
+                for (int k = i; k < j; k++) {
+                    sum += arr[k];
+                }
+                if (sum == 0) {
+                    max = Math.max(j - i + 1, max);
+                }
+            }
+        }
+        return max;
+    }
+
+    static int maxLen2(int arr[], int n) {
+        // target = 0
+        // O(n^2)
+        int max = Integer.MIN_VALUE;
+        for (int i = 0; i < n; i++) {
+            int sum = 0;
+            for (int j = i; j < n; j++) {
+                sum += arr[j];
+            }
+            if (sum == 0) {
+                max = Math.max(j - i + 1, max);
+            }
+        }
+        return max;
+    }
+
+    static int maxLen3(int arr[], int n) {
+        // target = 0
+        // O(n* long n)
+        // O(n)
+        int t = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        int sum = 0; // maintain global sum
+        int largest = 0;
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+            if (sum == t) {
+                largest = Math.max(largest, i + 1);
+            }
+            int remaining = sum - t;
+            if (map.containsKey(remaining)) {
+                int len = i - map.get(remaining);
+                largest = Math.max(largest, len);
+            }
+            if (!map.containsKey(sum)) {
+                map.put(sum, i);
+            }
+        }
+        return largest;
+    }
+
+    static int maxLen4(int arr[], int n) {
+        int largest = 0;
+        int left = 0;
+        int right = 0;
+        long sum = arr[0];
+        int target = 0;
+        while (right < n) {
+
+            while (left <= right && sum > target) {
+                sum -= arr[left];
+                left++;
+            }
+
+            if (sum == target) {
+                largest = Math.max(largest, right - left + 1);
+            }
+
+            right++; // coz we need to add next right
+            if (right < n - 1) {
+                sum += arr[right];
+            }
+        }
+
+        return largest;
+    }
 
     public static int longestConsecutive1(int[] nums) {
         int longest = Integer.MIN_VALUE;
