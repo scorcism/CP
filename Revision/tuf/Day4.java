@@ -17,8 +17,23 @@ public class Day4 {
 
     }
 
+    // Number of Subarrays with xor K
+    static int subarraysWithSumK(ArrayList<Integer> arr, int k) {
+        int xr = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(xr, 1);
+        int count = 0;
+        for (int i = 0; i < arr.size(); i++) {
+            xr = xr ^ arr.get(i);
 
-    
+            // k
+            int x = xr ^ k;
+            count += map.getOrDefault(x, 0);
+            map.put(xr, map.getOrDefault(xr, 0) + 1);
+        }
+        return count;
+    }
+
     // Largest subarray with 0 sum
     static int maxLen1(int arr[], int n) {
         // target = 0
