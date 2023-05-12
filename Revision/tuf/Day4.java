@@ -12,9 +12,90 @@ public class Day4 {
 
     // Commit template -> tuf-day4-QuestionName
     public static void main(String[] args) {
+        // int[] arr = { 0, 3, 7, 2, 5, 8, 4, 6, 0, 1 };
+        // System.out.println(longestConsecutive1(arr));
 
     }
+
+
     
+
+    public static int longestConsecutive1(int[] nums) {
+        int longest = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            int x = nums[i];
+            int count = 1;
+            for (int j = 0; j < nums.length; j++) {
+                if (nums[j] == x + 1) {
+                    // System.out.println("x: " + x);
+                    x = x + 1;
+                    count++;
+                    if (j > 0) {
+                        j = 0;
+                    }
+                }
+            }
+            // System.out.println(count + " count");
+            longest = Math.max(count, longest);
+        }
+        if (longest == Integer.MIN_VALUE) {
+            return 0;
+        }
+
+        return longest;
+    }
+
+    public int longestConsecutive2(int[] nums) {
+        if (nums.length == 0 || nums == null) {
+            return 0;
+        }
+
+        int largest = 1;
+        Arrays.sort(nums);
+
+        int currentCount = 0;
+        int previousEle = Integer.MIN_VALUE;
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] - 1 == previousEle) {
+                previousEle = nums[i];
+                currentCount++;
+            } else if (nums[i] != previousEle) {
+                currentCount = 1;
+                previousEle = nums[i];
+            }
+            largest = Math.max(largest, currentCount);
+        }
+
+        return largest;
+    }
+
+    public int longestConsecutive3(int[] nums) {
+
+        if (nums.length == 0 || nums == null) {
+            return 0;
+        }
+
+        int largest = 0;
+
+        HashSet<Integer> set = new HashSet<>();
+        for (int c : nums) {
+            set.add(c);
+        }
+
+        for (int i = 0; i < nums.length; i++) {
+            if (!set.contains(nums[i] - 1)) {
+                int count = 0;
+                int x = nums[i];
+                while (set.contains(x + 1)) {
+                    count += 1;
+                    x += 1;
+                }
+                largest = Math.max(largest, count);
+            }
+        }
+
+        return largest;
+    }
 
     public List<List<Integer>> fourSum1(int[] nums, int target) {
         // Brute
