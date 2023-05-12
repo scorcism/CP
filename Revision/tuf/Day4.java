@@ -17,7 +17,7 @@ public class Day4 {
 
     }
 
-    public int (String s) {
+    public int lengthOfLongestSubstring(String s) {
         // int length = 0;
         HashMap<Character, Integer> map = new HashMap<>();
 
