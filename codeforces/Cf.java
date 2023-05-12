@@ -1,6 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-12 22:02:43
-
+// Date: 2023-05-12 22:06:56
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,23 +17,41 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        
-        for(int tt = 0; tt < T; tt++){
+        /*
+         
+         */
+        for (int tt = 0; tt < T; tt++) {
             int n = fs.nextInt();
-            int[] arr = fs.nextIntArray(n);
-            int count = 0;
-            int max_count = 0;
-            for(int a: arr){
-                if(a==0){
-                    count++;
-                }else if(a==1){
-                    count = 0;
+            long left = Integer.MAX_VALUE;
+            long right = Integer.MAX_VALUE;
+            long both = Integer.MAX_VALUE;
+            for (int i = 0; i < n; i++) {
+                int num = fs.nextInt();
+                char[] s = fs.next().toCharArray();
+                // System.out.println(s[0] + " " + s[1] + " s");
+                if (s[0] == '0') {
+                    if (s[1] == '0') {
+                        //skip current one
+                    } else {
+                        right = Math.min(right, num);
+                    }
+                } else if (s[0] == '1') {
+                    if (s[1] == '0') {
+                        left = Math.min(num, left);
+                    } else {
+                        both = Math.min(both, num);
+                    }
                 }
-                max_count = Math.max(count, max_count);
             }
-            System.out.println(max_count);
+            long ans = Math.min(both, left + right);
+            if(ans >= Integer.MAX_VALUE){
+                System.out.println(-1);
+            }else{
+                System.out.println(ans);
+            }
+
         }
-            
+
         out.close();
     }
 
@@ -67,8 +84,7 @@ public class Cf {
                 }
             }
 
-            return tokenizer.nextToken(
-);
+            return tokenizer.nextToken();
         }
 
         public long nextLong() {
@@ -78,23 +94,23 @@ public class Cf {
         public int nextInt() {
             return Integer.parseInt(next());
         }
-        
+
         public double nextDouble() {
-             return Double.parseDouble(next());
-         }
-        
+            return Double.parseDouble(next());
+        }
+
         public int[] nextIntArray(int n) {
             int[] a = new int[n];
             for (int i = 0; i < n; i++)
                 a[i] = nextInt();
             return a;
         }
-        
+
         public long[] nextLongArray(int n) {
             long[] a = new long[n];
             for (int i = 0; i < n; i++)
                 a[i] = nextLong();
             return a;
-        } 
+        }
     }
 }
