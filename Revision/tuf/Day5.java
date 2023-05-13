@@ -5,8 +5,58 @@ public class Day5 {
 
     }
 
-
     
+
+    // 19. Remove Nth Node From End of List
+    public ListNode removeNthFromEnd1(ListNode head, int n) {
+        if (head == null) {
+            return head;
+        }
+        ListNode tmp1 = head;
+        int count = 0;
+        while (tmp1 != null) {
+            count++;
+            tmp1 = tmp1.next;
+        }
+        if (n == count) {
+            head = head.next;
+            return head;
+        }
+        ListNode tmp2 = head;
+        int k = count - n - 1;
+        int p = 0;
+        while (tmp2 != null) {
+            if (p == k) {
+                tmp2.next = tmp2.next.next;
+            }
+            p++;
+            tmp2 = tmp2.next;
+        }
+        return head;
+    }
+
+    public ListNode removeNthFromEnd2(ListNode head, int n) {
+        if (head == null || head.next == null) {
+            return null;
+        }
+        ListNode start = new ListNode(0);
+        start.next = head;
+        ListNode slow = start;
+        ListNode fast = start;
+
+        for (int i = 1; i <= n; i++) {
+            fast = fast.next;
+        }
+
+        while (fast.next != null) {
+            fast = fast.next;
+            slow = slow.next;
+        }
+
+        slow.next = slow.next.next;
+
+        return start.next;
+    }
 
     public ListNode mergeTwoLists1(ListNode list1, ListNode list2) {
         if (list1 == null && list2 == null) {
