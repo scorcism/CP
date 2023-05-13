@@ -5,7 +5,13 @@ public class Day5 {
 
     }
 
-    
+    // 237. Delete Node in a Linked List
+    public void deleteNode(ListNode node) {
+        node.val = node.next.val;
+        node.next = node.next.next;
+        
+    }
+
 
     // 2. Add Two Numbers
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
