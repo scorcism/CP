@@ -5,6 +5,35 @@ public class Day5 {
 
     }
 
+    // Middle of the linked list
+    public ListNode middleNode1(ListNode head) {
+        long totalNode = 0;
+        ListNode tmp = head;
+        while (tmp != head) {
+            totalNode++;
+            tmp = tmp.next;
+        }
+        long n = (totalNode / 2) + 1;
+        tmp = head;
+        while (n >= 0) {
+            n--;
+            tmp = tmp.next;
+        }
+        return tmp;
+
+    }
+
+    public ListNode middleNode2(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next;
+        }
+        return slow;
+    }
+
     // Reverse a liked list
     public ListNode reverseListIterative(ListNode head) {
         ListNode prev = null;
@@ -30,7 +59,6 @@ public class Day5 {
         head.next = null;
         return newHead;
     }
-
 
     static class ListNode {
         int val;
