@@ -1,4 +1,5 @@
 import java.util.HashSet;
+import java.util.List;
 
 public class Day6 {
 
@@ -9,6 +10,53 @@ public class Day6 {
 
 
     
+
+    // Palindrome Linked List
+    public boolean isPalindrome2(ListNode head) {
+        if (head == null || head.next == null) {
+            return true;
+        }
+        ListNode h = head;
+
+        // Get the middle node
+        ListNode slow = h;
+        ListNode fast = h;
+        while (fast.next != null && fast.next.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        // mid is in the slow;
+        // reverse from mid +1
+        slow.next = reverse(slow.next);
+
+        // move slow to mid+1 i.e right half
+        slow = slow.next;
+
+        while (slow != null) {
+            if (h.val != slow.val) {
+                return false;
+            }
+            h = head.next;
+            slow = slow.next;
+        }
+        return true;
+    }
+
+    static ListNode reverse(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
+        }
+        ListNode prev = null;
+        ListNode curr = head;
+        while (curr != null) {
+            ListNode tmp = curr.next;
+            curr.next = prev;
+            prev = curr;
+            curr = tmp;
+        }
+        return prev;
+    }
+
     // Reverse Nodes in k-Group
     public ListNode reverseKGroup(ListNode head, int k) {
         if (head == null || k == 1) {
