@@ -8,8 +8,49 @@ public class Day6 {
 
     }
 
-
     
+
+    Node mergeTwoListsFlatten(Node a, Node b) {
+
+        Node temp = new Node(0);
+        Node res = temp;
+
+        while (a != null && b != null) {
+            if (a.data < b.data) {
+                temp.bottom = a;
+                temp = temp.bottom;
+                a = a.bottom;
+            } else {
+                temp.bottom = b;
+                temp = temp.bottom;
+                b = b.bottom;
+            }
+        }
+        if (a != null) {
+            temp.bottom = a;
+        } else {
+            temp.bottom = b;
+        }
+        return res.bottom;
+    }
+
+    Node flatten(Node root) {
+        // Your code here
+        if (root == null || root.next == null) {
+            return root;
+        }
+
+        // recur for the list on right
+        root.next = flatten(root.next);
+
+        // now merge
+        root = mergeTwoListsFlatten(root, root.next);
+
+        // return the root
+        // it will be in turn merged with its left
+        return root;
+    }
+
     public ListNode detectCycleII(ListNode head) {
         if (head == null || head.next == null) {
             return null;
@@ -247,6 +288,18 @@ public class Day6 {
         ListNode(int x) {
             val = x;
             next = null;
+        }
+    }
+
+    class Node {
+        int data;
+        Node next;
+        Node bottom;
+
+        Node(int d) {
+            data = d;
+            next = null;
+            bottom = null;
         }
     }
 
