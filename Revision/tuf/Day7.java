@@ -11,6 +11,62 @@ public class Day7 {
 
     }
 
+
+    
+    // Trapping Rain Water
+    public int trap1(int[] height) {
+        int[] prefixSum = new int[height.length];
+        int[] suffixSum = new int[height.length];
+
+        // get prefix sum
+        prefixSum[0] = height[0];
+        for (int i = 1; i < height.length; i++) {
+            prefixSum[i] = Math.max(prefixSum[i - 1], height[i]);
+        }
+
+        // get Suffix sum
+        suffixSum[height.length - 1] = height[height.length - 1];
+
+        for (int i = height.length - 2; i >= 0; i--) {
+            suffixSum[i] = Math.max(height[i], suffixSum[i + 1]);
+        }
+
+        int maxsum = 0;
+
+        for (int i = 0; i < height.length; i++) {
+            maxsum += Math.min(prefixSum[i], suffixSum[i]) - height[i];
+        }
+        return maxsum;
+    }
+
+    public int trap2(int[] height) {
+        int n = height.length;
+        int left = 0;
+        int right = n - 1;
+
+        int leftmax = 0;
+        int rightmax = 0;
+        int ans = 0;
+        while (left < right) {
+            if (height[left] <= height[right]) {
+                if (height[left] >= leftmax) {
+                    leftmax = height[left];
+                } else {
+                    ans += leftmax - height[left];
+                }
+                left++;
+            } else {
+                if (height[right] >= rightmax) {
+                    rightmax = height[right];
+                } else {
+                    ans += rightmax - height[right];
+                }
+                right++;
+            }
+        }
+        return ans;
+    }
+
     public List<List<Integer>> threeSum(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
         int n = nums.length;
