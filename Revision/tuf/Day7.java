@@ -13,6 +13,34 @@ public class Day7 {
 
 
     
+    public int removeDuplicates1(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        for (int n : nums) {
+            set.add(n);
+        }
+
+        int j = 0;
+        for (int p : set) {
+            nums[j++] = p;
+        }
+
+        return set.size();
+    }
+
+    public int removeDuplicates2(int[] nums) {
+        int i = 0;
+        int n = nums.length;
+        for (int j = 0; j < n; j++) {
+            if (nums[i] == nums[j]) {
+                continue;
+            } else if (nums[i] != nums[j]) {
+                i++;
+                nums[i] = nums[j];
+            }
+        }
+        return i + 1;
+    }
+
     // Trapping Rain Water
     public int trap1(int[] height) {
         int[] prefixSum = new int[height.length];
