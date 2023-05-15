@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-15 18:40:29
+// Date: 2023-05-15 18:53:03
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,16 +16,23 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        for (int i = 1; i <= 5; i++) {
-            for (int j = 1; j <= 5; j++) {
-                int n = fs.nextInt();
-                if(n==1){
-                    System.out.println(Math.abs(i-3)+Math.abs(j-3));
-                }
-            }
-        }
+
+        int n = fs.nextInt();
+        int k = fs.nextInt();
+        int l = fs.nextInt();
+        int c = fs.nextInt();
+        int d = fs.nextInt();
+        int p = fs.nextInt();
+        int nl = fs.nextInt();
+        int np = fs.nextInt();
+
+        System.out.println((min(k*l/nl, c*d, p/np))/n);
 
         out.close();
+    }
+
+    static int min(int a, int b, int c) {
+        return Math.min(a, Math.min(b, c));
     }
 
     static class FastScanner {
