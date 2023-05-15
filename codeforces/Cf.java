@@ -1,5 +1,6 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-15 18:53:03
+// Date: 2023-05-15 19:55:06
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,23 +17,13 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
+        int T = fs.nextInt();
+        
+        for (int tt = 0; tt < T; tt++) {
 
-        int n = fs.nextInt();
-        int k = fs.nextInt();
-        int l = fs.nextInt();
-        int c = fs.nextInt();
-        int d = fs.nextInt();
-        int p = fs.nextInt();
-        int nl = fs.nextInt();
-        int np = fs.nextInt();
-
-        System.out.println((min(k*l/nl, c*d, p/np))/n);
+        }
 
         out.close();
-    }
-
-    static int min(int a, int b, int c) {
-        return Math.min(a, Math.min(b, c));
     }
 
     static class FastScanner {
@@ -92,5 +83,47 @@ public class Cf {
                 a[i] = nextLong();
             return a;
         }
+    }
+
+    static int min(int a, int b, int c) {
+        return Math.min(a, Math.min(b, c));
+    }
+
+    static int min(int a, int b) {
+        return Math.min(a, b);
+    }
+
+    private static void swapinarray(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+
+    private static void quickSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int partition = qucickS(arr, left, right);
+            quickSort(arr, left, partition - 1);
+            quickSort(arr, partition + 1, right);
+        }
+    }
+
+    private static int qucickS(int[] arr, int left, int right) {
+        int pivot = arr[left];
+        int i = left;
+        int j = right;
+
+        while (i < j) {
+            while (arr[i] <= pivot && i <= right - 1) {
+                i++;
+            }
+            while (arr[j] >= pivot && j >= left + 1) {
+                j--;
+            }
+            if (i < j) {
+                swapinarray(arr, i, j);
+            }
+        }
+        swapinarray(arr, j, left);
+        return j;
     }
 }
