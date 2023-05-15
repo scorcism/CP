@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-15 20:11:20
+// Date: 2023-05-15 20:19:17
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,11 +16,26 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int a = fs.nextInt();
-        int b = fs.nextInt();
-        int c = fs.nextInt();
+        int T = fs.nextInt();
 
-        System.out.println(max(a,b,c)-min(a, b,c));
+        for (int tt = 0; tt < T; tt++) {
+            int n = fs.nextInt();
+            ArrayList<Integer> a = new ArrayList<>();
+            int pow = 1;
+            while (n > 0) {
+                if (n % 10 > 0) {
+                    int tmp = n%10;
+                    a.add(tmp*pow);
+                }
+                n /= 10;
+                pow *= 10;
+            }
+            System.out.println(a.size());
+            for(int aa: a){
+                System.out.print(aa +" ");
+            }
+            System.out.println();
+        }
 
         out.close();
     }
