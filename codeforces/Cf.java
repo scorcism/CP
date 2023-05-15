@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-15 19:55:06
+// Date: 2023-05-15 20:01:34
 
 
 import java.io.BufferedReader;
@@ -17,11 +17,10 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
+        int[] nums = fs.nextIntArray(3);
+        Arrays.sort(nums);
+        System.out.println(Math.abs(nums[1]-nums[0])+Math.abs(nums[2]-nums[1]));
         
-        for (int tt = 0; tt < T; tt++) {
-
-        }
 
         out.close();
     }
