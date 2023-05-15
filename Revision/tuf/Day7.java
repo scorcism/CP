@@ -1,3 +1,9 @@
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+
 public class Day7 {
 
     // commit template -> tuf-day7-questionName
@@ -5,7 +11,28 @@ public class Day7 {
 
     }
 
-    
+    public List<List<Integer>> threeSum(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        int n = nums.length;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        HashSet<List<Integer>> set = new HashSet<>();
+        for (int i = 0; i < n; i++) {
+            map.put(nums[i], i);
+        }
+        for (int i = 0; i < n; i++) {
+            map.remove(nums[i]);
+            for (int j = i + 1; j < n; j++) {
+                map.remove(nums[j]);
+                if (map.containsKey(-1 * (nums[i] + nums[j]))) {
+                    set.add(Arrays.asList(i, j, map.get(-1 * (nums[i] + nums[j]))));
+                }
+
+            }
+        }
+        // omitted
+        return ans;
+
+    }
 
     // Copy List with Random Pointer
     public Node copyRandomList(Node head) {
