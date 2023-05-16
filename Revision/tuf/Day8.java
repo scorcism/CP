@@ -10,6 +10,67 @@ public class Day8 {
 
 
     
+
+
+
+    class NodeComparator implements Comparator<Node> {
+
+        public int compare(Node a, Node b) {
+            return a.data - b.data;
+        }
+
+    }
+
+    // Huffman Encoding
+    public ArrayList<String> huffmanCodes(String S, int f[], int N) {
+
+        PriorityQueue<Node> pq = new PriorityQueue<Node>();
+
+        for (int n : f) {
+            Node node = new Node(n);
+            pq.add(node);
+        }
+
+        for (int i = 0; i < f.length; i++) {
+            Node left = pq.poll();
+            Node right = pq.poll();
+            Node newNode = new Node(left.data + right.data);
+            newNode.left = left;
+            newNode.right = right;
+            pq.add(newNode);
+        }
+
+        Node root = pq.peek();
+        // we need preorder traversl of these
+        ArrayList<String> a = new ArrayList<>();
+
+        String tmp = "";
+        traverse(root, a, tmp);
+        return a;
+
+    }
+
+    private void traverse(Node root, ArrayList<String> a, String tmp) {
+        if (root.left == null && root.right == null) {
+            a.add(tmp);
+            return;
+        }
+        traverse(root.left, a, tmp += "0");
+        traverse(root.right, a, tmp += "1");
+    }
+
+    static class Node {
+        int data;
+        Node left;
+        Node right;
+
+        Node(int data) {
+            this.data = data;
+            this.left = null;
+            this.right = null;
+        }
+    }
+
     // Function to return the minimum cost of connecting the ropes.
     long minCost(long arr[], int n) {
         // as default one is min heap
