@@ -8,7 +8,21 @@ public class Day8 {
 
     }
 
-    
+
+    public long findMinDiff (ArrayList<Integer> a, int n, int m)
+    {
+        Collections.sort(a);
+        int min = Integer.MAX_VALUE;
+        int i = 0;
+        int j = m-1;
+        while(j < a.size()){
+            min = Math.min(min, a.get(j)-a.get(i));
+            i++;
+            j++;
+        }
+        return min;
+    }
+
     // Check if it is possible to survive on Island
     static int minimumDays(int S, int N, int M) {
         int sundays = S / 7;
