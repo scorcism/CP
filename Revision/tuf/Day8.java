@@ -8,7 +8,35 @@ public class Day8 {
 
     }
 
+    
 
+    // shop in candy store
+    static ArrayList<Integer> candyStore(int candies[], int N, int K) {
+        Arrays.sort(candies);
+        int mini = 0;
+        int buy = 0;
+        int free = N - 1;
+
+        while (buy <= free) {
+            mini += candies[buy];
+            buy++;
+            free = free - K;
+        }
+
+        int maxi = 0;
+        buy = N-1;
+        free = 0;
+        while(free <= buy){
+            maxi+=candies[buy];
+            buy--;
+            free = free+K;
+        }
+        ArrayList<Integer> a = new ArrayList<>();
+        a.add(mini);
+        a.add(maxi);
+
+        return a;
+    }
 
     public static ArrayList<Integer> maxMeetings(int N, int[] S, int[] F) {
         ArrayList<meeting> a = new ArrayList<>();
@@ -30,7 +58,7 @@ public class Day8 {
                 ans.add(a.get(i).pos);
                 endtime = a.get(i).end;
             }
-        }   
+        }
 
         Collections.sort(ans);
 
