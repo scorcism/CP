@@ -10,6 +10,48 @@ public class Day8 {
 
 
     
+    // Function to get the maximum total value in the knapsack.
+    double fractionalKnapsack(int W, Item arr[], int n) {
+        // Your code here
+        Arrays.sort(arr, new Comparator<Item>() {
+            public int compare(Item a, Item b) {
+                double first = (double) a.value / (double) a.weight;
+                double second = (double) b.value / (double) b.weight;
+
+                if (first < second)
+                    return 1;
+                else if (first > second)
+                    return -1;
+                else
+                    return 0;
+            }
+        });
+
+        int currWeight = 0;
+        double finalvalue = 0.0;
+
+        for (int i = 0; i < n; i++) {
+            if (arr[i].weight + currWeight <= W) {
+                currWeight += arr[i].weight;
+                finalvalue += arr[i].value;
+            } else {
+                int remain = W - currWeight;
+                finalvalue += ((double) arr[i].value / (double) arr[i].weight) * (double) remain;
+                break;
+            }
+        }
+        return finalvalue;
+    }
+
+    class Item {
+        int value, weight;
+
+        Item(int x, int y) {
+            this.value = x;
+            this.weight = y;
+        }
+    }
+
     // Function to find the maximum profit and the number of jobs done.
     int[] JobScheduling(Job arr[], int n) {
         Arrays.sort(arr, (a, b) -> b.profit - a.profit);
