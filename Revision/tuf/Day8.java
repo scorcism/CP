@@ -10,6 +10,31 @@ public class Day8 {
 
 
     
+    // Function to find the minimum number of platforms required at the railway
+    // station such that no train waits.
+    static int findPlatform(int arr[], int dep[], int n) {
+        Arrays.sort(arr);
+        Arrays.sort(dep);
+        int platforms = 1;
+        int maxp = 1;
+        int i = 1;
+        int j = 0;
+        while (i < n && j < n) {
+            if (arr[i] <= dep[j]) {
+                platforms++;
+                i++;
+            } else if (arr[i] > dep[j]) {
+                platforms--;
+                j++;
+            }
+            if (platforms > maxp) {
+                maxp = platforms;
+            }
+        }
+        return maxp;
+
+    }
+
     // Function to get the maximum total value in the knapsack.
     double fractionalKnapsack(int W, Item arr[], int n) {
         // Your code here
