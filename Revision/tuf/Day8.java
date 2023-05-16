@@ -8,8 +8,28 @@ public class Day8 {
 
     }
 
+    public int minCoins(int coins[], int M, int V) {
+        int[] dp = new int[V + 1];
+        Arrays.fill(dp, Integer.MAX_VALUE);
+        dp[0] = 0;
 
-    
+        for (int i = 1; i <= V; i++) {
+
+            for (int j = 0; j < M; j++) {
+                if (coins[j] <= i) {
+                    int res = dp[i - coins[j]];
+                    if (res != Integer.MAX_VALUE && res + 1 < dp[i]) {
+                        dp[i] = res + 1;
+                    }
+                }
+            }
+        }
+        if (dp[V] == Integer.MAX_VALUE) {
+            return -1;
+        }
+        return dp[V];
+    }
+
     // Function to find the minimum number of platforms required at the railway
     // station such that no train waits.
     static int findPlatform(int arr[], int dep[], int n) {
