@@ -9,6 +9,26 @@ public class Day8 {
     }
 
     
+    // Check if it is possible to survive on Island
+    static int minimumDays(int S, int N, int M) {
+        int sundays = S / 7;
+        int totalDays = S - sundays;
+
+        int totalFood = S * M;
+        int ans = 0;
+        if (totalFood % N == 0) {
+            ans = totalFood / N;
+        } else {
+            ans = totalFood / N + 1;
+        }
+
+        if(ans <= totalDays){
+            return ans;
+        }else{
+            return -1;
+        }
+
+    }
 
     // shop in candy store
     static ArrayList<Integer> candyStore(int candies[], int N, int K) {
@@ -24,12 +44,12 @@ public class Day8 {
         }
 
         int maxi = 0;
-        buy = N-1;
+        buy = N - 1;
         free = 0;
-        while(free <= buy){
-            maxi+=candies[buy];
+        while (free <= buy) {
+            maxi += candies[buy];
             buy--;
-            free = free+K;
+            free = free + K;
         }
         ArrayList<Integer> a = new ArrayList<>();
         a.add(mini);
