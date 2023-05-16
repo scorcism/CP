@@ -9,14 +9,34 @@ public class Day8 {
     }
 
 
-    public long findMinDiff (ArrayList<Integer> a, int n, int m)
-    {
+    
+    // Function to return the minimum cost of connecting the ropes.
+    long minCost(long arr[], int n) {
+        // as default one is min heap
+        PriorityQueue<Long> pq = new PriorityQueue<>();
+
+        for (long num : arr) {
+            pq.add(num);
+        }
+
+        long cost = 0;
+        while (pq.size() > 1) {
+            long first = pq.poll();
+            long second = pq.poll();
+            long a = first + second;
+            cost += a;
+            pq.add(a);
+        }
+        return cost;
+    }
+
+    public long findMinDiff(ArrayList<Integer> a, int n, int m) {
         Collections.sort(a);
         int min = Integer.MAX_VALUE;
         int i = 0;
-        int j = m-1;
-        while(j < a.size()){
-            min = Math.min(min, a.get(j)-a.get(i));
+        int j = m - 1;
+        while (j < a.size()) {
+            min = Math.min(min, a.get(j) - a.get(i));
             i++;
             j++;
         }
@@ -36,9 +56,9 @@ public class Day8 {
             ans = totalFood / N + 1;
         }
 
-        if(ans <= totalDays){
+        if (ans <= totalDays) {
             return ans;
-        }else{
+        } else {
             return -1;
         }
 
