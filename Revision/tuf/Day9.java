@@ -8,8 +8,42 @@ public class Day9 {
 
     }
 
+
+    // Pallindrome partioning
+    public List<List<String>> partition(String s) {
+        List<List<String>> ans = new ArrayList<>();
+        List<String> str = new ArrayList<>();
+        solvepartition(s, 0, str, ans);
+        return ans;
+    }
+
+    private void solvepartition(String s, int i, List<String> str, List<List<String>> ans) {
+        if (i == s.length()) {
+            ans.add(new ArrayList<>(str));
+            return;
+        }
+
+        for (int index = i; index < s.length(); index++) {
+            if (ispallindrome(s, i, index)) {
+                str.add(s.substring(i, index+1));
+                solvepartition(s, index+1, str, ans);
+                str.remove(str.size()-1);
+            }
+        }
+
+    }
+
+    private boolean ispallindrome(String s, int i, int j) {
+        while (i <= j) {
+            if (s.charAt(i++) != s.charAt(j--)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Combination Sum II
-    public List<List<Integer>> combinationSum2(int[] candidates, int target) {\
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
         Arrays.sort(candidates);
         List<List<Integer>> ans = new ArrayList<>();
         List<Integer> a = new ArrayList<>();
