@@ -8,6 +8,31 @@ public class Day9 {
 
     }
 
+
+
+    // 90. Subsets II
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> a = new ArrayList<>();
+        solvesubsetswithdup(0, nums, a, ans);
+        return ans;
+    }
+
+    private void solvesubsetswithdup(int i, int[] nums, List<Integer> a, List<List<Integer>> ans) {
+        ans.add(new ArrayList<>(a));
+        
+        for (int index = i; index < nums.length; index++) {
+            if (index != i && nums[index] == nums[index - 1]) {
+                continue;
+            }
+            a.add(nums[index]);
+            solvesubsetswithdup(index + 1, nums, a, ans);
+            a.remove(a.size()-1);
+        }
+    }
+
+
     // Subset Sums
     ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int N) {
         ArrayList<Integer> ans = new ArrayList<>();
