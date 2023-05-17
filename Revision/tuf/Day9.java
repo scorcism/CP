@@ -8,9 +8,35 @@ public class Day9 {
 
     }
 
+    // Combination Sum II
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {\
+        Arrays.sort(candidates);
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> a = new ArrayList<>();
+        solvecombinationSum2(candidates, 0, target, a, ans);
+        return ans;
+    }
 
+    private void solvecombinationSum2(int[] arr, int i, int target, List<Integer> a, List<List<Integer>> ans) {
 
-    
+        if (target == 0) {
+            ans.add(new ArrayList<>(a));
+            return;
+        }
+
+        for (int index = i; index < arr.length; index++) {
+            if (index > i && arr[index] == arr[index - 1]) {
+                continue;
+            }
+            if (arr[index] <= target) {
+                a.add(arr[i]);
+
+                solvecombinationSum2(arr, index + 1, target - arr[index], a, ans);
+                a.remove(a.size() - 1);
+            }
+        }
+    }
+
     // Combiantion sum
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
         List<List<Integer>> ans = new ArrayList<>();
