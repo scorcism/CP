@@ -7,6 +7,78 @@ public class Day10 {
 
     }
 
+    
+    // 51. N-Queens
+    public List<List<String>> solveNQueens(int n) {
+        List<List<String>> ans = new ArrayList<>();
+        char[][] board = new char[n][n];
+        for (char[] c : board) {
+            Arrays.fill(c, '.');
+        }
+        solvenqueens(n, 0, board, ans);
+        return ans;
+
+    }
+
+    private void solvenqueens(int n, int col, char[][] board, List<List<String>> ans) {
+
+        if (n == col) {
+            ans.add(convert(board));
+            return;
+        }
+
+        for (int row = 0; row < n; row++) {
+            if (isSafe(row, col, board)) {
+                board[row][col] = 'Q';
+                solvenqueens(n, col + 1, board, ans);
+                board[row][col] = '.';
+            }
+        }
+    }
+
+    private List<String> convert(char[][] board) {
+        List<String> l = new ArrayList<>();
+        for (int i = 0; i < board.length; i++) {
+            String s = new String(board[i]);
+            l.add(s);
+        }
+        return l;
+    }
+
+    private boolean isSafe(int row, int col, char[][] board) {
+
+        int drow = row;
+        int dcol = col;
+
+        // top left
+        while (row >= 0 && col >= 0) {
+            if (board[row][col] == 'Q')
+                return false;
+            row--;
+            col--;
+        }
+
+        // left
+        row = drow;
+        col = dcol;
+        while (col >= 0) {
+            if (board[row][col] == 'Q')
+                return false;
+            col--;
+        }
+
+        row = drow;
+        col = dcol;
+        while (col >= 0 && row < board.length) {
+            if (board[row][col] == 'Q')
+                return false;
+            col--;
+            row++;
+        }
+
+        return true;
+    }
+
     // 46. Permutations
     public List<List<Integer>> permute(int[] nums) {
         List<List<Integer>> ans = new ArrayList<>();
