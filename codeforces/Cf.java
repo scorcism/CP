@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-18 20:26:01
+// Date: 2023-05-18 20:33:13
 
 
 import java.io.BufferedReader;
@@ -17,17 +17,19 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
-        int max = 0;
-        int ans = 0;
-        for (int tt = 0; tt < T; tt++) {
-            int a = fs.nextInt();
-            int b = fs.nextInt();
-            ans -= a;
-            ans += b;
-            max = Math.max(ans,max);
+        int n = fs.nextInt();
+        int k = fs.nextInt();
+        
+        for (int tt = 0; tt < k; tt++) {
+            int tmp = n%10;
+            if(tmp !=0 ){
+                n -=1;
+            }else if(tmp == 0){
+                n/=10;
+            }
         }
-        System.out.println(max);
+        System.out.println(n);
+
         out.close();
     }
 
