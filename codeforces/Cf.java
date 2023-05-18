@@ -1,5 +1,6 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-18 19:34:20
+// Date: 2023-05-18 19:58:09
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,45 +11,23 @@ import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.Random;
 
-
 public class Cf {
-
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-
-        ArrayList<values> arr = new ArrayList<>();
+        int[] arr =  new int[T+1];
         for (int tt = 1; tt <= T; tt++) {
             int n = fs.nextInt();
-            arr.add(new values(n, tt));
-
+            arr[n] = tt;
         }
-        Collections.sort(arr, new Comparator<values>() {
-            public int compare(values a, values b){
-                return a.val - b.val;
-            }
-        });
-        for(int i = 0; i< arr.size(); i++){
-            System.out.print(arr.get(i).index +" ");
+        for(int p = 1; p< arr.length; p++){
+            System.out.print(arr[p]+" ");
         }
         System.out.println();
-
         out.close();
-    }
-
-
-    static class values{
-        int val;
-        int index;
-        values(int val, int index){
-            this.val = val;
-            this.index = index;
-        }
     }
 
     static class FastScanner {
@@ -127,15 +106,14 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-
+    
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-
+    
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
-
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
