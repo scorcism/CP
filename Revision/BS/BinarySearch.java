@@ -3,7 +3,7 @@ package BS;
 public class BinarySearch {
 
     public static void main(String[] args) {
-        // System.out.println(bs(new int[] {1,2,3,4,5,6,7,8,9}, 9));
+        System.out.println(bs(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 9));
     }
 
     static int bs(int[] arr, int target) {
@@ -12,7 +12,7 @@ public class BinarySearch {
 
         while (low <= high) {
             // int mid = (low + high) / 2;
-            int mid = low + (low + high) / 2;
+            int mid = low + ((high - low) >> 1);
 
             if (arr[mid] == target) {
                 return mid;
