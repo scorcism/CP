@@ -1,16 +1,64 @@
 package BS;
 
+import java.util.Arrays;
+
 public class BinarySearch {
 
     public static void main(String[] args) {
         int a[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        int aa[] = { 1, 2, 3, 4, 4, 4, 7, 8, 9 };
         int b[] = { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
         // System.out.println(bs(a , 9));
-        System.out.println(reverseArray(b, 2));
+        // System.out.println(reverseArray(b, 2));
+        System.out.println(Arrays.toString(firstandlast(aa, 2)));
     }
 
-
     
+
+    // First and Last occcurance
+    static int[] firstandlast(int[] arr, int target) {
+
+        int first = -1;
+        int last = -1;
+
+        int low = 0;
+        int high = arr.length - 1;
+
+        // for 1st occurace
+        while (low <= high) {
+            // int mid = (low + high) / 2;
+            int mid = low + ((high - low) >> 1);
+
+            if (arr[mid] == target) {
+                first = mid;
+                high = mid - 1;
+            } else if (target <= arr[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        low = 0;
+        high = arr.length - 1;
+        // for 1st occurace
+        while (low <= high) {
+            // int mid = (low + high) / 2;
+            int mid = low + ((high - low) >> 1);
+
+            if (arr[mid] == target) {
+                last = mid;
+                low = mid + 1;
+            } else if (target <= arr[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return new int[] { first, last };
+    }
+
     // Order Not Known Search -> dont know if ascending or decending
     // Order Agnostic Search
     static int notKnowOrder(int[] arr, int target) {
