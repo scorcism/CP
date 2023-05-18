@@ -7,7 +7,51 @@ public class Day10 {
 
     }
 
-    
+    // sudoku solver
+    public void solveSudoku(char[][] board) {
+        solvingSudoku(board);
+       }
+   
+       private boolean solvingSudoku(char[][] board) {
+   
+           int n = board.length;
+           int m = board[0].length;
+   
+           for (int i = 0; i < n; i++) {
+               for (int j = 0; j < m; j++) {
+                   if (board[i][j] == '.') {
+                       for (char k = '1'; k <= '9'; k++) {
+                           if (canFitNumber(i, j, board, k)) {
+                               board[i][j] = k;
+                               if (solvingSudoku(board)) {
+                                   return true;
+                               } else {
+                                   board[i][j] = '.';
+                               }
+                           }
+                       }
+                       return false;
+                   }
+               }
+           }
+           return true;
+       }
+   
+       private boolean canFitNumber(int row, int col, char[][] board, char c) {
+           for (int i = 0; i < 9; i++) {
+               if (board[i][col] == c)
+                   return false;
+               if (board[row][i] == c)
+                   return false;
+   
+               // checking in the kube box
+               if (board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == c) {
+                   return false;
+               }
+           }
+           return true;
+       }
+
     // 51. N-Queens
     public List<List<String>> solveNQueens(int n) {
         List<List<String>> ans = new ArrayList<>();
