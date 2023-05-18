@@ -1,6 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-17 20:46:50
-
+// Date: 2023-05-18 19:23:14
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,25 +17,19 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        
-        int min = Integer.MAX_VALUE;
-        int mini = 0;
-        int max = Integer.MIN_VALUE;
-        int maxi = 0;
-        for (int tt = 1; tt <= T; tt++) {
+        boolean flag = false;
+        for (int tt = 0; tt < T; tt++) {
             int n = fs.nextInt();
-            if(n <= min){
-                min = n;
-                mini = tt;
-            }else if (n >= max){
-                max = n;
-                maxi = tt;
+            if (n == 1) {
+                flag = true;
             }
         }
-        // System.out.println("max and maxi " + max + " "+ maxi);
-        // System.out.println("min and mini " + min + " "+ mini);
-        int ans = (maxi-1) + (T-mini );
-        System.out.println(ans );
+        if (flag) {
+            System.out.println("HARD");
+        } else {
+            System.out.println("EASY");
+
+        }
 
         out.close();
     }
@@ -117,14 +110,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
