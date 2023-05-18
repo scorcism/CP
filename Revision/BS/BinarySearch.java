@@ -3,8 +3,28 @@ package BS;
 public class BinarySearch {
 
     public static void main(String[] args) {
-        // System.out.println(bs(new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 }, 9));
-        System.out.println(reverseArray(new int[] { 9, 8, 7, 6, 5, 4, 3, 2, 1 }, 2));
+        int a[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+        int b[] = { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
+        // System.out.println(bs(a , 9));
+        System.out.println(reverseArray(b, 2));
+    }
+
+
+    
+    // Order Not Known Search -> dont know if ascending or decending
+    // Order Agnostic Search
+    static int notKnowOrder(int[] arr, int target) {
+        // compare 1st and last ele
+        int start = 0;
+        int end = arr.length - 1;
+        if (arr[start] < arr[end]) {
+            // sorted in ascending
+        } else if (arr[start] > arr[end]) {
+            // sorted in descending
+
+        }
+
+        return -1;
     }
 
     // Reverse sorted array
@@ -13,7 +33,7 @@ public class BinarySearch {
         int end = arr.length - 1;
 
         while (start <= end) {
-            int mid = start +((end - start) >> 1);
+            int mid = start + ((end - start) >> 1);
             if (arr[mid] == target) {
                 return mid;
             } else if (target < arr[mid]) {
