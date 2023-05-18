@@ -1,6 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-18 20:33:13
-
+// Date: 2023-05-18 20:47:59
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,19 +16,16 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int n = fs.nextInt();
-        int k = fs.nextInt();
-        
-        for (int tt = 0; tt < k; tt++) {
-            int tmp = n%10;
-            if(tmp !=0 ){
-                n -=1;
-            }else if(tmp == 0){
-                n/=10;
-            }
-        }
-        System.out.println(n);
+        int a = fs.nextInt();
+        int b = fs.nextInt();
 
+        int c = 0;
+        while (a <= b) {
+            c++;
+            a = a * 3;
+            b = b * 2;
+        }
+        System.out.println(c);
         out.close();
     }
 
@@ -109,14 +105,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
