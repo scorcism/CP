@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-18 19:23:14
+// Date: 2023-05-18 19:34:20
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,28 +10,45 @@ import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Random;
 
+
 public class Cf {
+
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        boolean flag = false;
-        for (int tt = 0; tt < T; tt++) {
+
+        ArrayList<values> arr = new ArrayList<>();
+        for (int tt = 1; tt <= T; tt++) {
             int n = fs.nextInt();
-            if (n == 1) {
-                flag = true;
-            }
-        }
-        if (flag) {
-            System.out.println("HARD");
-        } else {
-            System.out.println("EASY");
+            arr.add(new values(n, tt));
 
         }
+        Collections.sort(arr, new Comparator<values>() {
+            public int compare(values a, values b){
+                return a.val - b.val;
+            }
+        });
+        for(int i = 0; i< arr.size(); i++){
+            System.out.print(arr.get(i).index +" ");
+        }
+        System.out.println();
 
         out.close();
+    }
+
+
+    static class values{
+        int val;
+        int index;
+        values(int val, int index){
+            this.val = val;
+            this.index = index;
+        }
     }
 
     static class FastScanner {
