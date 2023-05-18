@@ -7,50 +7,88 @@ public class Day10 {
 
     }
 
+    // M-Coloring Problem
+    public boolean graphColoring(boolean graph[][], int m, int n) {
+        // T.C -> (N^M)
+        // S.C -> (N+N)
+        int color[] = new int[n];
+        for (int i = 0; i < n; i++)
+            color[i] = 0;
+        if (graphColoringUtil(graph, m, color, 0, n) == false) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean graphColoringUtil(boolean[][] graph, int m, int[] color, int node, int n) {
+        if (node == n) {
+            return true;
+        }
+        for (int c = 1; c <= m; c++) {
+            if (issafetocolor(graph, node, color, c, n)) {
+                color[node] = c;
+                if (graphColoringUtil(graph, node + 1, color, c, n) == true) {
+                    return true;
+                }
+                color[node] = 0;
+            }
+        }
+        return false;
+    }
+
+    private boolean issafetocolor(boolean[][] graph, int node, int[] color, int c, int n) {
+        for (int i = 0; i < n; i++) {
+            if (graph[node][i] && c == color[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // sudoku solver
     public void solveSudoku(char[][] board) {
         solvingSudoku(board);
-       }
-   
-       private boolean solvingSudoku(char[][] board) {
-   
-           int n = board.length;
-           int m = board[0].length;
-   
-           for (int i = 0; i < n; i++) {
-               for (int j = 0; j < m; j++) {
-                   if (board[i][j] == '.') {
-                       for (char k = '1'; k <= '9'; k++) {
-                           if (canFitNumber(i, j, board, k)) {
-                               board[i][j] = k;
-                               if (solvingSudoku(board)) {
-                                   return true;
-                               } else {
-                                   board[i][j] = '.';
-                               }
-                           }
-                       }
-                       return false;
-                   }
-               }
-           }
-           return true;
-       }
-   
-       private boolean canFitNumber(int row, int col, char[][] board, char c) {
-           for (int i = 0; i < 9; i++) {
-               if (board[i][col] == c)
-                   return false;
-               if (board[row][i] == c)
-                   return false;
-   
-               // checking in the kube box
-               if (board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == c) {
-                   return false;
-               }
-           }
-           return true;
-       }
+    }
+
+    private boolean solvingSudoku(char[][] board) {
+
+        int n = board.length;
+        int m = board[0].length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (board[i][j] == '.') {
+                    for (char k = '1'; k <= '9'; k++) {
+                        if (canFitNumber(i, j, board, k)) {
+                            board[i][j] = k;
+                            if (solvingSudoku(board)) {
+                                return true;
+                            } else {
+                                board[i][j] = '.';
+                            }
+                        }
+                    }
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    private boolean canFitNumber(int row, int col, char[][] board, char c) {
+        for (int i = 0; i < 9; i++) {
+            if (board[i][col] == c)
+                return false;
+            if (board[row][i] == c)
+                return false;
+
+            // checking in the kube box
+            if (board[3 * (row / 3) + i / 3][3 * (col / 3) + i % 3] == c) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     // 51. N-Queens
     public List<List<String>> solveNQueens(int n) {
