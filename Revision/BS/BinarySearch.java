@@ -6,17 +6,19 @@ public class BinarySearch {
 
     public static void main(String[] args) {
         int a[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
-        int aa[] = { 1, 2, 3, 4, 4, 4, 4, 7, 8, 9 };
+        int aa[] = { 1, 2, 3, 4, 4, 7, 8, 9 };
         int b[] = { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
         // System.out.println(bs(a , 9));
         // System.out.println(reverseArray(b, 2));
         // System.out.println(Arrays.toString(firstandlast(aa, 2)));
-        System.out.println(countinSortedArray(aa, 1));
+        // System.out.println(countinSortedArray(aa, 4));
     }
 
     // count of ele in sorted array
     static int countinSortedArray(int[] arr, int target) {
-        int count = 0;
+
+        int first = -1;
+        int last = -1;
 
         int low = 0;
         int high = arr.length - 1;
@@ -27,7 +29,7 @@ public class BinarySearch {
             int mid = low + ((high - low) >> 1);
 
             if (arr[mid] == target) {
-                count++;
+                first = mid;
                 high = mid - 1;
             } else if (target <= arr[mid]) {
                 high = mid - 1;
@@ -42,8 +44,9 @@ public class BinarySearch {
         while (low <= high) {
             // int mid = (low + high) / 2;
             int mid = low + ((high - low) >> 1);
+
             if (arr[mid] == target) {
-                count++;
+                last = mid;
                 low = mid + 1;
             } else if (target <= arr[mid]) {
                 high = mid - 1;
@@ -52,7 +55,7 @@ public class BinarySearch {
             }
         }
 
-        return count - 1;
+        return last - first + 1;
     }
 
     // First and Last occcurance
