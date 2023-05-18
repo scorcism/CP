@@ -7,6 +7,44 @@ public class Day10 {
 
     }
 
+    public static ArrayList<String> findPath(int[][] m, int n) {
+        // TC -> 4^(n*n)
+        // SC -> O(n*n)
+        ArrayList<String> ans = new ArrayList<>();
+
+        int[][] vis = new int[n][n];
+
+        if (m[0][0] == 1) {
+            fpSolve(m, n, 0, 0, ans, "", vis);
+        }
+        return ans;
+    }
+
+    private static void fpSolve(int[][] a, int n, int i, int j, ArrayList<String> ans, String moves, int[][] vis) {
+        if (i >= n - 1 && j >= n - 1) {
+            ans.add(moves);
+            return;
+        }
+
+        int[] drow = { -1, 0, +1, 0 };
+        int[] dcol = { 0, 1, 0, -1 };
+        String directions = "DLRU";
+
+        for (int index = 0; index < 4; index++) {
+
+            int newrow = drow[index] + i;
+            int newcol = dcol[index] + j;
+
+            if (newrow >= 0 && newcol >= 0 && newrow < n && newcol < n && a[newrow][newcol] == 1
+                    && vis[newrow][newcol] != 1) {
+                vis[newrow][newcol] = 1;
+                fpSolve(a, n, newrow, newcol, moves + directions.charAt(index), ans, vis);
+                vis[newrow][newcol] = 0;
+            }
+        }
+
+    }
+
     // M-Coloring Problem
     public boolean graphColoring(boolean graph[][], int m, int n) {
         // T.C -> (N^M)
