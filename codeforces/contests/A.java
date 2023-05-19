@@ -21,7 +21,11 @@ public class A {
         int T = fs.nextInt();
         
         for(int tt = 0; tt < T; tt++){
+            int len = fs.nextInt();
+            String str = fs.next();
+
             
+
         }
             
         out.close();

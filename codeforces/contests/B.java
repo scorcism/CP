@@ -1,7 +1,7 @@
 package contests;
 // Abhishek Pathak - scor32k
-// Date: 2023-05-08 08:22:47
 
+// Date: 2023-05-08 08:22:47
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,11 +19,33 @@ public class B {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        
-        for(int tt = 0; tt < T; tt++){
-            
+
+        for (int tt = 0; tt < T; tt++) {
+            int n = fs.nextInt();
+            int k = fs.nextInt();
+
+            int[] a = fs.nextIntArray(n);
+            int[] b = fs.nextIntArray(n);
+            int[] ans = new int[b.length];
+
+            for (int i = 0; i < a.length; i++) {
+                int min = 0;
+                for (int j = 0; j < b.length; j++) {
+                    int m = 0;
+                    if(Math.abs(a[i] - b[j]) <= k){
+                        m  = b[j];
+                    }
+                    min = Math.min(min, m);
+                }
+                ans[i] = min;
+            }
+            for(int i = 0; i< ans.length; i++){
+                System.out.print(ans[i] + " ");
+            }
+            System.out.println();
+
         }
-            
+
         out.close();
     }
 
@@ -56,8 +78,7 @@ public class B {
                 }
             }
 
-            return tokenizer.nextToken(
-);
+            return tokenizer.nextToken();
         }
 
         public long nextLong() {
@@ -67,23 +88,23 @@ public class B {
         public int nextInt() {
             return Integer.parseInt(next());
         }
-        
+
         public double nextDouble() {
-             return Double.parseDouble(next());
-         }
-        
+            return Double.parseDouble(next());
+        }
+
         public int[] nextIntArray(int n) {
             int[] a = new int[n];
             for (int i = 0; i < n; i++)
                 a[i] = nextInt();
             return a;
         }
-        
+
         public long[] nextLongArray(int n) {
             long[] a = new long[n];
             for (int i = 0; i < n; i++)
                 a[i] = nextLong();
             return a;
-        } 
+        }
     }
 }
