@@ -6,6 +6,26 @@ public class Heap {
         System.out.println(kthSmallest(arr, 3));
     }
 
+    public int[] topKFrequent(int[] nums, int k) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for(int n: nums){
+            map.put(n,map.getOrDefault(n, 0)+1 );
+        }   
+        PriorityQueue<Integer> pq = new PriorityQueue<>( (a,b)-> map.get(a)-map.get(b));
+
+        for(int n: map.keySet()){
+            pq.add(n);
+            if(pq.size() > k){
+                pq.poll();
+            }
+        }
+        int[] ans = new int[2];
+        ans[0] = pq.poll();
+        ans[1] = pq.poll();
+        return ans;
+    }
+
+
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
         List<Integer> ans = new ArrayList<>();
 
