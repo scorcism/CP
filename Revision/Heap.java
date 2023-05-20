@@ -7,7 +7,23 @@ public class Heap {
     }
 
 
-    
+    // Sort a nearly sorted (or K sorted) array
+    //Function to return the sorted array.
+    ArrayList <Integer> nearlySorted(int arr[], int num, int k)
+    {
+        ArrayList<Integer> ans = new ArrayList<>();
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for(int n: arr){
+            pq.add(n);
+            if(pq.size() > k){
+                ans.add(pq.poll());
+            } 
+        }
+        while(!pq.isEmpty()){
+            ans.add(pq.poll());
+        }
+        return ans;
+    }
 
     // k largest -> k + largest => create min heap
 
