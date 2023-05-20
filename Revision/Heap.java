@@ -6,6 +6,13 @@ public class Heap {
         System.out.println(kthSmallest(arr, 3));
     }
 
+    // Frequency sort
+    /*
+     * store in hashmap with n and count
+     * then store that in max heap so max freq will be on the top
+     * and iterate through the map and run another loop 
+     */
+
     public int[] topKFrequent(int[] nums, int k) {
         HashMap<Integer, Integer> map = new HashMap<>();
         for(int n: nums){
