@@ -9,6 +9,52 @@ public class Day11 {
         // getNthRoot(3, 27);
     }
 
+    
+    // Allocate Books
+    public int books(int[] A, int B) {
+        if(B > A.length ){
+            return -1;
+        }
+        int low = A[0];
+        int sum = 0;
+        for (int n : A) {
+            sum += n;
+            low = Math.min(low, n);
+        }
+        int high = sum;
+        int res = -1;
+        while (low <= high) {
+            int mid = (low + high) >> 1;
+            if (canbeAllocated(mid, A, B)) {
+                res = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return res;
+    }
+
+    private static boolean canbeAllocated(int mid, int[] a, int k) {
+        int allcoated_studs = 0;
+        int pages = 0;
+        for (int i = 0; i < a.length; i++) {
+            if(a[i]> mid){
+                return false;
+            }
+            if(pages + a[i] > mid){
+                allcoated_studs++;
+                pages = a[i];
+            }else{
+                pages+=a[i];
+            }
+        }
+        if(allcoated_studs < k){
+            return true;
+        }
+        return false;
+    }
+
     // K-th element of two sorted Arrays
     public long kthElement(int arr1[], int arr2[], int n, int m, int k) {
         if (n > m) {
