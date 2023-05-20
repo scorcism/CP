@@ -9,6 +9,40 @@ public class Day11 {
         // getNthRoot(3, 27);
     }
 
+
+    
+    // AGGRCOW - Aggressive cows
+    static int aggrcow(int[] arr, int n, int cows) {
+        int low = arr[0];
+        int high = arr[n - 1] - arr[0];
+        int res = 0;
+        while (low <= high) {
+            int mid = (low + high) >> 1;
+            if (isPossible(arr, n, cows, mid)) {
+                res = mid;
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return res;
+    }
+
+    private static boolean isPossible(int[] arr, int n, int cows, int dist) {
+        int strt = arr[0];
+        int count = 0;
+        for (int i = 1; i < n; i++) {
+            if (arr[i] - strt >= dist) {
+                count++;
+                strt = arr[i];
+            }
+            if (count == cows) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // 33. Search in Rotated Sorted Array
     public int search(int[] nums, int target) {
         int low = 0;
