@@ -10,13 +10,34 @@ public class BinarySearch {
         int b[] = { 9, 8, 7, 6, 5, 4, 3, 2, 1 };
         int bb[] = { 6, 7, 8, 9, 2, 3, 4, 5 };
         int c[] = { 5, 10, 30, 20, 40 };
-        // System.out.println(bs(a , 9));
-        // System.out.println(reverseArray(b, 2));
-        // System.out.println(Arrays.toString(firstandlast(aa, 2)));
-        // System.out.println(countinSortedArray(aa, 4));
-        // System.out.println(numberOfTimes(bb));
-        // System.out.println(nearlySorted(c,20));
-        System.out.println(findCeil(a, 5));
+        char ch[] = { 'a', 'b', 'c', 'd', 'f', 'i' };
+        // System.out.println(nextAlpla(ch, 'd'));
+
+        
+    }
+
+
+
+    // Next Alphabetical Element
+    // Similar to ceil of a number
+    private static char nextAlpla(char[] arr, char target) {
+        char res = '0';
+        int low = 0;
+        int high = arr.length - 1;
+        while (low <= high) {
+            int mid = low + high / 2;
+
+            if (arr[mid] == target) {
+                low = mid + 1;
+            }
+            if (arr[mid] < target) {
+                low = mid + 1;
+            } else {
+                res = arr[mid];
+                high = mid - 1;
+            }
+        }
+        return res;
     }
 
     // Find Floor of an element in a Sorted Array
