@@ -13,24 +13,50 @@ public class BinarySearch {
         char ch[] = { 'a', 'b', 'c', 'd', 'f', 'i' };
         // System.out.println(nextAlpla(ch, 'd'));
 
+    }
 
+    
+    // Index of First 1 in a Binary Sorted Infinite Array
+    static int infiniteSortedBinary(int[] arr) {
+        // infinitee sorted + first occurance
+        int low = 0;
+        int high = 1;
+        int target = 1;
+        while (target > arr[high]) {
+            low = target;
+            high = high * 2;
+        }
+
+        int res = 0;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (arr[mid] == target) {
+                res = mid;
+                high = mid - 1;
+            }
+            if (arr[mid] < target) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        return res;
     }
 
     // Find position of an element in an Infinite Sorted Array
-    static int infiniteSorted(int[] arr, int target){
+    static int infiniteSorted(int[] arr, int target) {
         int start = 0;
         int end = 1;
-        while(target > arr[end]){
+        while (target > arr[end]) {
             start = end;
             end *= 2;
         }
-        
-        // do bs on arr low  = start and high  end;
+
+        // do bs on arr low = start and high end;
         // the value || target will be between these bond
         return 10; // dont take thiss serious, this is for fun :)
 
     }
-
 
     // Next Alphabetical Element
     // Similar to ceil of a number
@@ -51,6 +77,7 @@ public class BinarySearch {
                 high = mid - 1;
             }
         }
+
         return res;
     }
 
