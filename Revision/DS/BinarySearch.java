@@ -1,4 +1,4 @@
-package BS;
+package DS;
 
 import java.util.*;
 
