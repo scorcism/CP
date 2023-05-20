@@ -9,8 +9,13 @@ public class Day11 {
         // getNthRoot(3, 27);
     }
 
+    // 4. Median of Two Sorted Arrays
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        // todo
+        return 0.0;
+    }
 
-    
+
     // AGGRCOW - Aggressive cows
     static int aggrcow(int[] arr, int n, int cows) {
         int low = arr[0];
