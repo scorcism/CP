@@ -15,7 +15,28 @@ public class BinarySearch {
 
     }
 
-    
+    // Minimum Difference Element in a Sorted Array
+    static int minDifference(int[] arr, int target) {
+        // basically we need to perfon find floor and find ceil
+        // just to basic bs
+        // low = ceil of target
+        // high = floow of target
+        int low = 0;
+        int high = arr.length - 1;
+        while (low <= high) {
+            int mid = low + ((high - low) >> 1);
+            if (arr[mid] == target) {
+                return arr[mid];
+            }
+            if (target < arr[mid]) {
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+        return Math.min(Math.abs(low - target), Math.abs(high - target));
+    }
+
     // Index of First 1 in a Binary Sorted Infinite Array
     static int infiniteSortedBinary(int[] arr) {
         // infinitee sorted + first occurance
