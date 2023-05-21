@@ -6,23 +6,41 @@ public class Heap {
         System.out.println(kthSmallest(arr, 3));
     }
 
+    // K Closest points to origin
+    public int[][] kClosest(int[][] points, int k) {
+        PriorityQueue<int[]> pq = new PriorityQueue<>(
+                (p1, p2) -> (p2[0] * p2[0]) + (p2[1] * p2[1]) - (p1[0] * p1[0]) + (p1[1] * p1[1]));
+
+        for (int[] p : points) {
+            pq.offer(p);
+            if (pq.size() > k) {
+                pq.poll();
+            }
+        }
+        int[][] ans = new int[k][2];
+        while (k > 0) {
+            ans[--k] = pq.poll();
+        }
+        return ans;
+    }
+
     // Frequency sort
     /*
      * store in hashmap with n and count
      * then store that in max heap so max freq will be on the top
-     * and iterate through the map and run another loop 
+     * and iterate through the map and run another loop
      */
 
     public int[] topKFrequent(int[] nums, int k) {
         HashMap<Integer, Integer> map = new HashMap<>();
-        for(int n: nums){
-            map.put(n,map.getOrDefault(n, 0)+1 );
-        }   
-        PriorityQueue<Integer> pq = new PriorityQueue<>( (a,b)-> map.get(a)-map.get(b));
+        for (int n : nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a, b) -> map.get(a) - map.get(b));
 
-        for(int n: map.keySet()){
+        for (int n : map.keySet()) {
             pq.add(n);
-            if(pq.size() > k){
+            if (pq.size() > k) {
                 pq.poll();
             }
         }
@@ -32,22 +50,21 @@ public class Heap {
         return ans;
     }
 
-
     public List<Integer> findClosestElements(int[] arr, int k, int x) {
         List<Integer> ans = new ArrayList<>();
 
         PriorityQueue<Integer> pq = new PriorityQueue<>();
-        for(int n: arr){
-            if(k > 0){
+        for (int n : arr) {
+            if (k > 0) {
                 pq.offer(n);
                 k--;
-            }else if(Math.abs(pq.peek()-x )> Math.abs(n-x)){
+            } else if (Math.abs(pq.peek() - x) > Math.abs(n - x)) {
                 pq.poll();
                 pq.offer(n);
             }
         }
-        
-        while(!pq.isEmpty()){
+
+        while (!pq.isEmpty()) {
             ans.add(pq.poll());
         }
 
