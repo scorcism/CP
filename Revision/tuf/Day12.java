@@ -7,11 +7,47 @@ public class Day12 {
         int[] B = { 2, 5, 1, 6 };
         int C = 4;
         // System.out.println(Arrays.toString(maximumSumCombination(A, B, C)));
+        int K = 3;
+        // int arr[][] = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 } };
+        // System.out.println(mergeKArrays(arr, K));
 
     }
 
-
     
+    // Function to merge k sorted arrays.
+    public static ArrayList<Integer> mergeKArrays(int[][] arr, int K) {
+        // Write your code here.
+        PriorityQueue<mk> pq = new PriorityQueue<>((a, b) -> a.val - b.val);
+
+        for (int i = 0; i < K; i++) {
+            pq.add(new mk(arr[i][0], 0, i));
+        }
+
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        while (!pq.isEmpty()) {
+            mk curr = pq.poll();
+            ans.add(curr.val);
+            if (curr.i + 1 < (arr[curr.array].length)) {
+                pq.add(new mk(arr[curr.array][curr.i + 1], curr.i + 1, curr.array));
+            }
+        }
+
+        return ans;
+    }
+
+    static class mk {
+        int val;
+        int i;
+        int array;
+
+        mk(int val, int i, int a) {
+            this.val = val;
+            this.i = i;
+            this.array = a;
+        }
+    }
+
     class MedianFinder {
 
         PriorityQueue<Integer> smallNumbers = new PriorityQueue<>(Collections.reverseOrder()); // max heap
