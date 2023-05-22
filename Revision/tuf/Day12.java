@@ -10,33 +10,36 @@ public class Day12 {
 
     }
 
+
+    
     class MedianFinder {
 
-        PriorityQueue<Integer> smallNumbers = new PriorityQueue<>(Collections.reverseOrder()); // max heap 
-        PriorityQueue<Integer> largeNumbers = new PriorityQueue<>();  // min heap
+        PriorityQueue<Integer> smallNumbers = new PriorityQueue<>(Collections.reverseOrder()); // max heap
+        PriorityQueue<Integer> largeNumbers = new PriorityQueue<>(); // min heap
 
         public MedianFinder() {
 
         }
-        
+
         public void addNum(int num) {
-            if(smallNumbers.isEmpty() || smallNumbers.peek() >= num){
+            if (smallNumbers.isEmpty() || smallNumbers.peek() >= num) {
                 smallNumbers.add(num);
-            }else{
+            } else {
                 largeNumbers.add(num);
             }
 
-            // comparing size coz both should have same number of elements or max heap that is smallnumber shoud have 1 more then large numbers
-            if(smallNumbers.size() > largeNumbers.size()+1){
+            // comparing size coz both should have same number of elements or max heap that
+            // is smallnumber shoud have 1 more then large numbers
+            if (smallNumbers.size() > largeNumbers.size() + 1) {
                 largeNumbers.add(smallNumbers.poll());
-            }else if(smallNumbers.size() < largeNumbers.size()){
+            } else if (smallNumbers.size() < largeNumbers.size()) {
                 smallNumbers.add(largeNumbers.poll());
             }
-        
+
         }
-        
+
         public double findMedian() {
-            if(smallNumbers.size() == largeNumbers.size()){
+            if (smallNumbers.size() == largeNumbers.size()) {
                 return smallNumbers.peek() / 2.0 + largeNumbers.peek() / 2.0;
             }
             return smallNumbers.peek();
