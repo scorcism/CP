@@ -1,6 +1,5 @@
-package contests;
 // Abhishek Pathak - scor32k
-// Date: 2023-05-08 08:22:21
+// Date: 2023-05-22 19:30:45
 
 
 import java.io.BufferedReader;
@@ -12,6 +11,7 @@ import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Random;
 
 public class A {
@@ -19,15 +19,17 @@ public class A {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        
-        for(int tt = 0; tt < T; tt++){
-            int len = fs.nextInt();
-            String str = fs.next();
 
-            
-
+        for (int tt = 0; tt < T; tt++) {
+            HashSet<String> set = new HashSet<>();
+            int n = fs.nextInt();
+            char[] str = fs.next().toCharArray();
+            for (int i = 0; i < n - 1; i++) {
+                set.add(str[i] + "" + str[i + 1]);
+            }
+            System.out.println(set.size());
         }
-            
+
         out.close();
     }
 
@@ -60,8 +62,7 @@ public class A {
                 }
             }
 
-            return tokenizer.nextToken(
-);
+            return tokenizer.nextToken();
         }
 
         public long nextLong() {
@@ -71,23 +72,77 @@ public class A {
         public int nextInt() {
             return Integer.parseInt(next());
         }
-        
+
         public double nextDouble() {
-             return Double.parseDouble(next());
-         }
-        
+            return Double.parseDouble(next());
+        }
+
         public int[] nextIntArray(int n) {
             int[] a = new int[n];
             for (int i = 0; i < n; i++)
                 a[i] = nextInt();
             return a;
         }
-        
+
         public long[] nextLongArray(int n) {
             long[] a = new long[n];
             for (int i = 0; i < n; i++)
                 a[i] = nextLong();
             return a;
-        } 
+        }
+    }
+
+    static int min(int a, int b, int c) {
+        return Math.min(a, Math.min(b, c));
+    }
+
+    static int min(int a, int b) {
+        return Math.min(a, b);
+    }
+
+    private static void swapinarray(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+
+    static int max(int a, int b, int c) {
+        return Math.max(a, Math.max(b, c));
+    }
+
+    static int max(int a, int b) {
+        return Math.max(a, b);
+    }
+
+    static void qsort(int[] arr) {
+        quickSort(arr, 0, arr.length - 1);
+    }
+
+    private static void quickSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int partition = qucickS(arr, left, right);
+            quickSort(arr, left, partition - 1);
+            quickSort(arr, partition + 1, right);
+        }
+    }
+
+    private static int qucickS(int[] arr, int left, int right) {
+        int pivot = arr[left];
+        int i = left;
+        int j = right;
+
+        while (i < j) {
+            while (arr[i] <= pivot && i <= right - 1) {
+                i++;
+            }
+            while (arr[j] >= pivot && j >= left + 1) {
+                j--;
+            }
+            if (i < j) {
+                swapinarray(arr, i, j);
+            }
+        }
+        swapinarray(arr, j, left);
+        return j;
     }
 }

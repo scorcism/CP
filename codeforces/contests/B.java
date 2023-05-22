@@ -1,7 +1,6 @@
-package contests;
 // Abhishek Pathak - scor32k
+// Date: 2023-05-22 19:42:08
 
-// Date: 2023-05-08 08:22:47
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,31 +18,9 @@ public class B {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-
+        
         for (int tt = 0; tt < T; tt++) {
-            int n = fs.nextInt();
-            int k = fs.nextInt();
-
-            int[] a = fs.nextIntArray(n);
-            int[] b = fs.nextIntArray(n);
-            int[] ans = new int[b.length];
-
-            for (int i = 0; i < a.length; i++) {
-                int min = 0;
-                for (int j = 0; j < b.length; j++) {
-                    int m = 0;
-                    if(Math.abs(a[i] - b[j]) <= k){
-                        m  = b[j];
-                    }
-                    min = Math.min(min, m);
-                }
-                ans[i] = min;
-            }
-            for(int i = 0; i< ans.length; i++){
-                System.out.print(ans[i] + " ");
-            }
-            System.out.println();
-
+                        
         }
 
         out.close();
@@ -106,5 +83,58 @@ public class B {
                 a[i] = nextLong();
             return a;
         }
+    }
+
+    static int min(int a, int b, int c) {
+        return Math.min(a, Math.min(b, c));
+    }
+
+    static int min(int a, int b) {
+        return Math.min(a, b);
+    }
+
+    private static void swapinarray(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+
+    static int max(int a, int b, int c) {
+        return Math.max(a, Math.max(b, c));
+    }
+    
+    static int max(int a, int b) {
+        return Math.max(a, b);
+    }
+    
+    static void qsort(int[] arr) {
+        quickSort(arr, 0, arr.length - 1);
+    }
+    private static void quickSort(int[] arr, int left, int right) {
+        if (left < right) {
+            int partition = qucickS(arr, left, right);
+            quickSort(arr, left, partition - 1);
+            quickSort(arr, partition + 1, right);
+        }
+    }
+
+    private static int qucickS(int[] arr, int left, int right) {
+        int pivot = arr[left];
+        int i = left;
+        int j = right;
+
+        while (i < j) {
+            while (arr[i] <= pivot && i <= right - 1) {
+                i++;
+            }
+            while (arr[j] >= pivot && j >= left + 1) {
+                j--;
+            }
+            if (i < j) {
+                swapinarray(arr, i, j);
+            }
+        }
+        swapinarray(arr, j, left);
+        return j;
     }
 }

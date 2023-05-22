@@ -7,6 +7,12 @@ public class Day13 {
 
     }
 
+    // Sort a Stack
+    static void sortStack(Stack<Integer> stack){
+        
+    }
+
+
     public int[] nextGreaterElements(int[] nums) {
         int[] nge = new int[nums.length];
         int n = nums.length;
