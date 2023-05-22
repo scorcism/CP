@@ -7,7 +7,48 @@ public class Day13 {
 
     }
 
-    
+    public int[] nextGreaterElements(int[] nums) {
+        int[] nge = new int[nums.length];
+        int n = nums.length;
+        Stack<Integer> stack = new Stack<>();
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && stack.peek() <= nums[i]) {
+                stack.pop();
+            }
+            if (i < n) {
+                if (!stack.isEmpty()) {
+                    nge[i] = stack.peek();
+                } else {
+                    nge[i] = -1;
+                }
+            }
+            stack.add(nums[i]);
+
+        }
+        return nge;
+    }
+
+    public int[] nextGreaterElements2(int[] nums) {
+        int[] nge = new int[nums.length];
+        int n = nums.length;
+        Stack<Integer> stack = new Stack<>();
+        for (int i = 2 * n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && stack.peek() <= nums[i % n]) {
+                stack.pop();
+            }
+            if (i < n) {
+                if (!stack.isEmpty()) {
+                    nge[i] = stack.peek();
+                } else {
+                    nge[i] = -1;
+                }
+            }
+            stack.add(nums[i % n]);
+
+        }
+        return nge;
+    }
+
     // Check for balanced parentheses
     public boolean isValid(String s) {
         Stack<Character> stack = new Stack<>();
