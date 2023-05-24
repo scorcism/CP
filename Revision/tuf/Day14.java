@@ -8,6 +8,58 @@ public class Day14 {
         // System.out.println(Arrays.toString(prevSmaller(A)));
     }
 
+    // ind the maximum of minimums of every window sizeF
+    public static int[] maxMinWindow(int[] a, int n) {
+        // Get next Smaller
+        // Get previous Smaller
+        int[] nextSmaller = new int[n];
+        int[] previousSmaller = new int[n];
+
+        Stack<Integer> st = new Stack<>();
+
+        // calculate next smaller
+        for (int i = n - 1; i >= 0; i--) {
+            while (!st.isEmpty() && a[st.peek()] >= a[i]) {
+                st.pop();
+            }
+            if (!st.isEmpty()) {
+                nextSmaller[i] = st.peek();
+            } else {
+                nextSmaller[i] = n;
+            }
+            st.push(i);
+        }
+
+        while (!st.isEmpty()) {
+            st.pop();
+        }
+
+        // calculate previus small
+        for (int i = 0; i < n; i++) {
+            while (!st.isEmpty() && a[st.peek()] >= a[i]) {
+                st.pop();
+            }
+            if (!st.isEmpty()) {
+                nextSmaller[i] = st.peek();
+            } else {
+                nextSmaller[i] = 0;
+            }
+            st.push(i);
+        }
+
+        int[] ans = new int[n + 1];
+        Arrays.fill(ans, 0);
+        for (int i = 0; i < n; i++) {
+            int len = nextSmaller[i] - previousSmaller[i] -1;
+            ans[len] = Math.max(ans[len],a[i]);
+        }
+
+        for (int i = n - 1; i >= 1; i--)
+            ans[i] = Math.max(ans[i], ans[i + 1]);
+
+        return ans;
+    }
+
     static class StockSpanner {
 
         class Pair {
