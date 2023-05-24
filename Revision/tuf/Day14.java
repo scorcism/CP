@@ -8,7 +8,13 @@ public class Day14 {
         // System.out.println(Arrays.toString(prevSmaller(A)));
     }
 
-    public int largestRectangleArea2(int[] heights){
+
+    // 239. Sliding Window Maximum
+    public int[] maxSlidingWindow(int[] nums, int k) {
+
+    }
+
+    public int largestRectangleArea2(int[] heights) {
         return 0;
     }
 
