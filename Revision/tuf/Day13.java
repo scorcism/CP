@@ -1,5 +1,6 @@
 import java.util.Stack;
 
+
 public class Day13 {
 
     // commit template - tuf-day13-questionName
@@ -10,6 +11,66 @@ public class Day13 {
     // Sort a Stack
     static void sortStack(Stack<Integer> stack) {
 
+    }
+
+    // Implement Queue[FIFO] Using Arrays
+    static class QueueUArray {
+
+        int CAPACITY;
+        int[] arr;
+        int front;
+        int rare;
+        int count;
+
+        public QueueUArray(int capacity) {
+            this.CAPACITY = capacity;
+            arr = new int[CAPACITY];
+            front = 0;
+            rare = 0;
+            count = 1;
+        }
+
+        void push(int n) {
+            if (count == CAPACITY) {
+                System.out.println("FULL");
+                return;
+            }
+            arr[rare % CAPACITY] = n;
+            rare++;
+            count++;
+        }
+
+        int pop() {
+            if (count == 0) {
+                System.out.print("EMPTY");
+                return -1;
+            }
+            int n = arr[front % CAPACITY];
+            front++;
+            count--;
+            return n;
+        }
+
+        int size() {
+            if (count == 0) {
+                return -1;
+            }
+            return count;
+        }
+
+        int top() {
+            if(count == 0){
+                return -1;
+            }
+            return arr[front%CAPACITY];
+        }
+
+        int front() {
+            if(front != rare){
+                return arr[front % CAPACITY];
+            }
+            return -1;
+        }
     }
 
     // Implement stack Using Arrays
