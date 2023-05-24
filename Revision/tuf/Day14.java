@@ -9,6 +9,30 @@ public class Day14 {
     }
 
 
+    // 155. Min Stack
+    static class MinStack {
+
+        public MinStack() {
+
+        }
+
+        public void push(int val) {
+
+        }
+
+        public void pop() {
+
+        }
+
+        public int top() {
+
+        }
+
+        public int getMin() {
+
+        }
+    }
+
     // 239. Sliding Window Maximum
     public int[] maxSlidingWindow(int[] nums, int k) {
 
