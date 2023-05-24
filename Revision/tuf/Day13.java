@@ -1,3 +1,6 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.Queue;
 import java.util.Stack;
 
 
@@ -5,13 +8,51 @@ public class Day13 {
 
     // commit template - tuf-day13-questionName
     public static void main(String[] args) {
-
     }
 
     // Sort a Stack
     static void sortStack(Stack<Integer> stack) {
 
     }
+
+    // 	Implement Stack[LIFO] using Queue[FIFO] (using single queue)
+    static class StackUsingQueue1{
+        // SC -> O(N+N) = O(N)
+        Deque<Integer> q1 = new ArrayDeque<>();
+        Deque<Integer> q2 = new ArrayDeque<>();
+
+        // Steps
+        /*
+         * push(m)
+         * Add m -> q2
+         * Move q1 -> q2 element by element
+         * swap(q1, q2)
+         */
+
+        void push(int x){
+            q2.add(x);
+            while(!q1.isEmpty()){
+                q2.add(q1.poll());
+            }
+            Deque<Integer> tmp = q1;
+            q1 = q2;
+            q2 = tmp;
+        }
+
+        /*
+         * Remove element from q1
+         */
+        void pop(){
+            if(!q1.isEmpty()){
+                q1.poll();
+            }
+        }
+
+        int top(){
+            return q1.peekFirst();
+        }
+    }
+
 
     // Implement Queue[FIFO] Using Arrays
     static class QueueUArray {
