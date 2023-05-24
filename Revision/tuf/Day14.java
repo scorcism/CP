@@ -8,6 +8,49 @@ public class Day14 {
         // System.out.println(Arrays.toString(prevSmaller(A)));
     }
 
+    // Largest Rectangle in Histogram
+    public int largestRectangleArea(int[] heights) {
+        // Get previus i.e. left smaller
+        // Get next i.e right smaller
+        int n = heights.length;
+        int[] nse = new int[n];
+        int[] pse = new int[n];
+
+        Stack<Integer> stack = new Stack<>();
+        // previus smaller
+        for (int i = 0; i < n; i++) {
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) {
+                stack.pop();
+            }
+            if (stack.isEmpty()) {
+                pse[i] = 0;
+            } else {
+                pse[i] = stack.peek() + 1;
+            }
+            stack.push(i);
+        }
+        while (!stack.isEmpty()) {
+            stack.pop();
+        }
+        // next smaller
+        for (int i = n - 1; i >= 0; i--) {
+            while (!stack.isEmpty() && heights[stack.peek()] >= heights[i]) {
+                stack.pop();
+            }
+            if (stack.isEmpty()) {
+                nse[i] = n - 1;
+            } else {
+                nse[i] = stack.peek() - 1;
+            }
+            stack.push(i);
+        }
+        int maxA = 0;
+        for (int i = 0; i < n; i++) {
+            maxA = Math.max(maxA, heights[i] * (nse[i] - pse[i] + 1));
+        }
+        return maxA;
+    }
+
     // LFU Cache
     static class LRUCache {
 
