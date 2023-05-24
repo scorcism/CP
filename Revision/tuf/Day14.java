@@ -8,9 +8,38 @@ public class Day14 {
         // System.out.println(Arrays.toString(prevSmaller(A)));
     }
 
+    static class StockSpanner {
+
+        class Pair {
+            int value;
+            int ans;
+
+            Pair(int v, int a) {
+                this.value = v;
+                this.ans = a;
+            }
+        }
+
+        Stack<Pair> stack;
+
+        public StockSpanner() {
+            stack = new Stack<Pair>();
+        }
+
+        public int next(int price) {
+            int ans = 1;
+            while (!stack.isEmpty() && stack.peek().value <= price) {
+                ans += stack.pop().ans;
+            }
+
+            stack.push(new Pair(price, ans));
+            return ans;
+        }
+    }
+
     // 994. Rotting Oranges
     public int orangesRotting(int[][] grid) {
-        
+
     }
 
     // 155. Min Stack
