@@ -8,10 +8,67 @@ public class Day13 {
     }
 
     // Sort a Stack
-    static void sortStack(Stack<Integer> stack){
-        
+    static void sortStack(Stack<Integer> stack) {
+
     }
 
+    // Implement stack Using Arrays
+    static class StackUArray {
+        /*
+         * All functions
+         * push
+         * pop
+         * top
+         * size()
+         * isEmpty()
+         * isFull()
+         */
+        int CAPACITY;
+        int[] arr;
+        int top;
+
+        public StackUArray(int capacity) {
+            this.CAPACITY = capacity;
+            arr = new int[CAPACITY];
+            top = -1;
+        }
+
+        public boolean isFull() {
+            return top == CAPACITY - 1; // true if top == capacity
+        }
+
+        public boolean isEmpty() {
+            return top == -1;
+        }
+
+        public void push(int n) {
+            if (isFull()) {
+                System.out.println("Stack Full");
+            } else {
+                top++;
+                arr[top] = n;
+            }
+        }
+
+        public int pop() {
+            if (!isEmpty()) {
+                int n = arr[top];
+                top--;
+                return n;
+            }
+            System.out.println("Stack Empty");
+            return -1;
+        }
+
+        public int size() {
+            return top++;
+        }
+
+        public int peek() {
+            return arr[top];
+        }
+
+    }
 
     public int[] nextGreaterElements(int[] nums) {
         int[] nge = new int[nums.length];

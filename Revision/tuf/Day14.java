@@ -8,7 +8,14 @@ public class Day14 {
         // System.out.println(Arrays.toString(prevSmaller(A)));
     }
 
-    // ind the maximum of minimums of every window sizeF
+
+    // The Celebrity Problem
+    int celebrity(int M[][], int n)
+    {
+    	
+    }
+
+    // Find the maximum of minimums of every window size
     public static int[] maxMinWindow(int[] a, int n) {
         // Get next Smaller
         // Get previous Smaller
