@@ -8,6 +8,10 @@ public class Day14 {
         // System.out.println(Arrays.toString(prevSmaller(A)));
     }
 
+    public int largestRectangleArea2(int[] heights){
+        return 0;
+    }
+
     // Largest Rectangle in Histogram
     public int largestRectangleArea(int[] heights) {
         // Get previus i.e. left smaller
