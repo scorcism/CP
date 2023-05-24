@@ -8,6 +8,10 @@ public class Day14 {
         // System.out.println(Arrays.toString(prevSmaller(A)));
     }
 
+    // 994. Rotting Oranges
+    public int orangesRotting(int[][] grid) {
+        
+    }
 
     // 155. Min Stack
     static class MinStack {
