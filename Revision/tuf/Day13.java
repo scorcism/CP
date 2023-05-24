@@ -3,7 +3,6 @@ import java.util.Deque;
 import java.util.Queue;
 import java.util.Stack;
 
-
 public class Day13 {
 
     // commit template - tuf-day13-questionName
@@ -15,8 +14,28 @@ public class Day13 {
 
     }
 
-    // 	Implement Stack[LIFO] using Queue[FIFO] (using single queue)
-    static class StackUsingQueue1{
+
+    
+    // Implement Stack[LIFO] using Queue[FIFO] (using single queue)
+
+    static class StackUsingQueue2 {
+        // SC -> O(N)
+        Queue<Integer> q1 = new ArrayDeque<>();
+
+        void push(int x) {
+            q1.add(x);
+            for (int i = 0; i < q1.size() - 1; i++) {
+                q1.add(q1.poll());
+            }
+        }
+
+        int pop() {
+            return q1.poll();
+        }
+
+    }
+
+    static class StackUsingQueue1 {
         // SC -> O(N+N) = O(N)
         Deque<Integer> q1 = new ArrayDeque<>();
         Deque<Integer> q2 = new ArrayDeque<>();
@@ -29,9 +48,9 @@ public class Day13 {
          * swap(q1, q2)
          */
 
-        void push(int x){
+        void push(int x) {
             q2.add(x);
-            while(!q1.isEmpty()){
+            while (!q1.isEmpty()) {
                 q2.add(q1.poll());
             }
             Deque<Integer> tmp = q1;
@@ -42,17 +61,16 @@ public class Day13 {
         /*
          * Remove element from q1
          */
-        void pop(){
-            if(!q1.isEmpty()){
+        void pop() {
+            if (!q1.isEmpty()) {
                 q1.poll();
             }
         }
 
-        int top(){
+        int top() {
             return q1.peekFirst();
         }
     }
-
 
     // Implement Queue[FIFO] Using Arrays
     static class QueueUArray {
@@ -100,14 +118,14 @@ public class Day13 {
         }
 
         int top() {
-            if(count == 0){
+            if (count == 0) {
                 return -1;
             }
-            return arr[front%CAPACITY];
+            return arr[front % CAPACITY];
         }
 
         int front() {
-            if(front != rare){
+            if (front != rare) {
                 return arr[front % CAPACITY];
             }
             return -1;
