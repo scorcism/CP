@@ -8,9 +8,10 @@ class Day15 {
 
     }
 
-
+    // Rabin Karp
     
-    //
+
+    // 14. Longest Common Prefix
     public String longestCommonPrefix(String[] strs) {
         int n = strs.length;
         Arrays.sort(strs);

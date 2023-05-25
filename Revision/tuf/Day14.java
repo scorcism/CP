@@ -8,11 +8,9 @@ public class Day14 {
         // System.out.println(Arrays.toString(prevSmaller(A)));
     }
 
-
     // The Celebrity Problem
-    int celebrity(int M[][], int n)
-    {
-    	
+    int celebrity(int M[][], int n) {
+
     }
 
     // Find the maximum of minimums of every window size
@@ -57,8 +55,8 @@ public class Day14 {
         int[] ans = new int[n + 1];
         Arrays.fill(ans, 0);
         for (int i = 0; i < n; i++) {
-            int len = nextSmaller[i] - previousSmaller[i] -1;
-            ans[len] = Math.max(ans[len],a[i]);
+            int len = nextSmaller[i] - previousSmaller[i] - 1;
+            ans[len] = Math.max(ans[len], a[i]);
         }
 
         for (int i = n - 1; i >= 1; i--)
@@ -127,7 +125,36 @@ public class Day14 {
 
     // 239. Sliding Window Maximum
     public int[] maxSlidingWindow(int[] nums, int k) {
+        // ArrayList<Integer> ans = new ArrayList<>();
+        int[] ans = new int[nums.length - k + 1];
+        int i = 0;
+        int j = 0;
+        Deque<Integer> dq = new ArrayDeque<>();
+        while (j < nums.length) {
 
+            // calculations
+            while (dq.size() > 0 && dq.getFirst() < nums[j]) {
+                dq.pollFirst();
+            }
+            dq.addFirst(nums[j]);
+
+            while (j - i + 1 < k) {
+                j++;
+            }
+
+            if (j - i + 1 == k) {
+                // ans + calculations
+                // ans.add(dq.getFirst());
+                ans[i - k + 1] = dq.getFirst();
+                // slide the window
+                if (dq.getFirst() == nums[i]) {
+                    dq.pollFirst();
+                }
+                j++;
+                i++;
+            }
+        }
+        return ans;
     }
 
     public int largestRectangleArea2(int[] heights) {
