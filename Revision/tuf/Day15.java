@@ -10,6 +10,23 @@ class Day15 {
 
 
     
+    //
+    public String longestCommonPrefix(String[] strs) {
+        int n = strs.length;
+        Arrays.sort(strs);
+        String first = strs[0];
+        String last = strs[n - 1];
+        int count = 0;
+        while (count < first.length()) {
+            if (first.charAt(count) == last.charAt(count)) {
+                count++;
+            } else {
+                break;
+            }
+        }
+        return count < 1 ? "" : first.substring(0, count);
+    }
+
     // 8. String to Integer (atoi)
     public int myAtoi(String str) {
 
