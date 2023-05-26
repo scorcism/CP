@@ -8,12 +8,30 @@ public class Day16 {
 
     }
 
+    // 242. Valid Anagram
+    public boolean isAnagram(String s, String t) {
+        if (t.length() > s.length() || s.length() > t.length()) {
+            return false;
+        }
+        char[] char_array = new char[26];
 
-    
+        for (int i = 0; i < s.length(); i++) {
+            char_array[s.charAt(i) - 'a']++;
+            char_array[t.charAt(i) - 'a']--;
+        }
+
+        for (int i = 0; i < char_array.length; i++) {
+            if (char_array[i] > 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // 1312. Minimum Insertion Steps to Make a String Palindrome
     public int minInsertions(String s) {
         // string length - lcs(longest common subsequence)
-        
+
         StringBuilder sb = new StringBuilder();
         sb.append(s);
         sb.reverse();
