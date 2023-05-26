@@ -17,10 +17,12 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
-            
-        for (int tt = 0; tt < T; tt++) {
-            
+        while(true){
+            int n = fs.nextInt();
+            if(n == 42){
+                break;
+            }
+            System.out.println(n);
         }
 
         out.close();
