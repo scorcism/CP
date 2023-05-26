@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-27 00:47:27
+// Date: 2023-05-27 00:54:08
 
 
 import java.io.BufferedReader;
@@ -17,21 +17,21 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
+        int T = fs.nextInt();
         
-        char[] table = fs.next().toCharArray();
-        boolean found = false;;
-        for(int i =1; i<= 5; i++){
-            char[] h = fs.next().toCharArray();
-            if(table[0] == h[0] || table[1]==h[1]){
-                found = true;
+        int n = 50;
+        int icount = 0;
+        int count = 0;
+        for(int i = 1; i< n ; i++){
+            icount+=i;
+            if(T - icount < 0){
+                System.out.println(count);
                 break;
             }
+            T-=icount;
+            count++;
         }
-        if(found){
-            System.out.println("YES");
-        }else{
-            System.out.println("NO");
-        }
+
         out.close();
     }
 
