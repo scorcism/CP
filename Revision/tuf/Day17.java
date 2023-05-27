@@ -8,6 +8,32 @@ public class Day17 {
 
     }
 
+    // Morris preorder Traversal
+    public List<Integer> morrisPreorderTraversal(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        TreeNode curr = root;
+        while (curr != null) {
+            if (curr.left == null) {
+                ans.add(curr.val);
+                curr = curr.right;
+            } else {
+                TreeNode prev = curr.left;
+                while (prev.right != null && prev.right != curr) {
+                    prev = prev.right;
+                }
+                if (prev.right == null) {
+                    ans.add(curr.val);
+                    prev.right = curr;
+                    curr = curr.left;
+                } else {
+                    prev.right = null;
+                    curr = curr.right;
+                }
+            }
+        }
+        return ans;
+    }
+
     // Morris Inorder Traversal
     public List<Integer> morrisInorderTraversal(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
