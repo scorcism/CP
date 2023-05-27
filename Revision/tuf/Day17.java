@@ -8,6 +8,24 @@ public class Day17 {
 
     }
 
+    // Right View of Binary Tree
+    static ArrayList<Integer> rightView(Node node) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        right(node, ans,0);
+        return ans;
+    }
+
+    private static void right(Node node, ArrayList<Integer> ans, int level) {
+        if(node == null){
+            return;
+        }
+        if(ans.size()== level){
+            ans.add(node.data);
+        }
+        right(node.right, ans, level+1);
+        right(node.left, ans, level+1);
+    }
+
     // Morris preorder Traversal
     public List<Integer> morrisPreorderTraversal(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
@@ -188,6 +206,16 @@ public class Day17 {
             this.val = val;
             this.left = left;
             this.right = right;
+        }
+    }
+
+    class Node {
+        int data;
+        Node left, right;
+
+        public Node(int data) {
+            this.data = data;
+            left = right = null;
         }
     }
 }
