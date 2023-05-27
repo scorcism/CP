@@ -8,6 +8,29 @@ public class Day17 {
 
     }
 
+    // Root to node path in a Binary Tree
+    // Root to leaf path in a Binary Tree
+    static ArrayList<Integer> rootToNode(TreeNode root, int x) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        rtn(root, ans, x);
+        return ans;
+    }
+
+    private static boolean rtn(TreeNode root, ArrayList<Integer> ans, int x) {
+        if(root == null){
+            return false;
+        }
+        ans.add(root.val);
+        if(root.val == x){
+            return true;
+        }
+        if(rtn(root.left, ans, x) || rtn(root.right, ans, x)){
+            return true;
+        }
+        ans.remove(ans.size()-1)
+        return false;
+    }
+
     // Preorder inorder postorder in a single traversal
     static void treeTraverse(TreeNode root) {
         Stack<Pair> st = new Stack<>();
