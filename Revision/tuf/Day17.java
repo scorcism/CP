@@ -8,6 +8,47 @@ public class Day17 {
 
     }
 
+    // Top View of Binary Tree
+    static ArrayList<Integer> topView(Node root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+        Queue<tvNode> q = new LinkedList<tvNode>();
+        Map<Integer, Integer> map = new TreeMap<>();
+        q.add(new tvNode(root, 0));
+
+        while (!q.isEmpty()) {
+            tvNode node = q.poll();
+            int hd = node.hd;
+            int data = node.node.data;
+
+            if (!map.containsKey(hd)) {
+                map.put(hd, data);
+            }
+
+            if (node.node.left != null) {
+                q.add(new tvNode(node.node.left, hd - 1));
+            }
+
+            if (node.node.right != null) {
+                q.add(new tvNode(node.node.right, hd + 1));
+            }
+        }
+
+        for (int n : map.values()) {
+            ans.add(n);
+        }
+        return ans;
+    }
+
+    static class tvNode {
+        Node node;
+        int hd;
+
+        public tvNode(Node node, int hd) {
+            this.node = node;
+            this.hd = hd;
+        }
+    }
+
     // Bottom View of Binary Tree
     public ArrayList<Integer> bottomView(Node root) {
         ArrayList<Integer> ans = new ArrayList<>();
@@ -20,7 +61,7 @@ public class Day17 {
         Map<Integer, Integer> map = new TreeMap<>();
         root.hd = 0;
         q.add(root);
-        
+
         while (!q.isEmpty()) {
             Node node = q.poll();
             int hd = node.hd;
