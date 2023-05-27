@@ -8,6 +8,42 @@ public class Day17 {
 
     }
 
+    // 144. Binary Tree Preorder Traversal
+    public List<Integer> preorderTraversal(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        preorder(root, ans);
+        return ans;
+    }
+
+    private void preorder(TreeNode root, List<Integer> ans) {
+        if (root == null) {
+            return;
+        }
+        ans.add(root.val);
+        preorder(root.left, ans);
+        preorder(root.right, ans);
+    }
+
+    public List<Integer> preorderTraversalIterative(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+        Stack<TreeNode> st = new Stack<>();
+        st.push(root);
+        while (!st.isEmpty()) {
+            root = st.pop();
+            ans.add(root.val);
+            if (root.right != null) {
+                st.push(root.right);
+            }
+            if (root.left != null) {
+                st.push(root.left);
+            }
+        }
+        return ans;
+    }
+
     // Binary Tree Inorder Traversal
     public List<Integer> inorderTraversal1(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
