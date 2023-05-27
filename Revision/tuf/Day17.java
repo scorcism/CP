@@ -8,6 +8,46 @@ public class Day17 {
 
     }
 
+    // Preorder inorder postorder in a single traversal
+    static void treeTraverse(TreeNode root) {
+        Stack<Pair> st = new Stack<>();
+        ArrayList<Integer> inorder = new ArrayList<>();
+        ArrayList<Integer> preorder = new ArrayList<>();
+        ArrayList<Integer> postorder = new ArrayList<>();
+        st.add(new Pair(root, 1));
+        while (!st.isEmpty()) {
+            Pair it = st.pop();
+
+            if (it.number == 1) {
+                preorder.add(it.node.val);
+                it.number++;
+                st.push(it);
+                if (it.node.left != null) {
+                    st.push(new Pair(it.node.left, 1));
+                }
+            } else if (it.number == 2) {
+                inorder.add(it.node.val);
+                it.number++;
+                st.push(it);
+                if (it.node.right != null) {
+                    st.add(new Pair(it.node.right, 1));
+                }
+            } else {
+                postorder.add(it.node.val);
+            }
+        }
+    }
+
+    static class Pair {
+        TreeNode node;
+        int number;
+
+        Pair(TreeNode node, int number) {
+            this.node = node;
+            this.number = number;
+        }
+    }
+
     // Top View of Binary Tree
     static ArrayList<Integer> topView(Node root) {
         ArrayList<Integer> ans = new ArrayList<>();
