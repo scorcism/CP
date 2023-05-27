@@ -8,43 +8,78 @@ public class Day17 {
 
     }
 
+    // Bottom View of Binary Tree
+    public ArrayList<Integer> bottomView(Node root) {
+        ArrayList<Integer> ans = new ArrayList<>();
+
+        if (root == null) {
+            return ans;
+        }
+
+        Queue<Node> q = new LinkedList<>();
+        Map<Integer, Integer> map = new TreeMap<>();
+        root.hd = 0;
+        q.add(root);
+        
+        while (!q.isEmpty()) {
+            Node node = q.poll();
+            int hd = node.hd;
+            map.put(hd, node.data);
+
+            if (node.left != null) {
+                node.left.hd = hd - 1;
+                q.add(node.left);
+            }
+
+            if (node.right != null) {
+                node.right.hd = hd + 1;
+                q.add(node.right);
+            }
+        }
+
+        for (int n : map.values()) {
+            ans.add(n);
+        }
+
+        return ans;
+    }
+
     // 987. Vertical Order Traversal of a Binary Tree
-    
 
     // Right View of Binary Tree
     static ArrayList<Integer> rightView(Node node) {
         ArrayList<Integer> ans = new ArrayList<>();
-        right(node, ans,0);
+        right(node, ans, 0);
         return ans;
     }
 
     private static void right(Node node, ArrayList<Integer> ans, int level) {
-        if(node == null){
+        if (node == null) {
             return;
         }
-        if(ans.size()== level){
+        if (ans.size() == level) {
             ans.add(node.data);
         }
-        right(node.right, ans, level+1);
-        right(node.left, ans, level+1);
+        right(node.right, ans, level + 1);
+        right(node.left, ans, level + 1);
     }
 
     // Left View of Binary Tree
     static ArrayList<Integer> LeftView(Node node) {
         ArrayList<Integer> ans = new ArrayList<>();
-        left(node, ans,0);
+        left(node, ans, 0);
         return ans;
     }
 
     private static void left(Node node, ArrayList<Integer> ans, int level) {
-        if(node == null){
+        if (node == null) {
             return;
         }
-        if(ans.size()== level){
+        if (ans.size() == level) {
             ans.add(node.data);
         }
-        right(node.right, ans, level+1);
-        right(node.left, ans, level+1);
+        right(node.right, ans, level + 1);
+        right(node.left, ans, level + 1);
     }
 
     // Morris preorder Traversal
@@ -233,10 +268,12 @@ public class Day17 {
     class Node {
         int data;
         Node left, right;
+        int hd;
 
         public Node(int data) {
             this.data = data;
             left = right = null;
+            hd = Integer.MAX_VALUE;
         }
     }
 }
