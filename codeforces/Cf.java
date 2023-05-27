@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-27 00:54:08
+// Date: 2023-05-27 01:38:36
 
 
 import java.io.BufferedReader;
@@ -18,18 +18,9 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        
-        int n = 50;
-        int icount = 0;
-        int count = 0;
-        for(int i = 1; i< n ; i++){
-            icount+=i;
-            if(T - icount < 0){
-                System.out.println(count);
-                break;
-            }
-            T-=icount;
-            count++;
+
+        for (int tt = 0; tt < T; tt++) {
+            String s = fs.next();
         }
 
         out.close();
