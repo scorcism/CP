@@ -6,7 +6,31 @@ public class Day18 {
 
     }
 
-    
+    // Balanced Binary Tree
+    public boolean isBalanced(TreeNode root) {
+        return usingHeight(root) != -1;
+    }
+
+    private int usingHeight(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+
+        int lh = usingHeight(root.left);
+        if (lh == -1) {
+            return -1;
+        }
+        int rh = usingHeight(root.right);
+        if (rh == -1) {
+            return -1;
+        }
+        if (Math.abs(lh - rh) > 1) {
+            return -1;
+        }
+
+        return 1 + Math.max(lh, rh);
+    }
+
     // 543. Diameter of Binary Tree
     public int diameterOfBinaryTree(TreeNode root) {
         int[] diameter = new int[1];
