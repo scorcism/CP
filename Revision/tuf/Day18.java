@@ -6,12 +6,30 @@ public class Day18 {
 
     }
 
-    // 104. Maximum Depth of Binary Tree
-    public int maxDepth(TreeNode root) {
-        if(root == null ){
+    
+    // 543. Diameter of Binary Tree
+    public int diameterOfBinaryTree(TreeNode root) {
+        int[] diameter = new int[1];
+        height(root, diameter);
+        return diameter[0];
+    }
+
+    private int height(TreeNode root, int[] diameter) {
+        if (root == null) {
             return 0;
         }
-        return (1+ Math.max(maxDepth(root.left), maxDepth(root.right)));
+        int lh = height(root.left, diameter);
+        int rh = height(root.right, diameter);
+        diameter[0] = Math.max(lh + rh, diameter[0]);
+        return 1 + Math.max(lh, rh);
+    }
+
+    // 104. Maximum Depth of Binary Tree
+    public int maxDepth(TreeNode root) {
+        if (root == null) {
+            return 0;
+        }
+        return (1 + Math.max(maxDepth(root.left), maxDepth(root.right)));
     }
 
     // 102. Binary Tree Level Order Traversal
