@@ -6,6 +6,43 @@ public class Day19 {
 
     }
 
+    // Check for Children Sum Property
+    public static void changeTree(Node root) {
+        if (root == null) {
+            return;
+        }
+        int child = 0;
+        if (root.left != null) {
+            child += root.left.data;
+        }
+        if (root.right != null) {
+            child += root.right.data;
+        }
+        if (child >= root.data) {
+            root.data = child;
+        } else {
+            if (root.left != null) {
+                root.left.data = child;
+            }
+            if (root.right != null) {
+                root.right.data = child;
+            }
+        }
+        changeTree(root.left);
+        changeTree(root.right);
+
+        int total = 0;
+        if (root.left != null) {
+            total += root.left.data;
+        }
+        if (root.right != null) {
+            total += root.right.data;
+        }
+        if (root.left != null || root.right != null) {
+            root.data = total;
+        }
+    }
+
     // Flatten Binary Tree to Linked List
     static TreeNode prev = null;
 
@@ -172,6 +209,16 @@ public class Day19 {
             this.val = val;
             this.left = left;
             this.right = right;
+        }
+    }
+
+    static class Node {
+        int data;
+        Node left, right;
+
+        Node(int key) {
+            data = key;
+            left = right = null;
         }
     }
 }
