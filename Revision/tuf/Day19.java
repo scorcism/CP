@@ -6,17 +6,68 @@ public class Day19 {
 
     }
 
+    // Flatten Binary Tree to Linked List
+    static TreeNode prev = null;
+
+    public void flatten(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        flatten(root.right);
+        flatten(root.left);
+
+        root.right = prev;
+        root.left = null;
+        prev = root;
+    }
+
+    public void flatten2(TreeNode root) {
+        Stack<TreeNode> st = new Stack<>();
+        st.add(root);
+        while (!st.isEmpty()) {
+            TreeNode curr = st.pop();
+            if (curr.right != null) {
+                st.add(curr.right);
+            }
+            if (curr.left != null) {
+                st.add(curr.left);
+            }
+            if (!st.isEmpty()) {
+                curr.right = st.peek();
+            }
+            curr.left = null;
+        }
+    }
+
+    public void flatten3(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        TreeNode curr = root;
+        while (curr != null) {
+            if (curr.left != null) {
+                TreeNode prev = curr.left;
+                while (prev.right != null) {
+                    prev = prev.right;
+                }
+                prev.right = curr.right;
+                curr.right = curr.left;
+                curr.left = null;
+            }
+            curr = curr.right;
+        }
+    }
+
     // 101. Symmetric Tree
     public boolean isSymmetric(TreeNode root) {
-        return root == null || helperS(root.left , root.right);
+        return root == null || helperS(root.left, root.right);
     }
-    
 
     private boolean helperS(TreeNode left, TreeNode right) {
-        if(left == null || right == null){
-            return left==right;
+        if (left == null || right == null) {
+            return left == right;
         }
-        if(left.val != right.val){
+        if (left.val != right.val) {
             return false;
         }
         return helperS(left.left, right.right) && helperS(left.right, right.left);
