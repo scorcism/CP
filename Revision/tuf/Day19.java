@@ -6,6 +6,22 @@ public class Day19 {
 
     }
 
+    // 101. Symmetric Tree
+    public boolean isSymmetric(TreeNode root) {
+        return root == null || helperS(root.left , root.right);
+    }
+    
+
+    private boolean helperS(TreeNode left, TreeNode right) {
+        if(left == null || right == null){
+            return left==right;
+        }
+        if(left.val != right.val){
+            return false;
+        }
+        return helperS(left.left, right.right) && helperS(left.right, right.left);
+    }
+
     // Construct Binary Tree from Inorder and Postorder
     public TreeNode buildTree2(int[] inorder, int[] postorder) {
         if (inorder == null || postorder == null || inorder.length != postorder.length) {
