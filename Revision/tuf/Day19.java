@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Day19 {
 
     public static void main(String[] args) {
@@ -5,7 +7,36 @@ public class Day19 {
     }
 
 
+    
+    // Construct Binary Tree from Preorder and Inorder Traversal
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+        TreeNode root = buildTree(preorder, 0, preorder.length - 1, inorder, 0, inorder.length - 1, map);
 
+        return root;
+    }
+
+    private TreeNode buildTree(int[] preorder, int preStart, int preEnd, int[] inorder, int inStart, int inEnd,
+            Map<Integer, Integer> map) {
+        if (preStart > preEnd || inStart > inEnd) {
+            return null;
+        }
+        TreeNode node = new TreeNode(preorder[preStart]);
+
+        int inorderIndex = map.get(node.val);
+        int leftIndexToNodeInInorder = inorderIndex - inStart;
+
+        node.left = buildTree(preorder, preStart + 1, preStart + leftIndexToNodeInInorder, inorder, inStart,
+                inorderIndex - 1, map);
+
+        node.right = buildTree(preorder, preStart + leftIndexToNodeInInorder + 1, preEnd, inorder, inorderIndex + 1,
+                inEnd, map);
+
+        return node;
+    }
 
     // Binary Tree Maximum Path Sum
     public int maxPathSum(TreeNode root) {
