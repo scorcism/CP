@@ -4,9 +4,10 @@ public class Day19 {
 
     }
 
-    // Binary Tree Maximum Path Sum
-    static int maxi = 0;
 
+
+
+    // Binary Tree Maximum Path Sum
     public int maxPathSum(TreeNode root) {
         int[] ans = new int[1];
         ans[0] = Integer.MAX_VALUE;
