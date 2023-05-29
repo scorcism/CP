@@ -6,8 +6,41 @@ public class Day19 {
 
     }
 
+    // Construct Binary Tree from Inorder and Postorder
+    public TreeNode buildTree2(int[] inorder, int[] postorder) {
+        if (inorder == null || postorder == null || inorder.length != postorder.length) {
+            return null;
+        }
 
-    
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < inorder.length; i++) {
+            map.put(inorder[i], i);
+        }
+
+        TreeNode root = buildTree2(inorder, 0, inorder.length - 1, postorder, 0, postorder.length - 1, map);
+
+        return root;
+    }
+
+    private TreeNode buildTree2(int[] inorder, int is, int ie, int[] postorder, int ps, int pe,
+            Map<Integer, Integer> map) {
+        if (is > ie || ps > pe) {
+            return null;
+        }
+
+        TreeNode node = new TreeNode(postorder[pe]);
+
+        int inOrderIndex = map.get(postorder[pe]);
+
+        int numsToLeftOfIndexOfRoot = inOrderIndex - is;
+
+        node.left = buildTree2(inorder, is, inOrderIndex - 1, postorder, ps, pe + numsToLeftOfIndexOfRoot - 1, map);
+
+        node.right = buildTree2(inorder, inOrderIndex + 1, ie, postorder, ps + numsToLeftOfIndexOfRoot, pe - 1, map);
+
+        return node;
+    }
+
     // Construct Binary Tree from Preorder and Inorder Traversal
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         Map<Integer, Integer> map = new HashMap<>();
