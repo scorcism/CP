@@ -21,6 +21,16 @@ public class Cf {
 
         for (int tt = 0; tt < T; tt++) {
             String s = fs.next();
+            // System.out.println(s.charAt(0)+ " char");
+            int dig = s.charAt(0)-'0';
+            // System.out.println(dig+ " dig");
+            int len = s.length();
+            System.out.println(10 * (dig -1) + (len*(len+1)/2));
+            // was easy
+            // suppose we have 1111 for this we we have clicked for 10 times
+            // so for 777 we know that we ould have liked for 6666 so for 666 it would be 10 * (777).charAt(0) i.e 7 - 6 = 6 times i.t 60 is confirm but now for 777 so 777 will be 
+            // 777.lengrh = (3 * 4) / 2
+            // but how come this formula so the idea is we first dialed 7 which conatisn 1 then 77 which contans 2 digits and then 777 4 so we know the formla sum of n number i,r n (n+1)/2 so here we have n i.r len(777)
         }
 
         out.close();
