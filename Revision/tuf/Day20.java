@@ -5,6 +5,28 @@ public class Day20 {
 
     }
 
+
+    
+    // Construct Binary Search Tree from Preorder Traversal
+    int i = 0;
+
+    public TreeNode bstFromPreorder(int[] preorder) {
+        return bsfPreorderHelper(preorder, Integer.MAX_VALUE);
+    }
+
+    private TreeNode bsfPreorderHelper(int[] preorder, int bound) {
+        if (i == preorder.length || preorder[i] > bound) {
+            return null;
+        }
+        TreeNode node = new TreeNode(preorder[i++]);
+
+        node.left = bsfPreorderHelper(preorder, node.val);
+
+        node.right = bsfPreorderHelper(preorder, bound);
+
+        return node;
+    }
+
     // Search in a Binary Search Tree
     public TreeNode searchBST(TreeNode root, int val) {
         while (root != null) {
@@ -29,7 +51,7 @@ public class Day20 {
         return root;
     }
 
-    public class TreeNode {
+    static public class TreeNode {
         int val;
         TreeNode left;
         TreeNode right;
