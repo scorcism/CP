@@ -5,6 +5,22 @@ public class Day20 {
 
     }
 
+    // 235. Lowest Common Ancestor of a Binary Search Tree
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if (root == null) {
+            return null;
+        }
+        int rootval = root.val;
+        if (rootval < p.val && rootval < q.val) {
+            return lowestCommonAncestor(root.right, p, q);
+        } else if (rootval > p.val && rootval > q.val) {
+            return lowestCommonAncestor(root.left, p, q);
+
+        } else {
+            return root;
+        }
+    }
+
     // 98. Validate Binary Search Tree
     public boolean isValidBST(TreeNode root) {
         return isValidBSTHelper(root, Long.MIN_VALUE, Long.MAX_VALUE);
