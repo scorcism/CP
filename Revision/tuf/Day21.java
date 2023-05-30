@@ -4,6 +4,26 @@ public class Day21 {
 
     }
 
+    // Function to return the ceil of given number in BST.
+    int findCeil(Node root, int key) {
+        if (root == null)
+            return -1;
+        // Code here
+        int ceil = -1;
+        while (root != null) {
+            if (root.data == key) {
+                return root.data;
+            }
+            if (root.data <= key) {
+                root = root.right;
+            } else {
+                ceil = root.data;
+                root = root.left;
+            }
+        }
+        return ceil;
+    }
+
     // Floor int BST
     public static int floor(Node root, int x) {
         int floor = -1;
