@@ -5,8 +5,23 @@ public class Day20 {
 
     }
 
+    // 98. Validate Binary Search Tree
+    public boolean isValidBST(TreeNode root) {
+        return isValidBSTHelper(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
 
-    
+    private boolean isValidBSTHelper(TreeNode root, long minValue, long maxValue) {
+        if (root == null) {
+            return true;
+        }
+
+        if (root.val <= minValue || root.val >= maxValue) {
+            return false;
+        }
+
+        return isValidBSTHelper(root.left, minValue, root.val) && isValidBSTHelper(root.right, root.val, maxValue);
+    }
+
     // Construct Binary Search Tree from Preorder Traversal
     int i = 0;
 
