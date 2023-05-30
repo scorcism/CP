@@ -5,6 +5,23 @@ public class Day20 {
 
     }
 
+    // 116. Populating Next Right Pointers in Each Node
+    public Node connect(Node root) {
+        // https://leetcode.com/problems/populating-next-right-pointers-in-each-node/solutions/962728/java-0ms-with-visual-explanation/
+        if(root==null){
+            return null;
+        }
+        if(root.left != null){
+            root.left.next = root.right;
+        }
+        if(root.right != null && root.next != null){
+            root.right.next = root.next.left;
+        }
+        connect(root.left);
+        connect(root.right);
+        return root;
+    }
+
     // Inorder Successor
     static TreeNode inorderSuccessor(TreeNode node, TreeNode p) {
         TreeNode successor = null;
@@ -20,12 +37,13 @@ public class Day20 {
         return successor;
     }
 
+    // Populate Next Right pointers of Tree
+
     // 108. Convert Sorted Array to Binary Search Tree
     public TreeNode sortedArrayToBST(int[] nums) {
         return toBSTHelper(nums, 0, nums.length - 1);
     }
 
-    
     private TreeNode toBSTHelper(int[] nums, int i, int j) {
         if (i > j) {
             return null;
@@ -148,5 +166,26 @@ public class Day20 {
             this.right = right;
         }
     }
+
+    static class Node {
+        public int val;
+        public Node left;
+        public Node right;
+        public Node next;
+
+        public Node() {
+        }
+
+        public Node(int _val) {
+            val = _val;
+        }
+
+        public Node(int _val, Node _left, Node _right, Node _next) {
+            val = _val;
+            left = _left;
+            right = _right;
+            next = _next;
+        }
+    };
 
 }
