@@ -4,6 +4,27 @@ public class Day21 {
 
     }
 
+    // return the Kth largest element in the given BST rooted at 'root'
+    int no = -1;
+
+    public int kthLargest(Node root, int K) {
+        getKthLargest(root, new int[] { k });
+        return no;
+    }
+
+    private void getKthLargest(Node root, int[] K) {
+        if (root == null) {
+            return;
+        }
+        getKthLargest(root.right, K);
+        K[0]--;
+        if (K[0] == 0) {
+            no = root.data;
+            return;
+        }
+        getKthLargest(root.left, K);
+    }
+
     // Kth Smallest Element in a BST
     int number = -1;
 
