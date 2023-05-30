@@ -6,6 +6,68 @@ public class Day21 {
 
     }
 
+
+    
+    class BSTIterator2 {
+        private Stack<TreeNode> stack = new Stack<>();
+        boolean reverse = true;
+        // reverse = true = before
+        // reverse = false = next;
+
+        public BSTIterator2(TreeNode root, boolean isReverse) {
+            reverse = isReverse;
+            pushAll(root);
+        }
+
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        public int next() {
+            TreeNode top = stack.pop();
+            if (reverse == false) {
+                pushAll(top.right);
+            } else {
+                pushAll(top.left);
+            }
+
+            return top.val;
+        }
+
+        private void pushAll(TreeNode node) {
+            while (node != null) {
+                stack.push(node);
+                if (reverse) {
+                    node = node.right;
+                } else {
+                    node = node.left;
+                }
+            }
+        }
+    }
+
+    // Two Sum IV - Input is a BST
+    public boolean findTarget(TreeNode root, int k) {
+        if (root == null) {
+            return false;
+        }
+        BSTIterator2 l = new BSTIterator2(root, false);
+        BSTIterator2 r = new BSTIterator2(root, true);
+
+        int i = l.next();
+        int j = r.next();
+        while (i < j) {
+            if (i + j == k) {
+                return true;
+            } else if (i + j < k) {
+                i = l.next();
+            } else {
+                j = r.next();
+            }
+        }
+        return false;
+    }
+
     static class BSTIterator {
         private Stack<TreeNode> stack = new Stack<>();
 
