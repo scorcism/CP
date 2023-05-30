@@ -5,6 +5,36 @@ public class Day20 {
 
     }
 
+    // Inorder Successor
+    static TreeNode inorderSuccessor(TreeNode node, TreeNode p) {
+        TreeNode successor = null;
+
+        while (node != null) {
+            if (node.val <= p.val) {
+                node = node.right;
+            } else {
+                successor = node;
+                node = node.left;
+            }
+        }
+        return successor;
+    }
+
+    // Inorder Predecessor
+    static TreeNode inorderPredecessor(TreeNode node, TreeNode p) {
+        TreeNode predecessor = null;
+
+        while (node != null) {
+            if (node.val <= p.val) {
+                predecessor = node;
+                node = node.right;
+            } else {
+                node = node.left;
+            }
+        }
+        return predecessor;
+    }
+
     // 235. Lowest Common Ancestor of a Binary Search Tree
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root == null) {
