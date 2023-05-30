@@ -4,6 +4,28 @@ public class Day21 {
 
     }
 
+    // Kth Smallest Element in a BST
+    int number = -1;
+
+    public int kthSmallest(TreeNode root, int k) {
+        getKthSmallest(root, new int[] { k });
+        return number;
+    }
+
+    private void getKthSmallest(TreeNode root, int[] k) {
+        if (root == null) {
+            return;
+        }
+        getKthSmallest(root.left, k);
+
+        k[0]--;
+        if (k[0] == 0) {
+            number = root.val;
+            return;
+        }
+        getKthSmallest(root.right, k);
+    }
+
     // Function to return the ceil of given number in BST.
     int findCeil(Node root, int key) {
         if (root == null)
