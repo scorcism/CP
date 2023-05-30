@@ -5,6 +5,22 @@ public class Day20 {
 
     }
 
+    // Search in a Binary Search Tree
+    public TreeNode searchBST(TreeNode root, int val) {
+        while (root != null) {
+            if (root.val == val) {
+                return root;
+            }
+            if (val > root.val) {
+                root = root.right;
+            } else {
+                root = root.left;
+            }
+        }
+
+        return null;
+    }
+
     // search in BST
     public TreeNode search(TreeNode root, int val) {
         while (root != null && root.val != val) {
