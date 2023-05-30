@@ -20,6 +20,24 @@ public class Day20 {
         return successor;
     }
 
+    // 108. Convert Sorted Array to Binary Search Tree
+    public TreeNode sortedArrayToBST(int[] nums) {
+        return toBSTHelper(nums, 0, nums.length - 1);
+    }
+
+    
+    private TreeNode toBSTHelper(int[] nums, int i, int j) {
+        if (i > j) {
+            return null;
+        }
+        int mid = (j + i) / 2;
+
+        TreeNode root = new TreeNode(nums[mid]);
+        root.left = toBSTHelper(nums, i, mid - 1);
+        root.right = toBSTHelper(nums, mid + 1, j);
+        return root;
+    }
+
     // Inorder Predecessor
     static TreeNode inorderPredecessor(TreeNode node, TreeNode p) {
         TreeNode predecessor = null;
