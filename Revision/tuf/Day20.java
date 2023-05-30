@@ -8,13 +8,16 @@ public class Day20 {
     // 116. Populating Next Right Pointers in Each Node
     public Node connect(Node root) {
         // https://leetcode.com/problems/populating-next-right-pointers-in-each-node/solutions/962728/java-0ms-with-visual-explanation/
-        if(root==null){
+        if (root == null) {
             return null;
         }
-        if(root.left != null){
+        // for level 1 eg
+        if (root.left != null) {
             root.left.next = root.right;
         }
-        if(root.right != null && root.next != null){
+
+        // eg for level 2
+        if (root.right != null && root.next != null) {
             root.right.next = root.next.left;
         }
         connect(root.left);
