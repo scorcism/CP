@@ -1,7 +1,35 @@
+import java.util.Stack;
+
 public class Day21 {
 
     public static void main(String[] args) {
 
+    }
+
+    static class BSTIterator {
+        private Stack<TreeNode> stack = new Stack<>();
+
+        public BSTIterator(TreeNode root) {
+            // push all left of node to left
+            pushAll(root);
+        }
+
+        public int next() {
+            TreeNode top = stack.pop();
+            pushAll(top.right);
+            return top.val;
+        }
+
+        public boolean hasNext() {
+            return !stack.isEmpty();
+        }
+
+        void pushAll(TreeNode node) {
+            while (node != null) {
+                stack.add(node);
+                node = node.left;
+            }
+        }
     }
 
     // return the Kth largest element in the given BST rooted at 'root'
