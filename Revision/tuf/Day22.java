@@ -9,6 +9,26 @@ public class Day22 {
 
     }
 
+    // convert BT to DLL
+    TreeNode prev = null;
+    TreeNode head = null;
+
+    void convertToDLL(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        convertToDLL(root.left);
+
+        if (prev == null) {
+            head = root;
+        } else {
+            prev.right = root;
+            root.left = prev;
+        }
+        prev = root;
+        convertToDLL(root.right);
+    }
+
     // 733. Flood Fill
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
         int[][] image2 = image;
@@ -30,7 +50,7 @@ public class Day22 {
             int dcol = sc + deltacol[i];
             if (drow >= 0 && drow < n && dcol >= 0 && dcol < m && image[drow][dcol] == initialColor
                     && image2[drow][dcol] != color) {
-                        dfs(image, image2, initialColor, color, deltarow, deltacol, drow, dcol);
+                dfs(image, image2, initialColor, color, deltarow, deltacol, drow, dcol);
             }
         }
     }
@@ -123,5 +143,24 @@ class MedianFinder {
             return smallNumbers.peek() / 2.0 + largeNumbers.peek() / 2.0;
         }
         return smallNumbers.peek();
+    }
+}
+
+static public class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+
+    TreeNode() {
+    }
+
+    TreeNode(int val) {
+        this.val = val;
+    }
+
+    TreeNode(int val, TreeNode left, TreeNode right) {
+        this.val = val;
+        this.left = left;
+        this.right = right;
     }
 }
