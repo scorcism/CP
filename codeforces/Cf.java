@@ -1,7 +1,6 @@
 // Abhishek Pathak - scor32k
 // Date: 2023-05-30 02:20:04
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,9 +17,35 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        
+
         for (int tt = 0; tt < T; tt++) {
-            
+            char[] s = fs.next().toCharArray();
+            int first = 0;
+            int last = 0;
+
+            for (int i = 0; i < s.length; i++) {
+                if (s[i] == '1') {
+                    first = i;
+                    break;
+                } 
+            }
+            for (int i = s.length-1; i >=first; i--) {
+                if (s[i] == '1') {
+                    last = i;
+                    break;
+                }
+            }
+            int count = 0;
+            for (int i = first; i < last; i++) {
+                if (s[i] == '0') {
+                    count++;
+                }
+            }
+            // if(count <= 1){
+            // System.out.println(0);
+            // }else{
+            System.out.println(count);
+            // }
         }
 
         out.close();
@@ -102,14 +127,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
