@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-31 21:02:38
+// Date: 2023-05-31 21:21:25
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,24 +11,44 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
+        Scanner sc = new Scanner(System.in);
         int T = fs.nextInt();
 
-        char[] s = fs.next().toCharArray();
+        for (int tt = 0; tt < T; tt++) {
+            int count = 0;
+            int n = fs.nextInt();
+            int m = fs.nextInt();
 
-        int i = 0;
-        int inc = 1;
-        StringBuilder sb = new StringBuilder();
-        while(i< T){
-            sb.append(s[i]);
-            i+=inc;
-            inc++;
+            char[][] s = new char[101][101];
+
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= m; j++) {
+                    s[i][j] = fs.next().charAt(0);
+                }
+            }
+
+            for (int i = 1; i <= n; i++) {
+                for (int j = 1; j <= m; j++) {
+                    if (s[i][j] == 'C') {
+                        continue;
+                    }
+                    if (s[n][j] == 'D') {
+                        count++;
+                    }
+                    if (s[i][m] == 'R') {
+                        count++;
+                    }
+                }
+            }
+
+            System.out.println(count);
         }
-        System.out.println(sb.toString());
 
         out.close();
     }
