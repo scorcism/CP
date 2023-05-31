@@ -8,6 +8,28 @@ public class Day22 {
 
 }
 
+class KthLargest {
+
+    PriorityQueue<Integer> pq;
+    int K;
+
+    public KthLargest(int k, int[] nums) {
+        K = k;
+        pq = new PriorityQueue<>();
+        for (int n : nums) {
+            pq.add(n);
+        }
+    }
+
+    public int add(int val) {
+        pq.add(val);
+        if (pq.size() > K) {
+            pq.poll();
+        }
+        return pq.peek();
+    }
+}
+
 class MedianFinder {
     // max Heap
     PriorityQueue<Integer> smallNumbers = new PriorityQueue<>(Collections.reverseOrder());
