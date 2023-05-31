@@ -9,6 +9,32 @@ public class Day22 {
 
     }
 
+    // 733. Flood Fill
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int[][] image2 = image;
+        int initialColor = image[sr][sc];
+        int[] deltarow = { -1, 0, +1, 0 };
+        int[] deltacol = { 0, +1, 0, -1 };
+        dfs(image, image2, initialColor, color, deltarow, deltacol, sr, sc);
+        return image2;
+    }
+
+    private void dfs(int[][] image, int[][] image2, int initialColor, int color, int[] deltarow, int[] deltacol, int sr,
+            int sc) {
+        image2[sr][sc] = color;
+        int n = image2.length;
+        int m = image2[0].length;
+
+        for (int i = 0; i < 4; i++) {
+            int drow = sr + deltarow[i];
+            int dcol = sc + deltacol[i];
+            if (drow >= 0 && drow < n && dcol >= 0 && dcol < m && image[drow][dcol] == initialColor
+                    && image2[drow][dcol] != color) {
+                        dfs(image, image2, initialColor, color, deltarow, deltacol, drow, dcol);
+            }
+        }
+    }
+
     // Distinct Numbers in Window
     public static int[] dNums(int[] A, int B) {
         int i = 0;
