@@ -6,8 +6,44 @@ public class Day21 {
 
     }
 
+    static class MSBNode {
+        int maxNode;
+        int minNode;
+        int maxSize;
 
-    
+        MSBNode(int minNode, int maxNode, int maxSize) {
+            this.maxNode = maxNode;
+            this.minNode = minNode;
+            this.maxSize = maxSize;
+        }
+    }
+
+    public int maxSumBST(TreeNode root) {
+        return maxSumBSTHelper(root).maxSize;
+    }
+
+    private MSBNode maxSumBSTHelper(TreeNode root) {
+
+        // An empty tree is a BST of size 0
+        if (root == null) {
+            return new MSBNode(Integer.MAX_VALUE, Integer.MIN_VALUE, 0);
+        }
+
+        // Get values from left and right subtree of current tree
+        MSBNode left = maxSumBSTHelper(root.left);
+        MSBNode right = maxSumBSTHelper(root.right);
+
+        // Current node is greater than max in left AND smaller than min in right, it is
+        // a ans
+        if (left.maxNode < root.val && root.val < right.minNode) {
+            return new MSBNode(Math.min(root.val, left.minNode), Math.max(root.val, right.maxNode),
+                    left.maxSize + right.maxSize + 1);
+        }
+
+        // Otherwise, return [-inf, inf] so that parent cant be a valid BST
+        return new MSBNode(Integer.MIN_VALUE, Integer.MAX_VALUE, Math.max(left.maxSize, right.maxSize));
+    }
+
     class BSTIterator2 {
         private Stack<TreeNode> stack = new Stack<>();
         boolean reverse = true;
