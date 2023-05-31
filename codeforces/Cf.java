@@ -1,5 +1,6 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-31 21:21:25
+// Date: 2023-05-31 21:53:25
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,46 +11,41 @@ import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Random;
-import java.util.Scanner;
 
 public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        Scanner sc = new Scanner(System.in);
-        int T = fs.nextInt();
 
-        for (int tt = 0; tt < T; tt++) {
-            int count = 0;
-            int n = fs.nextInt();
-            int m = fs.nextInt();
-
-            char[][] s = new char[101][101];
-
-            for (int i = 1; i <= n; i++) {
-                for (int j = 1; j <= m; j++) {
-                    s[i][j] = fs.next().charAt(0);
-                }
+        String s= fs.next();
+        s = s.toLowerCase();
+        HashSet<Character> set = new HashSet<>();
+        set.add('a');
+        set.add('e');
+        set.add('y');
+        set.add('i');
+        set.add('o');
+        set.add('u');
+        StringBuilder sb = new StringBuilder();
+        // for(int i = 0; i< s.length(); i++){
+        //     if(set.contains(s.charAt(i))){
+        //         continue;
+        //     }else{
+        //         sb.append(".");
+        //         sb.append(s.charAt(i));
+        //     }
+        // }
+        for(char c: s.toCharArray()){
+            if(set.contains(c)){
+                continue;
+            }else{
+                sb.append(".");
+                sb.append(c);
             }
-
-            for (int i = 1; i <= n; i++) {
-                for (int j = 1; j <= m; j++) {
-                    if (s[i][j] == 'C') {
-                        continue;
-                    }
-                    if (s[n][j] == 'D') {
-                        count++;
-                    }
-                    if (s[i][m] == 'R') {
-                        count++;
-                    }
-                }
-            }
-
-            System.out.println(count);
         }
-
+        System.out.println(sb.toString());
         out.close();
     }
 
@@ -129,15 +125,14 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-
+    
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-
+    
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
-
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
