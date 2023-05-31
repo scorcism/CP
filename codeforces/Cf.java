@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-30 02:20:04
+// Date: 2023-05-31 21:02:38
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,35 +18,17 @@ public class Cf {
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
 
-        for (int tt = 0; tt < T; tt++) {
-            char[] s = fs.next().toCharArray();
-            int first = 0;
-            int last = 0;
+        char[] s = fs.next().toCharArray();
 
-            for (int i = 0; i < s.length; i++) {
-                if (s[i] == '1') {
-                    first = i;
-                    break;
-                } 
-            }
-            for (int i = s.length-1; i >=first; i--) {
-                if (s[i] == '1') {
-                    last = i;
-                    break;
-                }
-            }
-            int count = 0;
-            for (int i = first; i < last; i++) {
-                if (s[i] == '0') {
-                    count++;
-                }
-            }
-            // if(count <= 1){
-            // System.out.println(0);
-            // }else{
-            System.out.println(count);
-            // }
+        int i = 0;
+        int inc = 1;
+        StringBuilder sb = new StringBuilder();
+        while(i< T){
+            sb.append(s[i]);
+            i+=inc;
+            inc++;
         }
+        System.out.println(sb.toString());
 
         out.close();
     }
