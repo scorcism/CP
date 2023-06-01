@@ -7,6 +7,36 @@ public class Day23 {
 
     }
 
+    // Detect A cycle in Undirected Graph using DFS
+    public boolean isCycleDFS(int V, ArrayList<ArrayList<Integer>> adj) {
+
+        boolean vis[] = new boolean[V + 1];
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                if (detectCycleDFS(i, -1, adj, vis)) {
+                    return true;
+                }
+                ;
+            }
+        }
+        return false;
+    }
+
+    static boolean detectCycleDFS(int node, int parent, ArrayList<ArrayList<Integer>> adj, boolean[] vis) {
+        vis[node] = true;
+        for (int it : adj.get(node)) {
+            if (!vis[it]) {
+                if (detectCycleDFS(it, node, adj, vis)) {
+                    return true;
+                }
+                ;
+            } else if (it != parent) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Detect A cycle in Undirected Graph using BFS
     public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
         boolean[] vis = new boolean[V];
@@ -41,6 +71,7 @@ public class Day23 {
     static class Pair {
         int node;
         int parent;
+
         Pair(int n, int p) {
             this.node = n;
             this.parent = p;
