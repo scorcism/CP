@@ -7,6 +7,59 @@ public class Day23 {
 
     }
 
+    // Number of Islands
+    public int numIslands(char[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+
+        int count = 0;
+        boolean[][] vis = new boolean[n][m];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (vis[i][j] == false && grid[i][j] == '1') {
+                    count++;
+                    islandsBFS(i, j, vis, grid);
+                }
+            }
+        }
+        return count;
+    }
+
+    private void islandsBFS(int ro, int co, boolean[][] vis, char[][] grid) {
+        vis[ro][co] = true;
+        Queue<Pair> q = new LinkedList<>();
+        int n = grid.length;
+        int m = grid[0].length;
+        q.add(new Pair(ro, co));
+
+        while (!q.isEmpty()) {
+            Pair node = q.poll();
+            int row = node.row;
+            int col  = node.col;
+            for (int drow = -1; drow <= 1; drow++) {
+                for (int dcol = -1; dcol <= 1; dcol++) {
+                    int nrow = row + drow;
+                    int ncol = row + dcol;
+
+                    if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && grid[nrow][ncol] == '1' && !vis[nrow][ncol]) {
+                        vis[nrow][ncol] = true;
+                        q.add(new Pair(nrow, ncol));
+                    }
+                }
+            }
+        }
+    }
+
+    static class Pair {
+        int row;
+        int col;
+
+        Pair(int row, int col) {
+            this.row = row;
+            this.col = col;
+        }
+    }
+
     // Course Schedule
     public boolean canFinish(int V, int[][] prerequisites) {
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
