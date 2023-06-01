@@ -14,6 +14,7 @@ public class Day23 {
 
         int count = 0;
         boolean[][] vis = new boolean[n][m];
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
                 if (vis[i][j] == false && grid[i][j] == '1') {
@@ -32,19 +33,20 @@ public class Day23 {
         int m = grid[0].length;
         q.add(new Pair(ro, co));
 
+        int drow[] = { -1, 0, +1, 0 };
+        int dcol[] = { 0, -1, 0, +1 };
+
         while (!q.isEmpty()) {
             Pair node = q.poll();
             int row = node.row;
-            int col  = node.col;
-            for (int drow = -1; drow <= 1; drow++) {
-                for (int dcol = -1; dcol <= 1; dcol++) {
-                    int nrow = row + drow;
-                    int ncol = row + dcol;
+            int col = node.col;
+            for (int i = 0; i < 4; i++) {
+                int nrow = row + drow[i];
+                int ncol = col + dcol[i];
 
-                    if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && grid[nrow][ncol] == '1' && !vis[nrow][ncol]) {
-                        vis[nrow][ncol] = true;
-                        q.add(new Pair(nrow, ncol));
-                    }
+                if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m && grid[nrow][ncol] == '1' && !vis[nrow][ncol]) {
+                    vis[nrow][ncol] = true;
+                    q.add(new Pair(nrow, ncol));
                 }
             }
         }
