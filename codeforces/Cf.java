@@ -1,6 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-05-31 21:53:25
-
+// Date: 2023-05-31 23:46:24
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,43 +10,43 @@ import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
+import java.util.PriorityQueue;
 import java.util.Random;
 
 public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
+        int T = fs.nextInt();
 
-        String s= fs.next();
-        s = s.toLowerCase();
-        HashSet<Character> set = new HashSet<>();
-        set.add('a');
-        set.add('e');
-        set.add('y');
-        set.add('i');
-        set.add('o');
-        set.add('u');
-        StringBuilder sb = new StringBuilder();
-        // for(int i = 0; i< s.length(); i++){
-        //     if(set.contains(s.charAt(i))){
-        //         continue;
-        //     }else{
-        //         sb.append(".");
-        //         sb.append(s.charAt(i));
-        //     }
-        // }
-        for(char c: s.toCharArray()){
-            if(set.contains(c)){
-                continue;
-            }else{
-                sb.append(".");
-                sb.append(c);
+        for (int tt = 0; tt < T; tt++) {
+            int n = fs.nextInt();
+            PriorityQueue<Integer> pq = new PriorityQueue<>();
+            for (int i = n; i >=1; i--) {
+                pq.add(i);
             }
+            int i = 0;
+            int c = 0;
+            System.out.println(2);
+            while (pq.size() > 1 ) {
+                int first = pq.poll();
+                int second = pq.poll();
+                System.out.println(first+" "+ second);
+
+                c =(first + second);
+                if((c & 1) == 1){ // if its odd
+                    c++;    
+                }
+                c/=2;
+                pq.add(c);
+                i++;
+            }
+            
         }
-        System.out.println(sb.toString());
+
         out.close();
     }
+
 
     static class FastScanner {
         private BufferedReader reader = null;
@@ -125,14 +124,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
