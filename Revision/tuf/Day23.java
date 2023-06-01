@@ -7,6 +7,35 @@ public class Day23 {
 
     }
 
+    // Topological sort -> DFS
+    static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) {
+        boolean[] vis = new boolean[V];
+        Stack<Integer> st = new Stack<>();
+
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                topoDFS(i, vis, adj, st);
+            }
+        }
+
+        int[] ans = new int[V];
+        int i = 0;
+        while (!st.isEmpty()) {
+            ans[i++] = st.pop();
+        }
+        return ans;
+    }
+
+    private static void topoDFS(int node, boolean[] vis, ArrayList<ArrayList<Integer>> adj, Stack<Integer> st) {
+        vis[node] = true;
+        for (int it : adj.get(node)) {
+            if (!vis[it]) {
+                topoDFS(it, vis, adj, st);
+            }
+        }
+        st.push(node);
+    }
+
     // Detect cycle in a directed graph
     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
 
@@ -50,7 +79,7 @@ public class Day23 {
                 if (detectCycleDFS(i, -1, adj, vis)) {
                     return true;
                 }
-                
+
             }
         }
         return false;
