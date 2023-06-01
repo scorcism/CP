@@ -7,6 +7,40 @@ public class Day23 {
 
     }
 
+    // Detect cycle in a directed graph
+    public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
+
+        boolean[] vis = new boolean[V];
+        boolean[] pathVis = new boolean[V];
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                if (detectDirectedCycle(i, adj, vis, pathVis) == true) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private boolean detectDirectedCycle(int i, ArrayList<ArrayList<Integer>> adj, boolean[] vis, boolean[] pathVis) {
+        vis[i] = true;
+        pathVis[i] = true;
+
+        // traverse for adjacent nodes
+        for (int it : adj.get(i)) {
+            if (!vis[it]) {
+                if (detectDirectedCycle(it, adj, vis, pathVis)) {
+                    return true;
+                }
+            } else if (pathVis[it]) {
+                return true;
+            }
+        }
+        pathVis[i] = false;
+        return false;
+    }
+
     // Detect A cycle in Undirected Graph using DFS
     public boolean isCycleDFS(int V, ArrayList<ArrayList<Integer>> adj) {
 
@@ -16,7 +50,7 @@ public class Day23 {
                 if (detectCycleDFS(i, -1, adj, vis)) {
                     return true;
                 }
-                ;
+                
             }
         }
         return false;
