@@ -7,6 +7,50 @@ public class Day23 {
 
     }
 
+    // Course Schedule
+    public boolean canFinish(int V, int[][] prerequisites) {
+        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        for (int i = 0; i < V; i++) {
+            adj.add(new ArrayList<>());
+        }
+        int m = prerequisites.length;
+        for (int i = 0; i < m; i++) {
+            adj.get(prerequisites[i][0]).add(prerequisites[i][1]);
+        }
+
+        int[] indegree = new int[V];
+
+        for (int i = 0; i < V; i++) {
+            for (int n : adj.get(i)) {
+                indegree[n]++;
+            }
+        }
+
+        Queue<Integer> q = new LinkedList<>();
+
+        int count = 0;
+
+        for (int i = 0; i < V; i++) {
+            if (indegree[i] == 0) {
+                q.add(i);
+            }
+        }
+
+        while (!q.isEmpty()) {
+            int node = q.poll();
+            count++;
+
+            for (int it : adj.get(node)) {
+                indegree[it]--;
+                if (indegree[it] == 0) {
+                    q.add(it);
+                }
+            }
+        }
+
+        return count == V;
+    }
+
     // Detect cycle in a directed graph - BSF
     private static boolean isCyclicBFS(int V, ArrayList<ArrayList<Integer>> adj) {
         // perform topologiccal sort
