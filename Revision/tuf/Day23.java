@@ -7,6 +7,46 @@ public class Day23 {
 
     }
 
+    // Detect A cycle in Undirected Graph using BFS
+    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+        boolean[] vis = new boolean[V];
+        for (int i = 0; i < V; i++) {
+            if (!vis[i]) {
+                if (detectCycle(i, vis, adj)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    static boolean detectCycle(int src, boolean[] vis, ArrayList<ArrayList<Integer>> adj) {
+        vis[src] = true;
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(src, -1));
+        while (!q.isEmpty()) {
+            Pair node = q.poll();
+            for (int it : adj.get(node.node)) {
+                if (!vis[it]) {
+                    vis[it] = true;
+                    q.add(new Pair(it, node.node));
+                } else if (it != node.parent) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    static class Pair {
+        int node;
+        int parent;
+        Pair(int n, int p) {
+            this.node = n;
+            this.parent = p;
+        }
+    }
+
     // BFS of graph
     public ArrayList<Integer> bfsOfGraph(int V, ArrayList<ArrayList<Integer>> adj) {
         ArrayList<Integer> ans = new ArrayList<>();
