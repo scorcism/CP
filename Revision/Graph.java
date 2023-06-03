@@ -7,8 +7,78 @@ public class Graph {
 
     }
 
+    // Shortest path in Directed Acyclic Graph
+    public int[] shortestPath(int N, int M, int[][] edges) {
+        ArrayList<ArrayList<PairshortestPath>> adj = new ArrayList<>();
 
-    
+        for (int i = 0; i < N; i++) {
+            adj.add(new ArrayList<PairshortestPath>());
+        }
+
+        for (int i = 0; i < M; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int wt = edges[i][2];
+            adj.get(u).add(new PairshortestPath(v, wt));
+        }
+
+        Stack<Integer> st = new Stack<>();
+        int[] vis = new int[N];
+        for (int i = 0; i < N; i++) {
+            if (vis[i] == 0) {
+                dfsTopo(i, adj, vis, st);
+            }
+        }
+
+        // Step 2;
+        int[] dist = new int[N];
+        Arrays.fill(dist, (int) 1e9);
+
+        dist[0] = 0;
+        while (!st.isEmpty()) {
+            int top = st.pop();
+
+            for (int i = 0; i < adj.get(top).size(); i++) {
+                int v = adj.get(top).get(i).v;
+                int weight = adj.get(top).get(i).weight;
+
+                // perform relaxation
+                if (dist[top] + weight < dist[v]) {
+                    dist[v] = dist[top] + weight;
+                }
+            }
+        }
+        for (int i = 0; i < dist.length; i++) {
+            if (dist[i] == (int) 1e9) {
+                dist[i] = -1;
+            }
+        }
+        return dist;
+    }
+
+    private void dfsTopo(int i, ArrayList<ArrayList<PairshortestPath>> adj, int[] vis, Stack<Integer> st) {
+        vis[i] = 1;
+
+        for (int k = 0; k < adj.get(i).size(); k++) {
+            int v = adj.get(i).get(k).v;
+            if (vis[v] == 0) {
+                dfsTopo(v, adj, vis, st);
+            }
+        }
+
+        st.push(i);
+    }
+
+    static class PairshortestPath {
+        int v;
+        int weight;
+
+        PairshortestPath(int v, int w) {
+            this.v = v;
+            this.weight = w;
+        }
+    }
+
     // Alien Dictionary
     public String findOrder(String[] dict, int N, int K) {
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
