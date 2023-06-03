@@ -7,6 +7,38 @@ public class Day23 {
 
     }
 
+    // Is Graph Bipartite?
+    public boolean isBipartite(int[][] graph) {
+        int len = graph.length;
+        int[] colors = new int[len];
+
+        for (int i = 0; i < len; i++) {
+            //This graph might be a disconnected graph. So check each unvisited node.
+            if (colors[i] != 0) {
+                continue;
+            }
+
+            Queue<Integer> q = new LinkedList<>();
+            q.offer(i);
+            colors[i] = 1;
+
+            while (!q.isEmpty()) {
+                int curr = q.poll();
+                for (int it : graph[curr]) {
+                    if (colors[it] == 0) { // if it is not colord
+                        colors[it] = -colors[curr]; // colour it will the opp and put it into q
+                        q.offer(it);
+                    } else if (colors[it] != -colors[curr])
+                    // If it is colored and its color is different, return false;
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     // Number of Islands
     public int numIslands(char[][] grid) {
         int n = grid.length;
