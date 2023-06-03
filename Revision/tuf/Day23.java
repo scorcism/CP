@@ -7,13 +7,40 @@ public class Day23 {
 
     }
 
+    // Is Graph Bipartite - DFS
+    public boolean isBipartiteDFS(int[][] graph) {
+        int len = graph.length;
+        int[] colors = new int[len];
+
+        for (int i = 0; i < len; i++) {// coz the graph may be disconnected
+            if (colors[i] == 0 && !dfsisBipartite(graph, colors, 1, i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private boolean dfsisBipartite(int[][] graph, int[] colors, int color, int node) {
+        if (colors[node] != 0) {
+            return colors[node] == color;
+        }
+        colors[node] = color;
+        for (int it : graph[node]) {
+            if (!dfsisBipartite(graph, colors, -color, it)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     // Is Graph Bipartite?
     public boolean isBipartite(int[][] graph) {
         int len = graph.length;
         int[] colors = new int[len];
 
         for (int i = 0; i < len; i++) {
-            //This graph might be a disconnected graph. So check each unvisited node.
+            // This graph might be a disconnected graph. So check each unvisited node.
             if (colors[i] != 0) {
                 continue;
             }
