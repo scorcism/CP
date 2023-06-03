@@ -7,6 +7,48 @@ public class Graph {
 
     }
 
+
+    
+    // Implementing Dijkstra Algorithm
+    static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S) {
+        PriorityQueue<PairD> pq = new PriorityQueue<>((a, b) -> a.distance - b.distance);
+
+        int[] dist = new int[V];
+        Arrays.fill(dist, (int) 1e9);
+
+        pq.add(new PairD(0, S));
+        dist[S] = 0;
+
+        while (!pq.isEmpty()) {
+            int node = pq.peek().node;
+            int dis = pq.peek().distance;
+            pq.poll();
+
+            for (int it = 0; it < adj.get(node).size(); it++) {
+                int adjNode = adj.get(node).get(it).get(0);
+                int edgeWeight = adj.get(node).get(it).get(1);
+
+                if (dis + edgeWeight < dist[adjNode]) {
+                    dist[adjNode] = dis + edgeWeight;
+                    pq.add(new PairD(dist[adjNode], adjNode));
+                }
+            }
+        }
+
+        return dist;
+
+    }
+
+    static class PairD {
+        int distance;
+        int node;
+
+        PairD(int d, int n) {
+            this.distance = d;
+            this.node = n;
+        }
+    }
+
     // Shortest path in Undirected Graph having unit distance
     public int[] shortestPathUndirected(int[][] edges, int n, int m, int src) {
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
