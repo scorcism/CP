@@ -7,6 +7,89 @@ public class Graph {
 
     }
 
+    static int spanningTree_Kruskals_Algorithm(int V, int E, int edges[][]) {
+
+        ArrayList<Edge> adj = new ArrayList<>();
+        for (int i = 0; i < edges.length; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int wt = edges[i][2];
+            adj.add(new Edge(u, v, wt));
+        }
+
+        DisjointSet ds = new DisjointSet(V);
+        Collections.sort(adj);
+        int weight = 0;
+        for (int i = 0; i < adj.size(); i++) {
+            int wt = adj.get(i).wt;
+            int u = adj.get(i).src;
+            int v = adj.get(i).dest;
+
+            if(ds.findUParent(u) != ds.findUParent(v)){
+                weight+=wt;
+                ds.unionByRank(u, v);
+            }
+        }
+        return weight;
+    }
+
+    static class DisjointSet {
+
+        List<Integer> parent = new ArrayList<>();
+        List<Integer> rank = new ArrayList<>();
+
+        public DisjointSet(int n) {
+            for (int i = 0; i <= n; i++) {
+                parent.add(i);
+                rank.add(0);
+            }
+        }
+
+        public int findUParent(int node) {
+            if (node == parent.get(node)) {
+                return node;
+            }
+            int ulp = findUParent(parent.get(node));
+            parent.set(node, ulp);
+            return parent.get(node);
+        }
+
+        public void unionByRank(int u, int v) {
+            int ulp_u = findUParent(u);
+            int ulp_v = findUParent(v);
+
+            if (ulp_u == ulp_v) {
+                return;
+            }
+
+            if (rank.get(ulp_u) < rank.get(ulp_v)) {
+                parent.set(ulp_u, ulp_v);
+            } else if (rank.get(ulp_v) < rank.get(ulp_u)) {
+                parent.set(ulp_v, ulp_u);
+            } else {
+                parent.set(ulp_v, ulp_u);
+                int rankU = rank.get(ulp_u);
+                rank.set(ulp_u, rankU + 1);
+            }
+        }
+    }
+ 
+    static class Edge implements Comparable<Edge>{
+        int src;
+        int dest;
+        int wt;
+
+        Edge(int s, int d, int w) {
+            this.src = s;
+            this.dest = d;
+            this.wt = w;
+        }
+ 
+        public int compareTo(Edge curr){
+            return this.wt - curr.wt;
+        }
+    }
+
     static int spanningTree(int V, int E, int edges[][]) {
         int sum = 0;
         ArrayList<ArrayList<PairST>> adj = new ArrayList<>();
