@@ -7,6 +7,62 @@ public class Graph {
 
     }
 
+    static int spanningTree(int V, int E, int edges[][]) {
+        int sum = 0;
+        ArrayList<ArrayList<PairST>> adj = new ArrayList<>();
+
+        for (int i = 0; i < V; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < edges.length; i++) {
+            int u = edges[i][0];
+            int v = edges[i][1];
+            int wt = edges[i][2];
+
+            adj.get(u).add(new PairST(v, wt));
+            adj.get(v).add(new PairST(u, wt));
+        }
+
+        PriorityQueue<PairST> pq = new PriorityQueue<>((a, b) -> a.wt - b.wt);
+
+        int[] vis = new int[V];
+        pq.add(new PairST(0, 0));
+
+        while (!pq.isEmpty()) {
+            int wt = pq.peek().wt;
+            int v = pq.peek().v;
+            pq.poll();
+
+            if (vis[v] == 1) {
+                continue;
+            }
+
+            vis[v] = 1;
+            sum += wt;
+
+            for (PairST it : adj.get(v)) {
+                int adjNode = it.v;
+                int edjWeight = it.wt;
+
+                if (vis[adjNode] == 0) {
+                    pq.add(new PairST(adjNode, edjWeight));
+                }
+            }
+        }
+        return sum;
+    }
+
+    static class PairST {
+        int v;
+        int wt;
+
+        PairST(int v, int wt) {
+            this.v = v;
+            this.wt = wt;
+        }
+    }
+
     public void shortest_distance_Floyd_Warshall(int[][] matrix) {
         int n = matrix.length;
 
