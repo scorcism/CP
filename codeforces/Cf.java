@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 13:58:51
+// Date: 2023-06-06 17:09:16
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,28 +19,36 @@ public class Cf {
         long a = fs.nextLong();
         long b = fs.nextLong();
         long c = fs.nextLong();
-        long d = fs.nextLong();
 
-        if (a + b - c == d) {
-            System.out.println("YES");
+        if (a < 0 || b < 0 || c < 0) {
+            System.out.println(0);
         }
-        else if (a - b + c == d) {
-            System.out.println("YES");
+
+        long count = 0;
+        long minAmong3 = Math.min(a, Math.min(b, c));
+
+        count += minAmong3;
+
+        a -= minAmong3;
+        b -= minAmong3;
+        c -= minAmong3;
+
+        if (a <= 0) {
+            System.out.println(count);
         }
-        else if (a + b * c == d) {
-            System.out.println("YES");
+
+        if (b <= 0) {
+            if (c <= (a / 2)) {
+                count+=c;
+                System.out.println(count);
+            } else if (c > (a / 2)) {
+                count+=(a/2);
+                System.out.println(count);
+            }
         }
-        else if (a * b + c == d) {
-            System.out.println("YES");
-        }
-        else if (a * b - c == d) {
-            System.out.println("YES");
-        }
-        else if (a - b * c == d) {
-            System.out.println("YES");
-        }
-        else{
-            System.out.println("NO");
+
+        if(c <=0){
+            System.out.println(count);
         }
 
         out.close();
