@@ -1,10 +1,11 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 20:20:15
+// Date: 2023-06-06 20:32:36
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.io.InputStream;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
@@ -16,23 +17,52 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
+        int n = fs.nextInt();
 
-        for (int tt = 0; tt < T; tt++) {
-            int a = fs.nextInt();
-            int b = fs.nextInt();
-            int min = Math.min(a, b);
-            int max = Math.max(a, b);
-            int sum = 0;
+        boolean[] primes= new boolean[100];
+        Arrays.fill(primes, true);
+        
+        primes[0] = primes[1] = false;
 
-            for (int i = min + 1; i < max; i++) {
-                if ((i & 1) == 1) {
-                    sum += i;
+        for(int i = 2; i*i< primes.length; i++){
+            if(primes[i]){
+                for(int j = 2 * i; j < primes.length; j+=i){
+                    primes[j] = false;
                 }
             }
+        }
+        // System.out.println(Arrays.toString(primes));
+        int[] p = new int[n];
+        int index = 0;
+        int k = 0;
+        while(k < 100){
+            if(primes[k]){
+                p[index++] = k;
 
-            System.out.println(sum);
+                if(index ==n){
+                    break;
+                }
+            }
+            k++;
+        }
+        // System.out.println(Arrays.toString(p));
 
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n - i; j++) {
+                System.out.print(" ");
+            }
+
+            int ithPrime = p[i];
+            if(ithPrime ==2 ){
+                ithPrime = 1;
+            }
+            for(int j = 0; j< ithPrime; j++){
+                System.out.print("*");
+            }
+            for (int j = 0; j < n - i; j++) {
+                System.out.print(" ");
+            }
+            System.out.println();
         }
 
         out.close();
