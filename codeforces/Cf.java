@@ -1,6 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 20:59:22
-
+// Date: 2023-06-06 22:58:03
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,25 +16,47 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int n  = fs.nextInt();
-        int a = fs.nextInt();
-        int b = fs.nextInt();
-        int count = 0;
-        for(int i  = 1; i<= n; i++){
-            int digitSum = 0;
-            int ii = i;
-            while(ii > 0){
-                digitSum+=ii%10;
-                ii/=10;
+        int T = fs.nextInt();
+
+        for (int tt = 0; tt < T; tt++) {
+            int n = fs.nextInt();
+
+            int countsetBits = 0;
+            int nn = n;
+            while (nn != 0) {
+                if ((nn & 1) == 1) {
+                    countsetBits++;
+                }
+                nn >>= 1;
             }
-            if(digitSum >= a && digitSum <= b){
-                count+=i;
+            // System.out.println(countsetBits + " total set bits");
+
+            int num = 0;
+            
+            for(int i = 0; i< countsetBits; i++){
+                int p = getExpo(2, i);
+                // System.out.println(p +" p ");
+                num+= (1* p);
             }
+
+            System.out.println(num);
+            
+
         }
 
-        System.out.println(count);
-
         out.close();
+    }
+
+    static int getExpo(int a, int b) {
+        int ans = 1;
+        while (b > 0) {
+            if ((b & 1) != 0) {
+                ans *= a;
+            }
+            a = a * a;
+            b >>= 1;
+        }
+        return ans;
     }
 
     static class FastScanner {
@@ -114,14 +135,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
