@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 11:30:41
+// Date: 2023-06-06 11:38:23
 
 
 import java.io.BufferedReader;
@@ -17,14 +17,17 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int a = fs.nextInt();
-        int b = fs.nextInt();
+        int T = fs.nextInt();
         
-        if(a % b == 0 || b % a ==0){
-            System.out.println("Multiples");
-        }else{
-            System.out.println("No Multiples");
-        }
+        
+            int y= T / 365;
+            System.out.println(y+ " years");
+            T = T - (y*365);
+            int m = T / 30;
+            System.out.println(m +" months");
+            T = T - (m * 30);
+            System.out.println(T +" days");
+        
 
         out.close();
     }
