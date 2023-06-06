@@ -1,11 +1,11 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 20:32:36
+// Date: 2023-06-06 20:59:22
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.io.InputStream;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
@@ -17,53 +17,23 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int n = fs.nextInt();
-
-        boolean[] primes= new boolean[100];
-        Arrays.fill(primes, true);
-        
-        primes[0] = primes[1] = false;
-
-        for(int i = 2; i*i< primes.length; i++){
-            if(primes[i]){
-                for(int j = 2 * i; j < primes.length; j+=i){
-                    primes[j] = false;
-                }
+        int n  = fs.nextInt();
+        int a = fs.nextInt();
+        int b = fs.nextInt();
+        int count = 0;
+        for(int i  = 1; i<= n; i++){
+            int digitSum = 0;
+            int ii = i;
+            while(ii > 0){
+                digitSum+=ii%10;
+                ii/=10;
+            }
+            if(digitSum >= a && digitSum <= b){
+                count+=i;
             }
         }
-        // System.out.println(Arrays.toString(primes));
-        int[] p = new int[n];
-        int index = 0;
-        int k = 0;
-        while(k < 100){
-            if(primes[k]){
-                p[index++] = k;
 
-                if(index ==n){
-                    break;
-                }
-            }
-            k++;
-        }
-        // System.out.println(Arrays.toString(p));
-
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n - i; j++) {
-                System.out.print(" ");
-            }
-
-            int ithPrime = p[i];
-            if(ithPrime ==2 ){
-                ithPrime = 1;
-            }
-            for(int j = 0; j< ithPrime; j++){
-                System.out.print("*");
-            }
-            for (int j = 0; j < n - i; j++) {
-                System.out.print(" ");
-            }
-            System.out.println();
-        }
+        System.out.println(count);
 
         out.close();
     }
@@ -144,15 +114,14 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-
+    
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-
+    
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
-
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
