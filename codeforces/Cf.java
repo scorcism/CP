@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 17:54:44
+// Date: 2023-06-06 18:02:31
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,21 +18,25 @@ public class Cf {
         PrintWriter out = new PrintWriter(System.out);
         int n = fs.nextInt();
 
-        if (n == 1) {
-            System.out.println("NO");
-        }
+        boolean[] primes = new boolean[n + 1];
 
-        int p = 0;
-        for (int i = 2; i  < n/ 2; i++) {
-            if (n % i == 0) {
-                p = 1;
-                System.out.println("NO");
-                break;
+        Arrays.fill(primes, true);
 
+        primes[0] = primes[1] = false;
+
+        for (int i = 2; i * i < n; i++) {
+            if (primes[i] == true) {
+                for (int j = 2 * i; j < n; j += i) {
+                    primes[j] = false;
+                }
             }
         }
-        if (p == 0) {
-            System.out.println("YES");
+
+        for (int i = 0; i < n; i++) {
+            // System.out.println("i: " + i);
+            if (primes[i]) {
+                System.out.print(i +" ");
+            }
         }
 
         out.close();
