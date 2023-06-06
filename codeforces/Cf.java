@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 22:58:03
+// Date: 2023-06-06 23:41:14
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,47 +16,17 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
+        int a = fs.nextInt();
+        int b = fs.nextInt();
 
-        for (int tt = 0; tt < T; tt++) {
-            int n = fs.nextInt();
-
-            int countsetBits = 0;
-            int nn = n;
-            while (nn != 0) {
-                if ((nn & 1) == 1) {
-                    countsetBits++;
-                }
-                nn >>= 1;
-            }
-            // System.out.println(countsetBits + " total set bits");
-
-            int num = 0;
-            
-            for(int i = 0; i< countsetBits; i++){
-                int p = getExpo(2, i);
-                // System.out.println(p +" p ");
-                num+= (1* p);
-            }
-
-            System.out.println(num);
-            
-
+        int ans = a - b;
+        if(ans >=0){
+            System.out.println(ans);
+        }else{
+            System.out.println(0);
         }
 
         out.close();
-    }
-
-    static int getExpo(int a, int b) {
-        int ans = 1;
-        while (b > 0) {
-            if ((b & 1) != 0) {
-                ans *= a;
-            }
-            a = a * a;
-            b >>= 1;
-        }
-        return ans;
     }
 
     static class FastScanner {
