@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 11:38:23
+// Date: 2023-06-06 11:46:36
 
 
 import java.io.BufferedReader;
@@ -14,22 +14,35 @@ import java.util.Collections;
 import java.util.Random;
 
 public class Cf {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception {   
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
-        
-        
-            int y= T / 365;
-            System.out.println(y+ " years");
-            T = T - (y*365);
-            int m = T / 30;
-            System.out.println(m +" months");
-            T = T - (m * 30);
-            System.out.println(T +" days");
-        
+        long a = fs.nextLong();
+        long b = fs.nextLong();
+        long c = fs.nextLong();
+        long d = fs.nextLong();
+
+        // System.out.println(Math.log(a));
+        if(b * Math.log(a) > d * Math.log(c)){
+            System.out.println("YES");
+        }else{
+            System.out.println("NO");
+        }
 
         out.close();
+    }
+
+    static long getexpo(long a, long b){
+
+        long ans = 1;
+        while(b > 0){
+            if((b&1)==1){
+                ans= ans* a ;
+            }
+            a =a*a ;
+            b >>=1;
+        }
+        return ans;
     }
 
     static class FastScanner {
