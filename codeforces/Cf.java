@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 23:41:14
+// Date: 2023-06-07 00:35:55
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,14 +16,31 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int a = fs.nextInt();
-        int b = fs.nextInt();
+        int n = fs.nextInt();
+        int k = fs.nextInt();
 
-        int ans = a - b;
-        if(ans >=0){
-            System.out.println(ans);
-        }else{
-            System.out.println(0);
+        int[] arr = fs.nextIntArray(n);
+
+        int i = 0;
+        int j = 0;
+        int min = Integer.MAX_VALUE;
+        while (j < n) {
+            min = Math.min(min, arr[j]);
+            if (j - i + 1 < k) {
+                j++;
+            } else if (j - i + 1 == k) {
+                System.out.print(min + " ");
+                j = j + 1;
+                i = j;
+                min = Integer.MAX_VALUE;
+            }
+        }
+        min = Integer.MAX_VALUE;
+        for (int p = i; p < j; p++) {
+            min = Math.min(min, arr[p]);
+        }
+        if(min !=2147483647 ){
+            System.out.println(min);
         }
 
         out.close();
