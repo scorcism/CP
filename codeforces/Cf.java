@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 19:12:41
+// Date: 2023-06-06 20:08:40
 
 
 import java.io.BufferedReader;
@@ -17,19 +17,18 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int a = fs.nextInt();
-        int b = fs.nextInt();
+        String s = fs.next();
+        int N= fs.nextInt();
+        int[] arr = fs.nextIntArray(N);
         
-        System.out.println(getGCD(a, b));
+        for(int i = 0; i< N; i++){
+            for(int j = 0; j< arr[i]; j++){
+                System.out.print(s);
+            }
+            System.out.println();
+        }   
 
         out.close();
-    }
-
-    static int getGCD(int a, int b){
-        if(b==0){
-            return a;
-        }
-        return getGCD(b, a%b);
     }
 
     static class FastScanner {
