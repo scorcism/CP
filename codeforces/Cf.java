@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 20:08:40
+// Date: 2023-06-06 20:12:23
 
 
 import java.io.BufferedReader;
@@ -17,16 +17,17 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        String s = fs.next();
-        int N= fs.nextInt();
-        int[] arr = fs.nextIntArray(N);
+        int T = fs.nextInt();
         
-        for(int i = 0; i< N; i++){
-            for(int j = 0; j< arr[i]; j++){
-                System.out.print(s);
+        for (int tt = 0; tt < T; tt++) {
+            int n = fs.nextInt();
+
+            while(n > 0){
+                System.out.print(n % 10+" ");
+                n/=10;
             }
             System.out.println();
-        }   
+        }
 
         out.close();
     }
