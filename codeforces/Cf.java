@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 11:21:49
+// Date: 2023-06-06 11:30:41
 
 
 import java.io.BufferedReader;
@@ -17,9 +17,14 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        String T = fs.next();
+        int a = fs.nextInt();
+        int b = fs.nextInt();
         
-        System.out.println("Hello, "+ T);
+        if(a % b == 0 || b % a ==0){
+            System.out.println("Multiples");
+        }else{
+            System.out.println("No Multiples");
+        }
 
         out.close();
     }
