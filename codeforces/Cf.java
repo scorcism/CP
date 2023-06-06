@@ -1,6 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 12:42:19
-
+// Date: 2023-06-06 12:49:14
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,26 +16,16 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        long a = fs.nextLong();
-        long b = fs.nextLong();
-        long k = fs.nextLong();
-        long Mod = (int)1e9;
-        // a%=Mod;
-        // b%=Mod;
-        // k%=Mod;
+        char c = fs.next().charAt(0);
 
-
-        if(a % k == 0 && b % k ==0){
-            System.out.println("Both");
-        }else if(a % k == 0 && b % k!=0){
-            System.out.println("Memo");
-        }else if(a % k != 0 && b % k==0){
-            System.out.println("Momo");
-        }else{
-            System.out.println("No One");
+        if (c == 'z') {
+            System.out.println('a');
+        } else {
+            int mm = c - 'a';
+            int p = ((mm + (int) 'a') + 1);
+            // System.out.println(p + " beofe");
+            System.out.println((char) p);
         }
-
-        out.close();
     }
 
     static class FastScanner {
@@ -115,14 +104,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
