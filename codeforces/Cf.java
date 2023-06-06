@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 12:49:14
+// Date: 2023-06-06 13:58:51
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,16 +16,34 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        char c = fs.next().charAt(0);
+        long a = fs.nextLong();
+        long b = fs.nextLong();
+        long c = fs.nextLong();
+        long d = fs.nextLong();
 
-        if (c == 'z') {
-            System.out.println('a');
-        } else {
-            int mm = c - 'a';
-            int p = ((mm + (int) 'a') + 1);
-            // System.out.println(p + " beofe");
-            System.out.println((char) p);
+        if (a + b - c == d) {
+            System.out.println("YES");
         }
+        else if (a - b + c == d) {
+            System.out.println("YES");
+        }
+        else if (a + b * c == d) {
+            System.out.println("YES");
+        }
+        else if (a * b + c == d) {
+            System.out.println("YES");
+        }
+        else if (a * b - c == d) {
+            System.out.println("YES");
+        }
+        else if (a - b * c == d) {
+            System.out.println("YES");
+        }
+        else{
+            System.out.println("NO");
+        }
+
+        out.close();
     }
 
     static class FastScanner {
