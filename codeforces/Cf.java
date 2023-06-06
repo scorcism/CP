@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 20:15:52
+// Date: 2023-06-06 20:20:15
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,25 +16,22 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
+        int T = fs.nextInt();
 
-        while (true) {
-            int N = fs.nextInt();
-            int M = fs.nextInt();
+        for (int tt = 0; tt < T; tt++) {
+            int a = fs.nextInt();
+            int b = fs.nextInt();
+            int min = Math.min(a, b);
+            int max = Math.max(a, b);
+            int sum = 0;
 
-
-            if(N <=0 || M <=0){
-                break;
+            for (int i = min + 1; i < max; i++) {
+                if ((i & 1) == 1) {
+                    sum += i;
+                }
             }
 
-            int min = Math.min(N,M);
-            int max = Math.max(N,M);
-
-            int sum= 0;
-            for(int i = min; i<= max; i++){
-                System.out.print(i+" " );
-                sum+=i;
-            }
-            System.out.println("sum ="+sum);
+            System.out.println(sum);
 
         }
 
