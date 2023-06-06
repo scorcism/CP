@@ -7,6 +7,61 @@ public class Graph {
 
     }
 
+    public int kosaraju(int V, ArrayList<ArrayList<Integer>> adj) {
+        // step 1
+        int vis[] = new int[V];
+        Stack<Integer> st = new Stack<>();
+        for (int i = 0; i < V; i++) {
+            if (vis[i] == 0) {
+                dfsK(i, vis, adj, st);
+            }
+        }
+        // step 2
+        ArrayList<ArrayList<Integer>> adjT = new ArrayList<>();
+        for (int i = 0; i < V; i++) {
+            adj.add(new ArrayList<>());
+        }
+
+        for (int i = 0; i < V; i++) {
+            vis[i] = 0;
+            for (int it : adj.get(i)) {
+                adjT.get(it).add(i);
+            }
+        }
+
+        // step 3
+        int scc = 0;
+        while (!st.isEmpty()) {
+            int node = st.pop();
+            if (vis[node] == 0) {
+                scc++;
+                dfs3(node, vis, adjT);
+            }
+        }
+
+        return scc;
+
+    }
+
+    private void dfs3(int node, int[] vis, ArrayList<ArrayList<Integer>> adjT) {
+        vis[node] = 1;
+        for (int it : adjT.get(node)) {
+            if (vis[it] == 0) {
+                dfs3(it, vis, adjT);
+            }
+        }
+    }
+
+    private void dfsK(int node, int[] vis, ArrayList<ArrayList<Integer>> adj, Stack<Integer> st) {
+        vis[node] = 1;
+        for (int it : adj.get(node)) {
+            if (vis[it] == 0) {
+                dfsK(it, vis, adj, st);
+            }
+        }
+        st.push(node);
+    }
+
     static int spanningTree_Kruskals_Algorithm(int V, int E, int edges[][]) {
 
         ArrayList<Edge> adj = new ArrayList<>();
@@ -25,8 +80,8 @@ public class Graph {
             int u = adj.get(i).src;
             int v = adj.get(i).dest;
 
-            if(ds.findUParent(u) != ds.findUParent(v)){
-                weight+=wt;
+            if (ds.findUParent(u) != ds.findUParent(v)) {
+                weight += wt;
                 ds.unionByRank(u, v);
             }
         }
@@ -73,8 +128,8 @@ public class Graph {
             }
         }
     }
- 
-    static class Edge implements Comparable<Edge>{
+
+    static class Edge implements Comparable<Edge> {
         int src;
         int dest;
         int wt;
@@ -84,8 +139,8 @@ public class Graph {
             this.dest = d;
             this.wt = w;
         }
- 
-        public int compareTo(Edge curr){
+
+        public int compareTo(Edge curr) {
             return this.wt - curr.wt;
         }
     }
