@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 17:09:16
+// Date: 2023-06-06 17:47:53
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,39 +16,18 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        long a = fs.nextLong();
-        long b = fs.nextLong();
-        long c = fs.nextLong();
+        int a = fs.nextInt();
 
-        if (a < 0 || b < 0 || c < 0) {
-            System.out.println(0);
-        }
+        int one = 0;
+        int two = 0;
+        one = a % 10;
+        a/=10;
+        two = a % 10;
 
-        long count = 0;
-        long minAmong3 = Math.min(a, Math.min(b, c));
-
-        count += minAmong3;
-
-        a -= minAmong3;
-        b -= minAmong3;
-        c -= minAmong3;
-
-        if (a <= 0) {
-            System.out.println(count);
-        }
-
-        if (b <= 0) {
-            if (c <= (a / 2)) {
-                count+=c;
-                System.out.println(count);
-            } else if (c > (a / 2)) {
-                count+=(a/2);
-                System.out.println(count);
-            }
-        }
-
-        if(c <=0){
-            System.out.println(count);
+        if (one % two == 0 || two % one == 0) {
+            System.out.println("YES");
+        } else {
+            System.out.println("NO");
         }
 
         out.close();
