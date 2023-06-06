@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-06 11:46:36
+// Date: 2023-06-06 12:42:19
 
 
 import java.io.BufferedReader;
@@ -14,35 +14,29 @@ import java.util.Collections;
 import java.util.Random;
 
 public class Cf {
-    public static void main(String[] args) throws Exception {   
+    public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         long a = fs.nextLong();
         long b = fs.nextLong();
-        long c = fs.nextLong();
-        long d = fs.nextLong();
+        long k = fs.nextLong();
+        long Mod = (int)1e9;
+        // a%=Mod;
+        // b%=Mod;
+        // k%=Mod;
 
-        // System.out.println(Math.log(a));
-        if(b * Math.log(a) > d * Math.log(c)){
-            System.out.println("YES");
+
+        if(a % k == 0 && b % k ==0){
+            System.out.println("Both");
+        }else if(a % k == 0 && b % k!=0){
+            System.out.println("Memo");
+        }else if(a % k != 0 && b % k==0){
+            System.out.println("Momo");
         }else{
-            System.out.println("NO");
+            System.out.println("No One");
         }
 
         out.close();
-    }
-
-    static long getexpo(long a, long b){
-
-        long ans = 1;
-        while(b > 0){
-            if((b&1)==1){
-                ans= ans* a ;
-            }
-            a =a*a ;
-            b >>=1;
-        }
-        return ans;
     }
 
     static class FastScanner {
