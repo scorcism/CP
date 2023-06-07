@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-07 15:05:30
+// Date: 2023-06-07 18:49:27
 
 
 import java.io.BufferedReader;
@@ -11,7 +11,6 @@ import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Random;
 
 public class Cf {
@@ -19,27 +18,24 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int n = fs.nextInt();
-
-        HashMap<Integer,Integer> map = new HashMap<>();
-
-        for(int i = 0; i<n;i++){
-            int num = fs.nextInt();
-            map.put(num, map.getOrDefault(num,0)+1);
-        }
-        for(int i = 0; i<n;i++){
-            int num = fs.nextInt();
-            map.put(num, map.getOrDefault(num,0)-1);
-            if(map.get(num)==0){
-                map.remove(num);
+        int m = fs.nextInt();
+        int[] arr1 = fs.nextIntArray(n);
+        int[] arr2 = fs.nextIntArray(m);
+        
+        int i = 0; 
+        int j = 0;
+        while(i < n && j < m){
+            if(arr1[i] == arr2[j]){
+                i++; j++;
+            }else if(arr1[i] != arr2[j]){
+                i++;
             }
         }
-
-        if(map.size() >0){
-            System.out.println("no");
+        if(j ==m){
+            System.out.println("YES");
         }else{
-            System.out.println("yes");
+            System.out.println("NO");
         }
-        
 
         out.close();
     }
