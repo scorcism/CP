@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-07 11:58:53
+// Date: 2023-06-07 12:03:48
 
 
 import java.io.BufferedReader;
@@ -18,20 +18,25 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        
+
+        int min  =Integer.MAX_VALUE;
+        int[] arr =new int[T];
         for (int tt = 0; tt < T; tt++) {
-
-            int min = Integer.MAX_VALUE;
             int n = fs.nextInt();
-            int[] arr = fs.nextIntArray(n);
+            arr[tt] = n;
+            min = Math.min(min, n);
+        }
 
-            for(int i = 0; i< n-1; i++){
-                for(int j = i+1; j<n; j++){
-                    int sum = arr[i]+arr[j]+j-i;
-                    min = Math.min(sum, min);
-                }
+        int count = 0;
+        for(int i = 0; i< T; i++){
+            if(arr[i]== min){
+                count++;
             }
-            System.out.println(min);
+        }
+        if((count &1 )==1){
+            System.out.println("Lucky");
+        }else{
+            System.out.println("Unlucky");
         }
 
         out.close();
