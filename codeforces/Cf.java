@@ -1,6 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-07 12:03:48
-
+// Date: 2023-06-07 12:52:27
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,29 +16,24 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
+        int n = fs.nextInt();
 
-        int min  =Integer.MAX_VALUE;
-        int[] arr =new int[T];
-        for (int tt = 0; tt < T; tt++) {
-            int n = fs.nextInt();
-            arr[tt] = n;
-            min = Math.min(min, n);
-        }
+        int[] arr = fs.nextIntArray(n);
 
-        int count = 0;
-        for(int i = 0; i< T; i++){
-            if(arr[i]== min){
-                count++;
-            }
-        }
-        if((count &1 )==1){
-            System.out.println("Lucky");
-        }else{
-            System.out.println("Unlucky");
-        }
-
+        System.out.println(getCount(arr));
         out.close();
+    }
+
+    private static int getCount(int[] arr) {
+
+        for (int i = 0; i < arr.length; i++) {
+            if ((arr[i] & 1) == 1) {
+                return 0;
+            }
+
+            arr[i] = arr[i] / 2;
+        }
+        return 1 + getCount(arr);
     }
 
     static class FastScanner {
@@ -118,14 +112,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
