@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-07 19:36:55
+// Date: 2023-06-07 19:44:21
 
 
 import java.io.BufferedReader;
@@ -19,16 +19,17 @@ public class Cf {
         PrintWriter out = new PrintWriter(System.out);
         int n = fs.nextInt();
         int m = fs.nextInt();
-        
-        int[] arr= new int[(int)1e5];
 
-        for(int i  =0; i< n; i++){
-            int num = fs.nextInt();
-            arr[num]++;
-        }
-
-        for(int i  =1; i<= m; i++){
-            System.out.println(arr[i]);
+        for(int i = 0; i< n; i++){
+            int[] arr = new int[n];
+            for(int j = 0; j< m; j++){
+                int p = fs.nextInt();
+                arr[j] = p;
+            }
+            for(int k = arr.length -1; k>=0; k--){
+                System.out.print(arr[k] +" ");
+            }
+            System.out.println();
         }
 
 
