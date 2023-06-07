@@ -1,5 +1,6 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-07 12:52:27
+// Date: 2023-06-07 15:05:30
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,6 +11,7 @@ import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Cf {
@@ -18,22 +20,28 @@ public class Cf {
         PrintWriter out = new PrintWriter(System.out);
         int n = fs.nextInt();
 
-        int[] arr = fs.nextIntArray(n);
+        HashMap<Integer,Integer> map = new HashMap<>();
 
-        System.out.println(getCount(arr));
-        out.close();
-    }
-
-    private static int getCount(int[] arr) {
-
-        for (int i = 0; i < arr.length; i++) {
-            if ((arr[i] & 1) == 1) {
-                return 0;
-            }
-
-            arr[i] = arr[i] / 2;
+        for(int i = 0; i<n;i++){
+            int num = fs.nextInt();
+            map.put(num, map.getOrDefault(num,0)+1);
         }
-        return 1 + getCount(arr);
+        for(int i = 0; i<n;i++){
+            int num = fs.nextInt();
+            map.put(num, map.getOrDefault(num,0)-1);
+            if(map.get(num)==0){
+                map.remove(num);
+            }
+        }
+
+        if(map.size() >0){
+            System.out.println("no");
+        }else{
+            System.out.println("yes");
+        }
+        
+
+        out.close();
     }
 
     static class FastScanner {
@@ -112,15 +120,14 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-
+    
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-
+    
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
-
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
