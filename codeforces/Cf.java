@@ -1,5 +1,6 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-07 20:53:53
+// Date: 2023-06-09 01:14:50
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -16,35 +17,21 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int n = fs.nextInt();
-        int q = fs.nextInt();
+        int T = fs.nextInt();
+        
+        for (int tt = 0; tt < T; tt++) {
+            int a = fs.nextInt();
+            int b = fs.nextInt();
 
-        int pre[] = new int[n];
 
-        for (int i = 0; i < n; i++) {
-            int p = fs.nextInt();
-            if (i == 0) {
-                pre[i] = p;
-            } else {
-                pre[i] = pre[i - 1] + p;
-            }
-        }
-        // System.out.println(Arrays.toString(pre));
-        for (int i = 0; i < q; i++) {
-
-            int l = fs.nextInt();
-            int h = fs.nextInt();
-
-            l-=1;
-            h-=1;
-
-            if(l == 0){
-                System.out.println(pre[h]);
-            }else{
-                System.out.println(pre[h]- pre[l-1]);
-            }
+if(a== b){
+    System.out.println("Square");
+}else{
+    System.out.println("Rectangle");
+}
 
         }
+
         out.close();
     }
 
@@ -124,15 +111,14 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-
+    
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-
+    
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
-
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
