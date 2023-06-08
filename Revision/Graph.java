@@ -200,6 +200,7 @@ public class Graph {
     }
 
     static int spanningTree(int V, int E, int edges[][]) {
+		// Prim's Algo
         int sum = 0;
         ArrayList<ArrayList<PairST>> adj = new ArrayList<>();
 
