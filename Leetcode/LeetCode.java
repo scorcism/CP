@@ -6,6 +6,25 @@ public class LeetCode {
 
     }
 
+    public boolean isLongPressedName(String a, String b) {
+
+        int i = a.length() - 1;
+        int j = b.length() - 1;
+
+        while (i >= 0 && j >= 0) {
+            if (a.charAt(i) == b.charAt(j)) {
+                while (b.charAt(j) == a.charAt(i)) {
+                    j--;
+                }
+                i--;
+            }else{
+                return false;
+            }
+        }
+        return true;
+
+    }
+
     public boolean checkIfExist(int[] arr) {
         HashSet<Integer> set = new HashSet<>();
 
