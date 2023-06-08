@@ -6,6 +6,41 @@ public class LeetCode {
 
     }
 
+    public boolean validPalindrome(String s) {
+        int i = 0;
+        int j = s.length() - 1;
+
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                /*
+                 * Suppose string is
+                 * s = abcdedczba
+                 * z is not require so we use two
+                 * pointer i = 0 j = s.length()-1
+                 * the character mis-matched at
+                 * c - 2;
+                 * z - 7
+                 * so we will check from 2 to 7 and from 2 to 6
+                 */
+                return isPallindrome(s, i + 1, j) || isPallindrome(s, i, j - 1);
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+
+    private boolean isPallindrome(String s, int i, int j) {
+        while (i < j) {
+            if (s.charAt(i) != s.charAt(j)) {
+                return false;
+            }
+            i++;
+            j--;
+        }
+        return true;
+    }
+
     public boolean isLongPressedName(String a, String b) {
 
         int i = 0;
