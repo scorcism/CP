@@ -6,6 +6,83 @@ public class LeetCode {
 
     }
 
+    public int[] pivotArray3(int[] nums, int pivot) {
+
+        int[] ans = new int[nums.length];
+
+        int n = nums.length;
+        int left = 0;
+        int right = n - 1;
+
+        for (int i = 0, j = n - 1; i < n; i++, j--) {
+            if (nums[i] < pivot) {
+                ans[left++] = nums[i];
+            }
+            if (nums[j] > pivot) {
+                ans[right++] = nums[j];
+            }
+        }
+
+        while (left != right) {
+            ans[left++] = pivot;
+        }
+
+        return ans;
+    }
+
+    public int[] pivotArray2(int[] nums, int pivot) {
+
+        int[] ans = new int[nums.length];
+        int i = 0;
+        int pivot_count = 0;
+
+        for (int n : nums) {
+            if (n < pivot) {
+                ans[i++] = n;
+            } else if (n == pivot) {
+                ++pivot_count;
+            }
+        }
+        while (pivot_count-- > 0) {
+            ans[i++] = pivot;
+        }
+        for (int n : nums) {
+            if (n > pivot) {
+                ans[i++] = n;
+            }
+        }
+        return ans;
+    }
+
+    public int[] pivotArray(int[] nums, int pivot) {
+        List<Integer> l1 = new ArrayList<>();
+        List<Integer> l2 = new ArrayList<>();
+        List<Integer> l3 = new ArrayList<>();
+        int[] ans = new int[nums.length];
+
+        for (int n : nums) {
+            if (n < pivot) {
+                l1.add(n);
+            } else if (n > pivot) {
+                l2.add(n);
+            } else if (n == pivot) {
+                l3.add(n);
+            }
+        }
+        int i = 0;
+        for (int n : l1) {
+            ans[i++] = n;
+        }
+        for (int n : l3) {
+            ans[i++] = n;
+        }
+        for (int n : l2) {
+            ans[i++] = n;
+        }
+
+        return ans;
+    }
+
     public boolean isSubsequence(String s, String t) {
         if (s.length() == 0) {
             return true;
