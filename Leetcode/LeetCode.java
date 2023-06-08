@@ -6,6 +6,24 @@ public class LeetCode {
 
     }
 
+    public boolean isSubsequence(String s, String t) {
+        if (s.length() == 0) {
+            return true;
+        }
+
+        int i = 0;
+        int m = s.length();
+        int n = t.length();
+
+        for (int j = 0; j < t.length(); j++) {
+            if (i < m && s.charAt(i) == t.charAt(j)) {
+                i++;
+            }
+        }
+
+        return i == m;
+    }
+
     public boolean validPalindrome(String s) {
         int i = 0;
         int j = s.length() - 1;
