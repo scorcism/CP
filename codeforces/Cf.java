@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 01:37:37
+// Date: 2023-06-09 01:41:03
 
 
 import java.io.BufferedReader;
@@ -17,13 +17,30 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        String s = fs.next();
+        int T = fs.nextInt();
+        
+        for (int tt = 0; tt < T; tt++) {
+            String s = fs.next();
 
-        int sum = 0;
-        for(int i  =0; i< s.length(); i++){
-            sum+= s.charAt(i)-'0';
+            boolean got = false;
+            for(int i = 1; i < s.length() -1; i++){
+                char before = s.charAt(i-1);
+                char cur = s.charAt(i);
+                char next = s.charAt(i+1);
+                
+                if((before == '0' && cur == '1' && next== '0') || (before == '1' && cur == '0' && next== '1') ){
+                    got = true;
+                    break;
+                }
+
+            }
+            if(got){
+                System.out.println("Good");
+            }else{
+                System.out.println("Bad");
+            }
+
         }
-        System.out.println(sum);
 
         out.close();
     }
