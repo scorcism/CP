@@ -8,20 +8,18 @@ public class LeetCode {
 
     public boolean isLongPressedName(String a, String b) {
 
-        int i = a.length() - 1;
-        int j = b.length() - 1;
+        int i = 0;
+        int m = a.length();
+        int n = b.length();
 
-        while (i >= 0 && j >= 0) {
-            if (a.charAt(i) == b.charAt(j)) {
-                while (b.charAt(j) == a.charAt(i)) {
-                    j--;
-                }
-                i--;
-            }else{
+        for (int j = 0; j < n; j++) {
+            if (i < m && a.charAt(i) == b.charAt(j)) {
+                ++i;
+            } else if (j == 0 || b.charAt(j) != b.charAt(j - 1)) {
                 return false;
             }
         }
-        return true;
+        return i == m;
 
     }
 
