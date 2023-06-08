@@ -6,6 +6,22 @@ public class LeetCode {
 
     }
 
+    public boolean checkIfExist(int[] arr) {
+        HashSet<Integer> set = new HashSet<>();
+
+        for (int n : arr) {
+            if (set.contains(n * 2)) {
+                return true;
+            } else if (n % 2 == 0) { // if the number is even means, we can divide this number by 2 to get a number
+                if (set.contains(n / 2)) {
+                    return true;
+                }
+            }
+            set.add(n);
+        }
+        return false;
+    }
+
     public boolean isIsomorphic(String s, String t) {
 
         int[] smap = new int[256];
