@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 13:04:25
+// Date: 2023-06-09 13:15:10
 
 
 import java.io.BufferedReader;
@@ -19,25 +19,19 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int n = fs.nextInt();
-        List<Integer> prev = null;
-        for (int i = 0; i < n; i++) {
-            List<Integer> curr = new ArrayList<>();
-            
-            for(int j = 0; j <= i; j++){
-                if(j==0 || j == i){
-                    curr.add(1);
-                }else{
-                    curr.add(prev.get(j-1)+ prev.get(j));
-                }
-            }
-            prev = curr;
-            for(int q: curr){
-                System.out.print(q+" ");
-            }
-            System.out.println();
-        }
+        long f = getf(n);
+        String s = String.valueOf(f);
+        System.out.println(s.length());
+        
 
         out.close();
+    }
+
+    static long getf(int n){
+        if(n == 1){
+            return 1;
+        }
+        return n * getf(n-1);
     }
 
     static class FastScanner {
