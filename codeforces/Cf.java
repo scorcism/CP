@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 11:35:48
+// Date: 2023-06-09 12:24:02
 
 
 import java.io.BufferedReader;
@@ -17,21 +17,36 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        long a = fs.nextInt();
-        long b = fs.nextInt();
+        int a = fs.nextInt();
+        int b = fs.nextInt();
 
-        long gcd = getGCD(a, b);
-        long lcm = (a * b )/ gcd;
+        
 
-        System.out.println(gcd +" " + lcm);
+        System.out.println(combinations(a, b) +" " + permutations(a, b));
+
         out.close();
     }
+    public static long combinations(int n, int r) {
+        long[][] dp = new long[n + 1][r + 1];
 
-    static long  getGCD(long a, long b){
-        if(b == 0){
-            return a;
+        for (int i = 0; i <= n; i++) {
+            for (int j = 0; j <= Math.min(i, r); j++) {
+                if (j == 0 || j == i) {
+                    dp[i][j] = 1;
+                } else {
+                    dp[i][j] = dp[i - 1][j - 1] + dp[i - 1][j];
+                }
+            }
         }
-        return getGCD(b, a%b);
+
+        return dp[n][r];
+    }
+    public static long permutations(int n, int r) {
+        long result = 1;
+        for (int i = n; i > n - r; i--) {
+            result *= i;
+        }
+        return result;
     }
 
     static class FastScanner {
