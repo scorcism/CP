@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 01:41:03
+// Date: 2023-06-09 10:23:03
 
 
 import java.io.BufferedReader;
@@ -18,30 +18,17 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        
-        for (int tt = 0; tt < T; tt++) {
-            String s = fs.next();
-
-            boolean got = false;
-            for(int i = 1; i < s.length() -1; i++){
-                char before = s.charAt(i-1);
-                char cur = s.charAt(i);
-                char next = s.charAt(i+1);
-                
-                if((before == '0' && cur == '1' && next== '0') || (before == '1' && cur == '0' && next== '1') ){
-                    got = true;
-                    break;
-                }
-
+        int count = 0;
+        String s = fs.next();
+        for (int tt = 0; tt < T-1; tt++) {
+            if(s.charAt(tt)==s.charAt(tt+1)){
+                continue;
             }
-            if(got){
-                System.out.println("Good");
-            }else{
-                System.out.println("Bad");
+            else{
+                count++;
             }
-
         }
-
+        System.out.println(count+1);
         out.close();
     }
 
