@@ -6,6 +6,37 @@ public class LeetCode {
 
     }
 
+
+    // 2035. Partition Array Into Two Arrays to Minimize Sum Difference
+    public int minimumDifference(int[] nums) {
+        int n = nums.length;
+        int[] lTor= new int[n];
+        int[] rTol= new int[n];
+
+        lTor[0] = nums[0];
+        for(int i = 1; i< n; i++){
+            lTor[i] = lTor[i+1]+ nums[i];
+        }
+
+        rTol[n-1] = nums[n-1];
+
+        for(int i = n-2; i>=0; i--){
+            rTol[i] = rTol[i+1]+ nums[i];
+        }
+
+        int min = Integer.MAX_VALUE;
+
+        for(int i = 0; i< n; i++){
+            int diff = Math.abs(lTor[i] - rTol[i]);
+            int num = Math.abs(nums[i] - diff);
+
+            min = Math.min(min, num);
+
+        }
+        return min;
+    }
+
+
     public int[] pivotArray3(int[] nums, int pivot) {
 
         int[] ans = new int[nums.length];
