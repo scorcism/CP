@@ -1,6 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 17:14:31
-
+// Date: 2023-06-09 17:21:17
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,27 +17,31 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int n = fs.nextInt();
-        int r = fs.nextInt();
+        long n = fs.nextLong();
+        long x = fs.nextLong();
 
-        System.out.println(getnCr(n,r));
+        int[] arr =fs.nextIntArray((int)n);
+
+        if(check(arr,n,0,0, x)){
+            System.out.println("YES");
+        }else{
+            System.out.println("NO");
+        }
+        
+
         out.close();
     }
 
-    private static int getnCr(int n, int r) {
-        int[][] dp = new int[n+1][r+1];
-        
-        for(int i = 0; i<= n; i++){
-            for(int j = 0;  j<= Math.min(i,r); j++){
-                if(j==0 || j==i){
-                    dp[i][j] = 1;
-                }else{
-                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
-                }
-            }
-        }
+    private static boolean check(int[] arr, long n, long sum, int index, long x) {
 
-        return dp[n][r];
+        if(index == n ){
+            return sum == x;
+        }
+        boolean withplus = check(arr, n, sum+arr[index], index+1, x);
+        boolean withminus = check(arr, n, sum-arr[index], index+1, x);
+
+        return withminus || withplus;
+        
     }
 
     static class FastScanner {
@@ -117,14 +120,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
