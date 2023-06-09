@@ -1,5 +1,6 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 19:16:41
+// Date: 2023-06-09 19:31:44
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,32 +18,31 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
+        int n = fs.nextInt();
+        int m = fs.nextInt();
 
-        for (int tt = 0; tt < T; tt++) {
-            long n = fs.nextLong();
-            if (n == 1) {
-                System.out.println("YES");
-                continue;
-            }
-            boolean mm = check(1, n);
-            if (mm) {
-                System.out.println("YES");
-            } else {
-                System.out.println("NO");
-            }
+        int[][] arr = new int[n][m];
+        for(int i = 0; i< n; i++){
+            arr[i] = fs.nextIntArray(m);
         }
+
+        System.out.println(getCount(arr,0,0,n-1,m-1));
 
         out.close();
     }
 
-    private static boolean check(long i, long n) {
-        if (i >= n) {
-            return i==n;
-        } else {
-
-            return check(i * 10, n) || check(i * 20, n);
+    private static int getCount(int[][] arr, int i, int j, int n, int m) {
+        if(i == n && j == m){
+            return arr[i][j];
+        }else if(i > n || j > m){
+            return 0;
         }
+
+        int right= getCount(arr, i, j+1, n, m);
+        int down = getCount(arr, i+1, j, n, m);
+
+
+        return  arr[i][j] + Math.max(right, down);
     }
 
     static class FastScanner {
@@ -121,15 +121,14 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-
+    
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-
+    
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
-
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
