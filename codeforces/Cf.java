@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 16:22:37
+// Date: 2023-06-09 17:14:31
 
 
 import java.io.BufferedReader;
@@ -18,29 +18,27 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
-        
-        for (int tt = 0; tt < T; tt++) {
-            long n = fs.nextLong();
-            String s = String.valueOf(n);
-            int len = s.length();
-            print(s,len,0 );
-            System.out.println();
-        }
+        int n = fs.nextInt();
+        int r = fs.nextInt();
 
-
-        
+        System.out.println(getnCr(n,r));
         out.close();
     }
 
-    
-
-    private static void print(String s, int len, int i) {
-        if(i == len){
-            return;
+    private static int getnCr(int n, int r) {
+        int[][] dp = new int[n+1][r+1];
+        
+        for(int i = 0; i<= n; i++){
+            for(int j = 0;  j<= Math.min(i,r); j++){
+                if(j==0 || j==i){
+                    dp[i][j] = 1;
+                }else{
+                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
+                }
+            }
         }
-        System.out.print(s.charAt(i)- '0' +" ");
-        print(s, len, i+1);
+
+        return dp[n][r];
     }
 
     static class FastScanner {
