@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 13:17:32
+// Date: 2023-06-09 14:02:39
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,16 +17,19 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        long a = fs.nextLong();
-        long b = fs.nextLong();
-        long c = fs.nextLong();
-        long d = fs.nextLong();
+        int a = fs.nextInt();
+        int b = fs.nextInt();
+        int c = fs.nextInt();
 
+        if (a + b > c && b + c > a && a + c > b) {
+            System.out.println("Valid");
+            long area = 0;
+            long parimeter = (a + b + c)/2;
+            System.out.println(Math.sqrt(parimeter * (parimeter-a) * (parimeter - b) * (parimeter - c)));
+        } else {
+            System.out.println("Invalid");
+        }
 
-        long x = (c-a)*(c-a);
-        long y = (d-b)*(d-b);
-
-        System.out.println(Math.sqrt(x+y));
         out.close();
     }
 
