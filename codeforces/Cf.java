@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 20:25:21
+// Date: 2023-06-09 20:33:26
 
 
 import java.io.BufferedReader;
@@ -18,22 +18,21 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int s = fs.nextInt();
-        int e = fs.nextInt();
+        int n = fs.nextInt();
 
-        System.out.println(getCount(s, e));
+        int[] arr = fs.nextIntArray(n);
+        int[] pre = new int[n];
+
+        pre[0] = arr[0];
+        for(int i = 1; i< n; i++){
+            pre[i] = Math.max(pre[i-1], arr[i]);
+        }
+
+        for(int i: pre){
+            System.out.print(i+" ");
+        }
 
         out.close();
-    }
-
-    static int getCount(int s, int e){
-        if(s==e){
-            return 1;
-        }else if(s >e){
-            return 0;
-        }
-        return getCount(s+1, e) + getCount(s+2, e) + getCount(s+3, e);
-        
     }
 
     static class FastScanner {
