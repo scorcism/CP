@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 17:21:17
+// Date: 2023-06-09 19:16:41
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,31 +17,32 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        long n = fs.nextLong();
-        long x = fs.nextLong();
+        int T = fs.nextInt();
 
-        int[] arr =fs.nextIntArray((int)n);
-
-        if(check(arr,n,0,0, x)){
-            System.out.println("YES");
-        }else{
-            System.out.println("NO");
+        for (int tt = 0; tt < T; tt++) {
+            long n = fs.nextLong();
+            if (n == 1) {
+                System.out.println("YES");
+                continue;
+            }
+            boolean mm = check(1, n);
+            if (mm) {
+                System.out.println("YES");
+            } else {
+                System.out.println("NO");
+            }
         }
-        
 
         out.close();
     }
 
-    private static boolean check(int[] arr, long n, long sum, int index, long x) {
+    private static boolean check(long i, long n) {
+        if (i >= n) {
+            return i==n;
+        } else {
 
-        if(index == n ){
-            return sum == x;
+            return check(i * 10, n) || check(i * 20, n);
         }
-        boolean withplus = check(arr, n, sum+arr[index], index+1, x);
-        boolean withminus = check(arr, n, sum-arr[index], index+1, x);
-
-        return withminus || withplus;
-        
     }
 
     static class FastScanner {
