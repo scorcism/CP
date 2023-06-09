@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 10:23:03
+// Date: 2023-06-09 10:39:13
 
 
 import java.io.BufferedReader;
@@ -9,6 +9,7 @@ import java.io.PrintWriter;
 import java.io.InputStream;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
@@ -17,19 +18,25 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
-        int count = 0;
-        String s = fs.next();
-        for (int tt = 0; tt < T-1; tt++) {
-            if(s.charAt(tt)==s.charAt(tt+1)){
-                continue;
-            }
-            else{
-                count++;
-            }
-        }
-        System.out.println(count+1);
+        String s = "abc";
+        System.out.println(powerSet(s, new ArrayList<>()));
         out.close();
+    }
+
+    static List<String> powerSet(String s, ArrayList<String> arr){
+        List<String> list = new ArrayList<>();
+        int n = s.length();
+        for(int i = 0; i< (1<<n);i++){
+            String p = "";
+            for(int j = 0; j< n; j++){
+                if((i & (1<<j))!=0){
+                    p = p +s.charAt(j);
+                }
+            }
+            list.add(p);
+        }
+
+        return list;
     }
 
     static class FastScanner {
