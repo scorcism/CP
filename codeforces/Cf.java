@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 14:10:11
+// Date: 2023-06-09 16:22:37
 
 
 import java.io.BufferedReader;
@@ -18,20 +18,29 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int x1 = fs.nextInt();
-        int y1 = fs.nextInt();
-        int x2 = fs.nextInt();
-        int y2 = fs.nextInt();
-        int x3 = fs.nextInt();
-        int y3 = fs.nextInt();
-
-        if((y3 - y2)*(x2 - x1) == (y2 - y1)*(x3 - x2) ){
-            System.out.println("YES");
-        }else{
-            System.out.println("NO");
+        int T = fs.nextInt();
+        
+        for (int tt = 0; tt < T; tt++) {
+            long n = fs.nextLong();
+            String s = String.valueOf(n);
+            int len = s.length();
+            print(s,len,0 );
+            System.out.println();
         }
 
+
+        
         out.close();
+    }
+
+    
+
+    private static void print(String s, int len, int i) {
+        if(i == len){
+            return;
+        }
+        System.out.print(s.charAt(i)- '0' +" ");
+        print(s, len, i+1);
     }
 
     static class FastScanner {
