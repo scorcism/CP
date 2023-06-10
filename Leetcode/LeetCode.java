@@ -6,6 +6,29 @@ public class LeetCode {
 
     }
 
+    // Valid Mountain Array
+    public boolean validMountainArray(int[] arr) {
+        if(arr.length <3 ){
+            return false;
+        }   
+        
+        int n = arr.length;
+        int i = 0;
+
+        while(i+1<n && arr[i] < arr[i+1]){
+            i++;
+        }
+        if(i==0 || i == n-1){
+            return false;
+        }
+
+        while(i+1<n && arr[i]> arr[i+1]){
+            i++;
+        }
+
+        return i==n-1;
+    }
+
     // Prime In Diagonal
     public int diagonalPrime(int[][] nums) {
         int n = nums.length;
