@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-09 20:33:26
+// Date: 2023-06-10 20:48:28
 
 
 import java.io.BufferedReader;
@@ -19,19 +19,22 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int n = fs.nextInt();
-
-        int[] arr = fs.nextIntArray(n);
-        int[] pre = new int[n];
-
-        pre[0] = arr[0];
-        for(int i = 1; i< n; i++){
-            pre[i] = Math.max(pre[i-1], arr[i]);
+        int m = fs.nextInt();
+        int a = 0;
+        for(int i = 0; i< n; i++){
+            int num = fs.nextInt();
+            a+=num;
         }
-
-        for(int i: pre){
-            System.out.print(i+" ");
+        int b = 0;
+        for(int i = 0; i< m; i++){
+            int num = fs.nextInt();
+            b+=num;
         }
-
+        if(a==b){
+            System.out.println("Yes");
+        }else{
+            System.out.println("N0");
+        }
         out.close();
     }
 
