@@ -3,9 +3,45 @@ import java.util.*;
 public class LeetCode {
 
     public static void main(String[] args) {
-        String[] garbage = {"G","P","GP","GG"};
-        int[] travel = {2,4,3};
-        System.out.println(garbageCollection(garbage, travel));
+
+    }
+
+    public int countBattleships(char[][] board) {
+        int n = board.length;
+        int m = board[0].length;
+        int[][] vis = new int[n][m];
+        for (int[] a : vis) {
+            Arrays.fill(a, -1);
+        }
+        int count = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (board[i][j] == 'X') {
+                    if (vis[i][j] == -1) {
+                        dfs(board, i, j, vis);
+                    }
+                }
+            }
+        }
+
+        return count;
+    }
+
+    private void dfs(char[][] board, int i, int j, int[][] vis) {
+        vis[i][j] = 1;
+
+        int[] delrow = {};
+        int[] delcol = {};
+
+        for (int k = 0; k < 4; k++) {
+            int nrow = delrow[i] + i;
+            int ncol = delcol[j] + j;
+
+            if (nrow >= 0 && ncol >= 0 && nrow < board.length && ncol < board[0].length && vis[nrow][ncol] == -1
+                    && board[nrow][ncol] == 'X') {
+                dfs(board, nrow, ncol, vis);
+            }
+        }
     }
 
     public static int garbageCollection(String[] garbage, int[] travel) {
@@ -14,42 +50,42 @@ public class LeetCode {
         int lastm = 0;
         int lastg = 0;
 
-        for(int i = 0; i< garbage.length; i++){
-            for(int j = 0; j< garbage[i].length(); j++){
+        for (int i = 0; i < garbage.length; i++) {
+            for (int j = 0; j < garbage[i].length(); j++) {
                 count++;
-                if(garbage[i].charAt(j)=='M'){
+                if (garbage[i].charAt(j) == 'M') {
                     lastm = i;
-                }else if(garbage[i].charAt(j)=='G'){
+                } else if (garbage[i].charAt(j) == 'G') {
                     lastg = i;
-                }else{
+                } else {
                     lastp = i;
                 }
             }
-            System.out.println("count: "+ count);
-            System.out.println(lastg +" " + lastm+" "+ lastp);
+            System.out.println("count: " + count);
+            System.out.println(lastg + " " + lastm + " " + lastp);
         }
         System.out.println("final");
-        System.out.println(lastg +" " + lastm+" "+ lastp);
+        System.out.println(lastg + " " + lastm + " " + lastp);
 
-        for(int i = 1; i < travel.length; i++){
-            travel[i]+= travel[i-1];
+        for (int i = 1; i < travel.length; i++) {
+            travel[i] += travel[i - 1];
         }
         int ans = count;
-        if(lastm > 0){
-            ans+=travel[lastm-1];
+        if (lastm > 0) {
+            ans += travel[lastm - 1];
             System.out.println("take m");
-            System.out.println(ans +" ans1");
+            System.out.println(ans + " ans1");
         }
-        if(lastg> 0){
-            ans+=travel[lastg-1];
+        if (lastg > 0) {
+            ans += travel[lastg - 1];
             System.out.println("take g");
-            System.out.println(ans +" ans2");
+            System.out.println(ans + " ans2");
         }
-        if(lastp > 0){
-            ans+=travel[lastp-1];
-            System.out.println(travel[lastp-1]+ " t ka last p");
+        if (lastp > 0) {
+            ans += travel[lastp - 1];
+            System.out.println(travel[lastp - 1] + " t ka last p");
             System.out.println("take p");
-            System.out.println(ans +" ans3");
+            System.out.println(ans + " ans3");
         }
         return ans;
     }
