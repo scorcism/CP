@@ -3,10 +3,26 @@ import java.util.*;
 public class LeetCode {
 
     public static void main(String[] args) {
-
+       
     }
 
-    
+    public  static int[] xorQueries(int[] arr, int[][] queries) {
+        int[] xorpre = new int[arr.length];
+
+        xorpre[0] = arr[0];
+        for(int i = 1; i< arr.length; i++){
+            xorpre[i] = xorpre[i-1] ^ arr[i];
+        }
+
+        int[] ans = new int[queries.length];
+        
+        for(int i = 0; i< queries.length; i++){
+            int[] q = queries[i];
+            ans[i] = q[0]>0? xorpre[q[1]]^ xorpre[q[0]-1]: xorpre[q[1]];
+        }
+
+        return ans;
+    }    
 
     public int[][] reconstructQueue(int[][] people) {
 
