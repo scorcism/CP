@@ -6,17 +6,47 @@ public class LeetCode {
 
     }
 
+    // Prime In Diagonal
+    public int diagonalPrime(int[][] nums) {
+        int n = nums.length;
+        int m = nums[0].length;
+
+        int max = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (isPrime(nums[i][i])) {
+                    max = Math.max(max, nums[i][i]);
+                }
+                if (isPrime(nums[nums.length - i - 1][i])) {
+                    max = Math.max(max, nums[nums.length - i - 1][i]);
+                }
+            }
+        }
+        return max;
+    }
+
+    static boolean isPrime(int n) {
+        if (n <= 1) {
+            return false;
+        }
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public int[] buildArray(int[] nums) {
         int n = nums.length;
-        int[] ans= new int[nums.length];
+        int[] ans = new int[nums.length];
 
-        for(int i = 0; i< n; i++){
+        for (int i = 0; i < n; i++) {
             ans[i] = nums[nums[i]];
         }
         return ans;
 
-    }   
-
+    }
 
     // 1802. Maximum Value at a Given Index in a Bounded Array
     public int maxValue(int n, int index, int maxSum) {
