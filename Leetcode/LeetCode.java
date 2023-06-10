@@ -3,7 +3,55 @@ import java.util.*;
 public class LeetCode {
 
     public static void main(String[] args) {
+        String[] garbage = {"G","P","GP","GG"};
+        int[] travel = {2,4,3};
+        System.out.println(garbageCollection(garbage, travel));
+    }
 
+    public static int garbageCollection(String[] garbage, int[] travel) {
+        int count = 0;
+        int lastp = 0;
+        int lastm = 0;
+        int lastg = 0;
+
+        for(int i = 0; i< garbage.length; i++){
+            for(int j = 0; j< garbage[i].length(); j++){
+                count++;
+                if(garbage[i].charAt(j)=='M'){
+                    lastm = i;
+                }else if(garbage[i].charAt(j)=='G'){
+                    lastg = i;
+                }else{
+                    lastp = i;
+                }
+            }
+            System.out.println("count: "+ count);
+            System.out.println(lastg +" " + lastm+" "+ lastp);
+        }
+        System.out.println("final");
+        System.out.println(lastg +" " + lastm+" "+ lastp);
+
+        for(int i = 1; i < travel.length; i++){
+            travel[i]+= travel[i-1];
+        }
+        int ans = count;
+        if(lastm > 0){
+            ans+=travel[lastm-1];
+            System.out.println("take m");
+            System.out.println(ans +" ans1");
+        }
+        if(lastg> 0){
+            ans+=travel[lastg-1];
+            System.out.println("take g");
+            System.out.println(ans +" ans2");
+        }
+        if(lastp > 0){
+            ans+=travel[lastp-1];
+            System.out.println(travel[lastp-1]+ " t ka last p");
+            System.out.println("take p");
+            System.out.println(ans +" ans3");
+        }
+        return ans;
     }
 
     // X of a Kind in a Deck of Cards
@@ -15,20 +63,18 @@ public class LeetCode {
             count.put(i, count.getOrDefault(i, 0) + 1);
         }
 
-        for(int i: count.values()){
-            res  = gcd(i, res);
+        for (int i : count.values()) {
+            res = gcd(i, res);
         }
         return res > 1;
     }
 
-
-    public static int gcd(int a, int b){
-        if(b==0){
+    public static int gcd(int a, int b) {
+        if (b == 0) {
             return a;
         }
-        return gcd(b, a%b);
+        return gcd(b, a % b);
     }
-
 
     // 1909. Remove One Element to Make the Array Strictly Increasing
     public boolean canBeIncreasing(int[] nums) {
