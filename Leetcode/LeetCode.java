@@ -6,27 +6,49 @@ public class LeetCode {
 
     }
 
+    // 1909. Remove One Element to Make the Array Strictly Increasing
+    public boolean canBeIncreasing(int[] nums) {
+
+        int n = nums.length;
+        int count = 0;
+        int maxtoleft = nums[0];
+
+        for (int i = 1; i < n; i++) {
+            if (maxtoleft >= nums[i]) {
+                count++;
+
+                if (i > 1 && nums[i - 2] >= nums[i]) {
+                    count++;
+                    maxtoleft = nums[i - 1];
+                    continue;
+                }
+            }
+            maxtoleft = nums[i];
+        }
+        return count < 2;
+    }
+
     // Valid Mountain Array
     public boolean validMountainArray(int[] arr) {
-        if(arr.length <3 ){
+        if (arr.length < 3) {
             return false;
-        }   
-        
+        }
+
         int n = arr.length;
         int i = 0;
 
-        while(i+1<n && arr[i] < arr[i+1]){
+        while (i + 1 < n && arr[i] < arr[i + 1]) {
             i++;
         }
-        if(i==0 || i == n-1){
+        if (i == 0 || i == n - 1) {
             return false;
         }
 
-        while(i+1<n && arr[i]> arr[i+1]){
+        while (i + 1 < n && arr[i] > arr[i + 1]) {
             i++;
         }
 
-        return i==n-1;
+        return i == n - 1;
     }
 
     // Prime In Diagonal
