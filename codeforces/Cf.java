@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-10 21:05:42
+// Date: 2023-06-10 21:10:03
 
 
 import java.io.BufferedReader;
@@ -20,11 +20,16 @@ public class Cf {
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
         int count = 0;
+        String prev = "*";
         for (int tt = 0; tt < T; tt++) {
-            int a =fs.nextInt();
-            int b = fs.nextInt();
-            if(b-a>=2){
+            String s = fs.next();
+            if(!s.equals(prev)){
+                prev = "*";
                 count++;
+            }
+            if(prev.equals("*")){
+                prev = s;
+                continue;
             }
         }
         System.out.println(count);
