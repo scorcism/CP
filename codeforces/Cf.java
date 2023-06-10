@@ -1,6 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-10 21:10:03
-
+// Date: 2023-06-10 23:17:36
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,22 +18,36 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        int count = 0;
-        String prev = "*";
+
         for (int tt = 0; tt < T; tt++) {
-            String s = fs.next();
-            if(!s.equals(prev)){
-                prev = "*";
-                count++;
-            }
-            if(prev.equals("*")){
-                prev = s;
-                continue;
+            int num = fs.nextInt();
+            if (checkPrime(getFact(num))) {
+                System.out.println("prime");
+            } else {
+                System.out.println("not prime");
             }
         }
-        System.out.println(count);
 
         out.close();
+    }
+
+    static int getFact(int n) {
+        if (n <= 1) {
+            return n;
+        }
+        return getFact(n - 1) + getFact(n - 2);
+    }
+
+    static boolean checkPrime(int n) {
+        if (n <= 1) {
+            return false;
+        }
+        for (int i = 2; i * i <= n; i++) {
+            if (n % i == 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     static class FastScanner {
@@ -113,14 +126,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
