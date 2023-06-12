@@ -8,6 +8,70 @@ public class Hashing {
 
 class Easy {
 
+
+
+    
+    public boolean buddyStrings2(String s, String goal) {
+        if (s.length() != goal.length()) {
+            return false;
+        }
+        // If A == B, we need swap two same characters. Check is duplicated char in A.
+
+        if (s.equals(goal)) {
+            Set<Character> set = new HashSet<>();
+            for (char c : s.toCharArray()) {
+                set.add(c);
+            }
+            return set.size() < s.length();
+        }
+        // In other cases, we find index for A[i] != B[i]. There should be only 2 diffs
+        // and it's our one swap.
+        List<Integer> diff = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) != goal.charAt(i)) {
+                diff.add(i);
+            }
+        }
+        return diff.size() == 2 && s.charAt(diff.get(0)) == goal.charAt(diff.get(1))
+                && s.charAt(diff.get(1)) == goal.charAt(diff.get(0));
+    }
+
+    // Buddy Strings
+    public boolean buddyStrings(String s, String goal) {
+        // failed case 23
+        return isSwap(s, goal);
+    }
+
+    static boolean isSwap(String s, String goal) {
+        char[] s_char = s.toCharArray();
+        char[] g_char = goal.toCharArray();
+
+        for (int i = 0; i < s_char.length; i++) {
+            for (int j = 1; j < s_char.length; j++) {
+                swap(s_char, i, j);
+                if (check_(s_char, g_char)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    static void swap(char[] arr, int i, int j) {
+        char tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
+    }
+
+    static boolean check_(char[] one, char[] two) {
+        for (int i = 0; i < one.length; i++) {
+            if (one[i] != two[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // 2423. Remove Letter To Equalize Frequency
     public boolean equalFrequency(String word) {
         // TC -> O(L+26*26)
