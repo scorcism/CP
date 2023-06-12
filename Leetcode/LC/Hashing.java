@@ -4,11 +4,55 @@ import java.util.*;
 
 public class Hashing {
     public static void main(String[] args) {
+        Easy easy = new Easy();
 
+        Medium medium = new Medium();
+        System.out.println(medium.findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"));
     }
 }
 
 class Medium {
+
+    public List<String> findRepeatedDnaSequences1(String s) {
+        Set seen = new HashSet<>();
+        Set repeated = new HashSet<>();
+
+        for (int i = 0; i + 9 < s.length(); i++) {
+            String ten = s.substring(i, i + 10);
+
+            if (!seen.add(ten)) {
+                repeated.add(ten);
+            }
+        }
+
+        return new ArrayList<>(repeated);
+
+    }
+
+    public List<String> findRepeatedDnaSequences0(String s) {
+        int i = 0;
+        HashSet<String> set = new HashSet<>();
+        HashSet<String> set2 = new HashSet<>();
+        int j = 0;
+        int k = 10;
+        while (j < s.length()) {
+            if (j - i + 1 < k) {
+                j++;
+            } else if (j - i + 1 == k) {
+                if (!set.add(s.substring(i, j))) {
+                    set2.add(s.substring(i, j));
+                }
+
+                i++;
+                j++;
+            }
+        }
+        // List<String> ans = new ArrayList<>();
+        // for(String ss: set){
+        // ans.add(ss);
+        // }
+        return new ArrayList<>(set2);
+    }
 
     public List<String> letterCombinations2(String digits) {
         List<Integer> ans = new ArrayList<>();
