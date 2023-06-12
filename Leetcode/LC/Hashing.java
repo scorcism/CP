@@ -7,7 +7,6 @@ public class Hashing {
         Easy easy = new Easy();
 
         Medium medium = new Medium();
-        System.out.println(medium.findRepeatedDnaSequences("AAAAACCCCCAAAAACCCCCCAAAAAGGGTTT"));
     }
 }
 
