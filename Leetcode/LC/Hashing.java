@@ -10,6 +10,27 @@ public class Hashing {
 
 class Easy {
 
+    // 2099. Find Subsequence of Length K With the Largest Sum
+    public int[] maxSubsequence(int[] nums, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        List<Integer> v = new ArrayList<>();
+        for(int x: nums){
+            pq.add(x);
+            v.add(x);
+        }
+
+        int[] ans = new int[k];
+
+        for(int i = 0; i< nums.length-k; i++){
+            v.remove(pq.remove());
+        }
+
+        for(int i = 0; i< k; i++){
+            ans[i] = v.get(i);
+        }
+        return ans;
+    }
+
     // 290. Word Pattern
 
     public boolean wordPattern5(String pattern, String s) {
