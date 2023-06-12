@@ -8,24 +8,76 @@ public class Hashing {
     }
 }
 
+class Medium {
+
+    public List<String> letterCombinations2(String digits) {
+        List<Integer> ans = new ArrayList<>();
+
+        if (digits == null || digits.length() == 0) {
+            return ans;
+        }
+
+        String[] lettersMap = { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+
+        backtrack(ans, new StringBuilder(), digits, lettersMap, 0);
+        return ans;
+    }
+
+    static void backtrack(List<String> ans, StringBuilder sb, String digits, String[] letterMap, int index) {
+        if (index == digits.length()) {
+            ans.add(sb.toString());
+            return;
+        }
+
+        int number = digits.charAt(index) - '0';
+        String numStr = letterMap[number - 2];
+        for (int i = 0; i < numStr.length(); i++) {
+            sb.append(numStr.charAt(i));
+            backtrack(ans, sb, digits, letterMap, index + 1);
+            sb.deleteCharAt(sb.length() - 1);
+        }
+
+    }
+
+    public List<String> letterCombinations(String digits) {
+        HashMap<Integer, String> map = new HashMap<>();
+        map.put(2, "abc");
+        map.put(3, "def");
+        map.put(4, "ghi");
+        map.put(5, "jkl");
+        map.put(6, "mno");
+        map.put(7, "pqrs");
+        map.put(8, "tuv");
+        map.put(9, "wxyz");
+
+        List<String> ans = new ArrayList<>();
+
+        if (digits.length() == 0) {
+            return ans;
+        }
+
+        return ans;
+    }
+}
+
 class Easy {
 
     // 2099. Find Subsequence of Length K With the Largest Sum
     public int[] maxSubsequence(int[] nums, int k) {
         PriorityQueue<Integer> pq = new PriorityQueue<>();
         List<Integer> v = new ArrayList<>();
-        for(int x: nums){
+        for (int x : nums) {
             pq.add(x);
             v.add(x);
         }
 
         int[] ans = new int[k];
 
-        for(int i = 0; i< nums.length-k; i++){
+        for (int i = 0; i < nums.length - k; i++) {
             v.remove(pq.remove());
         }
 
-        for(int i = 0; i< k; i++){
+        for (int i = 0; i < k; i++) {
             ans[i] = v.get(i);
         }
         return ans;
