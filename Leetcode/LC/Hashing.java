@@ -3,37 +3,161 @@ package LC;
 import java.util.*;
 
 public class Hashing {
+    public static void main(String[] args) {
 
+    }
 }
 
 class Easy {
 
+    // 290. Word Pattern
+
+    public boolean wordPattern5(String pattern, String s) {
+        String[] words = s.split(" ");
+        if (pattern.length() != words.length) {
+            return false;
+        }
+        // string and index
+        // for pattern
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        // for words
+        HashMap<String, Integer> map2 = new HashMap<>();
+
+        for (Integer i = 0; i < words.length; i++) {
+            // if(!map.containsKey(pattern.charAt(i))){
+            // map.put(pattern.charAt(i), map.getOrDefault(pattern.charAt(i), i));
+            // }
+            // if(!map2.containsKey(words[i])){
+            // map2.put(words[i], map.getOrDefault(words[i], i));
+            // }
+            // if(map.containsKey(pattern.charAt(i)) && map2.containsKey(words[i])){
+            // if(map.get(pattern.charAt(i)) != map2.get(words[i])){
+            // return false;
+            // }
+            // }
+            if (map.put(pattern.charAt(i), i) != map2.put(words[i], i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean wordPattern4(String pattern, String s) {
+        String[] words = s.split(" ");
+        if (pattern.length() != words.length) {
+            return false;
+        }
+        // string and index
+        // for pattern
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        // for words
+        HashMap<String, Integer> map2 = new HashMap<>();
+
+        for (int i = 0; i < words.length; i++) {
+            // if(!map.containsKey(pattern.charAt(i))){
+            // map.put(pattern.charAt(i), map.getOrDefault(pattern.charAt(i), i));
+            // }
+            // if(!map2.containsKey(words[i])){
+            // map2.put(words[i], map.getOrDefault(words[i], i));
+            // }
+            // if(map.containsKey(pattern.charAt(i)) && map2.containsKey(words[i])){
+            // if(map.get(pattern.charAt(i)) != map2.get(words[i])){
+            // return false;
+            // }
+            // }
+            if (map.put(pattern.charAt(i), i) != map2.put(words[i], i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean wordPattern3(String pattern, String s) {
+        String[] words = s.split(" ");
+        if (pattern.length() != words.length) {
+            return false;
+        }
+
+        // string and index
+        // for pattern
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        // for words
+        HashMap<String, Integer> map2 = new HashMap<>();
+
+        for (int i = 0; i < words.length; i++) {
+            if (!map.containsKey(pattern.charAt(i))) {
+                map.put(pattern.charAt(i), map.getOrDefault(pattern.charAt(i), i));
+            }
+            if (!map2.containsKey(words[i])) {
+                map2.put(words[i], map.getOrDefault(words[i], i));
+            }
+            if (map.containsKey(pattern.charAt(i)) && map2.containsKey(words[i])) {
+                if (map.get(pattern.charAt(i)) != map2.get(words[i])) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean wordPattern2(String pattern, String s) {
+        String[] words = s.split(" ");
+        if (words.length != pattern.length()) {
+            return false;
+        }
+
+        Map index = new HashMap<>();
+
+        for (int i = 0; i < words.length; i++) {
+            if (index.put(pattern.charAt(i), i) != index.put(words[i], i)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public boolean wordPattern(String pattern, String s) {
+        HashMap<Character, String> map = new HashMap<>();
+        String[] str = s.split(" ");
+        for (int i = 0; i < str.length; i++) {
+            if (!map.containsKey(pattern.charAt(i))) {
+                map.put(pattern.charAt(i), str[i]);
+            } else if (map.get(pattern.charAt(i)) != str[i]) {
+                return false;
+            }
+        }
+
+        return true;
+
+    }
+
     public int numDifferentIntegers(String word) {
         Set<String> set = new HashSet<>();
         int start = 0;
-        while(start < word.length()){
-            if(Character.isDigit(word.charAt(start))){
+        while (start < word.length()) {
+            if (Character.isDigit(word.charAt(start))) {
 
                 int end = start;
-                while(end < word.length() && Character.isDigit(word.charAt(end))){
+                while (end < word.length() && Character.isDigit(word.charAt(end))) {
                     end++;
                 }
 
-                while(start < end && word.charAt(start)=='0'){
+                while (start < end && word.charAt(start) == '0') {
                     start++;
                 }
-                
+
                 set.add(word.substring(start, end));
-                start=end;
-            }else{
+                start = end;
+            } else {
                 start++;
             }
         }
 
         return set.size();
     }
-
-
 
     public boolean buddyStrings2(String s, String goal) {
         if (s.length() != goal.length()) {
