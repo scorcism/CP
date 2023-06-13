@@ -4,6 +4,48 @@ public class LeetCode {
 
     public static void main(String[] args) {
 
+        System.out.println(equalPairs(new int[][] { { 3, 2, 1 }, { 1, 7, 6 }, { 2, 7, 7 } }));
+    }
+
+    public static int equalPairs2(int[][] grid) {
+        int count  = 0;
+        int n = grid.length;
+
+        HashMap<String, Integer> map = new HashMap<>();
+
+        for(int[] row: grid){
+            String rowString = Arrays.toString(row);
+            map.put(rowString, map.getOrDefault(rowString, 0)+1);
+        }
+
+        for(int c = 0; c < n; c++){
+            int[] colArray= new int[n];
+            for(int r = 0; r < n; r++){
+                colArray[r] = grid[r][c];
+            }
+            count+= map.getOrDefault(Arrays.toString(colArray), 0);
+        }
+        return count;
+    }
+
+    public static int equalPairs(int[][] grid) {
+        int count = 0;
+        int n = grid.length;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                boolean match = true;
+
+                for (int r = 0; r < n; r++) {
+                    if (grid[i][r] != grid[r][j]) {
+                        match = false;
+                        break;
+                    }
+                }
+                count += match ? 1 : 0;
+            }
+        }
+        return count;
     }
 
     public List<String> summaryRanges(int[] nums) {
@@ -12,14 +54,13 @@ public class LeetCode {
         for (int i = 0; i < nums.length; i++) {
             int start = nums[i];
 
-
-            while(i+1< nums.length &&nums[i] +1 == nums[i+1]){
+            while (i + 1 < nums.length && nums[i] + 1 == nums[i + 1]) {
                 i++;
             }
 
-            if(start!= nums[i]){
+            if (start != nums[i]) {
                 ranges.add(start + "-> " + nums[i]);
-            }else{
+            } else {
                 ranges.add(String.valueOf(start));
             }
         }
