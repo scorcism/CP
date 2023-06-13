@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-13 13:00:13
+// Date: 2023-06-13 19:13:14
 
 
 import java.io.BufferedReader;
@@ -12,40 +12,36 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Random;
 
 public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
+        int n = fs.nextInt();
         
-        String s = fs.next();
-
-        HashMap<Character, Integer> map = new HashMap<>();
-        String ans = "";
-        map.put('.', 0);
-        map.put('$', 1);
-        map.put('&', 2);
-        // in map map 
-        // -. with $ 
-        // -- with &
-        for(int i = 0; i< s.length()-1; i++){
-            if(i == 0 && s.charAt(i)=='.'){
-                ans+=map.get('.');
-
-            }else if(s.charAt(i)=='-' && s.charAt(i+1)=='-'){
-                ans+=map.get('&');
-            }else if(i > 0 && s.charAt(i)=='.' && s.charAt(i-1) != '-'){
-                ans+=map.get('.');
+        int i = n+1;
+        while(true){
+            if(isDistinct(i)){
+                System.out.println(i);
+                break;
             }
-            else if(s.charAt(i)=='-' && s.charAt(i+1)=='.'){
-                ans+=map.get('$');
-            }
+            i++;
         }
-        System.out.println(ans);
 
         out.close();
+    }
+    static boolean isDistinct(int n){
+        String s = String.valueOf(n);
+        HashSet<Integer> set = new HashSet<>();
+
+        while(n > 0){
+            set.add(n%10);
+            n/=10;
+        }
+        return set.size() == s.length();
+        
     }
 
     static class FastScanner {
