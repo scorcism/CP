@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-13 12:17:46
+// Date: 2023-06-13 12:24:10
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,21 +17,16 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
-        int xsum = 0;
-        int ysum = 0;
-        int zsum = 0;
-        for (int tt = 0; tt < T; tt++) {
-            xsum += fs.nextInt();
-            ysum += fs.nextInt();
-            zsum += fs.nextInt();
+
+        for (int i = 1; i <= 5; i++) {
+            for (int j = 1; j <= 5; j++) {
+                int n = fs.nextInt();
+                if (n == 1) {
+                    System.out.println(Math.abs(3-i)+ Math.abs(3-j));
+                    break;
+                }
+            }
         }
-        if(xsum == 0 && ysum == 0 && zsum == 0){
-            System.out.println("YES");
-        }else{
-            System.out.println("NO");
-        }
-    
 
         out.close();
     }
