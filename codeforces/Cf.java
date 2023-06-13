@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-10 23:17:36
+// Date: 2023-06-13 12:17:46
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,36 +18,22 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-
+        int xsum = 0;
+        int ysum = 0;
+        int zsum = 0;
         for (int tt = 0; tt < T; tt++) {
-            int num = fs.nextInt();
-            if (checkPrime(getFact(num))) {
-                System.out.println("prime");
-            } else {
-                System.out.println("not prime");
-            }
+            xsum += fs.nextInt();
+            ysum += fs.nextInt();
+            zsum += fs.nextInt();
         }
+        if(xsum == 0 && ysum == 0 && zsum == 0){
+            System.out.println("YES");
+        }else{
+            System.out.println("NO");
+        }
+    
 
         out.close();
-    }
-
-    static int getFact(int n) {
-        if (n <= 1) {
-            return n;
-        }
-        return getFact(n - 1) + getFact(n - 2);
-    }
-
-    static boolean checkPrime(int n) {
-        if (n <= 1) {
-            return false;
-        }
-        for (int i = 2; i * i <= n; i++) {
-            if (n % i == 0) {
-                return false;
-            }
-        }
-        return true;
     }
 
     static class FastScanner {
