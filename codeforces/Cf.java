@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-13 19:13:14
+// Date: 2023-06-13 19:37:47
 
 
 import java.io.BufferedReader;
@@ -12,36 +12,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Random;
 
 public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int n = fs.nextInt();
-        
-        int i = n+1;
-        while(true){
-            if(isDistinct(i)){
-                System.out.println(i);
-                break;
-            }
-            i++;
-        }
+        long n = fs.nextLong();
 
-        out.close();
-    }
-    static boolean isDistinct(int n){
-        String s = String.valueOf(n);
-        HashSet<Integer> set = new HashSet<>();
-
+        int count = 0;
         while(n > 0){
-            set.add(n%10);
+            long t = n%10;
+            if(t == 4 || t == 7){
+                count++;
+            }
             n/=10;
         }
-        return set.size() == s.length();
+        // System.out.println(count +" count");
+        if(count != 0 &&( count == 4 || count == 7)){
+            System.out.println("YES");
+        }else{
+            System.out.println("NO");
+        }
         
+
+        out.close();
     }
 
     static class FastScanner {
