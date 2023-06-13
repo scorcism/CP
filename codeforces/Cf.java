@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-13 19:52:08
+// Date: 2023-06-13 21:47:14
 
 
 import java.io.BufferedReader;
@@ -18,38 +18,16 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int n = fs.nextInt();
-        int m = fs.nextInt();
-
-        int i = n+1;
-        int nextprime = 0;
-        while(i <= 50){
-            if(isPrime(i)){
-                nextprime = i;
-                break;
-            }
-            i++;
-        }
-        // System.out.println(nextprime +" next");
-        if(m==nextprime){
-            System.out.println("YES");
+        int T = fs.nextInt();
+        if((T & 1 )==1 ){
+            System.out.println(-1);
         }else{
-            System.out.println("NO");
-        }
-    
-        out.close();
-    }
-
-    static boolean isPrime(int n){
-        if(n <=2){
-            return false;
-        }
-        for(int i = 2; i< n; i++){
-            if(n % i==0){
-                return false;
+            for (int tt = T; tt >=1; tt--) {
+                System.out.print(tt+" ");
             }
         }
-        return true;
+
+        out.close();
     }
 
     static class FastScanner {
