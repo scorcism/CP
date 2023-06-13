@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-13 12:38:38
+// Date: 2023-06-13 13:00:13
 
 
 import java.io.BufferedReader;
@@ -12,38 +12,40 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
 
 public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int n = fs.nextInt();
-        int index = fs.nextInt();
+        
+        String s = fs.next();
 
-        char[] s = fs.next().toCharArray();
+        HashMap<Character, Integer> map = new HashMap<>();
+        String ans = "";
+        map.put('.', 0);
+        map.put('$', 1);
+        map.put('&', 2);
+        // in map map 
+        // -. with $ 
+        // -- with &
+        for(int i = 0; i< s.length()-1; i++){
+            if(i == 0 && s.charAt(i)=='.'){
+                ans+=map.get('.');
 
-        for(int j = 0; j< index; j++){
-            for(int i = 0; i< n-1; i++){
-                if(s[i]=='B' && s[i+1]=='G'){
-                    s[i] = 'G';
-                    s[i+1] = 'B';
-                    i++;
-                }
+            }else if(s.charAt(i)=='-' && s.charAt(i+1)=='-'){
+                ans+=map.get('&');
+            }else if(i > 0 && s.charAt(i)=='.' && s.charAt(i-1) != '-'){
+                ans+=map.get('.');
+            }
+            else if(s.charAt(i)=='-' && s.charAt(i+1)=='.'){
+                ans+=map.get('$');
             }
         }
-
-        for(int i = 0; i< s.length; i++){
-            System.out.print(s[i]);
-        }
+        System.out.println(ans);
 
         out.close();
-    }
-
-    static void swap(char[] arr, int i, int j){
-        char tmp= arr[i];
-        arr[i] = arr[j];
-        arr[j] = tmp;
     }
 
     static class FastScanner {
