@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-14 18:52:53
+// Date: 2023-06-14 18:56:29
 
 
 import java.io.BufferedReader;
@@ -12,20 +12,30 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Random;
 
 public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        
-        HashSet<Integer> set = new HashSet<>();
-        for(int i = 0; i< 4; i++){
-            int k = fs.nextInt();
-            set.add(k);
+        int n = fs.nextInt();
+        int amizing = 0;
+        int first = fs.nextInt();
+        int min = first;
+        int max = first;
+        for(int i = 0; i< n-1; i++){
+            int p = fs.nextInt();
+            if(p < min){
+                min  = p;
+                ++amizing;
+            }
+            if(p > max){
+                max = p;
+                ++amizing;
+            }
         }
-        System.out.println(4 - set.size());
+        System.out.println(amizing);
+
         out.close();
     }
 
