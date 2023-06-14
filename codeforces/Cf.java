@@ -1,5 +1,6 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-14 10:59:50
+// Date: 2023-06-14 18:26:24
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,37 +12,32 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Random;
 
 public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
+        String s = fs.next();
+        HashSet<Character> set = new HashSet<>();
+        set.add('H');
+        set.add('Q');
+        set.add('9');
 
-        int left0 = 0;
-        int left1 = 0;  
-        int right0 = 0;
-        int right1 = 0;
-        for (int tt = 0; tt < T; tt++) {
-            int a = fs.nextInt();
-            if (a == 0) {
-                left0++;
-            } else if (a == 1) {
-                left1++;
-            }
-            int b = fs.nextInt();
-            if (b == 0) {
-                right0++;
-            } else if (b == 1) {
-                right1++;
+        boolean got = false;
+        for(int i = 0; i< s.length(); i++){
+            if(set.contains(s.charAt(i))){
+                got = true;
+                break;
             }
         }
+        if(got){
+            System.out.println("YES");
+        }else{
+            System.out.println("NO");
+        }
 
-        int red = min(right0, right1);
-        red+=min(left0, left1);
-        
-        System.out.println(red);
         out.close();
     }
 
@@ -121,15 +117,14 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-
+    
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-
+    
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
-
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
