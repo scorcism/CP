@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-14 18:26:24
+// Date: 2023-06-14 18:33:13
 
 
 import java.io.BufferedReader;
@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -19,20 +20,46 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        String s = fs.next();
-        HashSet<Character> set = new HashSet<>();
-        set.add('H');
-        set.add('Q');
-        set.add('9');
+        String s1 = fs.next();
+        String s2 = fs.next();
+        String s3 = fs.next();
+
+        HashMap<Character,Integer> map = new HashMap<>();
 
         boolean got = false;
-        for(int i = 0; i< s.length(); i++){
-            if(set.contains(s.charAt(i))){
+        for(char c: s3.toCharArray()){
+            map.put(c, map.getOrDefault(c, 0)+1);          
+        }
+        for(char c: s1.toCharArray()){
+            if(map.containsKey(c)){
+                map.put(c, map.get(c)-1);            
+            }else{
                 got = true;
-                break;
             }
         }
-        if(got){
+        for(char c: s2.toCharArray()){
+            if(!got){
+                if(map.containsKey(c)){
+                    map.put(c, map.get(c)-1);
+                }else{
+                    got = true;
+                    break;
+                }
+            }           
+        }
+        if(!got){
+            for(int v: map.values()){
+                if(v>0){
+                    got = true;
+                    break;
+                }
+                else if(v <0){
+                    got = true;
+                    break;
+                }
+            }
+        }
+        if(!got){
             System.out.println("YES");
         }else{
             System.out.println("NO");
