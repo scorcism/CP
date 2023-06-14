@@ -1,6 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-13 22:55:46
-
+// Date: 2023-06-14 10:59:50
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,16 +18,30 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        
-        double sum = 0;
-        int count = 0;
+
+        int left0 = 0;
+        int left1 = 0;  
+        int right0 = 0;
+        int right1 = 0;
         for (int tt = 0; tt < T; tt++) {
-            sum+=fs.nextInt();
-            count++;
+            int a = fs.nextInt();
+            if (a == 0) {
+                left0++;
+            } else if (a == 1) {
+                left1++;
+            }
+            int b = fs.nextInt();
+            if (b == 0) {
+                right0++;
+            } else if (b == 1) {
+                right1++;
+            }
         }
 
-        System.out.println(sum / count);
-
+        int red = min(right0, right1);
+        red+=min(left0, left1);
+        
+        System.out.println(red);
         out.close();
     }
 
@@ -108,14 +121,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
