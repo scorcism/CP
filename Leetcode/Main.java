@@ -1,5 +1,4 @@
 
-
 import java.util.HashSet;
 
 public class Main {
@@ -8,11 +7,45 @@ public class Main {
 
     }
 
+    int minDiff = Integer.MAX_VALUE;
+    TreeNode parent = null;
 
+    public int getMinimumDifference(TreeNode root) {
+        getMin(root);
+        return minDiff;
+    }
 
+    void getMin(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        getMin(root.left);
+        if (parent != null) {
+            minDiff = Math.min(minDiff, parent.val - root.val);
+        }
+        parent = root;
+        getMin(root.right);
+    }
 
+    class TreeNode {
+        int val;
+        TreeNode left;
+        TreeNode right;
 
-    
+        TreeNode() {
+        }
+
+        TreeNode(int val) {
+            this.val = val;
+        }
+
+        TreeNode(int val, TreeNode left, TreeNode right) {
+            this.val = val;
+            this.left = left;
+            this.right = right;
+        }
+    }
+
     // Biweekly Contest 104
     // https://leetcode.com/contest/biweekly-contest-104/problems/number-of-senior-citizens/
     public int countSeniors(String[] details) {
@@ -102,17 +135,17 @@ public class Main {
         if (i == nums.length) {
             return a;
         }
-        while(prek<k){
-            nums[i]*=2;
+        while (prek < k) {
+            nums[i] *= 2;
             prek++;
         }
         // long localans = 0;
-        for(int p = 0; p< nums.length; p++){
-            a|=nums[p];
+        for (int p = 0; p < nums.length; p++) {
+            a |= nums[p];
         }
 
-        long one= getmaxOr(nums, i, prek+1, k, a);
-        long two= getmaxOr(nums, i+1, prek, k, a);
+        long one = getmaxOr(nums, i, prek + 1, k, a);
+        long two = getmaxOr(nums, i + 1, prek, k, a);
         return Math.max(one, two);
     }
 }
