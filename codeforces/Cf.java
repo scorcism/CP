@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-13 21:47:14
+// Date: 2023-06-13 22:55:46
 
 
 import java.io.BufferedReader;
@@ -19,13 +19,15 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
-        if((T & 1 )==1 ){
-            System.out.println(-1);
-        }else{
-            for (int tt = T; tt >=1; tt--) {
-                System.out.print(tt+" ");
-            }
+        
+        double sum = 0;
+        int count = 0;
+        for (int tt = 0; tt < T; tt++) {
+            sum+=fs.nextInt();
+            count++;
         }
+
+        System.out.println(sum / count);
 
         out.close();
     }
