@@ -1,9 +1,60 @@
 
 import java.util.HashSet;
+import java.util.logging.Level;
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
+
+    }
+
+    class Node{
+        TreeNode node;
+        int level;
+        Node(TreeNode node, int level){
+            this.node = node;
+            this.level = level;
+        }
+    }
+    
+    public int maxLevelSumOwn(TreeNode root) {
+        Queue<Node> q = new LinkedList<>();
+        int l = 0;
+        int maxsum = Integer.MIN_VALUE;
+
+        q.add(new Node(root,1));
+
+        while(!q.isEmpty()){
+
+            int size = q.size();
+
+            int level = 0;
+
+            int sum = 0;
+
+            for(int i = 0; i< size; i++){
+                Node n = q.poll();
+
+                sum+=n.node.val;
+
+                level = n.level;
+
+                if(n.node.left!=null){
+                    q.add(new Node(n.node.left, level+1));
+                }
+                if(n.node.right!=null){
+
+                    q.add(new Node(n.node.right, level+1));
+                }
+
+            }
+            if(maxsum < sum){
+                maxsum = sum;
+                l = level;
+            }
+        }
+        return l;
 
     }
 
