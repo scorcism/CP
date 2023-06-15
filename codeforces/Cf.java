@@ -1,7 +1,6 @@
 // Abhishek Pathak - scor32k
 // Date: 2023-06-14 19:08:37
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,11 +17,30 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
-        
-        for (int tt = 0; tt < T; tt++) {
-            
+        int n = fs.nextInt();
+
+        int[] arr = new int[(int)1e5+3];
+
+        for (int i = 0; i < n; i++) {
+
+            int num = fs.nextInt();
+            arr[num] = i + 1;       
+
         }
+
+        int q = fs.nextInt();
+
+        long vasya = 0;
+        long petya = 0;
+
+        for (int i = 0; i < q; i++) {
+            int search = fs.nextInt();
+
+            vasya += arr[search];
+            petya += n - arr[search] + 1;
+        }
+
+        System.out.printf("%d %d", vasya, petya);
 
         out.close();
     }
@@ -103,14 +121,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
