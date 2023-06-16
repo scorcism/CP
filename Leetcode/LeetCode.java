@@ -7,6 +7,28 @@ public class LeetCode {
         System.out.println(equalPairs(new int[][] { { 3, 2, 1 }, { 1, 7, 6 }, { 2, 7, 7 } }));
     }
 
+    int MOD = (int)1e9+7;
+    public int numOfWays(int[] nums) {
+        int count = 0;
+        List<Integer> less  = new ArrayList<>();
+        List<Integer> greater  = new ArrayList<>();
+
+        int root = nums[0];
+        
+        for(int n:nums){
+            if(n < root){
+                less.add(n);
+            }
+            else if(n > root){
+                greater.add(n);
+            }
+        }
+
+            return 0;
+
+
+    }
+
     public static int equalPairs2(int[][] grid) {
         int count  = 0;
         int n = grid.length;
