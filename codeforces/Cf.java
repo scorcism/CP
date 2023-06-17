@@ -1,5 +1,6 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-14 19:08:37
+// Date: 2023-06-15 20:06:49
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,28 +20,20 @@ public class Cf {
         PrintWriter out = new PrintWriter(System.out);
         int n = fs.nextInt();
 
-        int[] arr = new int[(int)1e5+3];
+        int total = 0;
+        int answer = 0;
 
-        for (int i = 0; i < n; i++) {
-
-            int num = fs.nextInt();
-            arr[num] = i + 1;       
-
+        for (int tt = 0; tt < n; tt++) {
+            int f = fs.nextInt();
+            total+=f;
         }
 
-        int q = fs.nextInt();
-
-        long vasya = 0;
-        long petya = 0;
-
-        for (int i = 0; i < q; i++) {
-            int search = fs.nextInt();
-
-            vasya += arr[search];
-            petya += n - arr[search] + 1;
+        for(int i = 1; i<=5; i++){
+            if((total + i) % (n+1)!=1){
+                answer += 1;
+            }
         }
-
-        System.out.printf("%d %d", vasya, petya);
+        System.out.println(answer);
 
         out.close();
     }
@@ -121,15 +114,14 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-
+    
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-
+    
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
-
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
