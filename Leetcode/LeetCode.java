@@ -7,45 +7,80 @@ public class LeetCode {
         System.out.println(equalPairs(new int[][] { { 3, 2, 1 }, { 1, 7, 6 }, { 2, 7, 7 } }));
     }
 
-    int MOD = (int)1e9+7;
+    static int MOD = (int) 1e9 + 7;
+
+    public int countPaths(int[][] grid) {
+        int answer = 0;
+        int m = grid.length;
+        int n = grid[0].length;
+
+        int[][] vis = new int[m][n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                answer = (answer + dfs(grid, i, j, vis)) % MOD;
+            }
+        }
+
+        return answer;
+    }
+
+    static int dfs(int[][] grid, int i, int j, int[][] dp) {
+        if (dp[i][j] != 0) {
+            return dp[i][j];
+        }
+        int[][] directions = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
+
+        int answer = 1;
+        for (int[] d : directions) {
+
+            int prevI = i + d[0], prevJ = j + d[1];
+            if (0 <= prevI && prevI < grid.length && 0 <= prevJ && prevJ < grid[0].length
+                    && grid[prevI][prevJ] < grid[i][j]) {
+                answer += dfs(grid, prevI, prevJ, dp);
+                answer %= MOD;
+            }
+        }
+        dp[i][j] = answer;
+        return answer;
+    }
+
     public int numOfWays(int[] nums) {
         int count = 0;
-        List<Integer> less  = new ArrayList<>();
-        List<Integer> greater  = new ArrayList<>();
+        List<Integer> less = new ArrayList<>();
+        List<Integer> greater = new ArrayList<>();
 
         int root = nums[0];
-        
-        for(int n:nums){
-            if(n < root){
+
+        for (int n : nums) {
+            if (n < root) {
                 less.add(n);
-            }
-            else if(n > root){
+            } else if (n > root) {
                 greater.add(n);
             }
         }
 
-            return 0;
-
+        return 0;
 
     }
 
     public static int equalPairs2(int[][] grid) {
-        int count  = 0;
+        int count = 0;
         int n = grid.length;
 
         HashMap<String, Integer> map = new HashMap<>();
 
-        for(int[] row: grid){
+        for (int[] row : grid) {
             String rowString = Arrays.toString(row);
-            map.put(rowString, map.getOrDefault(rowString, 0)+1);
+            map.put(rowString, map.getOrDefault(rowString, 0) + 1);
         }
 
-        for(int c = 0; c < n; c++){
-            int[] colArray= new int[n];
-            for(int r = 0; r < n; r++){
+        for (int c = 0; c < n; c++) {
+            int[] colArray = new int[n];
+            for (int r = 0; r < n; r++) {
                 colArray[r] = grid[r][c];
             }
-            count+= map.getOrDefault(Arrays.toString(colArray), 0);
+            count += map.getOrDefault(Arrays.toString(colArray), 0);
         }
         return count;
     }
