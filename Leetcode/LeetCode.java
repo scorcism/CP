@@ -7,6 +7,63 @@ public class LeetCode {
         System.out.println(equalPairs(new int[][] { { 3, 2, 1 }, { 1, 7, 6 }, { 2, 7, 7 } }));
     }
 
+    public int[] getAverages2(int[] nums, int k) {
+        if(k==0){
+            return nums;
+        }
+        int n = nums.length;
+        int[] avg = new int[n];
+        Arrays.fill(avg, -1);
+
+        if(2*k+1 > n){
+            return avg;
+        }
+
+        long windowSim = 0;
+        for(int i = 0; i< (2*k+1); i++){
+            windowSim+=nums[i];
+        }
+        avg[k] = (int) (windowSim / (2 * k + 1));
+
+        for(int i = (2*k+1); i< n; i++){
+
+            windowSim = windowSim - nums[i-(2*k+1)]+ nums[i];
+            avg[i-k] = (int) (windowSim/ (2*k+1));
+
+        }
+        return avg;
+
+    }
+
+    public int[] getAverages(int[] nums, int k) {        
+        if(k==0){
+            return nums;
+        }
+
+        int n = nums.length;
+        int[] averages = new int[n];
+        Arrays.fill(averages, -1);
+
+        if(2*k+1 > n){
+            return averages;
+        }
+
+        long[] prefix = new long[n+1];
+        for(int i =0; i< n; i++){
+            prefix[i+1] = prefix[i]+ nums[i];
+        }
+
+        for(int i = k ; i < (n-k); ++i){
+            int leftBound = i -k;
+            int rightBound = i+k;
+            long subArraySum = prefix[rightBound+1] - prefix[leftBound];
+            int avg = (int) (subArraySum / (2 * k +1));
+            averages[i] = avg;
+        }
+        return averages;
+    }
+
+
     static int MOD = (int) 1e9 + 7;
 
     public int countPaths(int[][] grid) {
@@ -32,16 +89,20 @@ public class LeetCode {
         int[][] directions = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
 
         int answer = 1;
-        for (int[] d : directions) {
+ 
+        int[] delrow = {0,0,1,-1};
+        int [] delcol = {1,-1,0,0};
 
-            int prevI = i + d[0], prevJ = j + d[1];
+        for(int k = 0; k< 4; k++){
+            int prevI = i + delrow[k];
+            int prevJ = j + delcol[k];
             if (0 <= prevI && prevI < grid.length && 0 <= prevJ && prevJ < grid[0].length
                     && grid[prevI][prevJ] < grid[i][j]) {
                 answer += dfs(grid, prevI, prevJ, dp);
                 answer %= MOD;
             }
+            dp[i][j] = answer;
         }
-        dp[i][j] = answer;
         return answer;
     }
 
