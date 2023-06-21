@@ -4,39 +4,87 @@ public class LeetCode {
 
     public static void main(String[] args) {
 
-        System.out.println(equalPairs(new int[][] { { 3, 2, 1 }, { 1, 7, 6 }, { 2, 7, 7 } }));
+        // System.out.println(equalPairs(new int[][] { { 3, 2, 1 }, { 1, 7, 6 }, { 2, 7,
+        // 7 } }));
+
+        int[] nums = { 735103, 366367, 132236, 133334, 808160, 113001, 49051, 735598, 686615, 665317, 999793, 426087,
+                587000, 649989, 509946, 743518 };
+
+        int[] cost = { 724182, 447415, 723725, 902336, 600863, 287644, 13836, 665183, 448859, 917248, 397790, 898215,
+                790754, 320604, 468575, 825614 };
+
+        System.out.println(minCost(nums, cost));
+    }
+
+    public static long minCost(int[] nums, int[] cost) {
+        long[] c = new long[1];
+        c[0] = 0;
+        int i = 0;
+        int n = nums.length;
+        long sum = 0;
+        int count = 0;
+        for (int p : nums) {
+            sum += p;
+            count++;
+        }
+        int avg = (int) (sum / count);
+        
+        f(i, n, c, nums, cost, avg);
+
+        return c[0];
+    }
+
+    private static void f(int i, int n, long[] c, int[] nums, int[] cost, int avg) {
+        if (i >= n) {
+            return;
+        }
+        
+        if (nums[i] == avg) {
+            f(i + 1, n, c, nums, cost, avg);
+        }
+
+        if (nums[i] < avg) {
+            nums[i] += 1;
+            c[0] += cost[i];
+            f(i, n, c, nums, cost, avg);
+
+        } else if (nums[i] > avg) {
+            nums[i] -= 1;
+            c[0] += cost[i];
+            f(i, n, c, nums, cost, avg);
+        }
     }
 
     public int[] getAverages2(int[] nums, int k) {
-        if(k==0){
+        if (k == 0) {
             return nums;
         }
         int n = nums.length;
         int[] avg = new int[n];
         Arrays.fill(avg, -1);
 
-        if(2*k+1 > n){
+        if (2 * k + 1 > n) {
             return avg;
         }
 
         long windowSim = 0;
-        for(int i = 0; i< (2*k+1); i++){
-            windowSim+=nums[i];
+        for (int i = 0; i < (2 * k + 1); i++) {
+            windowSim += nums[i];
         }
         avg[k] = (int) (windowSim / (2 * k + 1));
 
-        for(int i = (2*k+1); i< n; i++){
+        for (int i = (2 * k + 1); i < n; i++) {
 
-            windowSim = windowSim - nums[i-(2*k+1)]+ nums[i];
-            avg[i-k] = (int) (windowSim/ (2*k+1));
+            windowSim = windowSim - nums[i - (2 * k + 1)] + nums[i];
+            avg[i - k] = (int) (windowSim / (2 * k + 1));
 
         }
         return avg;
 
     }
 
-    public int[] getAverages(int[] nums, int k) {        
-        if(k==0){
+    public int[] getAverages(int[] nums, int k) {
+        if (k == 0) {
             return nums;
         }
 
@@ -44,25 +92,24 @@ public class LeetCode {
         int[] averages = new int[n];
         Arrays.fill(averages, -1);
 
-        if(2*k+1 > n){
+        if (2 * k + 1 > n) {
             return averages;
         }
 
-        long[] prefix = new long[n+1];
-        for(int i =0; i< n; i++){
-            prefix[i+1] = prefix[i]+ nums[i];
+        long[] prefix = new long[n + 1];
+        for (int i = 0; i < n; i++) {
+            prefix[i + 1] = prefix[i] + nums[i];
         }
 
-        for(int i = k ; i < (n-k); ++i){
-            int leftBound = i -k;
-            int rightBound = i+k;
-            long subArraySum = prefix[rightBound+1] - prefix[leftBound];
-            int avg = (int) (subArraySum / (2 * k +1));
+        for (int i = k; i < (n - k); ++i) {
+            int leftBound = i - k;
+            int rightBound = i + k;
+            long subArraySum = prefix[rightBound + 1] - prefix[leftBound];
+            int avg = (int) (subArraySum / (2 * k + 1));
             averages[i] = avg;
         }
         return averages;
     }
-
 
     static int MOD = (int) 1e9 + 7;
 
@@ -89,11 +136,11 @@ public class LeetCode {
         int[][] directions = { { 0, 1 }, { 0, -1 }, { 1, 0 }, { -1, 0 } };
 
         int answer = 1;
- 
-        int[] delrow = {0,0,1,-1};
-        int [] delcol = {1,-1,0,0};
 
-        for(int k = 0; k< 4; k++){
+        int[] delrow = { 0, 0, 1, -1 };
+        int[] delcol = { 1, -1, 0, 0 };
+
+        for (int k = 0; k < 4; k++) {
             int prevI = i + delrow[k];
             int prevJ = j + delcol[k];
             if (0 <= prevI && prevI < grid.length && 0 <= prevJ && prevJ < grid[0].length
