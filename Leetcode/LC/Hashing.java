@@ -9,23 +9,55 @@ public class Hashing {
         Medium medium = new Medium();
 
         int n = 3;
-        int[][] queries = {{0,0,4},{0,1,2},{1,0,1},{0,2,3},{1,2,1}};
+        int[][] queries = { { 0, 0, 4 }, { 0, 1, 2 }, { 1, 0, 1 }, { 0, 2, 3 }, { 1, 2, 1 } };
         System.out.println(medium.matrixSumQueries(n, queries));
     }
 }
 
 class Medium {
 
+    public int takeCharacters(String s, int k) {
+        int n = s.length();
+        int j = 0;
+        int ans = n + 1;
+        int window = 0;
+
+        Map<Character, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            map.put(s.charAt(i), map.getOrDefault(s.charAt(i), 0) + 1);
+        }
+
+        if (map.getOrDefault('a', 0) < k || map.getOrDefault('b', 0) < k || map.getOrDefault('c', 0) < k) {
+            return -1;
+        }
+
+        for (int i = 0; i < n; i++) {
+            char c = s.charAt(i);
+            map.put(c, map.get(c) - 1);
+            window++;
+
+            while (map.get(c) < k) {
+                map.put(s.charAt(j), map.get(s.charAt(j)) + 1);
+                window--;
+                j++;
+            }
+            ans = Math.min(ans, n - window);
+        }
+
+        return ans;
+    }
+
     public long matrixSumQueries(int n, int[][] queries) {
         int[][] mat = new int[n][n];
-        
+
         for (int[] q : queries) {
             if (q[0] == 0) {
                 changeRowMatrix(mat, q[1], q[2]);
             } else if (q[0] == 1) {
                 changeColMatrix(mat, q[1], q[2]);
             }
-            
+
         }
         long sum = getSumMatrix(mat);
         return sum;
