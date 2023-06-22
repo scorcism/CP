@@ -8,9 +8,7 @@ public class Hashing {
 
         Medium medium = new Medium();
 
-        int n = 3;
-        int[][] queries = { { 0, 0, 4 }, { 0, 1, 2 }, { 1, 0, 1 }, { 0, 2, 3 }, { 1, 2, 1 } };
-        System.out.println(medium.matrixSumQueries(n, queries));
+        System.out.println(medium.takeCharacters("aabaaaacaabc", 2));
     }
 }
 
@@ -36,7 +34,6 @@ class Medium {
             char c = s.charAt(i);
             map.put(c, map.get(c) - 1);
             window++;
-
             while (map.get(c) < k) {
                 map.put(s.charAt(j), map.get(s.charAt(j)) + 1);
                 window--;
