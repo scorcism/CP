@@ -38,7 +38,7 @@ public class LeetCode {
         if (i >= n) {
             return;
         }
-        
+
         if (nums[i] == avg) {
             f(i + 1, n, c, nums, cost, avg);
         }

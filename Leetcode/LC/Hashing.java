@@ -7,10 +7,54 @@ public class Hashing {
         Easy easy = new Easy();
 
         Medium medium = new Medium();
+
+        int n = 3;
+        int[][] queries = {{0,0,4},{0,1,2},{1,0,1},{0,2,3},{1,2,1}};
+        System.out.println(medium.matrixSumQueries(n, queries));
     }
 }
 
 class Medium {
+
+    public long matrixSumQueries(int n, int[][] queries) {
+        int[][] mat = new int[n][n];
+        
+        for (int[] q : queries) {
+            if (q[0] == 0) {
+                changeRowMatrix(mat, q[1], q[2]);
+            } else if (q[0] == 1) {
+                changeColMatrix(mat, q[1], q[2]);
+            }
+            
+        }
+        long sum = getSumMatrix(mat);
+        return sum;
+    }
+
+    private void changeRowMatrix(int[][] matrix, int row, int val) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            matrix[row][i] = val;
+        }
+
+    }
+
+    private void changeColMatrix(int[][] matrix, int col, int val) {
+        int n = matrix.length;
+        for (int i = 0; i < n; i++) {
+            matrix[i][col] = val;
+        }
+    }
+
+    private long getSumMatrix(int[][] matrix) {
+        long sum = 0;
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                sum += matrix[i][j];
+            }
+        }
+        return sum;
+    }
 
     public List<String> findRepeatedDnaSequences1(String s) {
         Set seen = new HashSet<>();
