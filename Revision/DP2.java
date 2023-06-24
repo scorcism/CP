@@ -2,8 +2,66 @@ import java.util.*;
 
 public class DP2 {
     public static void main(String[] args) {
-
+        System.out.println(ninjaTraining(3, new int[][] { { 1, 50, 10 }, { 20, 100, 2
+        } }));
     }
+
+    public static int ninjaTraining(int n, int points[][]) {
+        // return nt1(points.length - 1, points, 3);
+        int[][] dp = new int[n][4];
+        for (int[] a : dp) {
+            Arrays.fill(a, -1);
+        }
+        // return nt2(points.length - 1, points, 3, dp);
+        return nt3(n, points);
+    }
+
+    static int nt1(int n, int[][] points, int last) {
+        if (n == 0) {
+            int maxi = 0;
+            for (int i = 0; i < points.length; i++) {
+                if (i != last) {
+                    maxi = Math.max(maxi, points[0][i]);
+                }
+            }
+            return maxi;
+        }
+
+        int maxi = 0;
+        for (int i = 0; i < points.length; i++) {
+            if (i != last) {
+                int point = points[n][i] + nt1(n - 1, points, i);
+                maxi = Math.max(point, maxi);
+            }
+        }
+        return maxi;
+    }
+
+    static int nt2(int n, int[][] points, int last, int[][] dp) {
+        if (n == 0) {
+            int maxi = 0;
+            for (int i = 0; i < points.length; i++) {
+                if (i != last) {
+                    maxi = Math.max(maxi, points[0][i]);
+                }
+            }
+            return maxi;
+        }
+
+        if (dp[n][last] != -1) {
+            return dp[n][last];
+        }
+
+        int maxi = 0;
+        for (int i = 0; i < points.length; i++) {
+            if (i != last) {
+                int point = points[n][i] + nt2(n - 1, points, i, dp);
+                maxi = Math.max(point, maxi);
+            }
+        }
+        return dp[n][last] = maxi;
+    }
+
 
     public void getMin(int[] stones) {
 

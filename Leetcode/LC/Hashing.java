@@ -4,15 +4,62 @@ import java.util.*;
 
 public class Hashing {
     public static void main(String[] args) {
-        Easy easy = new Easy();
 
         Medium medium = new Medium();
-
-        System.out.println(medium.takeCharacters("aabaaaacaabc", 2));
+        int[] nums = { 1, -1, -3, -2, 3 };
+        int k = 3;
+        int x = 2;
+        System.out.println(Arrays.toString(medium.getSubarrayBeauty(nums, k, x)));
     }
 }
 
 class Medium {
+
+    public int[] getSubarrayBeauty2(int[] nums, int k, int x) {
+        int[] counter = new int[50];
+        int[] ans = new int[nums.length -k +1];
+
+        for(int i = 0; i < nums.length; i++){
+            if(nums[i]<0){
+                counter[nums[i]+50]++;
+            }
+            if(i-k >=)
+        }
+    
+    }
+
+    public int[] getSubarrayBeauty(int[] nums, int k, int x) {
+        int i = 0;
+        int n = nums.length;
+        int[] ans = new int[n - k + 1];
+        int p = 0;
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        int j = 0;
+
+        while (j < n) {
+            pq.add(nums[j]);
+            if (j - i + 1 < k) {
+                j++;
+            } else if (j - i + 1 == k) {
+                int ele = 0;
+                PriorityQueue<Integer> dup = pq;
+                System.out.println(dup);
+                for (int t = 1; t < k; t++) {
+                    dup.poll();
+                }
+
+                ans[p++] = ele;
+                if (pq.contains(nums[i])) {
+                    pq.remove(nums[i]);
+                }
+                System.out.println(Arrays.toString(ans));
+                pq.add(nums[j++]);
+                i++;
+            }
+        }
+
+        return ans;
+    }
 
     public int takeCharacters(String s, int k) {
         int n = s.length();
