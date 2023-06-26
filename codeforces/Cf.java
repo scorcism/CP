@@ -1,7 +1,6 @@
 // Abhishek Pathak - scor32k
 // Date: 2023-06-17 20:15:39
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,19 +11,65 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import java.util.Queue;
 import java.util.Random;
 
 public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
+        int n = fs.nextInt();
+        int m = fs.nextInt();
+
+        // Map<Integer, Integer> map = new HashMap<>();
+
+        Queue<Node> q  = new LinkedList<Node>();
+
+
+        // for (int i = 1; i <= n; i++) {
+        //     int p = fs.nextInt();
+        //     map.put(i, p);
+        // }
+        for (int i = 1; i <= n; i++) {
+            int p = fs.nextInt();
+            q.add(new Node(i, p));
+        }
         
-        for (int tt = 0; tt < T; tt++) {
-                
+        // while (map.size() > 1) {
+            // for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            //     if (entry.getValue() <= m) {
+            //         map.remove(entry.getKey());
+            //     } 
+            //     else if (entry.getValue() > m) {
+            //         int index = entry.getKey();
+            //         int value = entry.getValue();
+            //         map.put(index, value -m);
+            //     }
+            // }
+        // }
+        while(q.size() > 1){
+            Node first = q.poll();
+            if(first.value > m){
+                q.add(new Node(first.index, first.value-m));
+            }
         }
 
+        System.out.println(q.poll().index);
+
+
         out.close();
+    }
+
+    static class Node{
+        int index;
+        int value;
+        Node(int i, int p){
+            this.index = i;
+            this.value = p;
+        }
     }
 
     static class FastScanner {
@@ -103,14 +148,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
