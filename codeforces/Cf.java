@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-17 20:15:39
+// Date: 2023-06-26 16:54:57
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,10 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Queue;
 import java.util.Random;
 
 public class Cf {
@@ -22,54 +18,48 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int n = fs.nextInt();
-        int m = fs.nextInt();
+        int[] x = new int[n];
+        int[] y = new int[n];
 
-        // Map<Integer, Integer> map = new HashMap<>();
+        int count = 0;
 
-        Queue<Node> q  = new LinkedList<Node>();
-
-
-        // for (int i = 1; i <= n; i++) {
-        //     int p = fs.nextInt();
-        //     map.put(i, p);
-        // }
-        for (int i = 1; i <= n; i++) {
-            int p = fs.nextInt();
-            q.add(new Node(i, p));
+        for (int i = 0; i < n; i++) {
+            int a = fs.nextInt();
+            int b = fs.nextInt();
+            x[i] = a;
+            y[i] = b;
         }
-        
-        // while (map.size() > 1) {
-            // for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-            //     if (entry.getValue() <= m) {
-            //         map.remove(entry.getKey());
-            //     } 
-            //     else if (entry.getValue() > m) {
-            //         int index = entry.getKey();
-            //         int value = entry.getValue();
-            //         map.put(index, value -m);
-            //     }
-            // }
-        // }
-        while(q.size() > 1){
-            Node first = q.poll();
-            if(first.value > m){
-                q.add(new Node(first.index, first.value-m));
+
+        for (int i = 0; i < n; i++) {
+            boolean left = false;
+            boolean right = false;
+            boolean up = false;
+            boolean low = false;
+
+            for (int j = 0; j < n; j++) {
+                if (x[j] > x[i] && y[j] == y[i]) {
+                    right = true;
+                }
+                if (x[j] < x[i] && y[j] == y[i]) {
+                    left = true;
+                }
+                if (x[j] == x[i] && y[j] < y[i]) {
+                    low = true;
+                }
+                if (x[j] == x[i] && y[j] > y[i]) {
+                    up = true;
+                }
             }
+            if(left && right && up && low){
+                count++;
+            }
+
         }
 
-        System.out.println(q.poll().index);
-
+        System.out.println(count);
 
         out.close();
-    }
 
-    static class Node{
-        int index;
-        int value;
-        Node(int i, int p){
-            this.index = i;
-            this.value = p;
-        }
     }
 
     static class FastScanner {
