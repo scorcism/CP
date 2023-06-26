@@ -4,16 +4,95 @@ public class LeetCode {
 
     public static void main(String[] args) {
 
-        // System.out.println(equalPairs(new int[][] { { 3, 2, 1 }, { 1, 7, 6 }, { 2, 7,
-        // 7 } }));
+        int[] costs = { 1, 2, 4, 1 };
+        int k = 3;
+        int candidates = 3;
+        System.out.println(totalCost(costs, k, candidates));
+    }
 
-        int[] nums = { 735103, 366367, 132236, 133334, 808160, 113001, 49051, 735598, 686615, 665317, 999793, 426087,
-                587000, 649989, 509946, 743518 };
+    // From LC , coz not able to solve :)
+    public static long totalCost2(int[] costs, int k, int n) {
+        PriorityQueue<Integer> head = new PriorityQueue<>();
+        PriorityQueue<Integer> tail = new PriorityQueue<>();
 
-        int[] cost = { 724182, 447415, 723725, 902336, 600863, 287644, 13836, 665183, 448859, 917248, 397790, 898215,
-                790754, 320604, 468575, 825614 };
+        for (int i = 0; i < n; i++) {
+            head.add(costs[i]);
+        }
 
-        System.out.println(minCost(nums, cost));
+        for (int i = Math.max(n, costs.length - n); i < costs.length; i++) {
+            tail.add(costs[i]);
+        }
+
+        long answer = 0;
+        int nexthead = n;
+        int nexttail = costs.length - 1 - n;
+
+        for (int i = 0; i < k; i++) {
+            if (tail.isEmpty() || !head.isEmpty() && head.peek() <= tail.peek()) {
+                answer += head.poll();
+                if (nexthead <= nexttail) {
+                    head.add(costs[nexthead]);
+                    nexthead++;
+                }
+            } else {
+                answer += tail.poll();
+
+                if (nexthead <= nexttail) {
+                    tail.add(costs[nexttail]);
+                    nexttail--;
+                }
+            }
+        }
+
+        return answer;
+    }
+
+    public static long totalCost(int[] costs, int k, int n) {
+        ArrayList<Integer> alist = new ArrayList<>();
+        for (int i = 0; i < costs.length; i++) {
+            alist.add(i, costs[i]);
+        }
+        PriorityQueue<Integer> min = new PriorityQueue<>();
+        PriorityQueue<Integer> max = new PriorityQueue<>();
+
+        long sum = 0;
+        while (k > 0) {
+            for (int i = 0; i < n; i++) {
+                if (alist.size() >= n) {
+                    min.add(alist.get(i));
+                }
+            }
+            System.out.print("min: ");
+            System.out.println(min);
+            int i = 1;
+            while (i <= n) {
+                if (alist.size() >= n) {
+                    max.add(alist.get(alist.size() - i));
+                    i++;
+                }
+            }
+            System.out.print("max: ");
+            System.out.println(max);
+            if (!min.isEmpty() && !max.isEmpty()) {
+
+                if (min.peek() < max.peek()) {
+                    sum += min.peek();
+                    alist.remove(min.peek());
+                } else {
+                    sum += max.peek();
+                    alist.remove(max.peek());
+                }
+            }
+            while (!min.isEmpty()) {
+                min.poll();
+            }
+            while (!max.isEmpty()) {
+                max.poll();
+            }
+            k--;
+        }
+
+        return sum;
     }
 
     public static long minCost(int[] nums, int[] cost) {
@@ -28,7 +107,7 @@ public class LeetCode {
             count++;
         }
         int avg = (int) (sum / count);
-        
+
         f(i, n, c, nums, cost, avg);
 
         return c[0];
