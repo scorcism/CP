@@ -4,10 +4,123 @@ public class LeetCode {
 
     public static void main(String[] args) {
 
-        int[] costs = { 1, 2, 4, 1 };
-        int k = 3;
-        int candidates = 3;
-        System.out.println(totalCost(costs, k, candidates));
+        // int[] costs = { 1, 2, 4, 1 };
+        // int k = 3;
+        // int candidates = 3;
+        // System.out.println(totalCost(costs, k, candidates));
+
+        // System.out.println(shortestPathAllKeys(new String[] { "@..aA", "..B#.",
+        // "....b" }));
+        shortestPathAllKeys(new String[] { "@..aA", "..B#.", "....b" });
+    }
+
+    public static void shortestPathAllKeys(String[] grid) {
+        int n = grid.length;
+        int m = grid[0].length();
+
+        int[][] vis = new int[n][m];
+        HashMap<Character, Integer> map = new HashMap<>();
+        int[] count = new int[1];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i].charAt(j) == '@') {
+                    dfs29(grid, vis, i, j, map, count);
+                    vis[i][j] = 1;
+                }
+            }
+        }
+        if (!map.isEmpty()) {
+            // Map.Entry<Character, Integer> entry = map.entrySet().iterator().next();
+            // Integer value = entry.getValue();
+            // return value;
+            for (Map.Entry<Character, Integer> entry : map.entrySet()) {
+                System.out.println(entry.getKey() + " " + entry.getValue());
+            }
+        } else {
+            // return -1;
+            System.out.println(-1);
+        }
+
+    }
+
+    private static void dfs29(String[] grid, int[][] vis, int i, int j, HashMap<Character, Integer> map, int[] count) {
+        vis[i][j] = 1;
+
+        int[] delrow = { -1, 0, +1, 0 };
+        int[] delcol = { 0, +1, 0, -1 };
+
+        for (int k = 0; k < 4; k++) {
+            int nr = i + delrow[k];
+            int nc = j + delcol[k];
+
+            if (nr >= 0 && nr < grid.length && nc >= 0 && nc < grid[0].length() && vis[nr][nc] != 1
+                    && grid[nr].charAt(nc) != '#') {
+
+                if (Character.isUpperCase(grid[nr].charAt(nc))) {
+                    if (map.containsKey(Character.toLowerCase(grid[nr].charAt(nc)))) {
+                        count[0]++;
+                        dfs29(grid, vis, nr, nc, map, count);
+                    } else {
+                        return;
+                    }
+
+                } else if (Character.isLowerCase(grid[nr].charAt(nc))) {
+                    map.put(grid[nr].charAt(nc), count[0]);
+                    count[0]++;
+                    dfs29(grid, vis, nr, nc, map, count);
+
+                } else if (grid[nr].charAt(nc) == '.') {
+                    count[0]++;
+                    dfs29(grid, vis, nr, nc, map, count);
+                }
+            }
+        }
+
+    }
+
+    public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
+        List<List<Integer>> ans = new ArrayList<>();
+
+        return ans;
+    }
+
+    public static List<List<Integer>> kSmallestPairs2(int[] nums1, int[] nums2, int k) {
+
+        List<List<Integer>> ans = new ArrayList<>();
+
+        PriorityQueue<Node> pq = new PriorityQueue<>(Collections.reverseOrder((a, b) -> a.sum - b.sum));
+
+        for (int i = 0; i < nums1.length; i++) {
+            for (int j = 0; j < nums2.length; j++) {
+                int x = nums1[i];
+                int y = nums2[j];
+                int sum = nums1[i] + nums2[j];
+                pq.add(new Node(x, y, sum));
+                if (pq.size() > k) {
+                    pq.poll();
+                }
+            }
+        }
+        while (!pq.isEmpty()) {
+            List<Integer> a = new ArrayList<>();
+            Node top = pq.poll();
+            a.add(top.x);
+            a.add(top.y);
+            ans.add(a);
+        }
+        return ans;
+    }
+
+    static class Node {
+        int x;
+        int y;
+        int sum;
+
+        Node(int x, int y, int sum) {
+            this.x = x;
+            this.y = y;
+            this.sum = sum;
+        }
     }
 
     // From LC , coz not able to solve :)
