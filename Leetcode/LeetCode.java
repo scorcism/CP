@@ -11,8 +11,13 @@ public class LeetCode {
 
         // System.out.println(shortestPathAllKeys(new String[] { "@..aA", "..B#.",
         // "....b" }));
-        shortestPathAllKeys(new String[] { "@..aA", "..B#.", "....b" });
+        // shortestPathAllKeys(new String[] { "@..aA", "..B#.", "....b" });
     }
+
+
+
+
+    
 
     public static void shortestPathAllKeys(String[] grid) {
         int n = grid.length;
@@ -75,7 +80,6 @@ public class LeetCode {
                 }
             }
         }
-
     }
 
     public List<List<Integer>> kSmallestPairs(int[] nums1, int[] nums2, int k) {
