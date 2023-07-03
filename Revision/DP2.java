@@ -6,6 +6,9 @@ public class DP2 {
         } }));
     }
 
+    // Total unique paths
+    
+
     public static int ninjaTraining(int n, int points[][]) {
         // return nt1(points.length - 1, points, 3);
         int[][] dp = new int[n][4];
