@@ -3,7 +3,54 @@ import java.util.*;
 public class LeetCode {
 
     public static void main(String[] args) {
+        
+    }
 
+
+    
+    public static int singleNumber3(int[] nums) {
+        int res = 0;
+        for (int i = 0; i < 3; i++) {
+            int sum = 0;
+            for (int n : nums) {
+                if (((n >> i) & 1) == 1) {
+                    sum++;
+                }
+            }
+            sum %= 3;
+            res |= sum << i;
+        }
+        return res;
+    }
+
+    public static int singleNumber2(int[] nums) {
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int n : nums) {
+            map.put(n, map.getOrDefault(n, 0) + 1);
+        }
+
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            if (entry.getValue() == 1) {
+                return entry.getKey();
+            }
+        }
+
+        return -1;
+    }
+
+    public static int singleNumber(int[] nums) {
+        int[] freq = new int[(int) 1e2];
+
+        for (int i = 0; i < nums.length; i++) {
+            freq[nums[i]]++;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if (freq[i] == 1) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public boolean buddyStrings(String s, String goal) {
