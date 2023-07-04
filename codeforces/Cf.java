@@ -1,5 +1,6 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-06-26 16:54:57
+// Date: 2023-07-04 20:13:11
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,57 +10,49 @@ import java.io.InputStream;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Random;
+import java.util.Stack;
 
 public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int n = fs.nextInt();
-        int[] x = new int[n];
-        int[] y = new int[n];
+        int pages = fs.nextInt();
 
-        int count = 0;
+        Queue<Node> st =new LinkedList();
 
-        for (int i = 0; i < n; i++) {
-            int a = fs.nextInt();
-            int b = fs.nextInt();
-            x[i] = a;
-            y[i] = b;
+        for(int i = 1; i<=7; i++){
+            int num = fs.nextInt();
+            st.add(new Node(i, num));
         }
 
-        for (int i = 0; i < n; i++) {
-            boolean left = false;
-            boolean right = false;
-            boolean up = false;
-            boolean low = false;
-
-            for (int j = 0; j < n; j++) {
-                if (x[j] > x[i] && y[j] == y[i]) {
-                    right = true;
-                }
-                if (x[j] < x[i] && y[j] == y[i]) {
-                    left = true;
-                }
-                if (x[j] == x[i] && y[j] < y[i]) {
-                    low = true;
-                }
-                if (x[j] == x[i] && y[j] > y[i]) {
-                    up = true;
-                }
+        long sum  = 0;
+        while(true){
+            Node top=  st.poll();
+            sum+=top.page_count;
+            if(sum  >= pages){
+                System.out.println(top.day);
+                break;
             }
-            if(left && right && up && low){
-                count++;
-            }
-
+            st.add(top);
         }
 
-        System.out.println(count);
 
         out.close();
+    }
 
+    static class Node{
+        int day;
+        int page_count;
+
+        Node(int d, int pc){
+            this.day = d;
+            this.page_count = pc;
+        }
     }
 
     static class FastScanner {
@@ -138,15 +131,14 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-
+    
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-
+    
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
-
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
