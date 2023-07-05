@@ -3,11 +3,26 @@ import java.util.*;
 public class LeetCode {
 
     public static void main(String[] args) {
-        
+
     }
 
+    public int longestSubarray(int[] nums) {
+        int zc = 0;
+        int lw = 0;
 
-    
+        int s = 0;
+        for (int i = 0; i < nums.length; i++) {
+            zc += (nums[i] == 0 ? 1 : 0);
+
+            while (zc > 1) {
+                zc -= (nums[s] == 0 ? 1 : 0);
+                start++;
+            }
+            lw = Math.max(lw, i - s);
+        }
+        return lw;
+    }
+
     public static int singleNumber3(int[] nums) {
         int res = 0;
         for (int i = 0; i < 3; i++) {
