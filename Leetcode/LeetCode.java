@@ -3,8 +3,36 @@ import java.util.*;
 public class LeetCode {
 
     public static void main(String[] args) {
+        System.out.println(minSubArrayLen(7, new int[]{2,3,1,2,4,3}));
+    }
+
+    
+    public static int minSubArrayLen2(int target, int[] nums) {
+
 
     }
+
+
+    // not logical
+    public static int minSubArrayLen(int target, int[] nums) {
+        Arrays.sort(nums);
+
+        int left = 0;
+        int right = nums.length-1;
+        int minLen = Integer.MAX_VALUE;
+        while(left < right){
+            if(nums[left] + nums[right] < target){
+                left++;
+            }else if(nums[left] + nums[right] >= target){
+                right--;
+                // System.out.println("left: " + left + " right: " +  right);
+                minLen = Math.min(minLen, right - left + 1);
+                // System.out.println("minLen: " + minLen);
+            }
+        }
+        return minLen;
+    }   
+
 
     public int longestSubarray(int[] nums) {
         int zc = 0;
