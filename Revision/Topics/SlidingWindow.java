@@ -4,14 +4,37 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         EasyProblems easy = new EasyProblems();
-        System.out.println(easy.countGoodSubstrings("aababcabc"));
+        System.out.println(easy.divisorSubstrings(430043, 2));
     }
 }
 
 class EasyProblems {
 
 
+
     
+    public int divisorSubstrings(int num, int k) {
+
+        String str = Integer.toString(num);
+        int count = 0;
+
+        for (int i = 0; i < str.length() - k + 1; i++) {
+            String sub = str.substring(i, i + k);
+
+            int strint = Integer.parseInt(sub);
+            if (strint == 0) {
+                continue;
+            } else if (num % strint == 0) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    static boolean isDivisible(int num, int n) {
+        return (num % n == 0) ? true : false;
+    }
+
     // 1763. Longest Nice Substring
     public String longestNiceSubstring(String s) {
         String longest = "";
