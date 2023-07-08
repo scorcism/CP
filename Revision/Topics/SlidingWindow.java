@@ -4,14 +4,85 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         FixedWindow fw = new FixedWindow();
-
     }
 }
 
 class FixedWindow {
 
+    public List<Integer> findSubstring2(String s, String[] words) {
 
-    
+        if (s == null || words == null || s.length() == 0 || words.length == 0) {
+            return new ArrayList<>();
+        }
+        List<Integer> ans = new ArrayList<>();
+        Map<String, Integer> map = new HashMap<>();
+        for (String ss : words) {
+            map.put(ss, map.getOrDefault(ss, 0) + 1);
+        }
+        int k = words.length * words[0].length();
+        int wlen = words[0].length();
+
+        for (int i = 0; i < s.length() - k + 1; i++) {
+            String sub = s.substring(i, i + k);
+            if (isSame(sub, map, wlen)) {
+                ans.add(i);
+            }
+        }
+
+        return ans;
+    }
+
+    private boolean isSame(String sub, Map<String, Integer> map, int wlen) {
+        Map<String, Integer> tmp = new HashMap<>();
+
+        for (int i = 0; i < sub.length() - wlen + 1; i += wlen) {
+            String seen = sub.substring(i, i + wlen);
+            tmp.put(seen, tmp.getOrDefault(seen, 0) + 1);
+        }
+        return tmp.equals(map);
+
+    }
+
+    public List<Integer> findSubstring(String s, String[] words) {
+        List<Integer> ans = new ArrayList<>();
+
+        int k = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (String ss : words) {
+            for (char c : ss.toCharArray()) {
+                k++;
+                map.put(c, map.getOrDefault(c, 0) + 1);
+            }
+        }
+
+        int i = 0;
+        int j = 0;
+        HashMap<Character, Integer> tmpmap = new HashMap<>();
+        while (j < s.length()) {
+            tmpmap.put(s.charAt(j), tmpmap.getOrDefault(s.charAt(j), 0) + 1);
+
+            if (j - i + 1 < k) {
+                j++;
+            } else if (j - i + 1 == k) {
+                if (tmpmap.equals(map)) {
+                    ans.add(i);
+                }
+
+                if (tmpmap.containsKey(s.charAt(i))) {
+                    tmpmap.put(s.charAt(i), tmpmap.get(s.charAt(i)) - 1);
+                    if (tmpmap.get(s.charAt(i)) < 1) {
+                        tmpmap.remove(s.charAt(i));
+                    }
+                }
+                i++;
+                j++;
+            }
+        }
+
+        return ans;
+    }
+
     // 1876. Substrings of Size Three with Distinct Characters
     public int countGoodSubstrings(String s) {
         int k = 3;
