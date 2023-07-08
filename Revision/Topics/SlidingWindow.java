@@ -3,15 +3,50 @@ import java.util.*;
 public class SlidingWindow {
 
     public static void main(String[] args) {
-        EasyProblems easy = new EasyProblems();
-        System.out.println(easy.divisorSubstrings(430043, 2));
+        FixedWindow fw = new FixedWindow();
+
+    }
+}
+
+class FixedWindow {
+
+
+    
+    // 1876. Substrings of Size Three with Distinct Characters
+    public int countGoodSubstrings(String s) {
+        int k = 3;
+        int count_occurance = 0;
+
+        int i = 0;
+        int j = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        while (j < s.length()) {
+            map.put(s.charAt(j), map.getOrDefault(s.charAt(j), 0) + 1);
+
+            if (j - i + 1 < k) {
+                j++;
+            } else if (j - i + 1 == k) {
+                if (map.size() == k) {
+                    count_occurance++;
+                }
+                char ith = s.charAt(i);
+                if (map.containsKey(ith)) {
+                    map.put(ith, map.get(ith) - 1);
+                    if (map.get(ith) < 1) {
+                        map.remove(ith);
+                    }
+                }
+                i++;
+                j++;
+            }
+        }
+
+        return count_occurance;
     }
 }
 
 class EasyProblems {
 
-
-    
     public int minimumRecolors(String blocks, int k) {
 
         int i = 0;
