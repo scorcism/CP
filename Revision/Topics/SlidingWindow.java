@@ -11,6 +11,33 @@ public class SlidingWindow {
 class EasyProblems {
 
 
+    
+    public int minimumRecolors(String blocks, int k) {
+
+        int i = 0;
+        int j = 0;
+        int min = Integer.MAX_VALUE;
+        int wcount = 0;
+
+        while (j < blocks.length()) {
+            if (blocks.charAt(j) == 'W') {
+                wcount++;
+            }
+
+            if (j - i + 1 < k) {
+                j++;
+            } else if (j - i + 1 == k) {
+                min = Math.min(min, wcount);
+                if (blocks.charAt(i) == 'W') {
+                    wcount--;
+                }
+                i++;
+                j++;
+            }
+        }
+        return wcount;
+    }
+
     static boolean isDivisible(int num, int n) {
         return (num % n == 0) ? true : false;
     }
