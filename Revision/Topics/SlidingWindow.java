@@ -10,22 +10,34 @@ public class SlidingWindow {
 
 class EasyProblems {
 
-
-
-    
     public int divisorSubstrings(int num, int k) {
 
-        String str = Integer.toString(num);
+        String n = Integer.toString(num);
+
+        int i = 0;
+        int j = 0;
+        int nlen = n.length();
         int count = 0;
+        String sb = "";
 
-        for (int i = 0; i < str.length() - k + 1; i++) {
-            String sub = str.substring(i, i + k);
+        while (j < nlen) {
+            sb += n.charAt(j);
 
-            int strint = Integer.parseInt(sub);
-            if (strint == 0) {
-                continue;
-            } else if (num % strint == 0) {
-                count++;
+            if (j - i + 1 < k) {
+                j++;
+            } 
+            else if (j - i + 1 == k) {
+
+                System.out.println(sb);
+                
+                if (isDivisible(num, Integer.parseInt(sb))) {
+                    count++;
+                }
+
+                sb = sb.substring(i, j)
+
+                i++;
+                j++;
             }
         }
         return count;
