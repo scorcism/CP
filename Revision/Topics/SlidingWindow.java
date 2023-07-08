@@ -10,6 +10,39 @@ public class SlidingWindow {
 
 class EasyProblems {
 
+
+    
+    // 1763. Longest Nice Substring
+    public String longestNiceSubstring(String s) {
+        String longest = "";
+
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = i + 1; j < s.length() + 1; j++) {
+                String currString = s.substring(i, j);
+                if (currString.length() > longest.length() && isNice(currString)) {
+                    longest = currString;
+                }
+
+            }
+        }
+
+        return longest;
+    }
+
+    static boolean isNice(String s) {
+        Set<Character> u = new HashSet<>();
+        char[] str = s.toCharArray();
+        for (char c : str) {
+            u.add(c);
+        }
+        for (char c : u) {
+            if (!u.contains(Character.toLowerCase(c)) || !u.contains(Character.toUpperCase(c))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // 1876. Substrings of Size Three with Distinct Characters
     public int countGoodSubstrings(String s) {
 
