@@ -10,38 +10,6 @@ public class SlidingWindow {
 
 class EasyProblems {
 
-    public int divisorSubstrings(int num, int k) {
-
-        String n = Integer.toString(num);
-
-        int i = 0;
-        int j = 0;
-        int nlen = n.length();
-        int count = 0;
-        String sb = "";
-
-        while (j < nlen) {
-            sb += n.charAt(j);
-
-            if (j - i + 1 < k) {
-                j++;
-            } 
-            else if (j - i + 1 == k) {
-
-                System.out.println(sb);
-                
-                if (isDivisible(num, Integer.parseInt(sb))) {
-                    count++;
-                }
-
-                sb = sb.substring(i, j)
-
-                i++;
-                j++;
-            }
-        }
-        return count;
-    }
 
     static boolean isDivisible(int num, int n) {
         return (num % n == 0) ? true : false;
