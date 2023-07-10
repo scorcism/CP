@@ -4,11 +4,119 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         FixedWindow fw = new FixedWindow();
-        System.out.println(fw.findMaxAverage2(new int[] { 1, 12, -5, -6, 50, 3 }, 4));
+        System.out.println(fw.findAnagrams2("cbaebabacd", "abc"));
     }
 }
 
 class FixedWindow {
+
+    // 438. Find All Anagrams in a String
+    public List<Integer> findAnagrams3(String s, String p) {
+
+        int[] char_count = new int[26];
+
+        for (char c : p.toCharArray()) {
+            char_count[c - 'a']++;
+        }
+        int count = p.length();
+
+        List<Integer> ans = new ArrayList<>();
+
+        int i = 0;
+        int j = 0;
+
+        while (j < s.length()) {
+
+            if (char_count[s.charAt(j++) - 'a']-- >= 1) {
+                count--;
+            }
+            if (count == 0) {
+                ans.add(i);
+            }
+            if (j - i == p.length() && 
+            char_count[s.charAt(i++) - 'a']++ >= 0
+            ){
+                count++;
+            }
+        }
+
+        return ans;
+    }
+
+    public List<Integer> findAnagrams2(String s, String p) {
+        List<Integer> ans = new ArrayList<>();
+
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (char c : p.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        int k = p.length();
+
+        int i = 0;
+        int j = 0;
+        HashMap<Character, Integer> tmp = new HashMap<>();
+
+        while (j < s.length()) {
+            char jth = s.charAt(j);
+
+            tmp.put(jth, tmp.getOrDefault(jth, 0) + 1);
+
+            if (j - i + 1 < k) {
+                j++;
+            } else if (j - i + 1 == k) {
+                char ith = s.charAt(i);
+
+                if (map.equals(tmp)) {
+                    ans.add(i);
+                }
+
+                if (tmp.containsKey(ith)) {
+                    tmp.put(ith, tmp.get(ith) - 1);
+
+                    if (tmp.get(ith) < 1) {
+                        tmp.remove(ith);
+                    }
+                }
+
+                i++;
+                j++;
+            }
+        }
+
+        return ans;
+    }
+
+    public List<Integer> findAnagrams(String s, String p) {
+        List<Integer> ans = new ArrayList<>();
+
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        for (char c : p.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        int k = p.length();
+
+        for (int i = 0; i < s.length() - k + 1; i++) {
+            String subs = s.substring(i, i + k);
+            if (isMatch(map, subs)) {
+                ans.add(i);
+            }
+        }
+
+        return ans;
+    }
+
+    private static boolean isMatch(Map<Character, Integer> map, String s1) {
+        HashMap<Character, Integer> map2 = new HashMap<>();
+
+        for (char c : s1.toCharArray()) {
+            map2.put(c, map2.getOrDefault(c, 0) + 1);
+        }
+        return map.equals(map2);
+    }
 
     // 1423. Maximum Points You Can Obtain from Cards
     public int maxScore2(int[] cardPoints, int k) {
