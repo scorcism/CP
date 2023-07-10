@@ -4,13 +4,43 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         FixedWindow fw = new FixedWindow();
-        System.out.println(fw.findAnagrams2("cbaebabacd", "abc"));
+
     }
 }
 
 class FixedWindow {
 
     // 2090. K Radius Subarray Averages
+
+    public int[] getAverages(int[] nums, int k) {
+        int n = nums.length;
+
+        int[] avg = new int[n];
+
+        Arrays.fill(avg, -1);
+
+        if (n < 2 * k + 1) {
+            return avg;
+        }
+
+        int[] prefix = new int[n + 1];
+        for (int i = 0; i < n; i++) {
+            prefix[i + 1] = prefix[i] + nums[i];
+        }
+
+        for (int i = k; i < (n - k); i++) {
+            int leftIndex = i - k;
+            int rightIndex = i + k;
+
+            int sum = prefix[rightIndex + 1] - prefix[leftIndex];
+
+            avg[i] = sum / (2 * k + 1);
+
+        }
+
+        return avg;
+    }
+
     public int numOfSubarrays(int[] arr, int k, int threshold) {
         int count = 0;
         long sum = 0;
