@@ -10,6 +10,34 @@ public class SlidingWindow {
 
 class FixedWindow {
 
+    // 2090. K Radius Subarray Averages
+    public int numOfSubarrays(int[] arr, int k, int threshold) {
+        int count = 0;
+        long sum = 0;
+
+        int i = 0;
+        int j = 0;
+
+        while (j < arr.length) {
+            sum += arr[j];
+            if (j - i + 1 < k) {
+                j++;
+            } else if (j - i + 1 == k) {
+
+                int avg = (int) sum / k;
+                if (avg >= threshold) {
+                    count++;
+                }
+
+                sum -= arr[i];
+                i++;
+                j++;
+            }
+        }
+
+        return count;
+    }
+
     // 438. Find All Anagrams in a String
     public List<Integer> findAnagrams3(String s, String p) {
 
@@ -33,9 +61,8 @@ class FixedWindow {
             if (count == 0) {
                 ans.add(i);
             }
-            if (j - i == p.length() && 
-            char_count[s.charAt(i++) - 'a']++ >= 0
-            ){
+            if (j - i == p.length() &&
+                    char_count[s.charAt(i++) - 'a']++ >= 0) {
                 count++;
             }
         }
