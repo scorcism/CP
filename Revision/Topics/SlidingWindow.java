@@ -4,18 +4,63 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         FixedWindow fw = new FixedWindow();
-        System.out.println(fw.maxFreq("aababcaab", 2, 3, 4));
+        System.out.println(fw.findMaxAverage2(new int[]{1,12,-5,-6,50,3}, 4));
     }
 }
 
 class FixedWindow {
 
+    // 643. Maximum Average Subarray I
+    public double findMaxAverage2(int[] nums, int k) {
+        
+        long answer= 0;
+        long sum = 0;
+        for(int i = 0; i< nums.length; i++){
+            sum+=nums[i];
 
+            if(i > k-1){
+                sum-=nums[i-k];
+            }
+
+            if(i >= k-1){
+                answer = Math.max(answer, sum);
+            }
+        }
+
+        return (double)answer/k;
+    }
+
+    public double findMaxAverage(int[] nums, int k) {
+        double ans = 0.0;
+        int i = 0;
+        int j = 0;
+        double num = 0.0;
+        int count = 0;
+        while (j < nums.length) {
+
+            num += nums[j];
+            count++;
+
+            if (j - i + 1 < k) {
+                j++;
+            } else if (j - i + 1 == k) {
+                ans = Math.max(ans, num / count);
+
+                count--;
+                num -= nums[i];
+
+                i++;
+                j++;
+            }
+        }
+
+        return ans;
+    }
 
     // 1297. Maximum Number of Occurrences of a Substring
     public int maxFreq(String s, int maxLetters, int minSize, int maxSize) {
         /*
-         * TC ->  ~O(N)
+         * TC -> ~O(N)
          * SC -> O(N)
          */
         int countUnique = 0;
