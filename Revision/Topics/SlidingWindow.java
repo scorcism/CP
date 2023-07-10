@@ -4,13 +4,60 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         FixedWindow fw = new FixedWindow();
+        System.out.println(fw.maxFreq("aababcaab", 2, 3, 4));
     }
 }
 
 class FixedWindow {
 
 
-    
+
+    // 1297. Maximum Number of Occurrences of a Substring
+    public int maxFreq(String s, int maxLetters, int minSize, int maxSize) {
+        /*
+         * TC ->  ~O(N)
+         * SC -> O(N)
+         */
+        int countUnique = 0;
+        Map<String, Integer> map = new HashMap<>();
+        int i = 0;
+        int j = 0;
+        int[] count_occurance = new int[26];
+
+        while (j < s.length()) {
+
+            char jth = s.charAt(j++);
+            count_occurance[jth - 'a']++;
+
+            if (count_occurance[jth - 'a'] == 1) {
+                countUnique++;
+            }
+
+            while ((j - i) >= minSize && (j - i) <= maxSize) {
+                if (countUnique <= maxLetters) {
+                    String subs = s.substring(i, j);
+                    map.put(subs, map.getOrDefault(subs, 0) + 1);
+                }
+
+                char ith = s.charAt(i++);
+                count_occurance[ith - 'a']--;
+
+                if (count_occurance[ith - 'a'] == 0) {
+                    countUnique--;
+                }
+                i++;
+                j++;
+            }
+        }
+
+        int max = Integer.MIN_VALUE;
+        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+            max = Math.max(max, entry.getValue());
+        }
+        return max;
+
+    }
+
     // 1456. Maximum Number of Vowels in a Substring of Given Length
     public int maxVowels2(String s, int k) {
         /*
