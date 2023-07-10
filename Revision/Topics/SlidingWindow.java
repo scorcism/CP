@@ -4,30 +4,65 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         FixedWindow fw = new FixedWindow();
-        System.out.println(fw.findMaxAverage2(new int[]{1,12,-5,-6,50,3}, 4));
+        System.out.println(fw.findMaxAverage2(new int[] { 1, 12, -5, -6, 50, 3 }, 4));
     }
 }
 
 class FixedWindow {
 
-    // 643. Maximum Average Subarray I
-    public double findMaxAverage2(int[] nums, int k) {
-        
-        long answer= 0;
-        long sum = 0;
-        for(int i = 0; i< nums.length; i++){
-            sum+=nums[i];
+    // 1423. Maximum Points You Can Obtain from Cards
+    public int maxScore2(int[] cardPoints, int k) {
+        int ksum = 0;
+        for (int i = 0; i < k; i++) {
+            ksum += cardPoints[i];
 
-            if(i > k-1){
-                sum-=nums[i-k];
+        }
+        int best = ksum;
+
+        for (int i = k - 1, j = cardPoints.length - 1; i >= 0; i--, j--) {
+            ksum += cardPoints[j] - cardPoints[i];
+            best = Math.max(best, ksum);
+        }
+
+        return best;
+    }
+
+    public int maxScore(int[] cardPoints, int k) {
+        int max = 0;
+        int sum = 0;
+
+        for (int i = 0; i < cardPoints.length; i++) {
+            sum += cardPoints[i];
+
+            if (i > k - 1) {
+                sum -= cardPoints[i - k];
             }
 
-            if(i >= k-1){
+            if (i >= k - 1) {
+                max = Math.max(max, sum);
+            }
+        }
+        return max;
+    }
+
+    // 643. Maximum Average Subarray I
+    public double findMaxAverage2(int[] nums, int k) {
+
+        long answer = 0;
+        long sum = 0;
+        for (int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+
+            if (i > k - 1) {
+                sum -= nums[i - k];
+            }
+
+            if (i >= k - 1) {
                 answer = Math.max(answer, sum);
             }
         }
 
-        return (double)answer/k;
+        return (double) answer / k;
     }
 
     public double findMaxAverage(int[] nums, int k) {
