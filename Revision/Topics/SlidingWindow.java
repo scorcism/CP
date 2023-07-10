@@ -9,6 +9,79 @@ public class SlidingWindow {
 
 class FixedWindow {
 
+
+    
+    // 1456. Maximum Number of Vowels in a Substring of Given Length
+    public int maxVowels2(String s, int k) {
+        /*
+         * TC -> O(N)
+         * SC -> O(5) ~ O(1)
+         */
+
+        int ans = 0;
+        int i = 0;
+        int j = 0;
+        HashSet<Character> set = new HashSet<>();
+        set.add('a');
+        set.add('e');
+        set.add('i');
+        set.add('o');
+        set.add('u');
+        int count = 0;
+        while (j < s.length()) {
+            if (set.contains(s.charAt(j))) {
+                count++;
+            }
+
+            if (j - i + 1 < k) {
+                j++;
+            } else if (j - i + 1 == k) {
+                ans = Math.max(ans, count);
+
+                if (set.contains(s.charAt(i))) {
+                    count--;
+                }
+                i++;
+                j++;
+            }
+
+        }
+        return ans;
+    }
+
+    public int maxVowels(String s, int k) {
+        /*
+         * TC -> O(n)
+         * SC -> O(1)
+         */
+
+        int max = Integer.MIN_VALUE;
+
+        HashSet<Character> set = new HashSet<>();
+
+        set.add('a');
+        set.add('e');
+        set.add('i');
+        set.add('o');
+        set.add('u');
+
+        for (int i = 0; i < s.length() - k + 1; i++) {
+            String sub = s.substring(i, i + k);
+            max = Math.max(max, count_vovels(sub, set));
+        }
+        return max;
+    }
+
+    static int count_vovels(String s, HashSet<Character> set) {
+        int count = 0;
+        for (char c : s.toCharArray()) {
+            if (set.contains(c)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
     public List<Integer> findSubstring2(String s, String[] words) {
 
         if (s == null || words == null || s.length() == 0 || words.length == 0) {
