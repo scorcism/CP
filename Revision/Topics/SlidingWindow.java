@@ -4,7 +4,7 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         Tutorials t = new Tutorials();
-        
+
     }
 }
 
@@ -37,7 +37,7 @@ class Tutorials {
 
     // Longest Substring With K Unique Characters
     /*
-     * Condition is given
+     * Condition is given (will be unique eles)
      * Window size is asked
      * k is given
      */
