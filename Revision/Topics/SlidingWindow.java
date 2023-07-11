@@ -3,7 +3,6 @@ import java.util.*;
 public class SlidingWindow {
 
     public static void main(String[] args) {
-        Tutorials t = new Tutorials();
 
     }
 }
@@ -11,8 +10,21 @@ public class SlidingWindow {
 class VariableWindow {
 
     public int lengthOfLongestSubstring2(String s) {
-        int maxLen = Integer.MIN_VALUE;
+        int maxLen = 0;
+        HashSet<Character> set = new HashSet<>();
 
+        int i = 0;
+        int j = 0;
+        while (j < s.length()) {
+            if (!set.contains(s.charAt(j))) {
+                set.add(s.charAt(j));
+                j++;
+                maxLen = Math.max(maxLen, set.size());
+            } else {
+                set.remove(s.charAt(i));
+                i++;
+            }
+        }
         return maxLen;
     }
 
