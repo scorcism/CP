@@ -3,9 +3,30 @@ import java.util.*;
 public class SlidingWindow {
 
     public static void main(String[] args) {
+        Easy easy = new Easy();
         FixedWindow fw = new FixedWindow();
+        VariableWindow vb = new VariableWindow();
 
     }
+}
+
+class VariableWindow {
+    /*
+     * Longest Substring Without Repeating Characters
+     * Longest Repeating Character Replacement
+     * Sliding Window Maximum
+     * Minimum Window Substring
+     * Minimum Size Subarray Sum
+     * Minimum Consecutive Cards to Pick Up
+     * Maximum Erasure Value
+     * Fruit Into Baskets
+     * Count Number of Nice Subarrays
+     * Arithmetic Slices
+     * Subarrays-with-k-different-integers
+     */
+    
+
+
 }
 
 class FixedWindow {
