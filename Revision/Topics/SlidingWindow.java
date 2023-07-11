@@ -3,14 +3,20 @@ import java.util.*;
 public class SlidingWindow {
 
     public static void main(String[] args) {
-        Easy easy = new Easy();
-        FixedWindow fw = new FixedWindow();
-        VariableWindow vb = new VariableWindow();
-
+        Tutorials t = new Tutorials();
+        
     }
 }
 
 class VariableWindow {
+
+    // Longest Substring Without Repeating Characters
+    /*
+     * Condition is given,
+     * window size is asked
+     * 
+     */
+
     /*
      * Longest Substring Without Repeating Characters
      * Longest Repeating Character Replacement
@@ -24,9 +30,46 @@ class VariableWindow {
      * Arithmetic Slices
      * Subarrays-with-k-different-integers
      */
-    
 
+}
 
+class Tutorials {
+
+    // Longest Substring With K Unique Characters
+    /*
+     * Condition is given
+     * Window size is asked
+     * k is given
+     */
+    int longestSubstringK(String s, int k) {
+        int i = 0;
+        int j = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+        int maxLen = Integer.MIN_VALUE;
+
+        while (j < s.length()) {
+            map.put(s.charAt(j), map.getOrDefault(s.charAt(j), 0) + 1);
+
+            if (map.size() < k) {
+                j++;
+            }
+            else if (map.size() == k) {
+                maxLen = Math.max(maxLen, j - i+1);
+                j++;
+            }
+            else if (map.size() > k) {
+                while (map.size() > k) {
+                    map.put(s.charAt(i), map.get(s.charAt(i)) - 1);
+                    if (map.get(s.charAt(i)) < 1) {
+                        map.remove(s.charAt(i));
+                    }
+                    i++;
+                }
+                j++;
+            }
+        }
+        return maxLen;
+    }
 }
 
 class FixedWindow {
