@@ -3,11 +3,58 @@ import java.util.*;
 public class SlidingWindow {
 
     public static void main(String[] args) {
-
+        VariableWindow vw = new VariableWindow();
+        
     }
 }
 
 class VariableWindow {
+
+    public int longestOnes2(int[] nums, int k) {
+        int i = 0;
+        int j = 0;
+
+        for (j = 0; j < nums.length; j++) {
+            if (nums[j] == 0) {
+                k--;
+            }
+            if (k < 0 && nums[i++] == 0) {
+                k++;
+            }
+        }
+
+        return j - i;
+    }
+
+    public int longestOnes(int[] nums, int k) {
+        // Condition -> in window size j - i+1 count_zero should be == k
+        int maxLen = 0;
+        int count_zero = 0;
+        int i = 0;
+        int j = 0;
+
+        while (j < nums.length) {
+            if (nums[j] == 0) {
+                count_zero++;
+            }
+            if (count_zero < k) {
+                j++;
+            } else if (count_zero == k) {
+                maxLen = Math.max(maxLen, j - i + 1);
+                j++;
+            } else if (count_zero > k) {
+                while (count_zero > k) {
+                    if (nums[i] == 0) {
+                        count_zero--;
+                    }
+                    i++;
+                }
+                j++;
+            }
+        }
+
+        return maxLen;
+    }
 
     public int lengthOfLongestSubstring2(String s) {
         int maxLen = 0;
