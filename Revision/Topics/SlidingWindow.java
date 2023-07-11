@@ -20,6 +20,36 @@ class VariableWindow {
 
 class Tutorials {
 
+    // Pick Toys -> 904. Fruit Into Baskets
+    public int totalFruit(int[] f) {
+
+        int maxLen = Integer.MIN_VALUE;
+        Map<Integer, Integer> map = new HashMap<>();
+
+        int i = 0;
+        int j = 0;
+
+        while (j < f.length) {
+            map.put(f[j], map.getOrDefault(f[j], 0) + 1);
+
+            while (map.size() > 2) {
+                map.put(f[i], map.get(f[i]) - 1);
+                if (map.get(f[i]) == 0) {
+                    map.remove(f[i]);
+                }
+                i++;
+            }
+            if (map.size() <= 2) {
+                maxLen = Math.max(maxLen, j - i + 1);
+            }
+
+            j++;
+
+        }
+        return maxLen;
+
+    }
+
     public int lengthOfLongestSubstring(String s) {
         // Longest Substring Without Repeating Characters
         /*
