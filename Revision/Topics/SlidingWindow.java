@@ -4,11 +4,24 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         VariableWindow vw = new VariableWindow();
-        
+
     }
 }
 
 class VariableWindow {
+
+    // 424. Longest Repeating Character Replacement - TODO
+    public int characterReplacement(String s, int k) {
+        int i = 0;
+        int j = 0;
+        int maxLen = 0;
+
+        while (j < s.length()) {
+            
+        }
+
+        return maxLen;
+    }
 
     public int longestOnes2(int[] nums, int k) {
         int i = 0;
