@@ -4,23 +4,61 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         VariableWindow vw = new VariableWindow();
-
+        System.out.println(vw.characterReplacement2("BAAAB", 2));
+        System.out.println(vw.characterReplacement("BAAAB", 2));
     }
 }
 
 class VariableWindow {
 
     // 424. Longest Repeating Character Replacement - TODO
-    public int characterReplacement(String s, int k) {
+    public int characterReplacement2(String s, int k) {
+        int len = s.length();
+        int[] count = new int[26];
         int i = 0;
-        int j = 0;
+        int maxCount = 0;
         int maxLen = 0;
+        for (int j = 0; j < len; j++) {
 
-        while (j < s.length()) {
-            
+            count[s.charAt(j) - 'A']++;
+
+            maxCount = Math.max(maxCount, count[s.charAt(j) - 'A']);
+
+            if (j - i + 1 - maxCount > k) {
+                count[s.charAt(i) - 'A']--;
+                i++;
+            }
+            maxLen = Math.max(maxLen, j - i + 1);
         }
 
         return maxLen;
+    }
+
+    public int characterReplacement(String s, int k) {
+        int i = 0;
+        int j = 0;
+
+        int[] freq = new int[26];
+
+        int max = Integer.MIN_VALUE;
+
+        int maxCount = 0;
+
+        while (j < s.length()) {
+            freq[s.charAt(j) - 'A']++;
+
+            maxCount = Math.max(maxCount, freq[s.charAt(j) - 'A']);
+
+            if ((j - i + 1) - maxCount > k) {
+                freq[s.charAt(i) - 'A']--;
+                i++;
+            }
+
+            max = Math.max(max, j - i + 1);
+            j++;
+        }
+
+        return max;
     }
 
     public int longestOnes2(int[] nums, int k) {
