@@ -4,12 +4,49 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         VariableWindow vw = new VariableWindow();
-        System.out.println(vw.characterReplacement2("BAAAB", 2));
-        System.out.println(vw.characterReplacement("BAAAB", 2));
+
+        System.out.println(Arrays.toString(vw.maxSlidingWindow(new int[] {1,3,-1,-3,5,3,6,7}, 3)));
     }
 }
 
 class VariableWindow {
+
+    // 239. Sliding Window Maximum
+    public int[] maxSlidingWindow(int[] nums, int k) {
+
+        if (nums == null || nums.length == 0) {
+            return new int[0];
+        }
+
+        Deque<Integer> dq = new ArrayDeque<>();
+
+        int index = 0;
+        int n = nums.length;
+
+        int[] res = new int[n- k +1];
+
+        for(int end = 0; end < nums.length; end++){
+
+            int curr = nums[end];
+
+            while(!dq.isEmpty() && nums[dq.peekLast()] < curr){
+                dq.removeLast();
+            }
+            
+            while(!dq.isEmpty() && dq.peekFirst() < end - k +1){
+                dq.removeFirst();
+            }
+
+            dq.addLast(end);
+            
+            if(end + 1>= k){
+                res[index++] = nums[dq.peekFirst()];
+            }
+        }
+
+        return res;
+
+    }
 
     // 424. Longest Repeating Character Replacement - TODO
     public int characterReplacement2(String s, int k) {
