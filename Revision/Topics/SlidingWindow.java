@@ -5,11 +5,67 @@ public class SlidingWindow {
     public static void main(String[] args) {
         VariableWindow vw = new VariableWindow();
 
-        System.out.println(Arrays.toString(vw.maxSlidingWindow(new int[] {1,3,-1,-3,5,3,6,7}, 3)));
+        System.out.println(Arrays.toString(vw.maxSlidingWindow(new int[] { 1, 3, -1, -3, 5, 3, 6, 7 }, 3)));
     }
 }
 
 class VariableWindow {
+
+    // 76. Minimum Window Substring
+    public String minWindow(String s, String t) {
+        int i = 0;
+        int j = 0;
+
+        int start = 0;
+        int maxLen = Integer.MAX_VALUE;
+        int maxStart = 0;
+        int maxEnd = 0;
+
+        Map<Character, Integer> map = new HashMap<>();
+        for (char c : t.toCharArray()) {
+            map.put(c, map.getOrDefault(c, 0) + 1);
+        }
+
+        int count = map.size();
+
+        while (j < s.length()) {
+
+            char cj = s.charAt(j);
+
+            if (map.containsKey(cj)) {
+                map.put(cj, map.get(cj) - 1);
+                if (map.get(cj) == 0) {
+                    count--;
+                }
+            }
+
+            while (count == 0) {
+
+                if (maxLen > end - start + 1) {
+                    maxLen = end - start + 1;
+                    maxStart = i;
+                    maxEnd = j + 1;
+                }
+
+                char ci = s.charAt(i);
+
+                if (map.containsKey(ci)) {
+
+                    map.put(ci, map.get(ci) + 1);
+
+                    if (map.get(ci) == 1) {
+                        count++;
+                    }
+                }
+                i++;
+            }
+
+            j++;
+        }
+
+        return s.substring(maxStart, maxEnd);
+
+    }
 
     // 239. Sliding Window Maximum
     public int[] maxSlidingWindow(int[] nums, int k) {
@@ -23,23 +79,23 @@ class VariableWindow {
         int index = 0;
         int n = nums.length;
 
-        int[] res = new int[n- k +1];
+        int[] res = new int[n - k + 1];
 
-        for(int end = 0; end < nums.length; end++){
+        for (int end = 0; end < nums.length; end++) {
 
             int curr = nums[end];
 
-            while(!dq.isEmpty() && nums[dq.peekLast()] < curr){
+            while (!dq.isEmpty() && nums[dq.peekLast()] < curr) {
                 dq.removeLast();
             }
-            
-            while(!dq.isEmpty() && dq.peekFirst() < end - k +1){
+
+            while (!dq.isEmpty() && dq.peekFirst() < end - k + 1) {
                 dq.removeFirst();
             }
 
             dq.addLast(end);
-            
-            if(end + 1>= k){
+
+            if (end + 1 >= k) {
                 res[index++] = nums[dq.peekFirst()];
             }
         }
