@@ -4,12 +4,34 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         VariableWindow vw = new VariableWindow();
+        System.out.println(vw.minimumCardPickup(new int[] { 1, 0, 5, 3 }));
 
-        
     }
 }
 
 class VariableWindow {
+
+    // 2260. Minimum Consecutive Cards to Pick Up
+    public int minimumCardPickup(int[] nums) {
+        /*
+         * SC -> O(n)
+         * TC -> O(n)
+         */
+        int min = Integer.MAX_VALUE;
+        Map<Integer, Integer> map = new HashMap<>();
+
+        for (int i = 0; i < nums.length; i++) {
+            if (!map.containsKey(nums[i])) {
+                map.put(nums[i], i);
+            } else if (map.containsKey(nums[i])) {
+                int j = map.get(nums[i]);
+                min = Math.min(min, i - j + 1);
+                map.put(nums[i], i);
+            }
+        }
+
+        return min == Integer.MAX_VALUE ? -1 : min;
+    }
 
     // 209. Minimum Size Subarray Sum
     public int minSubArrayLen(int target, int[] nums) {
