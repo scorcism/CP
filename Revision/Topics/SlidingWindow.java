@@ -5,11 +5,42 @@ public class SlidingWindow {
     public static void main(String[] args) {
         VariableWindow vw = new VariableWindow();
 
-        System.out.println(Arrays.toString(vw.maxSlidingWindow(new int[] { 1, 3, -1, -3, 5, 3, 6, 7 }, 3)));
+        
     }
 }
 
 class VariableWindow {
+
+    // 209. Minimum Size Subarray Sum
+    public int minSubArrayLen(int target, int[] nums) {
+        int i = 0;
+        int j = 0;
+
+        int sum = 0;
+        int min = Integer.MAX_VALUE;
+
+        while (j < nums.length) {
+            sum += nums[j];
+
+            while (sum >= target) {
+                min = Math.min(min, j - i + 1);
+                sum -= nums[i++];
+            }
+            j++;
+        }
+
+        // USING FOR LOOP
+        // for (j = 0; j < nums.length; j++) {
+        // sum += nums[j];
+
+        // while (sum >= target) {
+        // min = Math.min(min, j - i + 1);
+        // sum -= nums[i++];
+        // }
+        // }
+
+        return min == Integer.MAX_VALUE ? 0 : min;
+    }
 
     // 76. Minimum Window Substring
     public String minWindow(String s, String t) {
