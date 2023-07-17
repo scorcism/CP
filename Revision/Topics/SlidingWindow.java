@@ -10,6 +10,36 @@ public class SlidingWindow {
 
 class VariableWindow {
 
+    // 904. Fruit Into Baskets
+    public int totalFruit(int[] nums) {
+        int i = 0;
+        int j = 0;
+
+        int max = Integer.MIN_VALUE;
+        Map<Integer, Integer> map = new HashMap<>();
+
+        while (j < nums.length) {
+
+            map.put(nums[j], map.getOrDefault(nums[j], 0) + 1);
+
+            if (map.size() <= 2) {
+                max = Math.max(max, j - i + 1);
+            }
+            while (map.size() > 2) {
+                map.put(nums[i], map.get(nums[i]) - 1);
+                if (map.get(nums[i]) == 0) {
+                    map.remove(nums[i]);
+                }
+                i++;
+            }
+
+            j++;
+        }
+
+        return max;
+
+    }
+
     // 1695. Maximum Erasure Value
     public int maximumUniqueSubarray(int[] nums) {
 
