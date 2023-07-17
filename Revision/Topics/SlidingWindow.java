@@ -4,12 +4,50 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         VariableWindow vw = new VariableWindow();
-        System.out.println(vw.minimumCardPickup(new int[] { 1, 0, 5, 3 }));
 
     }
 }
 
 class VariableWindow {
+
+    // 1695. Maximum Erasure Value
+    public int maximumUniqueSubarray(int[] nums) {
+
+        /*
+         * TC -> O(n)
+         * SC -> O(n)
+         */
+
+        int max = Integer.MIN_VALUE;
+        int sum = 0;
+        int i = 0;
+        int j = 0;
+
+        Map<Integer, Integer> map = new HashMap<>();
+
+        while (j < nums.length) {
+            map.put(nums[j], map.getOrDefault(nums[j], 0) + 1);
+
+            sum += nums[j];
+
+            if (map.size() == j - i + 1) {
+                max = Math.max(max, sum);
+            }
+
+            while (map.size() < j - i + 1) {
+
+                map.put(nums[i], map.get(nums[i]) - 1);
+                sum -= nums[i];
+                if (map.get(nums[i]) == 0) {
+                    map.remove(nums[i]);
+                }
+                i++;
+            }
+            j++;
+        }
+
+        return max;
+    }
 
     // 2260. Minimum Consecutive Cards to Pick Up
     public int minimumCardPickup(int[] nums) {
