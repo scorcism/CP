@@ -12,6 +12,32 @@ public class SlidingWindow {
 class VariableWindow {
 
     // 1248. Count Number of Nice Subarrays
+    public int numberOfSubarrays2(int[] nums, int k) {
+        int i = 0;
+        int j = 0;
+        int oddCount = 0;
+        int count = 0;
+        int tmp = 0;
+
+        while (j < nums.length) {
+            if (nums[j] % 2 == 1) {
+                oddCount++;
+                tmp = 0;
+            }
+            while (oddCount == k) {
+                tmp++;
+                if (nums[i] % 2 == 1) {
+                    oddCount--;
+                }
+                i++;
+            }
+            count += tmp;
+            j++;
+        }
+
+        return count;
+    }
+
     public int numberOfSubarrays(int[] nums, int k) {
         return atMost(nums, k) - atMost(nums, k - 1);
     }
