@@ -4,11 +4,33 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         VariableWindow vw = new VariableWindow();
-
+        System.out.println(vw.numberOfSubarrays2(new int[] { 1, 1, 2, 1, 1 }, 3));
+        System.out.println(vw.numberOfSubarrays2(new int[] { 2, 2, 2, 1, 2, 2, 1, 2, 2, 2 }, 2));
     }
 }
 
 class VariableWindow {
+
+    // 1248. Count Number of Nice Subarrays
+    public int numberOfSubarrays(int[] nums, int k) {
+        return atMost(nums, k) - atMost(nums, k - 1);
+    }
+
+    private int atMost(int[] nums, int k) {
+        int res = 0;
+        int i = 0;
+        int n = nums.length;
+
+        for (int j = 0; j < n; j++) {
+            k -= nums[j] % 2;
+
+            while (k < 0) {
+                k += nums[i++] % 2;
+            }
+            res += j - i + 1;
+        }
+        return res;
+    }
 
     // 904. Fruit Into Baskets
     public int totalFruit(int[] nums) {
