@@ -4,12 +4,27 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         VariableWindow vw = new VariableWindow();
-        System.out.println(vw.numberOfSubarrays2(new int[] { 1, 1, 2, 1, 1 }, 3));
-        System.out.println(vw.numberOfSubarrays2(new int[] { 2, 2, 2, 1, 2, 2, 1, 2, 2, 2 }, 2));
+        
+        System.out.println(vw.numberOfArithmeticSlices(new int[] {1,2,3,4}));
     }
 }
 
 class VariableWindow {
+
+    // 413. Arithmetic Slices
+    public int numberOfArithmeticSlices(int[] nums) {
+        int slices = 0;
+        int prev = 0;
+        for(int i = 2; i < nums.length; i++){
+            if(nums[i]- nums[i-1]== nums[i-1]-nums[i-2]){
+                prev++;
+                slices += prev;
+            }else{
+                prev = 0;
+            }
+        }
+        return slices;
+    }
 
     // 1248. Count Number of Nice Subarrays
     public int numberOfSubarrays2(int[] nums, int k) {
