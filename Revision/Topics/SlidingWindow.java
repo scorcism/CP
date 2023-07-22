@@ -4,22 +4,107 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         VariableWindow vw = new VariableWindow();
-        
-        System.out.println(vw.numberOfArithmeticSlices(new int[] {1,2,3,4}));
+
+        System.out.println(vw.subarraysWithKDistinct3(new int[] { 1, 2, 1, 2, 3 }, 2));
     }
 }
 
 class VariableWindow {
 
+    public int subarraysWithKDistinct3(int[] nums, int k) {
+        System.out.println();
+        return atMostK(nums, k) - atMostK(nums, k - 1);
+    }
+
+    public int atMostK(int[] nums, int k) {
+        int res = 0;
+        int i = 0;
+        int j = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+
+        while (j < nums.length) {
+
+            if (map.getOrDefault(nums[j], 0) == 0) {
+                k--;
+            }
+
+            map.put(nums[j], map.getOrDefault(nums[j], 0) + 1);
+
+            while (k < 0) {
+                map.put(nums[i], map.get(nums[i]) - 1);
+                if (map.get(nums[i]) == 0) {
+                    k++;
+                }
+                i++;
+            }
+            res += j - i + 1;
+            j++;
+        }
+
+        return res;
+    }
+
+    public int subarraysWithKDistinct2(int[] nums, int k) {
+        int count = 0;
+        int i = 0;
+        int tmp = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int j = 0; j < nums.length; j++) {
+            map.put(nums[j], map.getOrDefault(nums[j], 0) + 1);
+
+            while (map.size() == k) {
+                tmp++;
+                map.put(nums[i], map.get(nums[i]) - 1);
+                if (map.get(nums[i]) == 0) {
+                    map.remove(nums[i]);
+                }
+                i++;
+            }
+            count += tmp;
+        }
+
+        return count;
+    }
+
+    public int subarraysWithKDistinct(int[] nums, int k) {
+        int i = 0;
+        int j = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        int count = 0;
+        int tmp = 0;
+
+        while (j < nums.length) {
+            map.put(nums[j], map.getOrDefault(nums[j], 0) + 1);
+            if (map.size() == k) {
+                System.out.println("map: " + map);
+                count++;
+            }
+            while (map.size() > k) {
+                map.put(nums[i], map.get(nums[i]) - 1);
+                tmp++;
+                if (map.get(nums[i]) == 0) {
+                    map.remove(nums[i]);
+                }
+                i++;
+            }
+            count += tmp;
+            j++;
+        }
+
+        return count;
+
+    }
+
     // 413. Arithmetic Slices
     public int numberOfArithmeticSlices(int[] nums) {
         int slices = 0;
         int prev = 0;
-        for(int i = 2; i < nums.length; i++){
-            if(nums[i]- nums[i-1]== nums[i-1]-nums[i-2]){
+        for (int i = 2; i < nums.length; i++) {
+            if (nums[i] - nums[i - 1] == nums[i - 1] - nums[i - 2]) {
                 prev++;
                 slices += prev;
-            }else{
+            } else {
                 prev = 0;
             }
         }
