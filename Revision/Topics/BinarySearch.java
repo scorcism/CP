@@ -10,6 +10,23 @@ public class BinarySearch {
     }
 }
 
+class Questions {
+    /*
+     * Book Allocation Problem (GFG)
+     * Aggressive cow (spoj)
+     * Prata and roti (spoj)
+     * EKO (spoj)
+     * Google kickstart A Q-3 2020
+     * 1482 Minimum Number of Days to Make m Bouquets
+     * 1283 Find the Smallest Divisor Given a Threshold
+     * 1231 Divide Chocolate
+     * 1011 Capacity To Ship Packages In N Days
+     * 875 Koko Eating Bananas Minimize
+     * 774 Max Distance to Gas Station
+     * 410 Split Array Largest Sum
+     */
+}
+
 class BS {
     public int bs(int[] nums, int k) {
         int low = 0;
@@ -27,6 +44,47 @@ class BS {
             }
         }
         return -1;
+    }
+
+    // Aggressive Cows
+    public static int agrrCows(int n, int k, int[] stalls) {
+        /*
+         * TC -> 
+         * SC -> 
+         */
+        int low = 0;
+        int high = (int) 1e9;
+        Arrays.sort(stalls); // O(nlog n)
+        while (high - low > 1) {
+            int mid = low + ((high - low) >> 1);
+
+            if (canPlaceCows(stalls, mid, k)) {
+                low = mid;
+            } else {
+                high = mid - 1;
+            }
+        } // O(10^9) * n
+        if (canPlaceCows(stalls, high, k)) {
+            return high;
+        } else {
+            return low;
+        }
+    }
+
+    public static boolean canPlaceCows(int[] nums, int minDistance, int k) {
+        int lastPos = -1;
+        int cows = 0;
+
+        for (int n : nums) {
+            if (n - lastPos >= minDistance || lastPos == -1) {
+                cows++;
+                lastPos = n;
+            }
+            if (cows >= k) {
+                return true;
+            }
+        }
+        return cows == k;
     }
 
     public int minEatingSpeed(int[] piles, int h) {
@@ -65,5 +123,4 @@ class BS {
 
         return hours <= h;
     }
-
 }
