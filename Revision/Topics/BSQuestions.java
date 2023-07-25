@@ -4,10 +4,37 @@ public class BSQuestions {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
+        System.out.println(sol.minSpeedOnTime(new int[] { 1, 3, 2 }, 2.7));
     }
 }
 
 class Solution {
+
+    // 1870. Minimum Speed to Arrive on Time
+    public int minSpeedOnTime(int[] dist, double hour) {
+        int start = 1;
+        int end = (int) 1e7;
+        while (start <= end) {
+            int mid = start + ((end - start) >> 1);
+            if (isPossibleSpeed(mid, dist, hour)) {
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return start <= (int) 1e7 ? start : -1;
+    }
+
+    private boolean isPossibleSpeed(int mid, int[] dist, double hour) {
+        double countHours = 0;
+        for (int i = 0; i < dist.length - 1; i++) {
+            countHours += (double) Math.ceil(dist[i] / (double) mid);
+
+        }
+        countHours += (double) (dist[dist.length - 1] / mid);
+        return countHours <= hour;
+    }
+
     // 2187. Minimum Time to Complete Trips
     public long minimumTime(int[] time, int totalTrips) {
         long start = 1;
