@@ -1,14 +1,32 @@
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.PriorityQueue;
 
 public class BSQuestions {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
-        System.out.println(sol.minSpeedOnTime(new int[] { 1, 3, 2 }, 2.7));
+        System.out.println(sol.findKthNumber(3, 3, 5));
     }
 }
 
 class Solution {
+
+    // 668. Kth Smallest Number in Multiplication Table
+    public int findKthNumber(int m, int n, int k) {
+        PriorityQueue<Integer> numbers = new PriorityQueue<>(Collections.reverseOrder()); 
+
+        for(int i = 1; i<= m; i++){
+            for(int j = 1; j<=n; j++){
+                int num = i *j;
+                numbers.add(num);
+                if(numbers.size() > k){
+                    numbers.poll();
+                }
+            }
+        }
+        return numbers.peek();
+    }
 
     // 1870. Minimum Speed to Arrive on Time
     public int minSpeedOnTime(int[] dist, double hour) {
