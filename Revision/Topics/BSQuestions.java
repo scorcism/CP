@@ -6,13 +6,56 @@ public class BSQuestions {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
-        System.out.println(sol.findKthNumber(2, 3, 6));
+        System.out.println(sol.findKthNumber2(4, 2, 2));
     }
 }
 
 class Solution {
 
-    
+    // 668. Kth Smallest Number in Multiplication Table
+    public int findKthNumber2(int m, int n, int k) {
+
+        int start = 1;
+        int end = m * n;
+        int ans = 0;
+
+        while (start <= end) {
+            int mid = start + ((end - start) >> 1);
+
+            if (isPossibleKth(m, n, k, mid)) {
+                ans = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    private boolean isPossibleKth(int m, int n, int k, int mid) {
+        int count = 0;
+
+        for (int i = 1; i <= m; i++) {
+            count += Math.min(mid / i, n);
+        }
+
+        return count >= k;
+    }
+
+    public int findKthNumber(int m, int n, int k) {
+        PriorityQueue<Integer> numbers = new PriorityQueue<>(Collections.reverseOrder());
+
+        for (int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                int num = i * j;
+                numbers.add(num);
+                if (numbers.size() > k) {
+                    numbers.poll();
+                }
+            }
+        }
+        return numbers.peek();
+    }
 
     // 1870. Minimum Speed to Arrive on Time
     public int minSpeedOnTime(int[] dist, double hour) {
