@@ -11,7 +11,6 @@ public class BinarySearch {
 }
 
 
-
 class BS {
     public int bs(int[] nums, int k) {
         int low = 0;
@@ -34,8 +33,8 @@ class BS {
     // Aggressive Cows
     public static int agrrCows(int n, int k, int[] stalls) {
         /*
-         * TC -> 
-         * SC -> 
+         * TC ->
+         * SC ->
          */
         int low = 0;
         int high = (int) 1e9;
