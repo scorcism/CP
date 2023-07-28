@@ -4,12 +4,46 @@ public class SlidingWindow {
 
     public static void main(String[] args) {
         VariableWindow vw = new VariableWindow();
-
-        System.out.println(vw.subarraysWithKDistinct3(new int[] { 1, 2, 1, 2, 3 }, 2));
+        System.out.println(vw.shipWithinDays(new int[] { 1, 2, 3, 1, 1 }, 4));
     }
 }
 
 class VariableWindow {
+
+    public int shipWithinDays(int[] weights, int days) {
+        int start = 0;
+        int end = 0;
+
+        for (int n : weights) {
+            start = Math.max(start, n);
+            end += n;
+        }
+
+        while (start < end) {
+            int mid = start + ((end - start) / 2);
+            if (isPossibleToShip(mid, weights, days)) {
+                end = mid;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return start;
+    }
+
+    private static boolean isPossibleToShip(int mid, int[] weights, int days) {
+
+        int dayCount = 1;
+        int sum = 0;
+
+        for (int i = 0; i < weights.length; i++) {
+            sum += weights[i];
+            if (sum > mid) {
+                dayCount++;
+                sum = weights[i];
+            }
+        }
+        return dayCount <= days;
+    }
 
     public int subarraysWithKDistinct3(int[] nums, int k) {
         System.out.println();
@@ -40,7 +74,6 @@ class VariableWindow {
             res += j - i + 1;
             j++;
         }
-
         return res;
     }
 
