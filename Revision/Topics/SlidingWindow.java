@@ -10,6 +10,10 @@ public class SlidingWindow {
 
 class VariableWindow {
 
+    public int splitArray(int[] nums, int k) {
+        return shipWithinDays(nums, k);
+    }
+
     public int shipWithinDays(int[] weights, int days) {
         int start = 0;
         int end = 0;
