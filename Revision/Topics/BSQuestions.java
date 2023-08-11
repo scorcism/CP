@@ -13,6 +13,44 @@ public class BSQuestions {
 
 class Solution {
 
+    // AGGRCOW
+    public static int aggrcow(int[] A, int n, int c) {
+        int ans = 0;
+        Arrays.sort(A);
+        int start = 0;
+        int end = 0;
+
+        for (int p : A) {
+            start = Math.min(start, p);
+            end = Math.max(end, p);
+        }
+
+        while (start <= end) {
+            int mid = start + ((end - start) >> 1);
+            if (isPossibleCow(A, mid, c)) {
+                ans = mid;
+                start = mid + 1;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return ans;
+    }
+
+    static boolean isPossibleCow(int[] nums, int mid, int c) {
+        int cowCount = 0;
+
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] - nums[i - 1] <= mid) {
+                cowCount++;
+            }
+            if (cowCount >= c) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     // Allocate minimum number of pages
     public static int findPages(int[] A, int N, int M) {
         if (A.length < M) {
