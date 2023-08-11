@@ -6,11 +6,57 @@ public class BSQuestions {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
-        System.out.println(sol.findKthNumber2(4, 2, 2));
+        System.out.println(sol.findPages(new int[] { 13, 31, 37, 45, 46, 54, 55, 63, 73, 84, 85
+        }, 11, 9));
     }
 }
 
 class Solution {
+
+    // Allocate minimum number of pages
+    public static int findPages(int[] A, int N, int M) {
+        if (A.length < M) {
+            return -1;
+        }
+
+        int start = 0;
+        int ans = -1;
+        int end = 0;
+
+        for (int n : A) {
+            end += n;
+            start = Math.max(n, start);
+        }
+
+        while (start <= end) {
+            int mid = start + ((end - start) >> 1);
+
+            if (isPossibleStudent(A, mid, M)) {
+                ans = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    // Predicate function
+    public static boolean isPossibleStudent(int[] nums, int mid, int m) {
+        int countStudent = 1;
+        int sum = 0;
+        for (int n : nums) {
+            sum += n;
+            if (sum > mid) {
+                sum = n;
+                countStudent++;
+            }
+            if (countStudent > m) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     // 668. Kth Smallest Number in Multiplication Table
     public int findKthNumber2(int m, int n, int k) {
