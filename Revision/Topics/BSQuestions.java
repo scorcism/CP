@@ -6,12 +6,50 @@ public class BSQuestions {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
-        System.out.println(sol.findPages(new int[] { 13, 31, 37, 45, 46, 54, 55, 63, 73, 84, 85
-        }, 11, 9));
+        System.out.println(sol.rotiPrata(new int[] { 1, 1, 1, 1, 1, 1, 1, 1 }, 8));
     }
 }
 
 class Solution {
+
+    // PRATA - Roti Prata
+    public static int rotiPrata(int[] nums, int p) {
+        int ans = 0;
+        int start = 1;
+        int end = (int) (1e8);
+
+        while (start <= end) {
+            int mid = start + ((end - start) >> 1);
+
+            if (isPossiblePrata(nums, mid, p)) {
+                ans = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    public static boolean isPossiblePrata(int[] nums, int mid, int p) {
+        int count = 0; // count total prathas
+        
+        for (int i = 0; i < nums.length; i++) {
+
+            int perchef = nums[i]; // time taken to cook prathas
+            int time = mid; // time stamp
+
+            while (time > 0) {
+                time -= perchef;
+
+                if (time >= 0) {
+                    count++;
+                    perchef += nums[i];
+                }
+            }
+        }
+        return count >= p;
+    }
 
     // AGGRCOW
     public static int aggrcow(int[] A, int n, int c) {
