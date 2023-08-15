@@ -6,11 +6,43 @@ public class BSQuestions {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
-        System.out.println(sol.rotiPrata(new int[] { 1, 1, 1, 1, 1, 1, 1, 1 }, 8));
     }
 }
 
 class Solution {
+
+    // EKO
+    public static int ekoSpoj(int[] nums, int n, int m) {
+        int start = 1;
+        int end = 0;
+        int ans = 0;
+
+        for (int p : nums) {
+            end = Math.max(end, p);
+        }
+
+        while (start <= end) {
+            int mid = start + ((end - start) >> 1);
+            if (ekoPredicateFnc(nums, mid, m)) {
+                start = mid + 1;
+                ans = mid;
+            } else {
+                end = mid - 1;
+            }
+        }
+        return ans;
+    }
+
+    public static boolean ekoPredicateFnc(int[] nums, int mid, int req) {
+        int sum = 0;
+
+        for (int n : nums) {
+            if (n - mid > 0) {
+                sum += n - mid;
+            }
+        }
+        return sum >= req;
+    }
 
     // PRATA - Roti Prata
     public static int rotiPrata(int[] nums, int p) {
@@ -33,7 +65,7 @@ class Solution {
 
     public static boolean isPossiblePrata(int[] nums, int mid, int p) {
         int count = 0; // count total prathas
-        
+
         for (int i = 0; i < nums.length; i++) {
 
             int perchef = nums[i]; // time taken to cook prathas
