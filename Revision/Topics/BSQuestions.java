@@ -6,11 +6,38 @@ public class BSQuestions {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
-        System.out.println(sol.minDays(new int[] { 7, 7, 7, 7, 12, 7, 7 }, 2, 3));
+        
     }
 }
 
 class Solution {
+
+    public int smallestDivisor(int[] nums, int threshold) {
+        int start = 0;
+        int end = Integer.MAX_VALUE;
+        int ans = 0;
+
+        while(start <= end){
+            int mid = start + ((end - start) >> 1);
+            if(sDPredicate(nums, mid, threshold)){
+                end = mid -1;
+                ans = mid;
+            }else{
+                start = mid+1;
+            }
+        }
+
+        return ans;
+    }   
+
+    public boolean sDPredicate(int[] nums, int mid, int thres){
+        int sum = 0;
+
+        for(int n: nums){
+            sum+= Math.ceil(((double)n/ (double)mid));
+        }
+        return sum <= thres;
+    }
 
     public int minDays(int[] bloomDay, int m, int k) {
         if (bloomDay.length < m * k) {
