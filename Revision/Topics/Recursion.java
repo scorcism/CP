@@ -3,12 +3,31 @@ import java.util.*;
 public class Recursion {
     public static void main(String[] args) {
         Problems prob = new Problems();
-        // prob.getSum();
-        System.out.println(prob.generateParenthesis(2));
+
     }
 }
 
 class Problems {
+
+    public List<List<Integer>> subsets(int[] nums) {
+        // TC-> 
+        List<List<Integer>> ans = new ArrayList<>();
+        subsetsHelper(nums, 0, ans, new ArrayList<Integer>());
+        return ans;
+    }
+
+    public void subsetsHelper(int[] nums, int i, List<List<Integer>> ans, ArrayList<Integer> list) {
+        if (i == nums.length) {
+            ans.add(new ArrayList<>(list));
+            return;
+        }
+
+        subsetsHelper(nums, i + 1, ans, list);
+
+        list.add(nums[i]);
+        subsetsHelper(nums, i + 1, ans, list);
+        list.remove(list.size() - 1);
+    }
 
     public static List<String> generateParenthesis(int n) {
         List<String> ans = new ArrayList<>();
