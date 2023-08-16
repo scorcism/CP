@@ -6,10 +6,52 @@ public class BSQuestions {
 
     public static void main(String[] args) {
         Solution sol = new Solution();
+        System.out.println(sol.minDays(new int[] { 7, 7, 7, 7, 12, 7, 7 }, 2, 3));
     }
 }
 
 class Solution {
+
+    public int minDays(int[] bloomDay, int m, int k) {
+        if (bloomDay.length < m * k) {
+            return -1;
+        }
+
+        int start = 1;
+        int end = 0;
+        int ans = 0;
+        for (int p : bloomDay) {
+            end = Math.max(p, end);
+        }
+        while (start <= end) {
+            int mid = start + ((end - start) >> 1);
+
+            if (minDayPredicate(bloomDay, mid, m, k)) {
+                ans = mid;
+                end = mid - 1;
+            } else {
+                start = mid + 1;
+            }
+        }
+        return ans;
+    }
+
+    public static boolean minDayPredicate(int[] nums, int mid, int m, int k) {
+        int req = 0;
+        int counter = 0;
+
+        for (int i = 0; i < nums.length; i++) {
+
+            if (nums[i] <= mid) {
+                counter++;
+            } else {
+                req += counter / k;
+                counter = 0;
+            }
+        }
+        req += counter / k;
+        return req >= m;
+    }
 
     // EKO
     public static int ekoSpoj(int[] nums, int n, int m) {
