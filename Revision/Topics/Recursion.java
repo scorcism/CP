@@ -4,37 +4,23 @@ public class Recursion {
     public static void main(String[] args) {
         Problems prob = new Problems();
         Practice p = new Practice();
-        System.out.println(p.kthGrammar(1, 1));
+        System.out.println(p.kthGrammar(2, 1));
     }
 }
 
 class Practice {
 
     public int kthGrammar(int n, int k) {
-        int[] ans = new int[1];
-        kgHelper(new StringBuilder(), n, k, 1, ans)
-        return ans[0];
-    }
+        if(n == 1){
+            return 0;
+        }        
 
-    public int kgHelper(StringBuilder sb, int n, int k, int row,int[] ans) {
-        if (row == n) {
-            String sbs = sb.toString();
-            for(int i = 0; i < k ; i++){
-                ans[0]= sb.charAt(i)-0;
-            }
+        if(k % 2 == 0){
+            return 1 - kthGrammar(n-1, (k+1)>>1);
+        }else{
+            return kthGrammar(n-1, (k+1)>>1);
         }
-        String sbs = sb.toString();
-        StringBuilder newStr = new StringBuilder();
-        for (int i = 0; i < sb.length(); i++) {
-            if(sb.charAt(i)=='0'){
-                newStr.append("01");
-            }else if(sb.charAt(i) == "1"){
-                newStr.append("l0");
-            }
-        }
-        kgHelper(newStr, n, k, row++, ans);
     }
-
 }
 
 class Problems {
