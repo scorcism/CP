@@ -4,21 +4,48 @@ public class Recursion {
     public static void main(String[] args) {
         Problems prob = new Problems();
         Practice p = new Practice();
-        System.out.println(p.kthGrammar(2, 1));
+
     }
 }
 
 class Practice {
 
-    public int kthGrammar(int n, int k) {
-        if(n == 1){
-            return 0;
-        }        
+    public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> A, int B) {
+        ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
+        Collections.sort(A);
+        csFunc(B, new ArrayList<Integer>(), 0, A, ans);
+        return ans;
+    }
 
-        if(k % 2 == 0){
-            return 1 - kthGrammar(n-1, (k+1)>>1);
-        }else{
-            return kthGrammar(n-1, (k+1)>>1);
+    public static void csFunc(int B, ArrayList<Integer> ds, int index, ArrayList<Integer> nums,
+            ArrayList<ArrayList<Integer>> ans) {
+        if (index == nums.size()) {
+            if (B == 0) {
+                ans.add(new ArrayList<>(ds));
+            }
+            return;
+        }
+        if (nums.get(index) <= B) {
+
+            ds.add(nums.get(index));
+
+            csFunc(B - nums.get(index), ds, index, nums, ans);
+
+            ds.remove(ds.size() - 1);
+        }
+
+        csFunc(B, ds, index + 1, nums, ans);
+    }
+
+    public int kthGrammar(int n, int k) {
+        if (n == 1) {
+            return 0;
+        }
+
+        if (k % 2 == 0) {
+            return 1 - kthGrammar(n - 1, (k + 1) >> 1);
+        } else {
+            return kthGrammar(n - 1, (k + 1) >> 1);
         }
     }
 }
