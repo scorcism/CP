@@ -1,6 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-07-04 20:13:11
-
+// Date: 2023-08-18 07:20:02
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,49 +9,56 @@ import java.io.InputStream;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Random;
-import java.util.Stack;
 
 public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int pages = fs.nextInt();
+        int T = fs.nextInt();
 
-        Queue<Node> st =new LinkedList();
+        for (int tt = 0; tt < T; tt++) {
+            int n = fs.nextInt();
 
-        for(int i = 1; i<=7; i++){
-            int num = fs.nextInt();
-            st.add(new Node(i, num));
+            int[] nums = fs.nextIntArray(n);
+
+            System.out.println(func(nums, 0, 0));
+
         }
-
-        long sum  = 0;
-        while(true){
-            Node top=  st.poll();
-            sum+=top.page_count;
-            if(sum  >= pages){
-                System.out.println(top.day);
-                break;
-            }
-            st.add(top);
-        }
-
 
         out.close();
     }
 
-    static class Node{
-        int day;
-        int page_count;
-
-        Node(int d, int pc){
-            this.day = d;
-            this.page_count = pc;
+    public static int func(int[] nums, int index, int count) {
+        if (index == nums.length) {
+            System.out.println("max");
+            return count;
         }
+        int left = Integer.MAX_VALUE;
+        int right = Integer.MAX_VALUE;
+        for (int i = index; i < nums.length; i++) {
+            if (i > 0) {
+                System.out.println("in i > 0");
+                if (nums[i] != (int) 1e9 && nums[i - 1] != (int) 1e9 && nums[i] != nums[i - 1]) {
+                    System.out.println("in i > 0 1");
+                    int local = nums[i] + nums[i - 1];
+                    nums[i] = local;
+                    nums[i - 1] = (int) 1e9;
+                    left = func(nums, i + 1, count++);
+                }
+            }
+            if (i < nums.length - 2) {
+                if (nums[i] != (int) 1e9 && nums[i + 1] != (int) 1e9 && nums[i] != nums[i + 1]) {
+                    int local = nums[i] + nums[i + 1];
+                    nums[i] = local;
+                    nums[i + 1] = (int) 1e9;
+                    right = func(nums, i + 1, count++);
+                }
+            }
+        }
+        return Math.min(left, right);
     }
 
     static class FastScanner {
@@ -131,14 +137,15 @@ public class Cf {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
