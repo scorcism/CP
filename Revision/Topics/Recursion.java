@@ -4,11 +4,45 @@ public class Recursion {
     public static void main(String[] args) {
         Problems prob = new Problems();
         Practice p = new Practice();
+        System.out.println(p.longestSubstring("aaabb", 3));
 
     }
 }
 
 class Practice {
+
+    public int longestSubstring(String s, int k) {
+        int ans = 0;
+        int left = 0;
+        int right = 0;
+        int count = 0;
+        HashMap<Character, Integer> map = new HashMap<>();
+
+        while (right < s.length()) {
+            map.put(s.charAt(right), map.getOrDefault(s.charAt(right), 0) + 1);
+
+            if (map.get(s.charAt(right)) >= k) {
+                count++;
+            }
+            if (count < 1) {
+                right++;
+            }
+            if (count >= 1) {
+                ans = right - left + 1;
+                System.out.println(map);
+                while (count >= 1) {
+                    map.remove(s.charAt(left));
+                    if (map.get(s.charAt(left)) < 1) {
+                        count--;
+                    }
+                    left++;
+                }
+                right++;
+            }
+        }
+
+        return ans;
+    }
 
     public ArrayList<ArrayList<Integer>> combinationSum(ArrayList<Integer> A, int B) {
         ArrayList<ArrayList<Integer>> ans = new ArrayList<>();
