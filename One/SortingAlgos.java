@@ -11,8 +11,8 @@ public class SortingAlgos {
         // System.out.println(Arrays.toString(bubbleSort(array3)));
         // System.out.println(Arrays.toString(insertionSort(array3)));
         // System.out.println(Arrays.toString(selectionSort(array3)));
-        quickSort(array3,0,array3.length-1);
-        // mergeSort(array3, 0, array3.length);
+        // quickSort(array3,0,array3.length-1);
+        mergeSort(array3, 0, array3.length);
         System.out.println(Arrays.toString(array3));
     }
 
@@ -61,6 +61,7 @@ public class SortingAlgos {
         for (int l = 0; l < b.length; l++) {
             array[l + left] = b[l];
         }
+        
     }
 
     // Ω(n log(n)) θ(n log(n)) O(n^2) O(n)
