@@ -1,6 +1,4 @@
 
-import java.util.HashSet;
-import java.util.logging.Level;
 import java.util.*;
 
 public class Main {
@@ -9,23 +7,81 @@ public class Main {
 
     }
 
-    class Node{
+    public int minCostConnectPoints(int[][] points) {
+        int sum = 0;
+        
+        int n = points.length;
+        boolean[] visited = new boolean[n];
+
+        int reqEdges = n-1;
+
+        PriorityQueue<PairST> pq = new PriorityQueue<>((a,b)-> a.cost - b.cost);
+
+        int[] cord1 = points[0];
+
+        for(int i = 0; i< points.length; i++){
+            int[] cord2 = points[i];
+            int wt = Math.abs(cord2[0]- cord1[0]) +  Math.abs(cord2[1] - cord1[1]);
+            pq.add(new PairST(0, i, wt));
+        }
+        
+        visited[0]=  true;
+
+        while(!pq.isEmpty() && reqEdges > 0){
+            PairST pair = pq.poll();
+            int u = pair.node;
+            int v = pair.dist;
+            int wt = pair.cost;
+
+            if(!visited[v]){
+                sum+= wt;
+                visited[v] = true;
+
+                for(int i = 0; i< n; i++){
+                    if(!visited[i]){
+                        int dist = Math.abs(points[v][0] - points[i][0]) + Math.abs(points[v][1] - points[i][1]);
+
+                        pq.add(new PairST(v, i, dist));
+                    }
+                }
+                reqEdges--;
+            }
+        }
+
+
+        return sum;
+    }
+
+    class PairST {
+        int node;
+        int dist;
+        int cost;
+
+        PairST(int n, int d, int c) {
+            this.node = n;
+            this.dist = d;
+            this.cost = c;
+        }
+    }
+
+    class Node {
         TreeNode node;
         int level;
-        Node(TreeNode node, int level){
+
+        Node(TreeNode node, int level) {
             this.node = node;
             this.level = level;
         }
     }
-    
+
     public int maxLevelSumOwn(TreeNode root) {
         Queue<Node> q = new LinkedList<>();
         int l = 0;
         int maxsum = Integer.MIN_VALUE;
 
-        q.add(new Node(root,1));
+        q.add(new Node(root, 1));
 
-        while(!q.isEmpty()){
+        while (!q.isEmpty()) {
 
             int size = q.size();
 
@@ -33,23 +89,23 @@ public class Main {
 
             int sum = 0;
 
-            for(int i = 0; i< size; i++){
+            for (int i = 0; i < size; i++) {
                 Node n = q.poll();
 
-                sum+=n.node.val;
+                sum += n.node.val;
 
                 level = n.level;
 
-                if(n.node.left!=null){
-                    q.add(new Node(n.node.left, level+1));
+                if (n.node.left != null) {
+                    q.add(new Node(n.node.left, level + 1));
                 }
-                if(n.node.right!=null){
+                if (n.node.right != null) {
 
-                    q.add(new Node(n.node.right, level+1));
+                    q.add(new Node(n.node.right, level + 1));
                 }
 
             }
-            if(maxsum < sum){
+            if (maxsum < sum) {
                 maxsum = sum;
                 l = level;
             }
