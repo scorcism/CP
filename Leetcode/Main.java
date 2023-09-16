@@ -7,38 +7,86 @@ public class Main {
 
     }
 
+    public int minimumEffortPath(int[][] heights) {
+        int m = heights.length;
+        int n = heights[0].length;
+
+        int[][] dist = new int[m][n];
+        for (int i = 0; i < m; i++) {
+            Arrays.fill(dist[i], (int) 1e9);
+        }
+
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[2] - b[2]);
+
+        pq.add(new int[] { 0, 0, 0, 0 });
+
+        int[][] directions = {
+                { -1, 0 },
+                { 1, 0 },
+                { 0, -1 },
+                { 0, 1 }
+        };
+
+        while (!pq.isEmpty()) {
+            int[] curr = pq.poll();
+            int u = curr[0];
+            int v = curr[1];
+
+            if (u == m - 1 && v == n - 1) {
+                break;
+            }
+
+            for (int[] d : directions) {
+                int n_u = u + d[0];
+                int n_v = v + d[1];
+
+                if (n_u < 0 || n_v < 0 || n_u >= m || n_v >= n) {
+                    continue;
+                }
+
+                int newWt = Math.max(curr[2], Math.abs(heights[u][v] - heights[n_u][n_v]));
+
+                if (newWt < dist[n_u][n_v]) {
+                    pq.add(new int[] { n_u, n_v, dist[n_u][n_v] = newWt });
+                }
+            }
+        }
+
+        return dist[m - 1][n - 1];
+    }
+
     public int minCostConnectPoints(int[][] points) {
         int sum = 0;
-        
+
         int n = points.length;
         boolean[] visited = new boolean[n];
 
-        int reqEdges = n-1;
+        int reqEdges = n - 1;
 
-        PriorityQueue<PairST> pq = new PriorityQueue<>((a,b)-> a.cost - b.cost);
+        PriorityQueue<PairST> pq = new PriorityQueue<>((a, b) -> a.cost - b.cost);
 
         int[] cord1 = points[0];
 
-        for(int i = 0; i< points.length; i++){
+        for (int i = 0; i < points.length; i++) {
             int[] cord2 = points[i];
-            int wt = Math.abs(cord2[0]- cord1[0]) +  Math.abs(cord2[1] - cord1[1]);
+            int wt = Math.abs(cord2[0] - cord1[0]) + Math.abs(cord2[1] - cord1[1]);
             pq.add(new PairST(0, i, wt));
         }
-        
-        visited[0]=  true;
 
-        while(!pq.isEmpty() && reqEdges > 0){
+        visited[0] = true;
+
+        while (!pq.isEmpty() && reqEdges > 0) {
             PairST pair = pq.poll();
             int u = pair.node;
             int v = pair.dist;
             int wt = pair.cost;
 
-            if(!visited[v]){
-                sum+= wt;
+            if (!visited[v]) {
+                sum += wt;
                 visited[v] = true;
 
-                for(int i = 0; i< n; i++){
-                    if(!visited[i]){
+                for (int i = 0; i < n; i++) {
+                    if (!visited[i]) {
                         int dist = Math.abs(points[v][0] - points[i][0]) + Math.abs(points[v][1] - points[i][1]);
 
                         pq.add(new PairST(v, i, dist));
@@ -47,7 +95,6 @@ public class Main {
                 reqEdges--;
             }
         }
-
 
         return sum;
     }
