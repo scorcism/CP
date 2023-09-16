@@ -3,19 +3,61 @@ import java.util.*;
 public class Contest {
     public static void main(String[] args) {
 
-        SolutionWeeklyContest357 sol = new SolutionWeeklyContest357();
-        ArrayList<Integer> list = new ArrayList<>();
-        // list.add(2);
-        // list.add(3);
-        // list.add(3);
-        // list.add(2);
-        // list.add(2);
+        Contest113 c = new Contest113();
+        List<Integer> list = new ArrayList<>();
+        list.add(3);
+        list.add(4);
+        list.add(5);
+        list.add(1);
+        list.add(2);
+
         // list.add(1);
         // list.add(3);
-        list.add(2);
-        list.add(2);
-        list.add(1);
-        System.out.println(sol.canSplitArray2(list, 4));
+        // list.add(5);
+
+        // list.add(2);
+        // list.add(1);
+        // list.add(4);
+
+        System.out.println(c.minimumRightShifts(list));
+    }
+}
+
+class Contest113 {
+
+    public int minLengthAfterRemovals(List<Integer> nums) {
+        int[] ans=  new int[1];
+        
+        
+
+
+        return ans[0];
+        
+    }
+
+
+
+
+
+    public int minimumRightShifts(List<Integer> nums) {
+        int ans = -1;
+
+        int i = nums.size() - 1;
+
+        while (i >= 0) {
+            if (i >0 && nums.get(i) < nums.get(i - 1)) {
+                ans = i-1;
+                break;
+            }
+            i--;
+        }
+        if(ans == -1){
+            return  ans+1;
+        }else if(ans == 0){
+            return -1;
+        }
+
+        return ans;
     }
 }
 
@@ -29,10 +71,10 @@ class SolutionWeeklyContest357 {
 
         ArrayList<Pair> al = new ArrayList<>();
 
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j< m; j++){
-                if(grid.get(i).get(j) == 1){
-                    al.add(new Pair(i, j,grid.get(i).get(j) ));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid.get(i).get(j) == 1) {
+                    al.add(new Pair(i, j, grid.get(i).get(j)));
                 }
             }
         }
@@ -40,19 +82,18 @@ class SolutionWeeklyContest357 {
         return count;
     }
 
-    static int getManDist(Pair i, Pair j){
-        int ans=  0;
+    static int getManDist(Pair i, Pair j) {
+        int ans = 0;
 
-        ans= Math.abs(i.i - j.i) +  Math.abs(i.j - j.j);
+        ans = Math.abs(i.i - j.i) + Math.abs(i.j - j.j);
 
         return ans;
     }
 
-
-    static class Pair{
+    static class Pair {
         int i, j, num;
-        
-        Pair(int i, int j, int num){
+
+        Pair(int i, int j, int num) {
             this.i = i;
             this.j = j;
             this.num = num;
@@ -75,7 +116,7 @@ class SolutionWeeklyContest357 {
                 count++;
                 i++;
                 totalsum -= nums.get(i);
-            }else if(totalsum < m){
+            } else if (totalsum < m) {
                 break;
             }
         }
