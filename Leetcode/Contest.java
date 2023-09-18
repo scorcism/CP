@@ -4,20 +4,13 @@ public class Contest {
     public static void main(String[] args) {
 
         Contest113 c = new Contest113();
+
         List<Integer> list = new ArrayList<>();
-        list.add(3);
-        list.add(4);
-        list.add(5);
-        list.add(1);
         list.add(2);
-
-        // list.add(1);
+        list.add(1);
         // list.add(3);
+        list.add(4);
         // list.add(5);
-
-        // list.add(2);
-        // list.add(1);
-        // list.add(4);
 
         System.out.println(c.minimumRightShifts(list));
     }
@@ -26,38 +19,30 @@ public class Contest {
 class Contest113 {
 
     public int minLengthAfterRemovals(List<Integer> nums) {
-        int[] ans=  new int[1];
-        
-        
-
+        int[] ans = new int[1];
 
         return ans[0];
-        
+
     }
 
-
-
-
-
     public int minimumRightShifts(List<Integer> nums) {
-        int ans = -1;
 
-        int i = nums.size() - 1;
+        int n = nums.size();
+        for (int i = 0; i < n; i++) {
+            int found = 0;
 
-        while (i >= 0) {
-            if (i >0 && nums.get(i) < nums.get(i - 1)) {
-                ans = i-1;
-                break;
+            for (int j = i + 1; j < n + i; j++) {
+                if (nums.get(j % n) < nums.get((j - 1) % n)) {
+                    found = 1;
+                    break;
+                }
             }
-            i--;
-        }
-        if(ans == -1){
-            return  ans+1;
-        }else if(ans == 0){
-            return -1;
+            if (found == 0) {
+                return (n - i) % n;
+            }
         }
 
-        return ans;
+        return -1;
     }
 }
 
