@@ -18,11 +18,52 @@ public class Contest {
 
 class Contest113 {
 
+    public int minLengthAfterRemovals2(List<Integer> nums) {
+
+        int i = 0;
+        int n  =nums.size();
+        int j = (nums.size()+1)/2;
+        int ans = n;
+        while(i < n/2 && j < n){
+            if(nums.get(i) < nums.get(j)){
+                ans-=2;
+            }
+        }
+
+        return ans;
+    }
+
     public int minLengthAfterRemovals(List<Integer> nums) {
-        int[] ans = new int[1];
+        int ans = 0;
+        Map<Integer, Integer> map = new HashMap<>();
 
-        return ans[0];
+        for (int a : nums) {
+            map.put(a, map.getOrDefault(a, 0) + 1);
+        }
 
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            pq.add(entry.getValue());
+        }
+
+        while (!pq.isEmpty()) {
+            int curr1 = pq.poll();
+            if(pq.isEmpty()){
+                ans = curr1;
+                break;
+            }
+            int curr2 = pq.poll();
+            curr1--;
+            curr2--;
+            if(curr1 != 0){
+                pq.add(curr1);
+            }
+            if(curr2!=0){
+                pq.add(curr2);
+            }
+        }
+
+        return ans;
     }
 
     public int minimumRightShifts(List<Integer> nums) {
