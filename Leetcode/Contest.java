@@ -3,16 +3,29 @@ import java.util.*;
 public class Contest {
     public static void main(String[] args) {
 
-        Contest113 c = new Contest113();
+        Contest363 c = new Contest363();
 
-        List<Integer> list = new ArrayList<>();
-        list.add(2);
-        list.add(1);
-        // list.add(3);
-        list.add(4);
-        // list.add(5);
+    }
+}
 
-        System.out.println(c.minimumRightShifts(list));
+class Contest363 {
+
+    public int sumIndicesWithKSetBits(List<Integer> nums, int k) {
+        int ans = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if (getSetBits(i) == k) {
+                ans += nums.get(i);
+            }
+        }
+        return ans;
+    }
+
+    private static int getSetBits(int index) {
+        if (index == 0) {
+            return 0;
+        } else {
+            return (index & 1) + getSetBits(index >> 1);
+        }
     }
 }
 
@@ -21,12 +34,12 @@ class Contest113 {
     public int minLengthAfterRemovals2(List<Integer> nums) {
 
         int i = 0;
-        int n  =nums.size();
-        int j = (nums.size()+1)/2;
+        int n = nums.size();
+        int j = (nums.size() + 1) / 2;
         int ans = n;
-        while(i < n/2 && j < n){
-            if(nums.get(i) < nums.get(j)){
-                ans-=2;
+        while (i < n / 2 && j < n) {
+            if (nums.get(i) < nums.get(j)) {
+                ans -= 2;
             }
         }
 
@@ -48,17 +61,17 @@ class Contest113 {
 
         while (!pq.isEmpty()) {
             int curr1 = pq.poll();
-            if(pq.isEmpty()){
+            if (pq.isEmpty()) {
                 ans = curr1;
                 break;
             }
             int curr2 = pq.poll();
             curr1--;
             curr2--;
-            if(curr1 != 0){
+            if (curr1 != 0) {
                 pq.add(curr1);
             }
-            if(curr2!=0){
+            if (curr2 != 0) {
                 pq.add(curr2);
             }
         }
