@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-08-18 07:20:02
+// Date: 2023-09-21 08:42:01
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,47 +18,24 @@ public class Cf {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int T = fs.nextInt();
+        int[] arr1 = new int[T + 1];
+        int[] arr2 = new int[T + 1];
+        int[] arr3 = new int[T + 1];
 
-        for (int tt = 0; tt < T; tt++) {
-            int n = fs.nextInt();
-
-            int[] nums = fs.nextIntArray(n);
-
-            System.out.println(func(nums, 0, 0));
-
+        for (int i = 1; i <= T; i++) {
+            arr1[i] = fs.nextInt();
+        }
+        for (int i = 1; i <= T; i++) {
+            arr2[i] = fs.nextInt();
         }
 
-        out.close();
-    }
+        for (int i = 1; i <= T; i++) {
+            arr3[arr1[i]] = arr2[i];
+        }
 
-    public static int func(int[] nums, int index, int count) {
-        if (index == nums.length) {
-            System.out.println("max");
-            return count;
+        for(int i = 1; i<=T; i++){
+            System.out.print(arr3[i] +" ");
         }
-        int left = Integer.MAX_VALUE;
-        int right = Integer.MAX_VALUE;
-        for (int i = index; i < nums.length; i++) {
-            if (i > 0) {
-                System.out.println("in i > 0");
-                if (nums[i] != (int) 1e9 && nums[i - 1] != (int) 1e9 && nums[i] != nums[i - 1]) {
-                    System.out.println("in i > 0 1");
-                    int local = nums[i] + nums[i - 1];
-                    nums[i] = local;
-                    nums[i - 1] = (int) 1e9;
-                    left = func(nums, i + 1, count++);
-                }
-            }
-            if (i < nums.length - 2) {
-                if (nums[i] != (int) 1e9 && nums[i + 1] != (int) 1e9 && nums[i] != nums[i + 1]) {
-                    int local = nums[i] + nums[i + 1];
-                    nums[i] = local;
-                    nums[i + 1] = (int) 1e9;
-                    right = func(nums, i + 1, count++);
-                }
-            }
-        }
-        return Math.min(left, right);
     }
 
     static class FastScanner {
