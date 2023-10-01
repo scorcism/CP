@@ -3,12 +3,48 @@ import java.util.*;
 public class Contest {
     public static void main(String[] args) {
 
-        Contest363 c = new Contest363();
+        Contest365 c = new Contest365();
+        System.out.println(c.maximumTripletValue(new int[] { 1000000, 1, 1000000 }));
 
     }
 }
 
+class Contest365 {
+
+    public long maximumTripletValue2(int[] nums) {
+        long max = -1;
+        
+        
+        return max;
+    }
+
+    public long maximumTripletValue(int[] nums) {
+        long max = -1;
+
+        for (int i = 0; i < nums.length - 2; i++) {
+            for (int j = i + 1; j < nums.length - 1; j++) {
+                for (int k = j + 1; k < nums.length; k++) {
+                    max = Math.max(max, (long)(nums[i] - nums[j]) * nums[k]);
+                    // System.out.println((max));
+                }
+            }
+        }
+        if (max < 0) {
+            return 0;
+        } else {
+            return max;
+        }
+    }
+}
+
 class Contest363 {
+
+    public int countWays(List<Integer> nums) {
+        Collections.sort(nums);
+        int ways = 0;
+
+        return ways;
+    }
 
     public int sumIndicesWithKSetBits(List<Integer> nums, int k) {
         int ans = 0;
