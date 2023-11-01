@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-09-21 08:42:01
+// Date: 2023-10-30 23:47:17
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,25 +17,22 @@ public class Cf {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int T = fs.nextInt();
-        int[] arr1 = new int[T + 1];
-        int[] arr2 = new int[T + 1];
-        int[] arr3 = new int[T + 1];
+        int n = fs.nextInt();
+        int m = fs.nextInt();
+        int min = fs.nextInt();
+        int max = fs.nextInt();
 
-        for (int i = 1; i <= T; i++) {
-            arr1[i] = fs.nextInt();
-        }
-        for (int i = 1; i <= T; i++) {
-            arr2[i] = fs.nextInt();
-        }
+        int[] temps = fs.nextIntArray(m);
+        Arrays.sort(temps);
 
-        for (int i = 1; i <= T; i++) {
-            arr3[arr1[i]] = arr2[i];
+        if(temps[0] < min || temps[temps.length - 1] > max){
+            System.out.println("Incorrect");
+        }else{
+            System.out.println("Correct");
         }
 
-        for(int i = 1; i<=T; i++){
-            System.out.print(arr3[i] +" ");
-        }
+
+        out.close();
     }
 
     static class FastScanner {
