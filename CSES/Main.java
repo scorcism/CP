@@ -1,7 +1,6 @@
 // Abhishek Pathak - scor32k
 // Date: 2023-11-06 06:32:12
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -20,12 +19,17 @@ public class Main {
         PrintWriter out = new PrintWriter(System.out);
         String n = fs.nextLine();
 
-        char[] arr = new char[26];
-
-        for(char c: n.toCharArray()){
-            arr[c-'A']++;
+        int curr = 1;
+        int max = 1;
+        for (int i = 1; i < n.length(); i++) {
+            if (n.charAt(i) == n.charAt(i - 1)) {
+                curr++;
+                max = Math.max(max, curr);
+            } else {
+                curr = 1;
+            }
         }
-        System.out.println(Arrays.toString(arr));
+        System.out.println(max);
 
         out.close();
     }
@@ -106,14 +110,15 @@ public class Main {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-    
+
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-    
+
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
+
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
