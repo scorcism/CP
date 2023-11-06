@@ -1,5 +1,6 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-11-06 05:56:40
+// Date: 2023-11-06 06:32:12
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,18 +18,15 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        int n = fs.nextInt();
+        String n = fs.nextLine();
 
-        long sumofn = (n * (n + 1)) / 2;
+        char[] arr = new char[26];
 
-        long[] nsum = fs.nextLongArray(n - 1);
-
-        long sum = 0;
-        for ( long p : nsum) {
-            sum += p;
+        for(char c: n.toCharArray()){
+            arr[c-'A']++;
         }
+        System.out.println(Arrays.toString(arr));
 
-        System.out.println(sumofn - sum);
         out.close();
     }
 
@@ -108,15 +106,14 @@ public class Main {
     static int max(int a, int b, int c) {
         return Math.max(a, Math.max(b, c));
     }
-
+    
     static int max(int a, int b) {
         return Math.max(a, b);
     }
-
+    
     static void qsort(int[] arr) {
         quickSort(arr, 0, arr.length - 1);
     }
-
     private static void quickSort(int[] arr, int left, int right) {
         if (left < right) {
             int partition = qucickS(arr, left, right);
