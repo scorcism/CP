@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-11-06 05:46:28
+// Date: 2023-11-06 05:56:40
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,18 +17,18 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        long n = fs.nextLong();
+        int n = fs.nextInt();
 
-        while (n > 1) {
-            System.out.print(n + " "); 
-            if (n % 2 == 0) {
-                n = n / 2;
-            } else if (n % 2 != 0) {
-                n = n * 3 + 1;
-            }
+        long sumofn = (n * (n + 1)) / 2;
+
+        long[] nsum = fs.nextLongArray(n - 1);
+
+        long sum = 0;
+        for ( long p : nsum) {
+            sum += p;
         }
-        System.out.println(1);
 
+        System.out.println(sumofn - sum);
         out.close();
     }
 
