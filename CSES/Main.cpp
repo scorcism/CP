@@ -1,21 +1,21 @@
-#include <iostream>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 int main()
 {
-    long n;
+    int n;
     cin >> n;
-
-    long long sumOfN = (n * (n + 1)) / 2;
-
-    long long sum = 0;
-
-    for(long i = 0; i< n-1; i++){
-        long p  = 0;
-        cin >> p;
-        sum+=p;
+    int mx = 0;
+    long long count = 0;
+    for (int i = 0; i < n; i++)
+    {
+        int x;
+        cin >> x;
+        mx = max(mx, x);
+        count += mx - x;
     }
+    cout << count;
 
-    cout << sumOfN - sum;
+    return 0;
 }

@@ -1,5 +1,5 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-11-06 06:32:12
+// Date: 2023-11-06 06:44:25
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -17,19 +17,17 @@ public class Main {
     public static void main(String[] args) throws Exception {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
-        String n = fs.nextLine();
+        int n = fs.nextInt();
 
-        int curr = 1;
-        int max = 1;
-        for (int i = 1; i < n.length(); i++) {
-            if (n.charAt(i) == n.charAt(i - 1)) {
-                curr++;
-                max = Math.max(max, curr);
-            } else {
-                curr = 1;
+        long[] arr = fs.nextLongArray(n);
+
+        int count = 0;
+        for (int i = 1; i < n; i++) {
+            if(arr[i] <= arr[i-1]){
+                count++;
             }
         }
-        System.out.println(max);
+        System.out.println(count);
 
         out.close();
     }
