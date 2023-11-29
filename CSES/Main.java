@@ -1,5 +1,6 @@
 // Abhishek Pathak - scor32k
-// Date: 2023-11-06 06:44:25
+// Date: 2023-11-29 06:36:00
+
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,7 +9,6 @@ import java.io.PrintWriter;
 import java.io.InputStream;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Random;
@@ -18,16 +18,22 @@ public class Main {
         FastScanner fs = new FastScanner(System.in);
         PrintWriter out = new PrintWriter(System.out);
         int n = fs.nextInt();
-
-        long[] arr = fs.nextLongArray(n);
-
-        int count = 0;
-        for (int i = 1; i < n; i++) {
-            if(arr[i] <= arr[i-1]){
-                count++;
+        
+        if(n ==1){
+            System.out.println("1");
+        }
+        else if(n == 3 || n == 2){
+            System.out.println("NO SOLUTION");
+        }else if(n==4){
+            System.out.println("3 1 4 2");
+        }else{
+            for(int i = n; i> 0; i-=2){
+                System.out.print(i + " ");
+            }
+            for(int i = n-1; i> 0; i-=2){
+                System.out.print(i + " ");
             }
         }
-        System.out.println(count);
 
         out.close();
     }
@@ -103,18 +109,6 @@ public class Main {
         int tmp = arr[i];
         arr[i] = arr[j];
         arr[j] = tmp;
-    }
-
-    static int max(int a, int b, int c) {
-        return Math.max(a, Math.max(b, c));
-    }
-
-    static int max(int a, int b) {
-        return Math.max(a, b);
-    }
-
-    static void qsort(int[] arr) {
-        quickSort(arr, 0, arr.length - 1);
     }
 
     private static void quickSort(int[] arr, int left, int right) {
