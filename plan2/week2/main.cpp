@@ -70,6 +70,26 @@ public:
         return ans;
     }
 
+    // https://leetcode.com/problems/group-anagrams/
+    vector<vector<string>> groupAnagrams(vector<string> &strs)
+    {
+        vector<vector<string>> ans;
+        unordered_map<string, vector<string>> m;
+
+        for (auto s : strs)
+        {
+            string localString = s;
+            sort(localString.begin(), localString.end());
+            m[localString].push_back(s);
+        }
+
+        for (auto s : m)
+        {
+            ans.push_back(s.second);
+        }
+
+        return ans;
+    }
 }
 
 main()
