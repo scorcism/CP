@@ -74,13 +74,15 @@ public:
     vector<vector<string>> groupAnagrams(vector<string> &strs)
     {
         vector<vector<string>> ans;
-        unordered_map<string, vector<string>> m;
+        map<map<char, int>, vector<string>> m;
 
-        for (auto s : strs)
-        {
-            string localString = s;
-            sort(localString.begin(), localString.end());
-            m[localString].push_back(s);
+        for(int i  = 0; i< strs.size(); i++){
+            map<char, int> innerMap;
+            for(char c: strs[i]){
+                innerMap[c]+=1;
+            }
+            m[innerMap].push_back(strs[i]);
+            innerMap.clear();
         }
 
         for (auto s : m)
