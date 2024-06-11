@@ -1,103 +1,57 @@
 
 #include <bits/stdc++.h>
-
+using namespace std;
 class Solution
 {
 
+private:
+    void printVector(vector<int> v)
+    {
+
+        for (int i : v)
+        {
+            cout << i << " ";
+        }
+    }
+
 public:
-    bool containsDuplicate(vector<int> &nums)
+    // https://leetcode.com/problems/product-of-array-except-self/
+    vector<int> productExceptSelf(vector<int> &nums)
     {
-        unordered_set<int> set;
-
-        for (auto e : nums)
+        int n = nums.size();
+        vector<int> ans(n,1);
+        // Get the prefix mul
+        signed pre = 1;
+        for (int i = 0; i < n; i++)
         {
-            if (set.contains(e))
-            {
-                return true;
-            }
-            set.insert(e);
+            ans[i] = pre; // Put the prefix mul till now into the ith position
+            // Prepare the prefix mul for next one
+            pre *= nums[i];
         }
 
-        return false;
-    }
-
-    //  Q. https://leetcode.com/problems/valid-anagram/
-    bool isAnagram(string s, string t)
-    {
-        if (s.length() != t.length())
+        signed suf = 1;
+        for (int i = n - 1; i >= 0; i--)
         {
-            return false;
-        }
-
-        vector<int> freq(26, 0);
-
-        for (int i = 0; i < s.length(); i++)
-        {
-            freq[s[i] - 'a'] += 1;
-            freq[t[i] - 'a'] -= 1;
-        }
-
-        for (int i = 0; i < freq.size(); i++)
-        {
-            if (freq[i] != 0)
-            {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    // https://leetcode.com/problems/two-sum/
-    vector<int> twoSum(vector<int> &nums, int target)
-    {
-        map<int, int> m;
-        vector<int> ans;
-
-        for (int i = 0; i < nums.size(); i++)
-        {
-            if (!m.empty() && m.find(target - nums[i]) != m.end())
-            {
-                ans.push_back(i);
-                ans.push_back(m[target - nums[i]]);
-                break;
-            }
-            else
-            {
-                m[nums[i]] = i;
-            }
-        }
-        return ans;
-    }
-
-    // https://leetcode.com/problems/group-anagrams/
-    vector<vector<string>> groupAnagrams(vector<string> &strs)
-    {
-        vector<vector<string>> ans;
-        map<map<char, int>, vector<string>> m;
-
-        for(int i  = 0; i< strs.size(); i++){
-            map<char, int> innerMap;
-            for(char c: strs[i]){
-                innerMap[c]+=1;
-            }
-            m[innerMap].push_back(strs[i]);
-            innerMap.clear();
-        }
-
-        for (auto s : m)
-        {
-            ans.push_back(s.second);
+            ans[i] *= suf;
+            suf *= nums[i];
         }
 
         return ans;
     }
-}
+};
 
-main()
+int main()
 {
 
-    Solution sol = new Solution();
+    Solution sol;
+
+    vector<int> q = {1, 2, 3, 4};
+    auto ans = sol.productExceptSelf(q);
+
+    for (int i : ans)
+    {
+        cout << i << " ";
+    }
 
     return 0;
 }
