@@ -1,11 +1,11 @@
 
 #include <bits/stdc++.h>
 using namespace std;
+
 class Solution
 {
-
 private:
-    void printVector(vector<int> v)
+    void printVector(vector<int> &v)
     {
 
         for (int i : v)
@@ -15,28 +15,41 @@ private:
     }
 
 public:
-    // https://leetcode.com/problems/product-of-array-except-self/
-    vector<int> productExceptSelf(vector<int> &nums)
+    // https://leetcode.com/problems/longest-consecutive-sequence/
+    int longestConsecutive(vector<int> &nums)
     {
-        int n = nums.size();
-        vector<int> ans(n,1);
-        // Get the prefix mul
-        signed pre = 1;
-        for (int i = 0; i < n; i++)
+
+        int _max = 0;
+        unordered_set<int> set;
+
+        for (int i = 0; i < nums.size(); i++)
         {
-            ans[i] = pre; // Put the prefix mul till now into the ith position
-            // Prepare the prefix mul for next one
-            pre *= nums[i];
+            set.insert(nums[i]);
         }
 
-        signed suf = 1;
-        for (int i = n - 1; i >= 0; i--)
+        for (int i = 0; i < nums.size(); i++)
         {
-            ans[i] *= suf;
-            suf *= nums[i];
+            if (set.find(nums[i] - 1) == set.end())
+            {
+                int localMax = 1;
+                // previous doesnt exists
+                // Check if consecutive exists
+                for (int j = nums[i]+1; j < 10e5; j++)
+                {
+                    if (set.find(j) != set.end())
+                    {
+                        localMax++;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                _max = max(localMax, _max);
+            }
         }
 
-        return ans;
+        return _max;
     }
 };
 
@@ -46,12 +59,6 @@ int main()
     Solution sol;
 
     vector<int> q = {1, 2, 3, 4};
-    auto ans = sol.productExceptSelf(q);
-
-    for (int i : ans)
-    {
-        cout << i << " ";
-    }
 
     return 0;
 }
