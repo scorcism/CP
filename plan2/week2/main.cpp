@@ -5,6 +5,7 @@ using namespace std;
 class Solution
 {
 private:
+public:
     void printVector(vector<int> &v)
     {
 
@@ -14,42 +15,59 @@ private:
         }
     }
 
-public:
-    // https://leetcode.com/problems/longest-consecutive-sequence/
-    int longestConsecutive(vector<int> &nums)
+    int getCount(vector<int> &nums, int num)
     {
-
-        int _max = 0;
-        unordered_set<int> set;
-
-        for (int i = 0; i < nums.size(); i++)
+        int count = 0;
+        for (int i : nums)
         {
-            set.insert(nums[i]);
+            if (i == num)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    // https://leetcode.com/problems/top-k-frequent-elements/description/
+    vector<int> topKFrequent(vector<int> &nums, int k)
+    {
+        int n = nums.size();
+        unordered_set<int> set;
+        vector<vector<int>> v(n + 1);
+        vector<int> ans;
+
+        for (int i : nums)
+        {
+            // Get the unique
+            set.insert(i);
         }
 
-        for (int i = 0; i < nums.size(); i++)
+        // Store all the elements based on their occurence
+        for (auto i = set.begin(); i != set.end(); ++i)
         {
-            if (set.find(nums[i] - 1) == set.end())
+            int count = getCount(nums, *i);
+            v[count].push_back(*i);
+        }
+
+        for (int i = v.size()-1; i >= 0; i--)
+        {
+            if (v[i].size() > 0)
             {
-                int localMax = 1;
-                // previous doesnt exists
-                // Check if consecutive exists
-                for (int j = nums[i]+1; j < 10e5; j++)
+                for (int j = 0; j < v[i].size(); j++)
                 {
-                    if (set.find(j) != set.end())
+                    if (k > 0)
                     {
-                        localMax++;
+                        ans.push_back(v[i][j]);
+                        k--;
                     }
                     else
                     {
                         break;
                     }
                 }
-                _max = max(localMax, _max);
             }
         }
-
-        return _max;
+        return ans;
     }
 };
 
@@ -58,7 +76,11 @@ int main()
 
     Solution sol;
 
-    vector<int> q = {1, 2, 3, 4};
+    vector<int> q = {1, 1, 1, 2, 2, 3};
+    int k = 2;
+
+    vector<int> ans = sol.topKFrequent(q, k);
+    sol.printVector(ans);
 
     return 0;
 }
