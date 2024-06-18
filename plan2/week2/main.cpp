@@ -6,42 +6,58 @@ class Solution
 {
 private:
 public:
-    void printVector(vector<int> &v)
+    template <typename T>
+    void printVector(vector<T> &v)
     {
-
-        for (int i : v)
+        for (const T &i : v)
         {
             cout << i << " ";
         }
+        cout << endl;
     }
 
-    // https://leetcode.com/problems/valid-sudoku/
-    bool isValidSudoku(vector<vector<char>> &board)
-    {
-        unordered_set<char> rows;
-        unordered_set<char> cols;
-        int block[3][3] = {0};
+    // https://leetcode.com/problems/encode-and-decode-strings/
 
-        for (int i = 0; i < board.size(); ++i)
+    /*
+     * @param strs: a list of strings
+     * @return: encodes a list of strings to a single string.
+     */
+    string encode(vector<string> &strs)
+    {
+        string output = "";
+        int n = strs.size();
+        for (int i = 0; i < n; i++)
         {
-            for (int j = 0; j < board[i].size(); ++j)
+            string st = strs[i];
+            output += st + "$;";
+        }
+        return output;
+    }
+
+    /*
+     * @param str: A string
+     * @return: decodes a single string to a list of strings
+     */
+    vector<string> decode(string &str)
+    {
+        vector<string> output;
+
+        string sWord = "";
+        for (int i = 0; i < str.size(); i++)
+        {
+            if (i < str.size() - 1 && str[i] == '$' && str[i + 1] == ';')
             {
-                int k = i / 3 * 3 + j / 3;
-                if (board[i][j] != '.')
-                {
-                    if (rows.find(board[i][j]) != rows.end() ||
-                        cols.find(board[i][j]) != cols.end() ||
-                        block[i / 3, j / 3] == 1)
-                    {
-                        return false;
-                    }
-                    rows[i].insert(board[i][j]);
-                    cols[j].insert(board[i][j]);
-                    block[i / 3][j / 3] = 1;
-                }
+                output.push_back(sWord);
+                sWord = "";
+                i += 1;
+            }
+            else
+            {
+                sWord += str[i];
             }
         }
-        return true;
+
+        return output;
     }
 };
 
@@ -50,7 +66,16 @@ int main()
 
     Solution sol;
 
-    vector<int> q = {1, 1, 1, 2, 2, 3};
+    vector<string> q = {"neet", "code", "love", "you"};
+
+    string encodedString = sol.encode(q);
+
+    cout << "Encoded string" << encodedString << endl;
+
+    vector<string> decodedString = sol.decode(encodedString);
+    cout << "Encoded string" << endl;
+
+    sol.printVector(decodedString);
 
     return 0;
 }
