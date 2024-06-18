@@ -15,59 +15,33 @@ public:
         }
     }
 
-    int getCount(vector<int> &nums, int num)
+    // https://leetcode.com/problems/valid-sudoku/
+    bool isValidSudoku(vector<vector<char>> &board)
     {
-        int count = 0;
-        for (int i : nums)
+        unordered_set<char> rows;
+        unordered_set<char> cols;
+        int block[3][3] = {0};
+
+        for (int i = 0; i < board.size(); ++i)
         {
-            if (i == num)
+            for (int j = 0; j < board[i].size(); ++j)
             {
-                count++;
-            }
-        }
-        return count;
-    }
-
-    // https://leetcode.com/problems/top-k-frequent-elements/description/
-    vector<int> topKFrequent(vector<int> &nums, int k)
-    {
-        int n = nums.size();
-        unordered_set<int> set;
-        vector<vector<int>> v(n + 1);
-        vector<int> ans;
-
-        for (int i : nums)
-        {
-            // Get the unique
-            set.insert(i);
-        }
-
-        // Store all the elements based on their occurence
-        for (auto i = set.begin(); i != set.end(); ++i)
-        {
-            int count = getCount(nums, *i);
-            v[count].push_back(*i);
-        }
-
-        for (int i = v.size()-1; i >= 0; i--)
-        {
-            if (v[i].size() > 0)
-            {
-                for (int j = 0; j < v[i].size(); j++)
+                int k = i / 3 * 3 + j / 3;
+                if (board[i][j] != '.')
                 {
-                    if (k > 0)
+                    if (rows.find(board[i][j]) != rows.end() ||
+                        cols.find(board[i][j]) != cols.end() ||
+                        block[i / 3, j / 3] == 1)
                     {
-                        ans.push_back(v[i][j]);
-                        k--;
+                        return false;
                     }
-                    else
-                    {
-                        break;
-                    }
+                    rows[i].insert(board[i][j]);
+                    cols[j].insert(board[i][j]);
+                    block[i / 3][j / 3] = 1;
                 }
             }
         }
-        return ans;
+        return true;
     }
 };
 
@@ -77,10 +51,6 @@ int main()
     Solution sol;
 
     vector<int> q = {1, 1, 1, 2, 2, 3};
-    int k = 2;
-
-    vector<int> ans = sol.topKFrequent(q, k);
-    sol.printVector(ans);
 
     return 0;
 }
