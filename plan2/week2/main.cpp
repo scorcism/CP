@@ -29,7 +29,9 @@ public:
         for (int i = 0; i < n; i++)
         {
             string st = strs[i];
-            output += st + "$;";
+            // Keep the count of next work with the deleminator
+            string word = to_string(st.size()) + "#" + st;
+            output += word;
         }
         return output;
     }
@@ -42,21 +44,21 @@ public:
     {
         vector<string> output;
 
-        string sWord = "";
-        for (int i = 0; i < str.size(); i++)
-        {
-            if (i < str.size() - 1 && str[i] == '$' && str[i + 1] == ';')
-            {
-                output.push_back(sWord);
-                sWord = "";
-                i += 1;
-            }
-            else
-            {
-                sWord += str[i];
-            }
-        }
+        int i = 0;
+        int n = str.length();
 
+        while (i < n)
+        {
+            int j = i;
+            while (str[j] != '#')
+            {
+                j++;
+            }
+            int len = stoi(str.substr(i, j - i));
+            string word = str.substr(j + 1, len);
+            output.push_back(word);
+            i = j + 1 + len;
+        }
         return output;
     }
 };
