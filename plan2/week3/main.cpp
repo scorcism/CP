@@ -6,44 +6,37 @@
 class Solution
 {
 public:
-    bool isPalindrome(string s)
+    vector<int> twoSum(vector<int> &numbers, int target)
     {
-        int n = s.length();
-        int start = 0;
-        int end = n - 1;
+        vector<int> ans;
 
-        while (start <= end)
+        int n = numbers.size();
+        int i = 0;
+        int j = n-1;
+
+        while (i < j)
         {
-            if (!isalnum(s[start]))
+            int localSum = numbers[i] + numbers[j];
+            if (localSum > target)
             {
-                start++;
-                continue;
+                j--;
             }
-
-            if (!isalnum(s[end]))
+            else if (localSum < target)
             {
-                end--;
-                continue;
+                i++;
             }
-
-            if (tolower(s[start]) != tolower(s[end]))
+            if (localSum == target)
             {
-                return false;
-            }
-            else
-            {
-
-                start++;
-                end--;
+                ans.push_back(i+1);
+                ans.push_back(j+1);
+                break;
             }
         }
-        return true;
-    };
+        return ans;
+    }
 
     int main()
     {
         Solution sol;
-        string s = "A man, a plan, a canal: Panama";
-        sol.isPalindrome(s);
     }
 }
