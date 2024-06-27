@@ -3,40 +3,69 @@
 #include <string>
 #include <cctype>
 
+using namespace std;
+
 class Solution
 {
 public:
-    vector<int> twoSum(vector<int> &numbers, int target)
+    void printV(vector<int> &nums)
     {
-        vector<int> ans;
-
-        int n = numbers.size();
-        int i = 0;
-        int j = n-1;
-
-        while (i < j)
+        for (int n : nums)
         {
-            int localSum = numbers[i] + numbers[j];
-            if (localSum > target)
+            cout << n << " ";
+        }
+        cout << endl;
+    }
+
+    vector<vector<int>> threeSum(vector<int> &nums)
+    {
+        vector<vector<int>> out;
+
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+
+        for (int i = 0; i < n; i++)
+        {
+            // Check for duplicate
+            if (i > 0 && nums[i - 1] == nums[i])
             {
-                j--;
+                continue;
             }
-            else if (localSum < target)
+            int j = i + 1;
+            int k = n - 1;
+            while (j < k)
             {
-                i++;
-            }
-            if (localSum == target)
-            {
-                ans.push_back(i+1);
-                ans.push_back(j+1);
-                break;
+                int localSum = nums[i] + nums[j] + nums[k];
+                if (localSum > 0)
+                {
+                    k--;
+                }
+                else if (localSum < 0)
+                {
+                    j++;
+                }
+                else
+                {
+                    out.push_back({nums[i], nums[j], nums[k]});
+                    j++;
+                    // Check next one is duplicate if yes, while j <k move j
+                    while (j < k && nums[j] == nums[j - 1])
+                    {
+                        j++;
+                    }
+                }
             }
         }
-        return ans;
+
+        return out;
     }
 
     int main()
     {
         Solution sol;
+        vector<int> arr = {-1, 0, 1, 2, -1, -4};
+        vector<vector<int>> ans = sol.threeSum(arr);
+
+        return 0;
     }
-}
+};
