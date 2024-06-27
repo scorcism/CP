@@ -17,55 +17,34 @@ public:
         cout << endl;
     }
 
-    vector<vector<int>> threeSum(vector<int> &nums)
+    int maxArea(vector<int> &height)
     {
-        vector<vector<int>> out;
-
-        int n = nums.size();
-        sort(nums.begin(), nums.end());
-
-        for (int i = 0; i < n; i++)
+        int result = -10e4;
+        int n = height.size();
+        int start = 0;
+        int end = n - 1;
+        while (start < end)
         {
-            // Check for duplicate
-            if (i > 0 && nums[i - 1] == nums[i])
+            // Calculate the distance
+            result = max(result, (end - start) * min(height[start], height[end]));
+            if (height[start] < height[end])
             {
-                continue;
+                start++;
             }
-            int j = i + 1;
-            int k = n - 1;
-            while (j < k)
+            else
             {
-                int localSum = nums[i] + nums[j] + nums[k];
-                if (localSum > 0)
-                {
-                    k--;
-                }
-                else if (localSum < 0)
-                {
-                    j++;
-                }
-                else
-                {
-                    out.push_back({nums[i], nums[j], nums[k]});
-                    j++;
-                    // Check next one is duplicate if yes, while j <k move j
-                    while (j < k && nums[j] == nums[j - 1])
-                    {
-                        j++;
-                    }
-                }
+                end--;
             }
         }
-
-        return out;
-    }
-
-    int main()
-    {
-        Solution sol;
-        vector<int> arr = {-1, 0, 1, 2, -1, -4};
-        vector<vector<int>> ans = sol.threeSum(arr);
-
-        return 0;
+        return result;
     }
 };
+
+int main()
+{
+    Solution sol;
+    vector<int> arr = {1, 8, 6, 2, 5, 4, 8, 3, 7};
+    int res = sol.maxArea(arr);
+    cout << res << endl;
+    return 0;
+}
