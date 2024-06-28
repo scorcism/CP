@@ -17,34 +17,38 @@ public:
         cout << endl;
     }
 
-    int maxArea(vector<int> &height)
+    int trap(vector<int> &height)
     {
-        int result = -10e4;
-        int n = height.size();
-        int start = 0;
-        int end = n - 1;
-        while (start < end)
+        int left = 0;
+        int right = height.size() - 1;
+        int leftMax = height[0];
+        int rightMax = height[right];
+        int water = 0;
+        while (left < right)
         {
-            // Calculate the distance
-            result = max(result, (end - start) * min(height[start], height[end]));
-            if (height[start] < height[end])
+            cout << leftMax << " " << rightMax << " " << left << " " << right << " " << endl;
+            if (leftMax < rightMax)
             {
-                start++;
+                left++;
+                leftMax = max(leftMax, height[left]);
+                water += leftMax - height[left];
             }
             else
             {
-                end--;
+                right--;
+                rightMax = max(rightMax, height[right]);
+                water += rightMax - height[right];
             }
         }
-        return result;
+        return water;
     }
 };
 
 int main()
 {
     Solution sol;
-    vector<int> arr = {1, 8, 6, 2, 5, 4, 8, 3, 7};
-    int res = sol.maxArea(arr);
-    cout << res << endl;
+    vector<int> arr = {0, 1, 0, 2, 1, 0, 1, 3, 2, 1, 2, 1};
+    int ans = sol.trap(arr);
+    cout << ans << endl;
     return 0;
 }
