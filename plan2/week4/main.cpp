@@ -1,46 +1,46 @@
-#include <bits/stdc++.h>
+#include <climits>
 
-class Solution
+class MinStack
 {
+
+private:
+    stack<int> minStack;
+    stack<int> s;
+
 public:
-    bool isValid(string s)
+    MinStack()
     {
-        map<char, int> m = {
-            {'(', -1},
-            {')', 1},
-            {'{', -2},
-            {'}', 2},
-            {'[', -3},
-            {']', 3}};
-
-        stack<char> stk;
-
-        for (char c : s)
-        {
-            if (m[c] < 0)
-            {
-                stk.push(c);
-            }
-            else if (m[c] > 0)
-            {
-                // Check if starting and ending parenthesis matched
-                if (!stk.empty() && m[c] + m[stk.top()] == 0)
-                {
-                    stk.pop();
-                }
-                else
-                {
-                    return false;
-                }
-            }
-        }
-        return stk.empty();
+        min_stack.push(INT_MAX);
     }
-}
 
-int
-main()
-{
+    void push(int val)
+    {
+        s.push(val);
+        minStack.push(min(val, minStack.top()));
+    }
 
-    return 0;
-}
+    void pop()
+    {
+        s.pop();
+        minStack.pop();
+    }
+
+    int top()
+    {
+        return s.top();
+    }
+
+    int getMin()
+    {
+        return minStack.top();
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
