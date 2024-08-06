@@ -1,46 +1,50 @@
-#include <climits>
-
-class MinStack
+class Solution
 {
-
-private:
-    stack<int> minStack;
-    stack<int> s;
-
 public:
-    MinStack()
+    int getMax(vector<int> &piles)
     {
-        min_stack.push(INT_MAX);
+
+        int maxNum = -1e6;
+
+        for (int n : piles)
+        {
+            maxNum = max(n, maxNum);
+        }
+
+        return maxNum;
     }
 
-    void push(int val)
+    bool isValid(int h, int speed, vector<int> &piles)
     {
-        s.push(val);
-        minStack.push(min(val, minStack.top()));
+        int hours = 0;
+        for (int i = 0; i < piles.size(); i++)
+        {
+            hours += (piles[i] + speed - 1) / speed;
+        }
+        return hours <= h;
     }
 
-    void pop()
+    int minEatingSpeed(vector<int> &piles, int h)
     {
-        s.pop();
-        minStack.pop();
-    }
+        long long min = 1;
+        long long max = getMax(piles);
 
-    int top()
-    {
-        return s.top();
-    }
+        long long res = max;
+        while (min <= max)
+        {
+            long long mid = min + (max - min) / 2;
 
-    int getMin()
-    {
-        return minStack.top();
+            if (isValid(h, mid, piles))
+            {
+                res = mid;
+                max = mid - 1;
+            }
+            else
+            {
+                min = mid + 1;
+            }
+        }
+
+        return res;
     }
 };
-
-/**
- * Your MinStack object will be instantiated and called as such:
- * MinStack* obj = new MinStack();
- * obj->push(val);
- * obj->pop();
- * int param_3 = obj->top();
- * int param_4 = obj->getMin();
- */
