@@ -2,6 +2,14 @@
     "C_Cpp.errorSquiggles": "disabled",
     "files.associations": {
         "vector": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "limits": "cpp",
+        "utility": "cpp",
+        "xutility": "cpp",
+        "initializer_list": "cpp",
+        "list": "cpp",
+        "xhash": "cpp",
+        "xstring": "cpp",
+        "format": "cpp"
     }
 }

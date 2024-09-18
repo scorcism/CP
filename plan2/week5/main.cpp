@@ -1,42 +1,71 @@
-#include <unordered_map>
+#include <bits/stdc++.h>
+
+
+using namespace std;
 
 class Solution
 {
 public:
-    int lenOfLongSubarr(int nums[], int N, int K)
-    {
-        unordered_map<int, int> m;
+	bool compareMap(map<char, int> &patMap,
+					map<char, int> &tempMap)
+	{
+		return patMap.size() == tempMap.size() && std::equal(patMap.begin(), patMap.end(), tempMap.begin());
+	}
 
-        int currSum = 0;
+	int search(string pat, string txt)
+	{
+		int k = pat.size();
 
-        int maxLen = 0;
+		map<char, int> patMap;
+		map<char, int> tempMap;
 
-        int i = 0;
+		for (char c : pat)
+		{
+			patMap[c]++;
+		}
 
-        while (i < N)
-        {
-            currSum += nums[i];
+		int i = 0;
+		int j = 0;
 
-            if (currSum == K)
-            // Why? if currSum - K == 0 means while iterating we found direct solution. and this will not be cpatured in the map untile and unless we have found 0 by any chance and that could also means that there might be any previous operation but as we direclt got the answer we will just store thge length
-            {
-                maxLen = max(maxLen, i + 1);
-            }
+		int count = 0;
 
-            if (m.find(currSum - K) != m.end())
-            {
-                maxLen = max(maxLen, i - m[currSum - K]);
-            }
+		while (j < txt.size())
+		{
+			tempMap[txt[j]]++;
 
-            // To deal with 0s
-            if (m.find(currSum) == m.end())
-            {
-                m[currSum] = i;
-            }
-            
-            i++;
-        }
+			if (j - i + 1 < k)
+			{
+				j++;
+			}
+			else if (j - i + 1 == k)
+			{
+				// In window
+				if (compareMap(patMap, tempMap))
+				{
+					count++;
+				}
+				if (tempMap[txt[i]] > 1)
+				{
+					tempMap[txt[i]]--;
+				}
+				else
+				{
+					tempMap.erase(txt[i]);
+				}
+				i++;
+				j++;
+			}
+		}
 
-        return maxLen;
-    }
+		return count;
+	}
 };
+
+int main()
+{
+	Solution sol;
+	string pat = "aaba";
+	string txt = "aabaabaa";
+	cout << sol.search(pat, txt) << endl;
+	return 0;
+}
