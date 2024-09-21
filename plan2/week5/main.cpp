@@ -1,71 +1,50 @@
-#include <bits/stdc++.h>
-
+#include <iostream>
+#include <queue>
 
 using namespace std;
 
 class Solution
 {
 public:
-	bool compareMap(map<char, int> &patMap,
-					map<char, int> &tempMap)
-	{
-		return patMap.size() == tempMap.size() && std::equal(patMap.begin(), patMap.end(), tempMap.begin());
-	}
+    vector<int> max_of_subarrays(vector<int> &arr, int k) {
+        int n = arr.size();
+        vector<int> ans;
 
-	int search(string pat, string txt)
-	{
-		int k = pat.size();
+        deque<int> dq;
+        int end = 0;
 
-		map<char, int> patMap;
-		map<char, int> tempMap;
+        for (end = 0; end < n; end++)
+        {   
+            if(!dq.empty() && arr[dq.front()] == end - k){
+                dq.pop_front();
+            }
 
-		for (char c : pat)
-		{
-			patMap[c]++;
-		}
+            while(!dq.empty() && arr[dq.back()] < arr[end]){
+                dq.pop_back();
+            }
 
-		int i = 0;
-		int j = 0;
+            dq.push_back(end);   
 
-		int count = 0;
+            if(end >= k - 1){
+                ans.push_back(arr[dq.front()]);
+            }
+        }
+        
 
-		while (j < txt.size())
-		{
-			tempMap[txt[j]]++;
-
-			if (j - i + 1 < k)
-			{
-				j++;
-			}
-			else if (j - i + 1 == k)
-			{
-				// In window
-				if (compareMap(patMap, tempMap))
-				{
-					count++;
-				}
-				if (tempMap[txt[i]] > 1)
-				{
-					tempMap[txt[i]]--;
-				}
-				else
-				{
-					tempMap.erase(txt[i]);
-				}
-				i++;
-				j++;
-			}
-		}
-
-		return count;
-	}
+        return ans;
+    }
 };
 
 int main()
 {
-	Solution sol;
-	string pat = "aaba";
-	string txt = "aabaabaa";
-	cout << sol.search(pat, txt) << endl;
-	return 0;
+    Solution sol;
+    vector<int> arr = {1, 2, 3, 1, 4, 5, 2, 3, 6};
+    int k = 3;
+
+    vector<int> ans = sol.max_of_subarrays(arr,k);
+
+    for (int n : ans)
+    {
+        cout << n << " ";
+    }
 }

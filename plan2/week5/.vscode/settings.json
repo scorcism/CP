@@ -10,6 +10,7 @@
         "list": "cpp",
         "xhash": "cpp",
         "xstring": "cpp",
-        "format": "cpp"
+        "format": "cpp",
+        "queue": "cpp"
     }
 }
