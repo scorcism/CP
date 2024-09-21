@@ -11,6 +11,7 @@
         "xhash": "cpp",
         "xstring": "cpp",
         "format": "cpp",
-        "queue": "cpp"
+        "queue": "cpp",
+        "algorithm": "cpp"
     }
 }

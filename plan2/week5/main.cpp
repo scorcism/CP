@@ -2,55 +2,42 @@
 
 using namespace std;
 
-class Solution
+int longestSubstrDistinctChars(string s)
 {
-public:
-    int longestKSubstr(string s, int k)
+    int n = s.size();
+    int start = 0;
+    int end = 0;
+    unordered_map<char, int> map;
+    int maxLen = 1;
+
+    while (end < n)
     {
 
-        int n = s.size();
-        int maxLen = -1;
-        int start = 0;
-        int end = 0;
-        unordered_map<char, int> map;
+        map[s[end]]++;
 
-        while (end < n)
+        while (map.size() < end - start + 1)
         {
-            map[s[end]]++;
-            if (map.size() < k)
+            map[s[start]]--;
+            if (map[s[start]] < 1)
             {
-                end++;
+                map.erase(s[start]);
             }
-            if (map.size() == k)
-            {
-                maxLen = max(maxLen, end - start + 1);
-                end++;
-            }
-            else if (map.size() > k)
-            {
-                while (map.size() > k)
-                {
-                    map[s[start]]--;
-                    if (map[s[start]] < 1)
-                    {
-                        map.erase(s[start]);
-                    }
-                    start++;
-                }
-                end++;
-            }
+            start++;
         }
-        return maxLen;
+        if (map.size() == end - start + 1)
+        {
+            maxLen = max(maxLen, end - start + 1);
+        }
+        end++;
     }
-};
+    return maxLen;
+}
 
 int main()
 {
-    Solution sol;
-    string s = "aabacbebebe";
-    int k = 3;
+    string s = "geeksforgeeks";
 
-    int ans = sol.longestKSubstr(s, k);
+    int ans = longestSubstrDistinctChars(s);
 
     cout << ans << " ";
 }
