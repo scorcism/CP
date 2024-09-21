@@ -1,50 +1,56 @@
-#include <iostream>
-#include <queue>
+#include <bits/stdc++.h>
 
 using namespace std;
 
 class Solution
 {
 public:
-    vector<int> max_of_subarrays(vector<int> &arr, int k) {
-        int n = arr.size();
-        vector<int> ans;
+    int longestKSubstr(string s, int k)
+    {
 
-        deque<int> dq;
+        int n = s.size();
+        int maxLen = -1;
+        int start = 0;
         int end = 0;
+        unordered_map<char, int> map;
 
-        for (end = 0; end < n; end++)
-        {   
-            if(!dq.empty() && arr[dq.front()] == end - k){
-                dq.pop_front();
+        while (end < n)
+        {
+            map[s[end]]++;
+            if (map.size() < k)
+            {
+                end++;
             }
-
-            while(!dq.empty() && arr[dq.back()] < arr[end]){
-                dq.pop_back();
+            if (map.size() == k)
+            {
+                maxLen = max(maxLen, end - start + 1);
+                end++;
             }
-
-            dq.push_back(end);   
-
-            if(end >= k - 1){
-                ans.push_back(arr[dq.front()]);
+            else if (map.size() > k)
+            {
+                while (map.size() > k)
+                {
+                    map[s[start]]--;
+                    if (map[s[start]] < 1)
+                    {
+                        map.erase(s[start]);
+                    }
+                    start++;
+                }
+                end++;
             }
         }
-        
-
-        return ans;
+        return maxLen;
     }
 };
 
 int main()
 {
     Solution sol;
-    vector<int> arr = {1, 2, 3, 1, 4, 5, 2, 3, 6};
+    string s = "aabacbebebe";
     int k = 3;
 
-    vector<int> ans = sol.max_of_subarrays(arr,k);
+    int ans = sol.longestKSubstr(s, k);
 
-    for (int n : ans)
-    {
-        cout << n << " ";
-    }
+    cout << ans << " ";
 }
